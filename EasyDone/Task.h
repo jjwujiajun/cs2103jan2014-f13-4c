@@ -16,10 +16,10 @@ public:
 
 private:
 	string _taskName;
-	//date_class _startDate;	// probabaly can be found online
-	//time_class _startTime;
-	//date_class _endDate;
-	//time_class _endTime;
+	int _startDate;	//YYYYMMDD	
+	int _startTime;	//HHMM
+	int _endDate;	//YYYYMMDD
+	int _endTime;	//HHMM
 	//date_class or time_class period _recurrence;
 	//Reminder_class reminder;	// we have to create ourselve
 };

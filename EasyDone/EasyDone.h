@@ -3,6 +3,7 @@
 // Responsibility of: Juhi
 
 #include "stdafx.h"
+#include "parser.h"
 #include "Task.h"
 using namespace std;
 
@@ -18,6 +19,7 @@ public:
 	void init();
 
 private:
+	parser report;
 	vector<Task> todoList;	// JJ: I'm thinking we may need to make this a class by itself next time, if it has to support some functions.
 };
 
