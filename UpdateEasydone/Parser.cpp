@@ -46,7 +46,7 @@ void Parser:: getInput() {
 	Choice enumLine;
 
 	cin >> line;
-	enumLine = Command(line);
+	enumLine = userCommand(line);
 
 	getchar(); // for enter
 

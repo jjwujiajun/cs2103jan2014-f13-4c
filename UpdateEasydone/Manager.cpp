@@ -29,6 +29,7 @@
 	string outputMessage;
 	string KeyWord;
 	vector<string> toBeDisplayed; 
+	string fieldToBeUpdated;
 
 	const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!"; 
 	const string USER_PROMPT = "What would you like to do today?"; 
@@ -68,7 +69,7 @@ int main(int argc, char *argv[]) {
 				break;
 
 			case 3: 
-				outputMessage =  workerJob.updateTaskWithIndex(indexOfTask, contentToBeUpdated);
+				outputMessage =  workerJob.updateTaskWithIndex(indexOfTask, contentToBeUpdated, fieldToBeUpdated);
 				break;
 
 			case 4:  
@@ -92,15 +93,6 @@ int main(int argc, char *argv[]) {
 
 		
 
-
-
-		
-		
-
-		
-
-
-	
 
 
   

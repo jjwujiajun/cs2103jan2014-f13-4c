@@ -56,7 +56,7 @@ string Worker::removeTaskWithIndex(int index) {
 	return DELETED_SUCCESSFULLY;
 }
 
-string Worker::updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
+string Worker::updateTaskWithIndex(int index, string update, string updateField) {
 	/*int item = searchForTaskWithIndex(index);
 
 	if (taskName != NULL_STRING) {
@@ -87,7 +87,7 @@ string Worker::updateTaskWithIndex(int index, string taskName, string additional
 	return UPDATED_SUCCESSFULLY;
 }
 
-string Worker::markDoneTaskWithIndex(int index){
+string Worker::markDoneTaskWithIndex(int index) {
 	/*int item = searchForTaskWithIndex(index);
 	
 	if (todoList[item].isCompleted == false) {

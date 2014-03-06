@@ -60,7 +60,7 @@ public:
 	// todoList functions
 	string addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails);
 	string removeTaskWithIndex(int index);
-	string updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime);
+	string updateTaskWithIndex(int index, string update, string fieldUpdate);
 	string markDoneTaskWithIndex(int index);
 	vector<string> displayTaskWithIndex(int index);
 

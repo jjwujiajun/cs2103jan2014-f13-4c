@@ -1,16 +1,14 @@
-﻿Build started 6/3/2014 7:14:53 PM.
-     1>Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
+﻿Build started 6/3/2014 7:40:31 PM.
+     1>Project "C:\Users\DANIEL\Desktop\easyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Manager.cpp Parser.cpp Worker.cpp
-         Manager.cpp
-     1>Manager.cpp(49): warning C4800: 'Parser::Choice' : forcing value to bool 'true' or 'false' (performance warning)
-     1>Manager.cpp(71): error C2660: 'Worker::updateTaskWithIndex' : function does not take 2 arguments
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Parser.cpp Worker.cpp
          Parser.cpp
-     1>Parser.cpp(49): error C3861: 'Command': identifier not found
          Worker.cpp
          Generating Code...
-     1>Done Building Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
+     1>c:\users\daniel\desktop\easydone\updateeasydone\parser.cpp(30): warning C4715: 'Parser::userCommand' : not all control paths return a value
+     1>c:\users\daniel\desktop\easydone\updateeasydone\parser.cpp(38): error C4716: 'Parser::completeParse' : must return a value
+     1>Done Building Project "C:\Users\DANIEL\Desktop\easyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:05.84
+Time Elapsed 00:00:04.41
