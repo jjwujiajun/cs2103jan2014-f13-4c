@@ -11,7 +11,8 @@
 
 	using namespace std;
 
-	int index;
+	int indexOfTask;
+	string contentToBeUpdated;
 	string userInput;
     string taskName;
 	string additionalDetails;
@@ -24,6 +25,8 @@
 	string isCompleted;		// '1': task completed '0':not completed 
 	vector<string> detailsFromParser;
     //bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
+
+	string outputMessage;
 
 	const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!"; 
 	const string USER_PROMPT = "What would you like to do today?"; 
@@ -52,9 +55,35 @@ int main(int argc, char *argv[]) {
 		
 
 		
-		switch(parserJob.actionIndex)
+		switch(parserJob.actionIndex) {
 			case 1:
-				workerJob.addTask(taskName, startDate, startTime, endDate, endTime, additionalDetails, isCompleted);
+				outputMessage= workerJob.addTask(taskName, startDate, startTime, endDate, endTime, additionalDetails, isCompleted);
+				break;
+
+			case 2: 
+				outputMessage = workerJob.removeTaskWithIndex(indexOfTask);
+				break;
+
+			case 3: 
+				outputMessage =  workerJob.updateTaskWithIndex(indexOfTask, contentToBeUpdated);
+				break;
+
+			case 4:  
+				outputMessage =  workerJob.markDoneTaskWithIndex(indexOfTask);
+				break;
+
+			case 5: 
+				vector<string> tobeDisplayed = workerJob.displayTaskWithIndex(indexOfTask);
+				break;
+
+			case 6: 
+				int indexOfSeachedTask =  workerJob.searchTasks(KeyWord);
+				break;
+
+		}
+
+
+
 				
 
 
