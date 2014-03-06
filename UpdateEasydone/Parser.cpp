@@ -15,7 +15,7 @@ Parser::~Parser() {
 
 }
 
-Parser::Choice Parser::Command(string input) {
+Parser::Choice Parser::userCommand(string input) { 
 	
 	if (input == MESSAGE_ADD) {
 		return ADD;
@@ -28,6 +28,16 @@ Parser::Choice Parser::Command(string input) {
 	}
 
 }
+
+//returns 1 if userInput has been parsed successfully
+bool Parser::completeParse(string userInput) {
+
+	actionIndex = parseCommand(userInput);  //returns corresponding command index eg add: 1 delet: 2 etc.
+	parsedDetails = parseDetails(userInput); //returns details of task inputted by user in the form of a vector<string>
+
+}
+
+
 
 
 void Parser:: getInput() {

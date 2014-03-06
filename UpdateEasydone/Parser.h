@@ -26,7 +26,7 @@ private:
 
 public:
 	// Task
-	string _taskName;
+	/*string _taskName;
 	//Date
 	int _startDate;
 	int _endDate;
@@ -36,18 +36,21 @@ public:
 	//Reminder
 	string _reminder;
 	//Repeat
-	string _duplicate;
+	string _duplicate;*/
+	int actionIndex;
+	vector<string> parsedDetails;
 
 	enum Choice{
 		ADD, READ, UPDATE, DELETE
 	};
 
-	Choice Command(string);
+	Choice userCommand(string);
 
 	Parser(void);
 	~Parser(void);
-	void parseCommand(string command); // Parse command like add delete etc
-	void parseDetails(string detail); // Parse details
+	bool completeParse(string userInput); 
+	Choice parseCommand(string userInput);
+	vector<string> parseDetails(string userInput);
 	void getInput(); // gets input from user
 
 };

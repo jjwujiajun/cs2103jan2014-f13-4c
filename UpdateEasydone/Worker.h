@@ -14,19 +14,19 @@
 
 using namespace std;
 
-typedef struct Details {
+/*typedef struct Details {
 	int index;
     string taskName;
 	string additionalDetails;
 	string reminder;
-	string duplciate;		//whats a duplicate
+	//string duplciate;		//whats a duplicate
 	int startDate;
 	int startTime;
 	int endDate;
 	int endTime;
 	bool isCompleted;		// true is task is completed
     bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
-};
+};*/
 
 
 
@@ -57,11 +57,11 @@ public:
 	~Worker();
 
 	// todoList functions
-	void addTask(string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int endDate, int startTime, int endTime);
-	void removeTaskWithIndex(int index);
-	void updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime);
-	void markDoneTaskWithIndex(int index);
-	void display();
+	string addTask(string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int endDate, int startTime, int endTime);
+	string removeTaskWithIndex(int index);
+	string updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime);
+	string markDoneTaskWithIndex(int index);
+	vector<string> display();
 
 	// support functions
 	int issueNewIndex();

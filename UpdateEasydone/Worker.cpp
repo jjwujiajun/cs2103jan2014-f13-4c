@@ -19,7 +19,7 @@ Worker::~Worker(){
 }
 
 // todoList functions
-void Worker::addTask(string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
+string Worker::addTask(string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
 	
 	Task newTask;
 	newTask.index = issueNewIndex();
@@ -37,7 +37,7 @@ void Worker::addTask(string taskName, string additionalDetails, string reminder,
 	todoList.push_back(newTask);
 }
 
-void Worker::removeTaskWithIndex(int index) {
+string Worker::removeTaskWithIndex(int index) {
 	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
 		if (iter->index == index) {
 			todoList.erase(iter);			
@@ -48,7 +48,7 @@ void Worker::removeTaskWithIndex(int index) {
 	}
 }
 
-void Worker::updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
+string Worker::updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
 	int item = searchForTaskWithIndex(index);
 
 	if (taskName != NULL_STRING) {
@@ -77,7 +77,7 @@ void Worker::updateTaskWithIndex(int index, string taskName, string additionalDe
 	}
 }
 
-void Worker::markDoneTaskWithIndex(int index){
+string Worker::markDoneTaskWithIndex(int index){
 	int item = searchForTaskWithIndex(index);
 	
 	if (todoList[item].isCompleted == false) {

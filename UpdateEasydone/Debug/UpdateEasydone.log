@@ -1,19 +1,19 @@
-﻿Build started 28/2/2014 1:29:17 PM.
-     1>Project "C:\Users\DANIEL\Desktop\CS2103 CODING\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
+﻿Build started 6/3/2014 5:48:38 PM.
+     1>Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Worker.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib History.cpp Manager.cpp Parser.cpp Task.cpp Worker.cpp
+         History.cpp
+     1>c:\users\simanthika\desktop\easydone\updateeasydone\History.h(22): warning C4091: 'typedef ' : ignored on left of 'Details' when no variable is declared
+         Manager.cpp
+         Parser.cpp
+     1>Parser.cpp(49): error C3861: 'Command': identifier not found
+         Task.cpp
          Worker.cpp
-     1>c:\users\daniel\desktop\cs2103 coding\updateeasydone\Worker.h(29): warning C4091: 'typedef ' : ignored on left of 'Details' when no variable is declared
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DANIEL\Desktop\CS2103 CODING\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DANIEL\Desktop\CS2103 CODING\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\History.obj
-         Debug\Manager.obj
-         Debug\Parser.obj
-         Debug\Task.obj
-         Debug\Worker.obj
-         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
-         UpdateEasydone.vcxproj -> C:\Users\DANIEL\Desktop\CS2103 CODING\Debug\UpdateEasydone.exe
-     1>Done Building Project "C:\Users\DANIEL\Desktop\CS2103 CODING\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
+     1>Worker.cpp(45): error C2561: 'Worker::removeTaskWithIndex' : function must return a value
+                 c:\users\simanthika\desktop\easydone\updateeasydone\Worker.h(61) : see declaration of 'Worker::removeTaskWithIndex'
+         Generating Code...
+     1>Done Building Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:12.09
+Time Elapsed 00:00:09.45
