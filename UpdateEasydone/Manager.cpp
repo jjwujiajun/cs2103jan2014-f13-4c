@@ -15,13 +15,14 @@
 	string userInput;
     string taskName;
 	string additionalDetails;
-	string reminder;
+	//string reminder;
 	//string duplciate;		//whats a duplicate
-	int startDate;
-	int startTime;
-	int endDate;
-	int endTime;
-	bool isCompleted;		// true is task is completed
+	string startDate;
+	string startTime;
+	string endDate;
+	string endTime;
+	string isCompleted;		// '1': task completed '0':not completed 
+	vector<string> detailsFromParser;
     //bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
 
 	const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!"; 
@@ -36,9 +37,25 @@ int main(int argc, char *argv[]) {
 
 		cin >> userInput;
 		
-		Parser parseUserinput;
+		Parser parserJob;
+		Worker workerJob;
 
-		parseUserinput.parseCommand(userInput);
+		bool successful = parserJob.parseCommand(userInput);
+		detailsFromParser = parserJob.parseDetails(userInput);
+		taskName = detailsFromParser[0];
+		startDate = detailsFromParser[1];
+		startTime =  detailsFromParser[2];
+		endDate = detailsFromParser[3];
+		endTime = detailsFromParser[4];
+		additionalDetails = detailsFromParser[5];
+		isCompleted = detailsFromParser[6];
+		
+
+		
+		switch(parserJob.actionIndex)
+			case 1:
+				workerJob.addTask(taskName, startDate, startTime, endDate, endTime, additionalDetails, isCompleted);
+				
 
 
 		

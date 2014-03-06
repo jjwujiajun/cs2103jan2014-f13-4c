@@ -1,19 +1,66 @@
-﻿Build started 6/3/2014 5:48:38 PM.
+﻿Build started 6/3/2014 6:10:13 PM.
      1>Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib History.cpp Manager.cpp Parser.cpp Task.cpp Worker.cpp
-         History.cpp
-     1>c:\users\simanthika\desktop\easydone\updateeasydone\History.h(22): warning C4091: 'typedef ' : ignored on left of 'Details' when no variable is declared
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Manager.cpp Parser.cpp Worker.cpp
          Manager.cpp
+     1>Manager.cpp(43): warning C4800: 'Parser::Choice' : forcing value to bool 'true' or 'false' (performance warning)
          Parser.cpp
      1>Parser.cpp(49): error C3861: 'Command': identifier not found
-         Task.cpp
          Worker.cpp
-     1>Worker.cpp(45): error C2561: 'Worker::removeTaskWithIndex' : function must return a value
-                 c:\users\simanthika\desktop\easydone\updateeasydone\Worker.h(61) : see declaration of 'Worker::removeTaskWithIndex'
+     1>Worker.cpp(24): error C3646: 'Task' : unknown override specifier
+     1>Worker.cpp(24): error C3646: 'newTask' : unknown override specifier
+     1>Worker.cpp(24): error C2761: 'std::string Worker::addTask(std::string,std::string,std::string,std::string,std::string,std::string,std::string)' : member function redeclaration not allowed
+     1>Worker.cpp(25): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(26): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(26): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(26): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(27): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(27): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(27): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(28): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(28): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(29): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(29): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(30): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(30): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(30): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(31): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(31): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(31): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(32): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(32): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(33): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(33): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(34): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(34): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(34): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(35): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(35): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(35): error C2086: 'int newTask' : redefinition
+                 Worker.cpp(25) : see declaration of 'newTask'
+     1>Worker.cpp(37): error C2143: syntax error : missing ';' before '.'
+     1>Worker.cpp(37): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>Worker.cpp(38): error C2059: syntax error : '}'
+     1>Worker.cpp(38): error C2143: syntax error : missing ';' before '}'
+     1>Worker.cpp(40): error C2143: syntax error : missing ';' before '{'
+     1>Worker.cpp(40): error C2447: '{' : missing function header (old-style formal list?)
          Generating Code...
      1>Done Building Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:09.45
+Time Elapsed 00:00:05.37

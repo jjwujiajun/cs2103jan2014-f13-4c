@@ -19,8 +19,8 @@ Worker::~Worker(){
 }
 
 // todoList functions
-string Worker::addTask(string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
-	
+string Worker::addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails, string isCompleted)
+
 	Task newTask;
 	newTask.index = issueNewIndex();
 	newTask.taskName = taskName;
