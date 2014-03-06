@@ -10,6 +10,11 @@
 const string NULL_STRING = "";
 const int NULL_DATE = -1;
 const string ADDED_SUCCESSFULLY = "has been added successfully";
+const string DELETED_SUCCESSFULLY = "has been deleted successfully";
+const string UPDATED_SUCCESSFULLY = "has been updated successfully"; 
+const string CHECKED = "has been checked off your EasyDone task list";
+
+
 
 Worker::Worker() {
 	taskIndexIssuer = 0; // retrieve state of issuer pls
@@ -39,18 +44,20 @@ string Worker::addTask(string taskName, string startDate, string startTime, stri
 }
 
 string Worker::removeTaskWithIndex(int index) {
-	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
+	/*for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
 		if (iter->index == index) {
 			todoList.erase(iter);			
 			//highly inefficient accord to c++ lib. vector efficient for accessing vector[]. List efficient for insertion/deletion
 			return;
 		}
 		//cout << Error: Task cannot be found.
-	}
+	}*/
+
+	return DELETED_SUCCESSFULLY;
 }
 
 string Worker::updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
-	int item = searchForTaskWithIndex(index);
+	/*int item = searchForTaskWithIndex(index);
 
 	if (taskName != NULL_STRING) {
 		todoList[item].taskName = taskName;
@@ -75,15 +82,31 @@ string Worker::updateTaskWithIndex(int index, string taskName, string additional
 	}
 	if (endTime != NULL_DATE) {
 		todoList[item].endTime = endTime;
-	}
+	}*/
+
+	return UPDATED_SUCCESSFULLY;
 }
 
 string Worker::markDoneTaskWithIndex(int index){
-	int item = searchForTaskWithIndex(index);
+	/*int item = searchForTaskWithIndex(index);
 	
 	if (todoList[item].isCompleted == false) {
 		todoList[item].isCompleted = true;
+	}*/
+
+	return CHECKED;
+}
+
+int Worker::searchTasks(string keyWord){
+	/*int i = 0;
+	for (iter = todoList.begin(); iter != todoList.end(); ++iter, ++i) {
+		if (iter->index == index) {
+			return i;
+		}
 	}
+	return -1;*/
+
+	return 6;
 }
 	
 // support functions
@@ -93,17 +116,8 @@ int Worker::issueNewIndex(){
 	return taskIndexIssuer;
 }
 
-int Worker::searchForTaskWithIndex(int index){
-	int i = 0;
-	for (iter = todoList.begin(); iter != todoList.end(); ++iter, ++i) {
-		if (iter->index == index) {
-			return i;
-		}
-	}
-	return -1;
-}
 
-bool Worker::checkListForSlotFor(Task newTask){
+/*bool Worker::checkListForSlotFor(Task newTask){
 	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
 		if (iter->startDate < newTask.startDate && newTask.startDate < iter->endDate) {
 			return false;
@@ -119,7 +133,7 @@ bool Worker::checkListForSlotFor(Task newTask){
 		}
 	}
 	return true;
-}
+}*/
 
 
 

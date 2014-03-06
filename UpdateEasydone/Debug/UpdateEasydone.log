@@ -1,4 +1,4 @@
-﻿Build started 6/3/2014 6:58:26 PM.
+﻿Build started 6/3/2014 7:14:53 PM.
      1>Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Manager.cpp Parser.cpp Worker.cpp
@@ -8,33 +8,9 @@
          Parser.cpp
      1>Parser.cpp(49): error C3861: 'Command': identifier not found
          Worker.cpp
-     1>Worker.cpp(46): error C2561: 'Worker::removeTaskWithIndex' : function must return a value
-                 c:\users\simanthika\desktop\easydone\updateeasydone\Worker.h(61) : see declaration of 'Worker::removeTaskWithIndex'
-     1>Worker.cpp(53): error C3861: 'searchForTaskWithIndex': identifier not found
-     1>Worker.cpp(65): error C2039: 'duplciate' : is not a member of 'Worker::Task'
-                 c:\users\simanthika\desktop\easydone\updateeasydone\Worker.h(36) : see declaration of 'Worker::Task'
-     1>Worker.cpp(82): error C3861: 'searchForTaskWithIndex': identifier not found
-     1>Worker.cpp(84): error C2678: binary '==' : no operator found which takes a left-hand operand of type 'std::string' (or there is no acceptable conversion)
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\exception(507): could be 'bool std::operator ==(const std::exception_ptr &,const std::exception_ptr &)'
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\exception(512): or       'bool std::operator ==(std::nullptr_t,const std::exception_ptr &)'
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\exception(517): or       'bool std::operator ==(const std::exception_ptr &,std::nullptr_t)'
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\system_error(426): or       'bool std::operator ==(const std::error_code &,const std::error_condition &) throw()'
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\system_error(434): or       'bool std::operator ==(const std::error_condition &,const std::error_code &) throw()'
-                 while trying to match the argument list '(std::string, bool)'
-     1>Worker.cpp(96): error C2039: 'searchForTaskWithIndex' : is not a member of 'Worker'
-                 c:\users\simanthika\desktop\easydone\updateeasydone\Worker.h(33) : see declaration of 'Worker'
-     1>Worker.cpp(98): error C2065: 'iter' : undeclared identifier
-     1>Worker.cpp(98): error C2065: 'todoList' : undeclared identifier
-     1>Worker.cpp(98): error C2228: left of '.begin' must have class/struct/union
-                 type is ''unknown-type''
-     1>Worker.cpp(98): error C2228: left of '.end' must have class/struct/union
-                 type is ''unknown-type''
-     1>Worker.cpp(99): error C2065: 'iter' : undeclared identifier
-     1>Worker.cpp(99): error C2227: left of '->index' must point to class/struct/union/generic type
-                 type is ''unknown-type''
          Generating Code...
      1>Done Building Project "C:\Users\simanthika\Desktop\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:04.80
+Time Elapsed 00:00:05.84
