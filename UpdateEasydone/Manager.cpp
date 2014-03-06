@@ -27,6 +27,8 @@
     //bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
 
 	string outputMessage;
+	string KeyWord;
+	vector<string> toBeDisplayed; 
 
 	const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!"; 
 	const string USER_PROMPT = "What would you like to do today?"; 
@@ -40,6 +42,7 @@ int main(int argc, char *argv[]) {
 
 		cin >> userInput;
 		
+		
 		Parser parserJob;
 		Worker workerJob;
 
@@ -52,12 +55,12 @@ int main(int argc, char *argv[]) {
 		endTime = detailsFromParser[4];
 		additionalDetails = detailsFromParser[5];
 		isCompleted = detailsFromParser[6];
+		KeyWord =  detailsFromParser [7];
 		
 
-		
 		switch(parserJob.actionIndex) {
 			case 1:
-				outputMessage= workerJob.addTask(taskName, startDate, startTime, endDate, endTime, additionalDetails, isCompleted);
+				outputMessage= workerJob.addTask(taskName, startDate, startTime, endDate, endTime, additionalDetails);
 				break;
 
 			case 2: 
@@ -73,7 +76,7 @@ int main(int argc, char *argv[]) {
 				break;
 
 			case 5: 
-				vector<string> tobeDisplayed = workerJob.displayTaskWithIndex(indexOfTask);
+				toBeDisplayed = workerJob.displayTaskWithIndex(indexOfTask);
 				break;
 
 			case 6: 

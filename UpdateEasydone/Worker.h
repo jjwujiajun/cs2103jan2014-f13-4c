@@ -38,13 +38,13 @@ private:
 		string taskName;
 		string additionalDetails;
 		string reminder;
-		string duplciate;		//whats a duplicate
+		//string duplciate;		
 		int startDate;
 		int startTime;
 		int endDate;
 		int endTime;
-		bool isCompleted;		// true is task is completed
-		bool hasAvailableSlot;		//true if timeslot is available, false if timeslot is occupied
+		string isCompleted;		
+		//bool hasAvailableSlot;		
 	};
 
 	vector<Task> todoList;
@@ -57,15 +57,15 @@ public:
 	~Worker();
 
 	// todoList functions
-	string addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails, string isCompleted);
+	string addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime);
 	string markDoneTaskWithIndex(int index);
-	vector<string> display();
+	vector<string> displayTaskWithIndex(int index);
 
 	// support functions
 	int issueNewIndex();
-	int searchForTaskWithIndex(int index);
+	int searchTasks(string keyword);
 	bool checkListForSlotFor(Task newTask);
 };
 

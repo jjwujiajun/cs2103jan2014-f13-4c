@@ -9,6 +9,7 @@
 
 const string NULL_STRING = "";
 const int NULL_DATE = -1;
+const string ADDED_SUCCESSFULLY = "has been added successfully";
 
 Worker::Worker() {
 	taskIndexIssuer = 0; // retrieve state of issuer pls
@@ -19,22 +20,22 @@ Worker::~Worker(){
 }
 
 // todoList functions
-string Worker::addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails, string isCompleted)
+string Worker::addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails){
 
 	Task newTask;
 	newTask.index = issueNewIndex();
 	newTask.taskName = taskName;
 	newTask.additionalDetails = additionalDetails;
-	newTask.reminder = reminder;
-	newTask.duplciate = duplicate;
-	newTask.startDate = startDate;
-	newTask.startTime = startTime;
-	newTask.endDate = endDate;
-	newTask.endTime = endTime;
-	newTask.isCompleted = false;
-	newTask.hasAvailableSlot = checkListForSlotFor(newTask);
+	newTask.startTime =  atoi(startTime.c_str());
+	newTask.startDate = atoi(startDate.c_str());
+	newTask.endTime = atoi(endTime.c_str());
+	newTask.endDate = atoi(endDate.c_str());
 
 	todoList.push_back(newTask);
+
+	return ADDED_SUCCESSFULLY;
+
+	
 }
 
 string Worker::removeTaskWithIndex(int index) {
