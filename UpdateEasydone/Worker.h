@@ -62,7 +62,7 @@ public:
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
 	string markDoneTaskWithIndex(int index);
-	vector<string> displayTaskWithIndex(int index);
+	//vector<string> displayTaskWithIndex(int index);
 
 	// support functions
 	int issueNewIndex();

@@ -36,7 +36,9 @@
 
 
 
-int main(int argc, char *argv[]) {
+int main(void) {
+
+		//string filname = argv[0];
 
 		cout<< WELCOME_MESSAGE << endl;
 		cout<< USER_PROMPT<< endl;
@@ -62,40 +64,37 @@ int main(int argc, char *argv[]) {
 		switch(parserJob.actionIndex) {
 			case 1:
 				outputMessage= workerJob.addTask(taskName, startDate, startTime, endDate, endTime, additionalDetails);
+				cout<<outputMessage;
 				break;
 
 			case 2: 
 				outputMessage = workerJob.removeTaskWithIndex(indexOfTask);
+				cout<<outputMessage;
 				break;
 
 			case 3: 
 				outputMessage =  workerJob.updateTaskWithIndex(indexOfTask, contentToBeUpdated, fieldToBeUpdated);
+				cout<<outputMessage;
 				break;
 
 			case 4:  
 				outputMessage =  workerJob.markDoneTaskWithIndex(indexOfTask);
+				cout<<outputMessage;
 				break;
+
+			//case 5: 
+				//toBeDisplayed = workerJob.displayTaskWithIndex(indexOfTask);
+				//break;
 
 			case 5: 
-				toBeDisplayed = workerJob.displayTaskWithIndex(indexOfTask);
-				break;
-
-			case 6: 
 				int indexOfSeachedTask =  workerJob.searchTasks(KeyWord);
 				break;
 
 		}
 
+			
+	cout<<"bye!";
 
-
-				
-
-
-		
-
-
-
-  
 
 	return 0;
 }

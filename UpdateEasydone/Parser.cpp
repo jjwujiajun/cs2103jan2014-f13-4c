@@ -29,14 +29,37 @@ Parser::Choice Parser::userCommand(string input) {
 
 }
 
+
+int Parser::parseCommand(string userInput){
+	 
+	int fakeval;
+	fakeval=0;
+
+	return fakeval;
+}
+	
+
+vector<string> Parser::parseDetails(string userInput){
+
+	vector<string> fake;
+
+	for(int i = 0; i<5; i++)
+	{
+		fake[i] =  "omg";
+	}
+
+	return fake;
+}
+
 //returns 1 if userInput has been parsed successfully
 bool Parser::completeParse(string userInput) {
 
 	actionIndex = parseCommand(userInput);  //returns corresponding command index eg add: 1 delet: 2 etc.
 	parsedDetails = parseDetails(userInput); //returns details of task inputted by user in the form of a vector<string>
 
-}
+	return 1;
 
+}
 
 
 

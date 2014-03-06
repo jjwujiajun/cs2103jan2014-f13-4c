@@ -49,7 +49,7 @@ public:
 	Parser(void);
 	~Parser(void);
 	bool completeParse(string userInput); 
-	Choice parseCommand(string userInput);
+	int parseCommand(string userInput);
 	vector<string> parseDetails(string userInput);
 	void getInput(); // gets input from user
 
