@@ -14,23 +14,6 @@
 
 using namespace std;
 
-
-/*typedef struct Details {
-	int index;
-    string taskName;
-	string additionalDetails;
-	string reminder;
-	//string duplciate;		//whats a duplicate
-	int startDate;
-	int startTime;
-	int endDate;
-	int endTime;
-	bool isCompleted;		// true is task is completed
-    bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
-};*/
-
-
-
 class Worker {
 private:
 
@@ -51,6 +34,13 @@ private:
 	vector<Task> todoList;
 	vector<Task>::iterator iter;
 	int taskIndexIssuer;
+
+	static const string MESSAGE_ADDED_SUCCESSFULLY;
+	static const string MESSAGE_DELETED_SUCCESSFULLY;
+	static const string MESSAGE_UPDATED_SUCCESSFULLY;
+	static const string MESSAGE_CHECKED_SUCCESSFULLY;
+	static const string NULL_STRING;
+
 
 public:
 

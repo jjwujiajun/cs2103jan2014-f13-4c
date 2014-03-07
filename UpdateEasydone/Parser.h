@@ -22,7 +22,8 @@ private:
 	static const string MESSAGE_READ;
 	static const string MESSAGE_UPDATE;
 	static const string MESSAGE_DELETE;
-
+	static const string MESSAGE_SEARCH;
+	static const string MESSAGE_CHECK;
 
 public:
 	// Task
@@ -41,7 +42,7 @@ public:
 	vector<string> parsedDetails;
 
 	enum Choice{
-		ADD, READ, UPDATE, DELETE
+		ADD, READ, UPDATE, DELETE, SEARCH, CHECK
 	};
 
 	Choice userCommand(string);

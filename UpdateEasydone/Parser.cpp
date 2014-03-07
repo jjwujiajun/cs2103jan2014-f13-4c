@@ -5,8 +5,12 @@ const string Parser::MESSAGE_ADD =  "add";
 const string Parser::MESSAGE_READ = "display";
 const string Parser::MESSAGE_UPDATE = "update";
 const string Parser::MESSAGE_DELETE = "delete";
+const string Parser::MESSAGE_SEARCH = "search";
+const string Parser::MESSAGE_CHECK = "check";
 
-Parser::Parser(void){
+
+
+Parser::Parser(void) {
 
 
 }
@@ -14,6 +18,7 @@ Parser::Parser(void){
 Parser::~Parser() {
 
 }
+
 
 Parser::Choice Parser::userCommand(string input) { 
 	
@@ -25,21 +30,75 @@ Parser::Choice Parser::userCommand(string input) {
 		return UPDATE;
 	} else if (input == MESSAGE_DELETE) {
 		return DELETE;
+	} else if (input == MESSAGE_SEARCH) {
+		return SEARCH;
+	} else if (input == MESSAGE_CHECK) {
+		return CHECK;
 	}
 
 }
 
 
-int Parser::parseCommand(string userInput){
-	 
-	int fakeval;
-	fakeval=0;
+/*
+enumLine = changeEnum(line);
 
-	return fakeval;
+		switch (enumLine) {
+
+		case ADD:
+			add();
+			updateFile();
+			break;
+
+		case DEL:
+			int delLine;
+			writeFile->close();
+			cin >> delLine;
+			del(delLine);
+			break;
+*/
+//returns 1 if userInput has been parsed successfully
+
+
+// parseCommand to process usercommand and sieve out first word which is the command. Eg. add, delete etc
+// it will return an interger value to the manager
+int Parser::parseCommand(string userInput) {
+	
+	Choice enumCommand;
+	enumCommand = userCommand(userInput);
+
+	switch(enumCommand) {
+
+	case ADD:
+		return 1;
+		break;
+
+	case READ:
+		return 2;
+		break;
+
+	case UPDATE:
+		return 3;
+		break;
+
+	case DELETE:
+		return 4;
+		break;
+
+	case SEARCH:
+		return 5;
+		break;
+
+	case CHECK:
+		return 6;
+		break;
+	}
+
 }
 	
 
-vector<string> Parser::parseDetails(string userInput){
+vector<string> Parser::parseDetails(string userInput) {
+
+
 
 	vector<string> fake;
 
@@ -49,20 +108,19 @@ vector<string> Parser::parseDetails(string userInput){
 	}
 
 	return fake;
+	
 }
 
-//returns 1 if userInput has been parsed successfully
 bool Parser::completeParse(string userInput) {
 
-	actionIndex = parseCommand(userInput);  //returns corresponding command index eg add: 1 delet: 2 etc.
+	actionIndex = parseCommand(userInput);  //returns corresponding command index eg add: 1 update 2 etc.
 	parsedDetails = parseDetails(userInput); //returns details of task inputted by user in the form of a vector<string>
 
 	return 1;
 
 }
 
-
-
+/*
 void Parser:: getInput() {
 	
 	string line;
@@ -76,7 +134,7 @@ void Parser:: getInput() {
 	cin >> line;
 	
 }
-
+*/
 	
 
 

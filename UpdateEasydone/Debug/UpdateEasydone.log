@@ -1,23 +1,18 @@
-﻿Build started 6/3/2014 8:31:37 PM.
-     1>Project "C:\Users\simanthika\Desktop\tralala\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
+﻿Build started 7/3/2014 10:55:58 AM.
+     1>Project "C:\Users\DANIEL\Desktop\Easydone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Manager.cpp Parser.cpp Worker.cpp
-         Manager.cpp
-     1>Manager.cpp(52): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Parser.cpp
          Parser.cpp
-         Worker.cpp
-         Generating Code...
-     1>c:\users\simanthika\desktop\tralala\updateeasydone\parser.cpp(30): warning C4715: 'Parser::userCommand' : not all control paths return a value
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /analyze- /errorReport:prompt "C:\Users\simanthika\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cpp"
-         .NETFramework,Version=v4.5.AssemblyAttributes.cpp
+     1>c:\users\daniel\desktop\easydone\updateeasydone\parser.cpp(39): warning C4715: 'Parser::userCommand' : not all control paths return a value
+     1>c:\users\daniel\desktop\easydone\updateeasydone\parser.cpp(96): warning C4715: 'Parser::parseCommand' : not all control paths return a value
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\simanthika\Desktop\tralala\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\simanthika\Desktop\tralala\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\Manager.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DANIEL\Desktop\Easydone\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DANIEL\Desktop\Easydone\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\Manager.obj
          Debug\Parser.obj
          Debug\Worker.obj
          "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
-         UpdateEasydone.vcxproj -> C:\Users\simanthika\Desktop\tralala\Debug\UpdateEasydone.exe
-     1>Done Building Project "C:\Users\simanthika\Desktop\tralala\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
+         UpdateEasydone.vcxproj -> C:\Users\DANIEL\Desktop\Easydone\Debug\UpdateEasydone.exe
+     1>Done Building Project "C:\Users\DANIEL\Desktop\Easydone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:07.70
+Time Elapsed 00:00:03.57
