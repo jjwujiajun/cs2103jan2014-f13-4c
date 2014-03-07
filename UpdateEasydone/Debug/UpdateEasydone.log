@@ -1,18 +1,23 @@
-﻿Build started 7/3/2014 10:55:58 AM.
-     1>Project "C:\Users\DANIEL\Desktop\Easydone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
+﻿Build started 7/3/2014 9:04:42 PM.
+     1>Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Parser.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib History.cpp Manager.cpp Parser.cpp Worker.cpp
+         History.cpp
+         Manager.cpp
          Parser.cpp
-     1>c:\users\daniel\desktop\easydone\updateeasydone\parser.cpp(39): warning C4715: 'Parser::userCommand' : not all control paths return a value
-     1>c:\users\daniel\desktop\easydone\updateeasydone\parser.cpp(96): warning C4715: 'Parser::parseCommand' : not all control paths return a value
+         Worker.cpp
+         Generating Code...
+     1>c:\users\daniel\desktop\new folder\updateeasydone\parser.cpp(39): warning C4715: 'Parser::userCommand' : not all control paths return a value
+     1>c:\users\daniel\desktop\new folder\updateeasydone\parser.cpp(96): warning C4715: 'Parser::parseCommand' : not all control paths return a value
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DANIEL\Desktop\Easydone\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DANIEL\Desktop\Easydone\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\Manager.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\History.obj
+         Debug\Manager.obj
          Debug\Parser.obj
          Debug\Worker.obj
          "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
-         UpdateEasydone.vcxproj -> C:\Users\DANIEL\Desktop\Easydone\Debug\UpdateEasydone.exe
-     1>Done Building Project "C:\Users\DANIEL\Desktop\Easydone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
+         UpdateEasydone.vcxproj -> C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.exe
+     1>Done Building Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.57
+Time Elapsed 00:00:09.42

@@ -8,33 +8,30 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-typedef struct Details {
-	string taskName;
-	int startDate;
-	int endData;
-	int startTime;
-	int endTime;
-    bool timeSlotStatus; //true if timeslot is available, false if timeslot is occupied
-    bool taskStatus; // true is task is completed
-};
-
 class Jobs {
 private:
-	Details _detail;
-	int _startDate;
-	int _endDate;
-	int _startTime;
-	int _endTime;
+	vector<string> _details;
 
 public:
 	Jobs(void);
-	~Jobs(void);
-	Jobs(Details);
+	//~Jobs(void);
+	
+	int storageSize();
 
-
+	string taskname();
+	string additionalDetails();
+	string reminder();
+	string duplciate();		
+	int startDate();
+	int startTime();
+	int endDate();
+	int endTime();
+	bool isCompleted();		
+	bool hasAvailableSlot();
 };
 #endif
 
