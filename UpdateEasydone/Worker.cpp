@@ -7,8 +7,15 @@
  */
 #include "Worker.h"
 
+const string NULL_STRING = "";
+const int NULL_DATE = -1;
+
 Worker::Worker() {
-	taskIndexIssuer = 0;
+	taskIndexIssuer = 0; // retrieve state of issuer pls
+}
+
+Worker::~Worker(){
+	taskIndexIssuer;	// save the state of issuer pls
 }
 
 // todoList functions
@@ -44,28 +51,28 @@ void Worker::removeTaskWithIndex(int index) {
 void Worker::updateTaskWithIndex(int index, string taskName, string additionalDetails, string reminder, string duplicate, int startDate, int startTime, int endDate, int endTime) {
 	int item = searchForTaskWithIndex(index);
 
-	if (taskName != "") {
-		todoList[item].taskName = taskName;				// to be refactored to string nullString = "";
+	if (taskName != NULL_STRING) {
+		todoList[item].taskName = taskName;
 	}
-	if (additionalDetails != "") {
+	if (additionalDetails != NULL_STRING) {
 		todoList[item].additionalDetails = additionalDetails;
 	}
-	if (reminder != "") {
+	if (reminder != NULL_STRING) {
 		todoList[item].reminder = reminder;
 	}
-	if (duplicate != "") {
+	if (duplicate != NULL_STRING) {
 		todoList[item].duplciate = duplicate;
 	}
-	if (startDate != -1) {								// to be refactor to int nullDate = -1;
+	if (startDate != NULL_DATE) {
 		todoList[item].startDate = startDate;
 	}
-	if (startTime != -1) {
+	if (startTime != NULL_DATE) {
 		todoList[item].startTime = startTime;
 	}
-	if (endDate != -1) {
+	if (endDate != NULL_DATE) {
 		todoList[item].endDate = endDate;
 	}
-	if (endTime != -1) {
+	if (endTime != NULL_DATE) {
 		todoList[item].endTime = endTime;
 	}
 }
@@ -74,7 +81,7 @@ void Worker::markDoneTaskWithIndex(int index){
 	int item = searchForTaskWithIndex(index);
 	
 	if (todoList[item].isCompleted == false) {
-		todoList[item].isCompleted == true;
+		todoList[item].isCompleted = true;
 	}
 }
 	
