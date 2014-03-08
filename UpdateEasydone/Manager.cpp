@@ -42,10 +42,15 @@ int main (void) {
     cout<< USER_PROMPT<< endl;
 
 	getline(cin, userInput);
+
+
    
 
-    Parser parserJob;
-    Worker workerJob;
+	Parser parserJob;
+	Worker workerJob;
+
+	parserJob.parseCommand(userInput);
+	
 
     // Checks if input has passed successfully
     bool successful = parserJob.completeParse (userInput);

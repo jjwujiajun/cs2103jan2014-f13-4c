@@ -18,7 +18,10 @@ using namespace std;
 class Parser {
 
 private:
+
+	vector<string> userInformation;
 	static const string MESSAGE_ADD;
+	static const string MESSAGE_NEW;
 	static const string MESSAGE_READ;
 	static const string MESSAGE_UPDATE;
 	static const string MESSAGE_DELETE;
@@ -52,6 +55,8 @@ public:
 	bool completeParse(string userInput); 
 	int parseCommand(string userInput);
 	vector<string> parseDetails(string userInput);
+	
+
 	void getInput(); // gets input from user
 
 };

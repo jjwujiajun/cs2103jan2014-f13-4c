@@ -6,6 +6,7 @@ out the desired operation.
 
 */
 #include "Worker.h"
+#include "History.h"
 
 const string Worker::NULL_STRING = "";
 const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully";
@@ -17,10 +18,25 @@ const int NULL_DATE = -1;
 // const string Parser::MESSAGE_DELETE = "delete";
 
 Worker::Worker() {
-	taskIndexIssuer = 0; // retrieve state of issuer pls
+	Jobs details;
+	taskIndexIssuer = details.storageSize();
+
+	for(int i=0; i<taskIndexIssuer; i++) {
+		todoList[i].index = i+1;
+		todoList[i].taskName = details.taskname();
+		todoList[i].additionalDetails = details.additionalDetails();
+		todoList[i].reminder = details.reminder();
+	//	todoList[i].duplciate = details.duplciate();
+		todoList[i].startDate = details.startDate();
+		todoList[i].startTime = details.startTime();
+		todoList[i].endDate = details.endDate();
+		todoList[i].endDate = details.endDate();
+		todoList[i].isCompleted = details.isCompleted();
+	//	todoList[i].hasAvailableSlot = details.hasAvailableSlot();
+	}
 }
 
-Worker::~Worker(){
+Worker::~Worker() {
 	taskIndexIssuer;	// save the state of issuer pls
 }
 

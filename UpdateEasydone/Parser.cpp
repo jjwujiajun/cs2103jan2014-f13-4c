@@ -2,11 +2,13 @@
 
 //These are messages that will be used by the programme
 const string Parser::MESSAGE_ADD =  "add";
+const string Parser::MESSAGE_NEW = "new";
 const string Parser::MESSAGE_READ = "display";
 const string Parser::MESSAGE_UPDATE = "update";
 const string Parser::MESSAGE_DELETE = "delete";
 const string Parser::MESSAGE_SEARCH = "search";
 const string Parser::MESSAGE_CHECK = "check";
+
 
 
 
@@ -21,7 +23,7 @@ Parser::~Parser() {
 
 
 Parser::Choice Parser::userCommand(string input) { 
-	
+
 	if (input == MESSAGE_ADD) {
 		return ADD;
 	} else if (input == MESSAGE_READ) {
@@ -42,19 +44,19 @@ Parser::Choice Parser::userCommand(string input) {
 /*
 enumLine = changeEnum(line);
 
-		switch (enumLine) {
+switch (enumLine) {
 
-		case ADD:
-			add();
-			updateFile();
-			break;
+case ADD:
+add();
+updateFile();
+break;
 
-		case DEL:
-			int delLine;
-			writeFile->close();
-			cin >> delLine;
-			del(delLine);
-			break;
+case DEL:
+int delLine;
+writeFile->close();
+cin >> delLine;
+del(delLine);
+break;
 */
 //returns 1 if userInput has been parsed successfully
 
@@ -62,7 +64,7 @@ enumLine = changeEnum(line);
 // parseCommand to process usercommand and sieve out first word which is the command. Eg. add, delete etc
 // it will return an interger value to the manager
 int Parser::parseCommand(string userInput) {
-	
+
 	Choice enumCommand;
 	enumCommand = userCommand(userInput);
 
@@ -94,22 +96,55 @@ int Parser::parseCommand(string userInput) {
 	}
 
 }
-	
+
 
 vector<string> Parser::parseDetails(string userInput) {
 
+	/*
+	//Breaks the entire user input string into words and stores it into the vector concatedUserInformation
+    istringstream iss(userInput);
+    copy(istream_iterator<string>(iss), istream_iterator<string>(),  back_inserter<vector<string> >(userInformation));
+	*/
 
+	int counter = 1;
+	vector<string>::iterator iter = userInformation.begin();
+	unsigned int tStart = 0, tEnd = 0;
+	string token;
+	
+	tEnd = userInput.find_first_of("/."); // pos not provided. Default value of 0 is used
+	
 
-	vector<string> fake;
-
-	for(int i = 0; i<5; i++)
-	{
-		fake[i] =  "omg";
+	while(tEnd != string::npos) {
+		token = userInput.substr(tStart, tEnd - tStart);
+		userInformation.push_back(token);
+		cout << "push " << token << endl;
+		tStart = tEnd + 1;
+		tEnd = userInput.find_first_of("/.", tStart); // looks from tStart position
+	}
+	// print last token
+	if (tStart <userInput.size()) {
+		userInformation.push_back(userInput.substr(tStart));
+		cout << "push " << token << endl;
 	}
 
-	return fake;
-	
+	for (iter = userInformation.begin()+1; iter != userInformation.end(); ++iter) { 
+		cout << endl << counter << ". " << *iter; 
+		counter++;
+	}
+
+	return userInformation;
 }
+
+
+/*
+string token, mystring("scott>=tiger");
+while(token != mystring){
+  token = mystring.substr(0,mystring.find_first_of(">="));
+  mystring = mystring.substr(mystring.find_first_of(">=") + 1);
+  printf("%s ",token.c_str());
+}
+*/
+
 
 bool Parser::completeParse(string userInput) {
 
@@ -122,20 +157,20 @@ bool Parser::completeParse(string userInput) {
 
 /*
 void Parser:: getInput() {
-	
-	string line;
-	Choice enumLine;
 
-	cin >> line;
-	enumLine = userCommand(line);
+string line;
+Choice enumLine;
 
-	getchar(); // for enter
+cin >> line;
+enumLine = userCommand(line);
 
-	cin >> line;
-	
+getchar(); // for enter
+
+cin >> line;
+
 }
 */
-	
+
 
 
 
@@ -151,59 +186,59 @@ parser::~parser(void) {
 }
 
 void parser::receiveUserInput() {
-	string input;
+string input;
 
-	cin >> input;
-	//conversion method
-	parseCommand(input);
-	
-	getchar();
+cin >> input;
+//conversion method
+parseCommand(input);
 
-	cin >> input;
-	//conversion method
-	if (input[0] == '\"') {
-		//parseDueDate(input);
-	} else if (input[0] == '\\') {
-		parseDueTime(input);
-	} else if (input[0] == '/') {
-		parseDueDate(input);
-	}
+getchar();
+
+cin >> input;
+//conversion method
+if (input[0] == '\"') {
+//parseDueDate(input);
+} else if (input[0] == '\\') {
+parseDueTime(input);
+} else if (input[0] == '/') {
+parseDueDate(input);
+}
 }
 
 
 void parser::parseInput(string input) {
-	int index = 0;
-	int &i = index;
-	int inputLength = input.length();
+int index = 0;
+int &i = index;
+int inputLength = input.length();
 
-	parseCommandz(input, i);
-	/*
-	while (i != inputlength) {
-		if (input[i] == '\"') {
-			parseTodoDescription(input, i)
-		}
-		if (input[i] == '/') {
-			parseDueDate(input, i);
-		}
-	}
+parseCommandz(input, i);
+/*
+while (i != inputlength) {
+if (input[i] == '\"') {
+parseTodoDescription(input, i)
+}
+if (input[i] == '/') {
+parseDueDate(input, i);
+}
+}
 
 }
 
 void parser::parseCommandz(string input, int &i) {
-	char inputCommand[250];
-	while (input[i] != ' ') {
-		inputCommand[i] = input[i];
-		++i;
-	}
+char inputCommand[250];
+while (input[i] != ' ') {
+inputCommand[i] = input[i];
+++i;
+}
 
-	string stringCommand = (string)inputCommand;
-	if (stringCommand == "a" || stringCommand == "add" || stringCommand == "Add") {
-		command = ADD;
-	}
-	if (stringCommand == "d" || stringCommand == "del" || stringCommand == "delete" || stringCommand == "Delete") {
-		command = DELETE;
-	}
+string stringCommand = (string)inputCommand;
+if (stringCommand == "a" || stringCommand == "add" || stringCommand == "Add") {
+command = ADD;
+}
+if (stringCommand == "d" || stringCommand == "del" || stringCommand == "delete" || stringCommand == "Delete") {
+command = DELETE;
+}
 
-	++i;
+++i;
 }
 */
