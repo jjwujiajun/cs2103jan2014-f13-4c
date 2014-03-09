@@ -42,7 +42,8 @@ const string KEYED_EXIT = "exit";
 
 
 int main (int argc, char* argv[]) {
-    
+ 
+	/*
 	bool ready = 0;
 	FileHandler Loader;
 	Parser ParserJob;
@@ -92,6 +93,8 @@ int main (int argc, char* argv[]) {
 			}
 		}
 	}
+	*/
 
     return 0;
+	
 }

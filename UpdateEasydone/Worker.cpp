@@ -19,6 +19,7 @@ const int NULL_DATE = -1;
 // const string Parser::MESSAGE_DELETE = "delete";
 
 Worker::Worker() {
+	/*
 	//Jobs Task;
 	taskIndexIssuer = Task.storageSize();
 
@@ -34,6 +35,7 @@ Worker::Worker() {
 		todoList[i].isCompleted = Task.isCompleted();
 	//	todoList[i].hasAvailableSlot = Task.hasAvailableSlot();
 	}
+	*/
 }
 
 Worker::~Worker() {
@@ -44,7 +46,7 @@ Worker::~Worker() {
 
 // todoList functions
 string Worker::addTask(vector<string> input) {
-
+	/*
 	Task newTask;
 
 	newTask.index = 
@@ -56,18 +58,20 @@ string Worker::addTask(vector<string> input) {
 	newTask.startTime = startTime;
 	newTask.endTime = endTime;
 	
-	/* Put conversion in parser
+	 Put conversion in parser
 	newTask.startTime =  atoi(startTime.c_str()); // convert string to integer
 	newTask.startDate = atoi(startDate.c_str());
 	newTask.endTime = atoi(endTime.c_str());
 	newTask.endDate = atoi(endDate.c_str());
-	*/
+	
 
 	todoList.push_back(newTask);
 
 	return MESSAGE_ADDED_SUCCESSFULLY;
 
-
+	*/
+	string a;
+	return a;
 
 }
 

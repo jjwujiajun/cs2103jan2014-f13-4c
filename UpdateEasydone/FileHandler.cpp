@@ -1,8 +1,18 @@
 #include "FileHandler.h"
 
+const string FileHandler::MESSAGE_OUTPUT_WELCOME = "WELCOME TO easyDone.txt!";
+const string FileHandler::MESSAGE_READY_FOR_USE = "Ready for use";
 
+FileHandler TB_Object;
+
+void FileHandler::load(string inputString) {
+
+	sentencesVector.push_back(inputString);
+
+}
 bool FileHandler::fileReady(string fileName)
 {
+	/*
 	bool ready = 1;
 	ifstream inputFile(fileName);
 
@@ -17,7 +27,7 @@ bool FileHandler::fileReady(string fileName)
 			}
 
 			TB_Object.remove();			
-			cout << OUTPUTMSG_WELCOME + fileName + OUTPUTMSG_READY_FOR_USE;
+			cout << MESSAGE_OUTPUT_WELCOME + fileName + MESSAGE_READY_FOR_USE;
 			return ready;
 		}
 	}
@@ -25,13 +35,18 @@ bool FileHandler::fileReady(string fileName)
 	else{
 	
 		ofstream create(fileName);
-		cout << OUTPUTMSG_WELCOME + fileName + OUTPUTMSG_READY_FOR_USE;
+		cout <<  MESSAGE_OUTPUT_WELCOME + fileName + MESSAGE_READY_FOR_USE;
 		return ready;
+		
 	}
+	*/
+
+	return 1;
 }
 
 bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt file are copied onto the harddisk
 {
+	/*
 	ofstream ofile(fileName);
 	int size = sentencesVector.size();
 	if (ofile.is_open()){
@@ -43,4 +58,6 @@ bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt 
 			
 		ofile.close();
 	}
+	*/
+	return 1;
 }

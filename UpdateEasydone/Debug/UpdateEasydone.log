@@ -1,97 +1,18 @@
-﻿Build started 9/3/2014 6:53:39 PM.
+﻿Build started 9/3/2014 10:30:33 PM.
      1>Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib FileHandler.cpp Manager.cpp Parser.cpp Worker.cpp
-         FileHandler.cpp
-     1>FileHandler.cpp(15): error C2065: 'line' : undeclared identifier
-     1>FileHandler.cpp(16): error C2065: 'TB_Object' : undeclared identifier
-     1>FileHandler.cpp(16): error C2228: left of '.load' must have class/struct/union
-                 type is ''unknown-type''
-     1>FileHandler.cpp(16): error C2065: 'line' : undeclared identifier
-     1>FileHandler.cpp(19): error C2065: 'TB_Object' : undeclared identifier
-     1>FileHandler.cpp(19): error C2228: left of '.remove' must have class/struct/union
-                 type is ''unknown-type''
-     1>FileHandler.cpp(20): error C2065: 'OUTPUTMSG_WELCOME' : undeclared identifier
-     1>FileHandler.cpp(20): error C2065: 'OUTPUTMSG_READY_FOR_USE' : undeclared identifier
-     1>FileHandler.cpp(28): error C2065: 'OUTPUTMSG_WELCOME' : undeclared identifier
-     1>FileHandler.cpp(28): error C2065: 'OUTPUTMSG_READY_FOR_USE' : undeclared identifier
-     1>FileHandler.cpp(33): error C2039: 'diskcopy' : is not a member of 'FileHandler'
-                 c:\users\daniel\desktop\new folder\updateeasydone\FileHandler.h(16) : see declaration of 'FileHandler'
-     1>FileHandler.cpp(36): error C2065: 'sentencesVector' : undeclared identifier
-     1>FileHandler.cpp(36): error C2228: left of '.size' must have class/struct/union
-                 type is ''unknown-type''
-     1>FileHandler.cpp(41): error C2065: 'sentencesVector' : undeclared identifier
-         Manager.cpp
-     1>Manager.cpp(47): error C2065: 'FileHandler' : undeclared identifier
-     1>Manager.cpp(47): error C2146: syntax error : missing ';' before identifier 'Loader'
-     1>Manager.cpp(47): error C2065: 'Loader' : undeclared identifier
-     1>Manager.cpp(57): error C2065: 'FILE_FORMAT' : undeclared identifier
-     1>Manager.cpp(58): error C2065: 'FILE_FORMAT' : undeclared identifier
-     1>Manager.cpp(61): error C2065: 'FILE_FORMAT' : undeclared identifier
-     1>Manager.cpp(67): error C2065: 'Loader' : undeclared identifier
-     1>Manager.cpp(67): error C2228: left of '.fileReady' must have class/struct/union
-                 type is ''unknown-type''
-         Parser.cpp
-     1>Parser.cpp(5): error C2039: 'MESSAGE_NEW' : is not a member of 'Parser'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Parser.h(19) : see declaration of 'Parser'
-     1>Parser.cpp(6): error C2039: 'MESSAGE_READ' : is not a member of 'Parser'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Parser.h(19) : see declaration of 'Parser'
-     1>Parser.cpp(25): error C2039: 'Choice' : is not a member of 'Parser'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Parser.h(19) : see declaration of 'Parser'
-     1>Parser.cpp(25): error C2039: 'userCommand' : is not a member of 'Parser'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Parser.h(19) : see declaration of 'Parser'
-     1>Parser.cpp(25): error C2146: syntax error : missing ';' before identifier 'userCommand'
-     1>Parser.cpp(25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>Parser.cpp(28): warning C4508: 'userCommand' : function should return a value; 'void' return type assumed
-     1>Parser.cpp(55): error C2561: 'Parser::completeParse' : function must return a value
-                 c:\users\daniel\desktop\new folder\updateeasydone\Parser.h(35) : see declaration of 'Parser::completeParse'
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Worker.cpp
          Worker.cpp
-     1>Worker.cpp(23): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(23): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(23): error C2228: left of '.storageSize' must have class/struct/union
-     1>Worker.cpp(27): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(27): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(27): error C2228: left of '.taskname' must have class/struct/union
-     1>Worker.cpp(28): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(28): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(28): error C2228: left of '.venue' must have class/struct/union
-     1>Worker.cpp(29): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(29): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(29): error C2228: left of '.date' must have class/struct/union
-     1>Worker.cpp(30): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(30): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(30): error C2228: left of '.month' must have class/struct/union
-     1>Worker.cpp(31): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(31): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(31): error C2228: left of '.year' must have class/struct/union
-     1>Worker.cpp(32): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(32): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(32): error C2228: left of '.startTime' must have class/struct/union
-     1>Worker.cpp(33): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(33): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(33): error C2228: left of '.endTime' must have class/struct/union
-     1>Worker.cpp(34): warning C4832: token '.' is illegal after UDT 'Worker::Task'
-                 c:\users\daniel\desktop\new folder\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
-     1>Worker.cpp(34): error C2275: 'Worker::Task' : illegal use of this type as an expression
-     1>Worker.cpp(34): error C2228: left of '.isCompleted' must have class/struct/union
-     1>Worker.cpp(51): error C2065: 'taskName' : undeclared identifier
-     1>Worker.cpp(52): error C2065: 'venue' : undeclared identifier
-     1>Worker.cpp(53): error C2065: 'date' : undeclared identifier
-     1>Worker.cpp(54): error C2065: 'month' : undeclared identifier
-     1>Worker.cpp(55): error C2065: 'year' : undeclared identifier
-     1>Worker.cpp(56): error C2065: 'startTime' : undeclared identifier
-     1>Worker.cpp(57): error C2065: 'endTime' : undeclared identifier
-         Generating Code...
-     1>Done Building Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\FileHandler.obj
+         Debug\Manager.obj
+         Debug\Parser.obj
+         Debug\Store.obj
+         Debug\Worker.obj
+         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+         UpdateEasydone.vcxproj -> C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.exe
+     1>Done Building Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:05.91
+Time Elapsed 00:00:05.56
