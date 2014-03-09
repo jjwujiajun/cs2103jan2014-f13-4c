@@ -52,7 +52,7 @@ public:
 
 	Parser(void);
 	~Parser(void);
-	bool completeParse(string userInput); 
+	vector<string> completeParse(string userInput); 
 	int parseCommand(string userInput);
 	vector<string> parseDetails(string userInput);
 	

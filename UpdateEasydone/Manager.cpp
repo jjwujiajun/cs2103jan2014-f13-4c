@@ -8,6 +8,8 @@
 #include <queue>
 #include "Parser.h"
 #include "Worker.h"
+#include "FileHandler.h"
+
 
 using namespace std;
 
@@ -26,6 +28,8 @@ string isCompleted;		// '1': task completed '0':not completed
 vector<string> detailsFromParser;
 //bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
 
+string fileName;
+
 string outputMessage;
 string KeyWord;
 vector<string> toBeDisplayed;
@@ -33,63 +37,65 @@ string fieldToBeUpdated;
 
 const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!";
 const string USER_PROMPT = "What would you like to do today?";
+const string KEYED_EXIT = "exit";
 
 
 
-int main (void) {
-    //string filname = argv[0];
-    cout<< WELCOME_MESSAGE << endl;
-    cout<< USER_PROMPT<< endl;
+int main (int argc, char* argv[]) {
+    
+	bool ready = 0;
+	FileHandler Loader;
+	Parser ParserJob;
+	Worker WorkerJob;
+	bool continue_running;
 
-	getline(cin, userInput);
+	fileName = argv[1];
+
+//This condition checks if the filename input name contains the correct extension. 
+//If not, it by default appends the extension.
+
+	if (fileName.size() > 4 && fileName.substr(fileName.size()-4, fileName.size()) != FILE_FORMAT){
+		fileName = fileName + FILE_FORMAT;
+	}
+	else if (fileName.size() < 4){
+		fileName = fileName + FILE_FORMAT;
+	}
 
 
-   
+	while(continue_running)
+	{
+		ready = Loader.fileReady(fileName);
+
+		if(ready != 0){
+	
+			while (1)
+			{
+				cout << WELCOME_MESSAGE;
+				cout<< USER_PROMPT<< endl;
+
+				getline(cin, userInput);
+
+				//switch(userCommand)
+				if (userInput == KEYED_EXIT){
+
+					continue_running = false;
+					break;
+				}
+			}
+		}
+	}
 
 	Parser parserJob;
 	Worker workerJob;
 
-	parserJob.parseCommand(userInput);
-	
+	// Checks if input has passed successfully
+    vector<string> parsedInput  = parserJob.completeParse (userInput);
+	workerJob.takeparsedCommand(parsedInput);
 
-    // Checks if input has passed successfully
-    bool successful = parserJob.completeParse (userInput);
 
-    //details from parser spilt into the individual components
-    detailsFromParser = parserJob.parseDetails (userInput);
-    taskName = detailsFromParser[0];
-    startDate = detailsFromParser[1];
-    startTime =  detailsFromParser[2];
-    endDate = detailsFromParser[3];
-    endTime = detailsFromParser[4];
-    additionalDetails = detailsFromParser[5];
-    isCompleted = detailsFromParser[6];
-    KeyWord =  detailsFromParser [7];
-    // different cases for the different task. Manager calls worker to do the task
-    switch (parserJob.actionIndex) {
-        case 1:
-            outputMessage= workerJob.addTask (taskName, startDate, startTime, endDate, endTime, additionalDetails);
-            cout<<outputMessage;
-            break;
-        case 2:
-            outputMessage = workerJob.removeTaskWithIndex (indexOfTask);
-            cout<<outputMessage;
-            break;
-        case 3:
-            outputMessage =  workerJob.updateTaskWithIndex (indexOfTask, contentToBeUpdated, fieldToBeUpdated);
-            cout<<outputMessage;
-            break;
-        case 4:
-            outputMessage =  workerJob.markDoneTaskWithIndex (indexOfTask);
-            cout<<outputMessage;
-            break;
-        //case 5:
-        //toBeDisplayed = workerJob.displayTaskWithIndex(indexOfTask);
-        //break;
-        case 5:
-            int indexOfSeachedTask =  workerJob.searchTasks (KeyWord);
-            break;
-    }
+
+
+   
     cout<<"bye!";
     return 0;
 }

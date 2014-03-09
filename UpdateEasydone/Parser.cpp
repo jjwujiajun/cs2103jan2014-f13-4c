@@ -146,7 +146,7 @@ while(token != mystring){
 */
 
 
-bool Parser::completeParse(string userInput) {
+vector<string> Parser::completeParse(string userInput) {
 
 	actionIndex = parseCommand(userInput);  //returns corresponding command index eg add: 1 update 2 etc.
 	parsedDetails = parseDetails(userInput); //returns details of task inputted by user in the form of a vector<string>

@@ -69,12 +69,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="History.h" />
+    <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="History.cpp" />
+    <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Worker.cpp" />

@@ -48,6 +48,7 @@ public:
 	~Worker();
 
 	// todoList functions
+	string takeparsedCommand(vector<string>);
 	string addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
