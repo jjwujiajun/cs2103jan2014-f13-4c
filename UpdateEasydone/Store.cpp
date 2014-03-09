@@ -1,10 +1,25 @@
 #include "Store.h"
 
-string Store::getTaskname(vector<Task> taskList, int index)
-{
+
+int Store::getIndex(vector<Task> taskList) {
+	
+	int index = taskList[index].index;
+
+	return index;
+}
+
+string Store::getTaskname(vector<Task> taskList, int index) {
+	
 	string taskName = taskList[index].taskName;
 
 	return taskName;
+}
+string Store::getTaskvenue(vector<Task> taskList, int index) {
+	
+	string taskVenue = taskList[index].venue;
+
+	return taskVenue;
+
 }
 
 int Store::getStarttime(vector<Task> taskList, int index)

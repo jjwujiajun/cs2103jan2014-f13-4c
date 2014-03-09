@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include "Store.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ private:
 	vector<Task> todoList;
 	vector<Task>::iterator iter;
 	vector<string> input;
+	Store tasksStorage;
 	int taskIndexIssuer;
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;
@@ -50,7 +52,8 @@ public:
 
 	// todoList functions
 	string takeparsedCommand(vector<string>);
-	string addTask(string taskName, string venue, int day, int month, int year, int startTime, int endTime);
+	//string addTask(string taskName, string venue, int day, int month, int year, int startTime, int endTime);
+	string addTask(vector <string> input);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
 	string markDoneTaskWithIndex(int index);
@@ -60,6 +63,7 @@ public:
 	int issueNewIndex();
 	int searchTasks(string keyword);
 	bool checkListForSlotFor(Task newTask);
+
 };
 
 #endif

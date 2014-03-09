@@ -6,7 +6,7 @@ out the desired operation.
 
 */
 #include "Worker.h"
-//#include "storage.h"
+#include "store.h"
 
 const string Worker::NULL_STRING = "";
 const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully";
@@ -40,11 +40,14 @@ Worker::~Worker() {
 	taskIndexIssuer;	// save the state of issuer pls
 }
 
+
+
 // todoList functions
-string Worker::addTask(string taskName, string venue, int date, int month, int year, int startTime, int endTime) {
+string Worker::addTask(vector<string> input) {
 
 	Task newTask;
-	newTask.index = issueNewIndex();
+
+	newTask.index = 
 	newTask.taskName = taskName;
 	newTask.venue = venue;
 	newTask.date = date;
@@ -63,6 +66,7 @@ string Worker::addTask(string taskName, string venue, int date, int month, int y
 	todoList.push_back(newTask);
 
 	return MESSAGE_ADDED_SUCCESSFULLY;
+
 
 
 }
@@ -143,6 +147,8 @@ int Worker::searchTasks(string keyWord){
 
 // support functions
 int Worker::issueNewIndex(){
+	
+
 	taskIndexIssuer++;
 
 	return taskIndexIssuer;
