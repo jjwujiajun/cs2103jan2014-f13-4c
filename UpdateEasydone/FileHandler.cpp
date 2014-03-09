@@ -10,9 +10,14 @@ void FileHandler::load(string inputString) {
 	sentencesVector.push_back(inputString);
 
 }
-bool FileHandler::fileReady(string fileName)
-{
-	/*
+
+void FileHandler::remove() {
+	sentencesVector.erase(sentencesVector.begin() + sentencesVector.size() -1);
+}
+
+
+bool FileHandler::fileReady(string fileName) {
+	
 	bool ready = 1;
 	ifstream inputFile(fileName);
 
@@ -39,14 +44,14 @@ bool FileHandler::fileReady(string fileName)
 		return ready;
 		
 	}
-	*/
+	
 
 	return 1;
 }
 
 bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt file are copied onto the harddisk
 {
-	/*
+	
 	ofstream ofile(fileName);
 	int size = sentencesVector.size();
 	if (ofile.is_open()){
@@ -58,6 +63,6 @@ bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt 
 			
 		ofile.close();
 	}
-	*/
+	
 	return 1;
 }

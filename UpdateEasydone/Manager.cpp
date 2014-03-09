@@ -38,12 +38,12 @@ string fieldToBeUpdated;
 const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!";
 const string USER_PROMPT = "What would you like to do today?";
 const string KEYED_EXIT = "exit";
-
+const string FILE_FORMAT = ".txt";
 
 
 int main (int argc, char* argv[]) {
  
-	/*
+	
 	bool ready = 0;
 	FileHandler Loader;
 	Parser ParserJob;
@@ -93,7 +93,7 @@ int main (int argc, char* argv[]) {
 			}
 		}
 	}
-	*/
+	
 
     return 0;
 	

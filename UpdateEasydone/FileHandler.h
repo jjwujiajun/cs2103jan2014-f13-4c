@@ -1,7 +1,7 @@
 
-#pragma once
-#ifndef _STORE_H_
-#define _STORE_H_
+
+#ifndef STORE_H
+#define STORE_H
 
 #include <iostream>
 #include <vector>
@@ -24,6 +24,7 @@ private:
 
 public:
 	void load(string inputText);
+	void remove();
 	bool fileReady(string fileName);
 	bool diskcopy(string fileName);
 
