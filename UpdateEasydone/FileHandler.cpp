@@ -1,4 +1,7 @@
-bool::FileHandler fileReady(string fileName)
+#include "FileHandler.h"
+
+
+bool FileHandler::fileReady(string fileName)
 {
 	bool ready = 1;
 	ifstream inputFile(fileName);
