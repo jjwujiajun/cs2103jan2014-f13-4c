@@ -11,7 +11,7 @@
 #include <vector>
 #include <algorithm> 
 #include <queue>
-
+#include <ctime>
 
 #define MAX_SIZE 255
 using namespace std; 
@@ -33,7 +33,7 @@ public:
 	Parser(void);
 	~Parser(void);
 	vector<string> completeParse(string userInput); 
-	int parseCommand(string userInput);
+	string parseCommand(string userInput);
 	vector<string> parseDetails(string userInput);
 
 };

@@ -80,22 +80,18 @@ int main (int argc, char* argv[]) {
 
 					continue_running = false;
 					break;
+
+				Parser parserJob;
+				Worker workerJob;
+
+				vector<string> parsedInput  = parserJob.completeParse (userInput);
+				string jobReturn = workerJob.takeparsedCommand(parsedInput);
+
+				cout << jobReturn;
 				}
 			}
 		}
 	}
 
-	Parser parserJob;
-	Worker workerJob;
-
-	// Checks if input has passed successfully
-    vector<string> parsedInput  = parserJob.completeParse (userInput);
-	workerJob.takeparsedCommand(parsedInput);
-
-
-
-
-   
-    cout<<"bye!";
     return 0;
 }
