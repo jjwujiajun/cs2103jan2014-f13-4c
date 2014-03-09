@@ -20,12 +20,11 @@ private:
 	typedef struct Task {
 		int index;
 		string taskName;
-		string additionalDetails;
-		string reminder;
-		//string duplciate;		
-		int startDate;
+		string venue;	
+		int date;
+		int month;
+		int year;
 		int startTime;
-		int endDate;
 		int endTime;
 		string isCompleted;		
 		//bool hasAvailableSlot;		
@@ -33,6 +32,7 @@ private:
 
 	vector<Task> todoList;
 	vector<Task>::iterator iter;
+	vector<string> input;
 	int taskIndexIssuer;
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;
@@ -40,6 +40,7 @@ private:
 	static const string MESSAGE_UPDATED_SUCCESSFULLY;
 	static const string MESSAGE_CHECKED_SUCCESSFULLY;
 	static const string NULL_STRING;
+	static const string MESSAGE_ERROR;
 
 
 public:
@@ -49,11 +50,11 @@ public:
 
 	// todoList functions
 	string takeparsedCommand(vector<string>);
-	string addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails);
+	string addTask(string taskName, string venue, int day, int month, int year, int startTime, int endTime);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
 	string markDoneTaskWithIndex(int index);
-	//vector<string> displayTaskWithIndex(int index);
+	void displayTaskWithIndex(int index);
 
 	// support functions
 	int issueNewIndex();

@@ -6,33 +6,33 @@ out the desired operation.
 
 */
 #include "Worker.h"
-#include "History.h"
+//#include "storage.h"
 
 const string Worker::NULL_STRING = "";
 const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully";
 const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully";
 const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully"; 
 const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list";
+const string Worker::MESSAGE_ERROR = "Error: Task cannot be found";
 const int NULL_DATE = -1;
 
 // const string Parser::MESSAGE_DELETE = "delete";
 
 Worker::Worker() {
-	Jobs details;
-	taskIndexIssuer = details.storageSize();
+	//Jobs Task;
+	taskIndexIssuer = Task.storageSize();
 
 	for(int i=0; i<taskIndexIssuer; i++) {
 		todoList[i].index = i+1;
-		todoList[i].taskName = details.taskname();
-		todoList[i].additionalDetails = details.additionalDetails();
-		todoList[i].reminder = details.reminder();
-	//	todoList[i].duplciate = details.duplciate();
-		todoList[i].startDate = details.startDate();
-		todoList[i].startTime = details.startTime();
-		todoList[i].endDate = details.endDate();
-		todoList[i].endDate = details.endDate();
-		todoList[i].isCompleted = details.isCompleted();
-	//	todoList[i].hasAvailableSlot = details.hasAvailableSlot();
+		todoList[i].taskName = Task.taskname();
+		todoList[i].venue = Task.venue();
+		todoList[i].date = Task.date();
+		todoList[i].month = Task.month();
+		todoList[i].year = Task.year();
+		todoList[i].startTime = Task.startTime();
+		todoList[i].endTime = Task.endTime();
+		todoList[i].isCompleted = Task.isCompleted();
+	//	todoList[i].hasAvailableSlot = Task.hasAvailableSlot();
 	}
 }
 
@@ -41,16 +41,24 @@ Worker::~Worker() {
 }
 
 // todoList functions
-string Worker::addTask(string taskName, string startDate, string startTime, string endDate, string endTime, string additionalDetails){
+string Worker::addTask(string taskName, string venue, int date, int month, int year, int startTime, int endTime) {
 
 	Task newTask;
 	newTask.index = issueNewIndex();
 	newTask.taskName = taskName;
-	newTask.additionalDetails = additionalDetails;
+	newTask.venue = venue;
+	newTask.date = date;
+	newTask.month = month;
+	newTask.year = year;
+	newTask.startTime = startTime;
+	newTask.endTime = endTime;
+	
+	/* Put conversion in parser
 	newTask.startTime =  atoi(startTime.c_str()); // convert string to integer
 	newTask.startDate = atoi(startDate.c_str());
 	newTask.endTime = atoi(endTime.c_str());
 	newTask.endDate = atoi(endDate.c_str());
+	*/
 
 	todoList.push_back(newTask);
 
@@ -60,26 +68,26 @@ string Worker::addTask(string taskName, string startDate, string startTime, stri
 }
 
 string Worker::removeTaskWithIndex(int index) {
-	/*for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
+	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
+
 	if (iter->index == index) {
 	todoList.erase(iter);			
 	//highly inefficient accord to c++ lib. vector efficient for accessing vector[]. List efficient for insertion/deletion
-	return;
+	} else {
+	cout << MESSAGE_ERROR << endl;
 	}
-	//cout << Error: Task cannot be found.
-	}*/
-
+	
+	}
 	return MESSAGE_DELETED_SUCCESSFULLY;
+	
 }
+
 
 string Worker::updateTaskWithIndex(int index, string update, string updateField) {
 	/*int item = searchForTaskWithIndex(index);
 
 	if (taskName != NULL_STRING) {
 	todoList[item].taskName = taskName;
-	}
-	if (additionalDetails != NULL_STRING) {
-	todoList[item].additionalDetails = additionalDetails;
 	}
 	if (reminder != NULL_STRING) {
 	todoList[item].reminder = reminder;
@@ -101,6 +109,14 @@ string Worker::updateTaskWithIndex(int index, string update, string updateField)
 	}*/
 
 	return MESSAGE_UPDATED_SUCCESSFULLY;
+}
+
+void Worker::displayTaskWithIndex(int index) {
+
+	
+	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
+		cout << index;
+	}
 }
 
 string Worker::markDoneTaskWithIndex(int index) {
