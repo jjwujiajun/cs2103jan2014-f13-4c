@@ -1,11 +1,9 @@
-﻿Build started 11/03/2014 19:29:12.
-     1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 3 (Build target(s)).
+﻿Build started 11/03/2014 21:44:27.
+     1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib FileHandler.cpp Manager.cpp Parser.cpp Store.cpp Worker.cpp
-         FileHandler.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Manager.cpp Store.cpp Worker.cpp
          Manager.cpp
      1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Worker.h(58): error C2061: syntax error : identifier 'Task'
-         Parser.cpp
          Store.cpp
      1>Store.cpp(62): error C2059: syntax error : ']'
          Worker.cpp
@@ -42,10 +40,8 @@
                  Worker.cpp(45): this line contains a '{' which has not yet been matched
      1>Worker.cpp(196): fatal error C1075: end of file found before the left brace '{' at 'Worker.cpp(45)' was matched
          Generating Code...
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\parser.cpp(41): warning C4715: 'Parser::userCommand' : not all control paths return a value
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\parser.cpp(98): warning C4715: 'Parser::parseCommand' : not all control paths return a value
      1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:04.85
+Time Elapsed 00:00:02.23
