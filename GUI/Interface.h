@@ -86,6 +86,8 @@ namespace GUI {
 			// 
 			this->inputField->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->inputField->BackColor = System::Drawing::Color::White;
+			this->inputField->ForeColor = System::Drawing::SystemColors::WindowText;
 			this->inputField->Location = System::Drawing::Point(12, 555);
 			this->inputField->Name = L"inputField";
 			this->inputField->Size = System::Drawing::Size(351, 20);
@@ -96,10 +98,13 @@ namespace GUI {
 			// 
 			this->feedbackBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->feedbackBox->Location = System::Drawing::Point(12, 455);
+			this->feedbackBox->BackColor = System::Drawing::Color::White;
+			this->feedbackBox->Cursor = System::Windows::Forms::Cursors::Arrow;
+			this->feedbackBox->Location = System::Drawing::Point(12, 453);
 			this->feedbackBox->Multiline = true;
 			this->feedbackBox->Name = L"feedbackBox";
-			this->feedbackBox->Size = System::Drawing::Size(351, 94);
+			this->feedbackBox->ReadOnly = true;
+			this->feedbackBox->Size = System::Drawing::Size(351, 96);
 			this->feedbackBox->TabIndex = 1;
 			// 
 			// taskList
@@ -107,10 +112,15 @@ namespace GUI {
 			this->taskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
 				| System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->taskList->BackColor = System::Drawing::Color::White;
 			this->taskList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(4) {this->index, this->startDate, 
 				this->startTime, this->task});
+			this->taskList->ForeColor = System::Drawing::SystemColors::MenuBar;
+			this->taskList->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->taskList->LabelWrap = false;
 			this->taskList->Location = System::Drawing::Point(12, 38);
 			this->taskList->Name = L"taskList";
+			this->taskList->Scrollable = false;
 			this->taskList->Size = System::Drawing::Size(351, 409);
 			this->taskList->TabIndex = 2;
 			this->taskList->UseCompatibleStateImageBehavior = false;
@@ -134,17 +144,18 @@ namespace GUI {
 			// task
 			// 
 			this->task->Text = L"Task";
-			this->task->Width = 234;
+			this->task->Width = 235;
 			// 
 			// title
 			// 
 			this->title->AutoSize = true;
-			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->title->BackColor = System::Drawing::Color::White;
+			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->title->ForeColor = System::Drawing::Color::CornflowerBlue;
 			this->title->Location = System::Drawing::Point(143, 9);
 			this->title->Name = L"title";
-			this->title->Size = System::Drawing::Size(86, 26);
+			this->title->Size = System::Drawing::Size(97, 29);
 			this->title->TabIndex = 3;
 			this->title->Text = L"EasyDone";
 			this->title->TextAlign = System::Drawing::ContentAlignment::TopCenter;
@@ -162,6 +173,8 @@ namespace GUI {
 			this->Controls->Add(this->inputField);
 			this->MaximizeBox = false;
 			this->Name = L"Interface";
+			this->ShowIcon = false;
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -170,12 +183,19 @@ namespace GUI {
 	private: System::Void enterPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 				 if (keyPressed->KeyCode == Keys::Enter) {
 					 String ^inputString;
+					 String ^feedbackToDisplay;
 					 std::string convertedInputString;
+					 std::string receivedString;
 
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);
 
 					 manager->receiveInput(convertedInputString);
+					 receivedString = manager->getUserInput();
+
+					 feedbackToDisplay = gcnew String(receivedString.c_str());
+					 feedbackBox->Text = feedbackToDisplay;
+					 inputField->Text = "";
 				 }
 			 }
 };

@@ -11,5 +11,6 @@ public:
 	~Manager(void);
 
 	void receiveInput(string);
+	string getUserInput();
 };
 
