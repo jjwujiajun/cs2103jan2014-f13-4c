@@ -6,36 +6,20 @@ out the desired operation.
 
 */
 #include "Worker.h"
-#include "store.h"
+#include "Store.h"
 
 const string Worker::NULL_STRING = "";
 const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully";
 const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully";
 const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully"; 
 const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list";
-const string Worker::MESSAGE_ERROR = "Error: Task cannot be found";
 const int NULL_DATE = -1;
 
 // const string Parser::MESSAGE_DELETE = "delete";
 
 Worker::Worker() {
-	
-	Store Task;
-	taskIndexIssuer = Task.storageSize();
 
-	for(int i=0; i<taskIndexIssuer; i++) {
-		todoList[i].index = i+1;
-		todoList[i].taskName = Task.getTaskName;
-		todoList[i].venue = Task.getTaskVenue;
-		todoList[i].date = Task.getDate;
-		todoList[i].month = Task.getMonth;
-		todoList[i].year = Task.getYear;
-		todoList[i].startTime = Task.getStartTime;
-		todoList[i].endTime = Task.getEndTime;
-	//	todoList[i].isCompleted = Task.isCompleted();
-	//	todoList[i].hasAvailableSlot = Task.hasAvailableSlot();
-	}
-	
+
 }
 
 Worker::~Worker() {
@@ -43,53 +27,74 @@ Worker::~Worker() {
 }
 
 
+string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
-// todoList functions
-string Worker::addTask(vector<string> input) {
-	
-	Task newTask;
+	 command =  parsedCommandstring[0];
+	 taskName = parsedCommandstring[1];
+	 day = parsedCommandstring[2];
+	 month = parsedCommandstring[3];
+	 year = parsedCommandstring[4];
+	 venue = parsedCommandstring[5];
 
-	newTask.index = atoi(input[0].c_str);
-	newTask.taskName = input[1];
-	newTask.venue = input[2];
-	newTask.date = atoi(input[3].c_str);
-	newTask.month = atoi(input[4].c_str);
-	newTask.year = atoi(input[5].c_str);
-	newTask.startTime =  atoi(input[6].c_str()); // convert string to integer
-	newTask.endTime = atoi(input[7].c_str());
-	
-	// Put conversion in parser
-	
-	todoList.push_back(newTask);
+	string returnStringtomain = actonCommand(command);
 
-	return MESSAGE_ADDED_SUCCESSFULLY;
+
+}
+
+string Worker::actonCommand(string command)
+{
+
+
+	switch (command) {
+	case "add" || "create":
+		bool successful = addTask();
+		string returnstring =  "add successful!" 
+		break;
+	case "delete" || "remove":
+		bool successful = removeTaskWithIndex();
+		break;
+	case "display" || "show":
+		break;
+	case "update" || "change":
+		break;
+	default:
+		return "Please enter a valid command!";
+
+
+
+
+
+
+}
+
+
+bool Worker::addTask(string taskName, string date, string month, string year, string venue){
 
 	
-	return;
 
 }
 
 string Worker::removeTaskWithIndex(int index) {
-	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
-
+	/*for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
 	if (iter->index == index) {
 	todoList.erase(iter);			
 	//highly inefficient accord to c++ lib. vector efficient for accessing vector[]. List efficient for insertion/deletion
-	} else {
-	cout << MESSAGE_ERROR << endl;
+	return;
 	}
-	
-	}
-	return MESSAGE_DELETED_SUCCESSFULLY;
-	
-}
+	//cout << Error: Task cannot be found.
+	}*/
 
+	return MESSAGE_DELETED_SUCCESSFULLY;
+}
 
 string Worker::updateTaskWithIndex(int index, string update, string updateField) {
 	/*int item = searchForTaskWithIndex(index);
 
 	if (taskName != NULL_STRING) {
 	todoList[item].taskName = taskName;
+	}
+	if (additionalDetails != NULL_STRING) {
+	todoList[item].additionalDetails = additionalDetails;
 	}
 	if (reminder != NULL_STRING) {
 	todoList[item].reminder = reminder;
@@ -113,14 +118,6 @@ string Worker::updateTaskWithIndex(int index, string update, string updateField)
 	return MESSAGE_UPDATED_SUCCESSFULLY;
 }
 
-void Worker::displayTaskWithIndex(int index) {
-
-	
-	for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
-		cout << index;
-	}
-}
-
 string Worker::markDoneTaskWithIndex(int index) {
 	/*int item = searchForTaskWithIndex(index);
 
@@ -131,26 +128,49 @@ string Worker::markDoneTaskWithIndex(int index) {
 	return MESSAGE_CHECKED_SUCCESSFULLY;
 }
 
-int Worker::searchTasks(string keyWord){
-	/*int i = 0;
-	for (iter = todoList.begin(); iter != todoList.end(); ++iter, ++i) {
-	if (iter->index == index) {
-	return i;
-	}
-	}
-	return -1;*/
 
-	return 6;
-}
-
-// support functions
 int Worker::issueNewIndex(){
 	
+	vector<string> duplicatedtodoList = todoList.getDuplicatevector(todoList);
+	int size_todoList = duplicatedtodoList.size();
 
-	taskIndexIssuer++;
+	int newindex = size_todoList++;
 
-	return taskIndexIssuer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*bool Worker::checkListForSlotFor(Task newTask){

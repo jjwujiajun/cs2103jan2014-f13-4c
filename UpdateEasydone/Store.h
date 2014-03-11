@@ -39,7 +39,7 @@ class Store {
 		int getDate(vector<Task> taskList, int index);
 		int getMonth(vector<Task> taskList, int index);
 		int getYear(vector<Task> tasklist, int index);
-
+		vector<string> getDuplicatevector (Store objectwhoseVect2beduplicated);
 	
 };
 

@@ -56,3 +56,10 @@ int Store::getYear(vector<Task> taskList, int index)
 	
 	return year;
 }
+
+vector<string> Store::getDuplicatevector(Store objectwhoseVect2beduplicated)
+{
+	vector<string> duplicatedVector = objectwhoseVect2beduplicated.taskList[];
+
+	return duplicatedVector;
+}

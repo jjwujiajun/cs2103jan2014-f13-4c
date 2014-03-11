@@ -1,155 +1,51 @@
-﻿Build started 11/3/2014 5:12:11 PM.
-     1>Project "C:\Users\DANIEL\Desktop\Worker plus parser not done\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
+﻿Build started 11/3/2014 5:42:59 PM.
+     1>Project "C:\Users\simanthika\Desktop\omg\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Worker.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib FileHandler.cpp Manager.cpp Parser.cpp Store.cpp Worker.cpp
+         FileHandler.cpp
+         Manager.cpp
+     1>c:\users\simanthika\desktop\omg\updateeasydone\Worker.h(58): error C2061: syntax error : identifier 'Task'
+         Parser.cpp
+         Store.cpp
+     1>Store.cpp(62): error C2059: syntax error : ']'
          Worker.cpp
-     1>Worker.cpp(24): error C2039: 'storageSize' : is not a member of 'Store'
-                 c:\users\daniel\desktop\worker plus parser not done\updateeasydone\Store.h(13) : see declaration of 'Store'
-     1>Worker.cpp(28): error C3867: 'Store::getTaskName': function call missing argument list; use '&Store::getTaskName' to create a pointer to member
-     1>Worker.cpp(28): error C2679: binary '=' : no operator found which takes a right-hand operand of type 'std::string (__thiscall Store::* )(std::vector<_Ty>,int)' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(912): could be 'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(std::basic_string<_Elem,_Traits,_Alloc> &&) throw()'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(969): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const std::basic_string<_Elem,_Traits,_Alloc> &)'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(987): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const _Elem *)'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(992): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(_Elem)'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 while trying to match the argument list '(std::string, std::string (__thiscall Store::* )(std::vector<_Ty>,int))'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-     1>Worker.cpp(29): error C3867: 'Store::getTaskVenue': function call missing argument list; use '&Store::getTaskVenue' to create a pointer to member
-     1>Worker.cpp(29): error C2679: binary '=' : no operator found which takes a right-hand operand of type 'std::string (__thiscall Store::* )(std::vector<_Ty>,int)' (or there is no acceptable conversion)
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(912): could be 'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(std::basic_string<_Elem,_Traits,_Alloc> &&) throw()'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(969): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const std::basic_string<_Elem,_Traits,_Alloc> &)'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(987): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const _Elem *)'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(992): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(_Elem)'
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 while trying to match the argument list '(std::string, std::string (__thiscall Store::* )(std::vector<_Ty>,int))'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-     1>Worker.cpp(30): error C3867: 'Store::getDate': function call missing argument list; use '&Store::getDate' to create a pointer to member
-     1>Worker.cpp(30): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 There is no context in which this conversion is possible
-     1>Worker.cpp(31): error C3867: 'Store::getMonth': function call missing argument list; use '&Store::getMonth' to create a pointer to member
-     1>Worker.cpp(31): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 There is no context in which this conversion is possible
-     1>Worker.cpp(32): error C3867: 'Store::getYear': function call missing argument list; use '&Store::getYear' to create a pointer to member
-     1>Worker.cpp(32): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 There is no context in which this conversion is possible
-     1>Worker.cpp(33): error C3867: 'Store::getStartTime': function call missing argument list; use '&Store::getStartTime' to create a pointer to member
-     1>Worker.cpp(33): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 There is no context in which this conversion is possible
-     1>Worker.cpp(34): error C3867: 'Store::getEndTime': function call missing argument list; use '&Store::getEndTime' to create a pointer to member
-     1>Worker.cpp(34): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
-                 with
-                 [
-                     _Ty=Store::Task
-                 ]
-                 There is no context in which this conversion is possible
-     1>Worker.cpp(52): error C3867: 'std::basic_string<_Elem,_Traits,_Alloc>::c_str': function call missing argument list; use '&std::basic_string<_Elem,_Traits,_Alloc>::c_str' to create a pointer to member
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-     1>Worker.cpp(55): error C3867: 'std::basic_string<_Elem,_Traits,_Alloc>::c_str': function call missing argument list; use '&std::basic_string<_Elem,_Traits,_Alloc>::c_str' to create a pointer to member
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-     1>Worker.cpp(56): error C3867: 'std::basic_string<_Elem,_Traits,_Alloc>::c_str': function call missing argument list; use '&std::basic_string<_Elem,_Traits,_Alloc>::c_str' to create a pointer to member
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-     1>Worker.cpp(57): error C3867: 'std::basic_string<_Elem,_Traits,_Alloc>::c_str': function call missing argument list; use '&std::basic_string<_Elem,_Traits,_Alloc>::c_str' to create a pointer to member
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-     1>Worker.cpp(68): error C2561: 'Worker::addTask' : function must return a value
-                 c:\users\daniel\desktop\worker plus parser not done\updateeasydone\Worker.h(56) : see declaration of 'Worker::addTask'
-     1>Done Building Project "C:\Users\DANIEL\Desktop\Worker plus parser not done\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
+     1>c:\users\simanthika\desktop\omg\updateeasydone\Worker.h(58): error C2061: syntax error : identifier 'Task'
+     1>Worker.cpp(48): error C2450: switch expression of type 'std::string' is illegal
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>Worker.cpp(49): error C2051: case expression not constant
+     1>Worker.cpp(50): error C2660: 'Worker::addTask' : function does not take 0 arguments
+     1>Worker.cpp(52): error C2143: syntax error : missing ';' before 'break'
+     1>Worker.cpp(53): error C2051: case expression not constant
+     1>Worker.cpp(54): error C2374: 'successful' : redefinition; multiple initialization
+                 Worker.cpp(50) : see declaration of 'successful'
+     1>Worker.cpp(54): error C2660: 'Worker::removeTaskWithIndex' : function does not take 0 arguments
+     1>Worker.cpp(56): error C2051: case expression not constant
+     1>Worker.cpp(58): error C2051: case expression not constant
+     1>Worker.cpp(60): error C2361: initialization of 'successful' is skipped by 'default' label
+                 Worker.cpp(54) : see declaration of 'successful'
+     1>Worker.cpp(60): error C2361: initialization of 'returnstring' is skipped by 'default' label
+                 Worker.cpp(51) : see declaration of 'returnstring'
+                 Worker.cpp(50) : see declaration of 'successful'
+     1>Worker.cpp(68): warning C4065: switch statement contains 'default' but no 'case' labels
+     1>Worker.cpp(71): error C2556: 'bool Worker::addTask(std::string,std::string,std::string,std::string,std::string)' : overloaded function differs only by return type from 'std::string Worker::addTask(std::string,std::string,std::string,std::string,std::string)'
+                 c:\users\simanthika\desktop\omg\updateeasydone\Worker.h(49) : see declaration of 'Worker::addTask'
+     1>Worker.cpp(71): error C2371: 'Worker::addTask' : redefinition; different basic types
+                 c:\users\simanthika\desktop\omg\updateeasydone\Worker.h(49) : see declaration of 'Worker::addTask'
+     1>Worker.cpp(71): error C2333: 'Worker::addTask' : error in function declaration; skipping function body
+     1>Worker.cpp(77): error C2601: 'Worker::removeTaskWithIndex' : local function definitions are illegal
+                 Worker.cpp(45): this line contains a '{' which has not yet been matched
+     1>Worker.cpp(90): error C2601: 'Worker::updateTaskWithIndex' : local function definitions are illegal
+                 Worker.cpp(45): this line contains a '{' which has not yet been matched
+     1>Worker.cpp(121): error C2601: 'Worker::markDoneTaskWithIndex' : local function definitions are illegal
+                 Worker.cpp(45): this line contains a '{' which has not yet been matched
+     1>Worker.cpp(132): error C2601: 'Worker::issueNewIndex' : local function definitions are illegal
+                 Worker.cpp(45): this line contains a '{' which has not yet been matched
+     1>Worker.cpp(196): fatal error C1075: end of file found before the left brace '{' at 'Worker.cpp(45)' was matched
+         Generating Code...
+     1>c:\users\simanthika\desktop\omg\updateeasydone\parser.cpp(41): warning C4715: 'Parser::userCommand' : not all control paths return a value
+     1>c:\users\simanthika\desktop\omg\updateeasydone\parser.cpp(98): warning C4715: 'Parser::parseCommand' : not all control paths return a value
+     1>Done Building Project "C:\Users\simanthika\Desktop\omg\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:02.52
+Time Elapsed 00:00:10.81

@@ -11,30 +11,24 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Store.h"
+#include "Store.h" 
 
 using namespace std;
 
 class Worker {
 private:
 
-	typedef struct Task {
-		int index;
-		string taskName;
-		string venue;	
-		int date;
-		int month;
-		int year;
-		int startTime;
-		int endTime;
-		string isCompleted;		
-		//bool hasAvailableSlot;		
-	};
+	
+	Store todoList;
 
-	vector<Task> todoList;
-	vector<Task>::iterator iter;
-	vector<string> input;
-	Store tasksStorage;
+	//variables to store the various components from parsedCommandstring
+	string command;
+	string taskName;
+	string day;
+	string month;
+	string year;
+	string venue;
+
 	int taskIndexIssuer;
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;
@@ -42,7 +36,6 @@ private:
 	static const string MESSAGE_UPDATED_SUCCESSFULLY;
 	static const string MESSAGE_CHECKED_SUCCESSFULLY;
 	static const string NULL_STRING;
-	static const string MESSAGE_ERROR;
 
 
 public:
@@ -51,19 +44,18 @@ public:
 	~Worker();
 
 	// todoList functions
-	string takeparsedCommand(vector<string>);
-	//string addTask(string taskName, string venue, int day, int month, int year, int startTime, int endTime);
-	string addTask(vector<string> input);
+	string takeparsedCommand(vector<string> fromManager);
+	string actonCommand(string command);
+	string addTask(string taskName, string day, string month, string year, string venue);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
 	string markDoneTaskWithIndex(int index);
-	void displayTaskWithIndex(int index);
+	//vector<string> displayTaskWithIndex(int index);
 
 	// support functions
 	int issueNewIndex();
 	int searchTasks(string keyword);
 	bool checkListForSlotFor(Task newTask);
-
 };
 
 #endif
