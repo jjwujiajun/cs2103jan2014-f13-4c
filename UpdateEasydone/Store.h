@@ -20,7 +20,7 @@ class Store {
 			int index;
 			int startTime;
 			int endTime;
-			int day;
+			int date;
 			int month;
 			int year;
 		};
@@ -36,7 +36,7 @@ class Store {
 		string getTaskVenue(vector<Task> taskList, int index);
 		int getStartTime(vector<Task> taskList, int index);
 		int getEndTime(vector<Task> taskList, int index);
-		int getDay(vector<Task> taskList, int index);
+		int getDate(vector<Task> taskList, int index);
 		int getMonth(vector<Task> taskList, int index);
 		int getYear(vector<Task> tasklist, int index);
 

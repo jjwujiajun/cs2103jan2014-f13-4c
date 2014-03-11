@@ -36,9 +36,9 @@ int Store::getEndTime(vector<Task> taskList, int index)
 	return endTime;
 }
 
-int Store::getDay(vector<Task> taskList, int index)
+int Store::getDate(vector<Task> taskList, int index)
 {
-	int day = taskList[index].day;
+	int day = taskList[index].date;
 	
 	return day;
 }

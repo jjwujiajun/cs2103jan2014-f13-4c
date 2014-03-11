@@ -27,7 +27,7 @@ Worker::Worker() {
 		todoList[i].index = i+1;
 		todoList[i].taskName = Task.getTaskName;
 		todoList[i].venue = Task.getTaskVenue;
-		todoList[i].date = Task.getDay;
+		todoList[i].date = Task.getDate;
 		todoList[i].month = Task.getMonth;
 		todoList[i].year = Task.getYear;
 		todoList[i].startTime = Task.getStartTime;
@@ -49,22 +49,17 @@ string Worker::addTask(vector<string> input) {
 	
 	Task newTask;
 
-	newTask.index = index;
-	newTask.taskName = taskName;
-	newTask.venue = venue;
-	newTask.date = date;
-	newTask.month = month;
-	newTask.year = year;
-	newTask.startTime = startTime;
-	newTask.endTime = endTime;
+	newTask.index = atoi(input[0].c_str);
+	newTask.taskName = input[1];
+	newTask.venue = input[2];
+	newTask.date = atoi(input[3].c_str);
+	newTask.month = atoi(input[4].c_str);
+	newTask.year = atoi(input[5].c_str);
+	newTask.startTime =  atoi(input[6].c_str()); // convert string to integer
+	newTask.endTime = atoi(input[7].c_str());
 	
 	// Put conversion in parser
-	newTask.startTime =  atoi(startTime.c_str()); // convert string to integer
-	newTask.startDate = atoi(startDate.c_str());
-	newTask.endTime = atoi(endTime.c_str());
-	newTask.endDate = atoi(endDate.c_str());
 	
-
 	todoList.push_back(newTask);
 
 	return MESSAGE_ADDED_SUCCESSFULLY;
