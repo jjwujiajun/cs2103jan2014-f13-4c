@@ -1,3 +1,6 @@
+#include <string>
+#include "Manager.h"
+
 #pragma once
 
 namespace GUI {
@@ -21,6 +24,7 @@ namespace GUI {
 			//
 			//TODO: Add the constructor code here
 			//
+			manager = new Manager();
 		}
 
 	protected:
@@ -34,9 +38,20 @@ namespace GUI {
 				delete components;
 			}
 		}
+
+	public:
+		void MarshalString ( String ^ s, string& os ) {
+		   using namespace Runtime::InteropServices;
+		   const char* chars = 
+			  (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+		   os = chars;
+		   Marshal::FreeHGlobal(IntPtr((void*)chars));
+		}
+
+	private: Manager *manager;
 	private: System::Windows::Forms::TextBox^  inputField;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::ListView^  listView1;
+	private: System::Windows::Forms::TextBox^  feedbackBox;
+	private: System::Windows::Forms::ListView^  taskList;
 	private: System::Windows::Forms::ColumnHeader^  index;
 	private: System::Windows::Forms::ColumnHeader^  startDate;
 	private: System::Windows::Forms::ColumnHeader^  startTime;
@@ -58,8 +73,8 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			this->inputField = (gcnew System::Windows::Forms::TextBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->listView1 = (gcnew System::Windows::Forms::ListView());
+			this->feedbackBox = (gcnew System::Windows::Forms::TextBox());
+			this->taskList = (gcnew System::Windows::Forms::ListView());
 			this->index = (gcnew System::Windows::Forms::ColumnHeader());
 			this->startDate = (gcnew System::Windows::Forms::ColumnHeader());
 			this->startTime = (gcnew System::Windows::Forms::ColumnHeader());
@@ -75,30 +90,31 @@ namespace GUI {
 			this->inputField->Name = L"inputField";
 			this->inputField->Size = System::Drawing::Size(351, 20);
 			this->inputField->TabIndex = 0;
+			this->inputField->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Interface::enterPressed);
 			// 
-			// textBox1
+			// feedbackBox
 			// 
-			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) 
+			this->feedbackBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->textBox1->Location = System::Drawing::Point(12, 455);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(351, 94);
-			this->textBox1->TabIndex = 1;
+			this->feedbackBox->Location = System::Drawing::Point(12, 455);
+			this->feedbackBox->Multiline = true;
+			this->feedbackBox->Name = L"feedbackBox";
+			this->feedbackBox->Size = System::Drawing::Size(351, 94);
+			this->feedbackBox->TabIndex = 1;
 			// 
-			// listView1
+			// taskList
 			// 
-			this->listView1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+			this->taskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
 				| System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->listView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(4) {this->index, this->startDate, 
+			this->taskList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(4) {this->index, this->startDate, 
 				this->startTime, this->task});
-			this->listView1->Location = System::Drawing::Point(12, 38);
-			this->listView1->Name = L"listView1";
-			this->listView1->Size = System::Drawing::Size(351, 409);
-			this->listView1->TabIndex = 2;
-			this->listView1->UseCompatibleStateImageBehavior = false;
-			this->listView1->View = System::Windows::Forms::View::Details;
+			this->taskList->Location = System::Drawing::Point(12, 38);
+			this->taskList->Name = L"taskList";
+			this->taskList->Size = System::Drawing::Size(351, 409);
+			this->taskList->TabIndex = 2;
+			this->taskList->UseCompatibleStateImageBehavior = false;
+			this->taskList->View = System::Windows::Forms::View::Details;
 			// 
 			// index
 			// 
@@ -141,8 +157,8 @@ namespace GUI {
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
 			this->Controls->Add(this->title);
-			this->Controls->Add(this->listView1);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->taskList);
+			this->Controls->Add(this->feedbackBox);
 			this->Controls->Add(this->inputField);
 			this->MaximizeBox = false;
 			this->Name = L"Interface";
@@ -151,5 +167,16 @@ namespace GUI {
 
 		}
 #pragma endregion
-	};
+	private: System::Void enterPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
+				 if (keyPressed->KeyCode == Keys::Enter) {
+					 String ^inputString;
+					 std::string convertedInputString;
+
+					 inputString = inputField->Text;
+					 MarshalString(inputString, convertedInputString);
+
+					 manager->receiveInput(convertedInputString);
+				 }
+			 }
+};
 }
