@@ -53,7 +53,7 @@ public:
 	// todoList functions
 	string takeparsedCommand(vector<string>);
 	//string addTask(string taskName, string venue, int day, int month, int year, int startTime, int endTime);
-	string addTask(vector <string> input);
+	string addTask(vector<string> input);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
 	string markDoneTaskWithIndex(int index);

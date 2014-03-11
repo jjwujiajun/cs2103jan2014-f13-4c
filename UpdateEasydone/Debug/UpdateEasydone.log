@@ -1,21 +1,154 @@
-﻿Build started 9/3/2014 10:47:39 PM.
-     1>Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
+﻿Build started 11/3/2014 3:33:31 PM.
+     1>Project "C:\Users\DANIEL\Desktop\Worker plus parser not done\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib FileHandler.cpp Manager.cpp
-         FileHandler.cpp
-         Manager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Store.cpp Worker.cpp
+         Store.cpp
+         Worker.cpp
+     1>Worker.cpp(24): error C2039: 'storageSize' : is not a member of 'Store'
+                 c:\users\daniel\desktop\worker plus parser not done\updateeasydone\Store.h(13) : see declaration of 'Store'
+     1>Worker.cpp(28): error C3867: 'Store::getTaskName': function call missing argument list; use '&Store::getTaskName' to create a pointer to member
+     1>Worker.cpp(28): error C2679: binary '=' : no operator found which takes a right-hand operand of type 'std::string (__thiscall Store::* )(std::vector<_Ty>,int)' (or there is no acceptable conversion)
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(912): could be 'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(std::basic_string<_Elem,_Traits,_Alloc> &&) throw()'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(969): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const std::basic_string<_Elem,_Traits,_Alloc> &)'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(987): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const _Elem *)'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(992): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(_Elem)'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 while trying to match the argument list '(std::string, std::string (__thiscall Store::* )(std::vector<_Ty>,int))'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+     1>Worker.cpp(29): error C3867: 'Store::getTaskVenue': function call missing argument list; use '&Store::getTaskVenue' to create a pointer to member
+     1>Worker.cpp(29): error C2679: binary '=' : no operator found which takes a right-hand operand of type 'std::string (__thiscall Store::* )(std::vector<_Ty>,int)' (or there is no acceptable conversion)
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(912): could be 'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(std::basic_string<_Elem,_Traits,_Alloc> &&) throw()'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(969): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const std::basic_string<_Elem,_Traits,_Alloc> &)'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(987): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(const _Elem *)'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring(992): or       'std::basic_string<_Elem,_Traits,_Alloc> &std::basic_string<_Elem,_Traits,_Alloc>::operator =(_Elem)'
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 while trying to match the argument list '(std::string, std::string (__thiscall Store::* )(std::vector<_Ty>,int))'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+     1>Worker.cpp(30): error C3867: 'Store::getDay': function call missing argument list; use '&Store::getDay' to create a pointer to member
+     1>Worker.cpp(30): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 There is no context in which this conversion is possible
+     1>Worker.cpp(31): error C3867: 'Store::getMonth': function call missing argument list; use '&Store::getMonth' to create a pointer to member
+     1>Worker.cpp(31): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 There is no context in which this conversion is possible
+     1>Worker.cpp(32): error C3867: 'Store::getYear': function call missing argument list; use '&Store::getYear' to create a pointer to member
+     1>Worker.cpp(32): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 There is no context in which this conversion is possible
+     1>Worker.cpp(33): error C3867: 'Store::getStartTime': function call missing argument list; use '&Store::getStartTime' to create a pointer to member
+     1>Worker.cpp(33): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 There is no context in which this conversion is possible
+     1>Worker.cpp(34): error C3867: 'Store::getEndTime': function call missing argument list; use '&Store::getEndTime' to create a pointer to member
+     1>Worker.cpp(34): error C2440: '=' : cannot convert from 'int (__thiscall Store::* )(std::vector<_Ty>,int)' to 'int'
+                 with
+                 [
+                     _Ty=Store::Task
+                 ]
+                 There is no context in which this conversion is possible
+     1>Worker.cpp(52): error C2065: 'index' : undeclared identifier
+     1>Worker.cpp(53): error C2065: 'taskName' : undeclared identifier
+     1>Worker.cpp(54): error C2065: 'venue' : undeclared identifier
+     1>Worker.cpp(55): error C2065: 'date' : undeclared identifier
+     1>Worker.cpp(56): error C2065: 'month' : undeclared identifier
+     1>Worker.cpp(57): error C2065: 'year' : undeclared identifier
+     1>Worker.cpp(58): error C2065: 'startTime' : undeclared identifier
+     1>Worker.cpp(59): error C2065: 'endTime' : undeclared identifier
+     1>Worker.cpp(62): error C2065: 'startTime' : undeclared identifier
+     1>Worker.cpp(62): error C2228: left of '.c_str' must have class/struct/union
+                 type is ''unknown-type''
+     1>Worker.cpp(63): error C2039: 'startDate' : is not a member of 'Worker::Task'
+                 c:\users\daniel\desktop\worker plus parser not done\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
+     1>Worker.cpp(63): error C2065: 'startDate' : undeclared identifier
+     1>Worker.cpp(63): error C2228: left of '.c_str' must have class/struct/union
+                 type is ''unknown-type''
+     1>Worker.cpp(64): error C2065: 'endTime' : undeclared identifier
+     1>Worker.cpp(64): error C2228: left of '.c_str' must have class/struct/union
+                 type is ''unknown-type''
+     1>Worker.cpp(65): error C2039: 'endDate' : is not a member of 'Worker::Task'
+                 c:\users\daniel\desktop\worker plus parser not done\updateeasydone\Worker.h(21) : see declaration of 'Worker::Task'
+     1>Worker.cpp(65): error C2065: 'endDate' : undeclared identifier
+     1>Worker.cpp(65): error C2228: left of '.c_str' must have class/struct/union
+                 type is ''unknown-type''
+     1>Worker.cpp(73): error C2561: 'Worker::addTask' : function must return a value
+                 c:\users\daniel\desktop\worker plus parser not done\updateeasydone\Worker.h(56) : see declaration of 'Worker::addTask'
          Generating Code...
-     1>c:\users\daniel\desktop\new folder\updateeasydone\manager.cpp(66): warning C4700: uninitialized local variable 'continue_running' used
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\FileHandler.obj
-         Debug\Manager.obj
-         Debug\Parser.obj
-         Debug\Store.obj
-         Debug\Worker.obj
-         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
-         UpdateEasydone.vcxproj -> C:\Users\DANIEL\Desktop\New folder\Debug\UpdateEasydone.exe
-     1>Done Building Project "C:\Users\DANIEL\Desktop\New folder\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
+     1>c:\users\daniel\desktop\worker plus parser not done\updateeasydone\store.cpp(6): warning C4700: uninitialized local variable 'index' used
+     1>Done Building Project "C:\Users\DANIEL\Desktop\Worker plus parser not done\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:05.99
+Time Elapsed 00:00:03.62

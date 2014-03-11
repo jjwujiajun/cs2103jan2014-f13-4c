@@ -19,23 +19,23 @@ const int NULL_DATE = -1;
 // const string Parser::MESSAGE_DELETE = "delete";
 
 Worker::Worker() {
-	/*
-	//Jobs Task;
+	
+	Store Task;
 	taskIndexIssuer = Task.storageSize();
 
 	for(int i=0; i<taskIndexIssuer; i++) {
 		todoList[i].index = i+1;
-		todoList[i].taskName = Task.taskname();
-		todoList[i].venue = Task.venue();
-		todoList[i].date = Task.date();
-		todoList[i].month = Task.month();
-		todoList[i].year = Task.year();
-		todoList[i].startTime = Task.startTime();
-		todoList[i].endTime = Task.endTime();
-		todoList[i].isCompleted = Task.isCompleted();
+		todoList[i].taskName = Task.getTaskName;
+		todoList[i].venue = Task.getTaskVenue;
+		todoList[i].date = Task.getDay;
+		todoList[i].month = Task.getMonth;
+		todoList[i].year = Task.getYear;
+		todoList[i].startTime = Task.getStartTime;
+		todoList[i].endTime = Task.getEndTime;
+	//	todoList[i].isCompleted = Task.isCompleted();
 	//	todoList[i].hasAvailableSlot = Task.hasAvailableSlot();
 	}
-	*/
+	
 }
 
 Worker::~Worker() {
@@ -46,10 +46,10 @@ Worker::~Worker() {
 
 // todoList functions
 string Worker::addTask(vector<string> input) {
-	/*
+	
 	Task newTask;
 
-	newTask.index = 
+	newTask.index = index;
 	newTask.taskName = taskName;
 	newTask.venue = venue;
 	newTask.date = date;
@@ -58,7 +58,7 @@ string Worker::addTask(vector<string> input) {
 	newTask.startTime = startTime;
 	newTask.endTime = endTime;
 	
-	 Put conversion in parser
+	// Put conversion in parser
 	newTask.startTime =  atoi(startTime.c_str()); // convert string to integer
 	newTask.startDate = atoi(startDate.c_str());
 	newTask.endTime = atoi(endTime.c_str());
@@ -69,9 +69,8 @@ string Worker::addTask(vector<string> input) {
 
 	return MESSAGE_ADDED_SUCCESSFULLY;
 
-	*/
-	string a;
-	return a;
+	
+	return;
 
 }
 

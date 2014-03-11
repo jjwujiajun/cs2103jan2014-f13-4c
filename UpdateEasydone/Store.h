@@ -15,7 +15,6 @@ class Store {
 
 		typedef struct Task{
 
-
 			string taskName;
 			string venue;
 			int index;
@@ -28,14 +27,15 @@ class Store {
 		
 		vector<Task> taskList;
 	
+	
 	public:
 		
 
 		int getIndex(vector<Task> taskList);
-		string getTaskname(vector<Task> taskList,int index);
-		string getTaskvenue(vector<Task> taskList, int index);
-		int getStarttime(vector<Task> taskList, int index);
-		int getEndtime(vector<Task> taskList, int index);
+		string getTaskName(vector<Task> taskList,int index);
+		string getTaskVenue(vector<Task> taskList, int index);
+		int getStartTime(vector<Task> taskList, int index);
+		int getEndTime(vector<Task> taskList, int index);
 		int getDay(vector<Task> taskList, int index);
 		int getMonth(vector<Task> taskList, int index);
 		int getYear(vector<Task> tasklist, int index);

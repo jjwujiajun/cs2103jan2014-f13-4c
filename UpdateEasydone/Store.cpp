@@ -8,13 +8,13 @@ int Store::getIndex(vector<Task> taskList) {
 	return index;
 }
 
-string Store::getTaskname(vector<Task> taskList, int index) {
+string Store::getTaskName(vector<Task> taskList, int index) {
 	
 	string taskName = taskList[index].taskName;
 
 	return taskName;
 }
-string Store::getTaskvenue(vector<Task> taskList, int index) {
+string Store::getTaskVenue(vector<Task> taskList, int index) {
 	
 	string taskVenue = taskList[index].venue;
 
@@ -22,14 +22,14 @@ string Store::getTaskvenue(vector<Task> taskList, int index) {
 
 }
 
-int Store::getStarttime(vector<Task> taskList, int index)
+int Store::getStartTime(vector<Task> taskList, int index)
 {
 	int startTime=  taskList[index].startTime;
 	
 	return startTime;
 }
 
-int Store::getEndtime(vector<Task> taskList, int index)
+int Store::getEndTime(vector<Task> taskList, int index)
 {
 	int endTime=  taskList[index].startTime;
 	
