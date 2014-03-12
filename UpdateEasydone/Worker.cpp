@@ -16,7 +16,7 @@ const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your E
 const int NULL_DATE = -1;
 
 // const string Parser::MESSAGE_DELETE = "delete";
-
+/* JJ
 Worker::Worker() {
 
 
@@ -83,7 +83,7 @@ string Worker::removeTaskWithIndex(int index) {
 	}
 	//cout << Error: Task cannot be found.
 	}*/
-
+/* JJ
 	return MESSAGE_DELETED_SUCCESSFULLY;
 }
 
@@ -114,7 +114,7 @@ string Worker::updateTaskWithIndex(int index, string update, string updateField)
 	if (endTime != NULL_DATE) {
 	todoList[item].endTime = endTime;
 	}*/
-
+/* 
 	return MESSAGE_UPDATED_SUCCESSFULLY;
 }
 
@@ -124,7 +124,7 @@ string Worker::markDoneTaskWithIndex(int index) {
 	if (todoList[item].isCompleted == false) {
 	todoList[item].isCompleted = true;
 	}*/
-
+/*
 	return MESSAGE_CHECKED_SUCCESSFULLY;
 }
 
