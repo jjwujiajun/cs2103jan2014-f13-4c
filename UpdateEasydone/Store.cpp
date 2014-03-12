@@ -1,7 +1,7 @@
 #include "Store.h"
 
 
-
+/*
 string Store::getTaskName(int index) {
 	
 	string taskName1 = taskList[index].taskName;
@@ -43,3 +43,4 @@ Task Store::accessSlot(int slot) {
 
 	return taskList.[slot];
 }
+*/

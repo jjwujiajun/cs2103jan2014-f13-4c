@@ -219,12 +219,17 @@ bool Parser::parseDetails (string userInput) {
     }
 
 	// check if vector is filled with information
+	/*
 	if (userInformation.size != 0)
 			{
 				MESSAGE_SUCCESSFUL;
 			} else { 
 				MESSAGE_ERROR;
-			}
+			}*/
+
+
+
+	return 1;
   
 }
 

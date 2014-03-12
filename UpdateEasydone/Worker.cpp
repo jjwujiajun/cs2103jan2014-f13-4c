@@ -41,12 +41,12 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	string returnStringtomain = actonCommand(command);
 
-
+	return returnStringtomain;
 }
 
 string Worker::actonCommand(string command)
 {
-
+	/*
 
 	if(command == "add" || "create" ) {
 		successful = addTask();
@@ -68,14 +68,16 @@ string Worker::actonCommand(string command)
 		
 
 	return successful;
+	*/
 
+	return "abc";
 }
 	
 
 
 
 string Worker::addTask() {
-
+	/*
 
 	int vectindexofNexttask = todoList.getSize() - 1;
 
@@ -93,7 +95,7 @@ string Worker::addTask() {
 
 
 
-
+	*/
 
 	
 	return "abds";
@@ -148,10 +150,11 @@ string Worker::updateTaskWithIndex(int index, string update, string updateField)
 
 
 int Worker::issueNewIndex(){
-	
+	/*
 	int size_todoList =  todoList.getSize();
 	int newindex = size_todoList++;
-
+	*/
+	return 1;
 }
 
 
