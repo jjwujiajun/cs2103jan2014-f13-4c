@@ -22,18 +22,12 @@ private:
 	Store todoList;
 
 	//variables to store the various components from parsedCommandstring
-	string command; //vector index 0
-	string taskName; //vector index 1
-	string startDate; //vector index 2
-	string startTime; //vector index 3
-	string endDate; //vector index 4
-	string endTime; //vector index 5
-	string index; //vector index 6
-	string fieldtoUupdate; //vector index 7
-	string updateContent; //vector index 8
-
-	string successful;
-
+	string command;
+	string taskName;
+	string day;
+	string month;
+	string year;
+	string venue;
 
 	int taskIndexIssuer;
 
@@ -49,17 +43,19 @@ public:
 	Worker();
 	~Worker();
 
-	// todoList function
-	string addTask();
+	// todoList functions
+	string takeparsedCommand(vector<string> fromManager);
+	string actonCommand(string command);
+	string addTask(string taskName, string day, string month, string year, string venue);
 	string removeTaskWithIndex(int index);
 	string updateTaskWithIndex(int index, string update, string fieldUpdate);
+	string markDoneTaskWithIndex(int index);
 	//vector<string> displayTaskWithIndex(int index);
 
 	// support functions
-	string takeparsedCommand(vector<string> fromManager);
-	string actonCommand(string command);
 	int issueNewIndex();
 	int searchTasks(string keyword);
+	bool checkListForSlotFor(Task newTask);
 };
 
 #endif
