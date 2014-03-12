@@ -34,11 +34,11 @@ class Store {
 		
 		int getIndex(vector<Task> taskList);
 		string getTaskName(int index);
-		int getStartDate(int index);
-		int getStartTime(int index);
-		int getEndDate(int index);
-		int getEndTime(int index);
-		int getSize();
+		string getStartDate(int index);
+		string getStartTime(int index);
+		string getEndDate(int index);
+		string getEndTime(int index);
+		string getSize();
 		Task accessSlot(int slot); 
 	
 };
