@@ -1,47 +1,30 @@
-﻿Build started 12/03/2014 17:34:37.
+﻿Build started 12/03/2014 19:41:32.
      1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib Manager.cpp Store.cpp Worker.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib FileHandler.cpp Manager.cpp Parser.cpp Store.cpp Worker.cpp
+         FileHandler.cpp
          Manager.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Worker.h(58): error C2061: syntax error : identifier 'Task'
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
+         Parser.cpp
+     1>Parser.cpp(98): warning C4101: 'index' : unreferenced local variable
          Store.cpp
-     1>Store.cpp(62): error C2059: syntax error : ']'
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
          Worker.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Worker.h(58): error C2061: syntax error : identifier 'Task'
-     1>Worker.cpp(48): error C2450: switch expression of type 'std::string' is illegal
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>Worker.cpp(49): error C2051: case expression not constant
-     1>Worker.cpp(50): error C2660: 'Worker::addTask' : function does not take 0 arguments
-     1>Worker.cpp(52): error C2143: syntax error : missing ';' before 'break'
-     1>Worker.cpp(53): error C2051: case expression not constant
-     1>Worker.cpp(54): error C2374: 'successful' : redefinition; multiple initialization
-                 Worker.cpp(50) : see declaration of 'successful'
-     1>Worker.cpp(54): error C2660: 'Worker::removeTaskWithIndex' : function does not take 0 arguments
-     1>Worker.cpp(56): error C2051: case expression not constant
-     1>Worker.cpp(58): error C2051: case expression not constant
-     1>Worker.cpp(60): error C2361: initialization of 'successful' is skipped by 'default' label
-                 Worker.cpp(54) : see declaration of 'successful'
-     1>Worker.cpp(60): error C2361: initialization of 'returnstring' is skipped by 'default' label
-                 Worker.cpp(51) : see declaration of 'returnstring'
-                 Worker.cpp(50) : see declaration of 'successful'
-     1>Worker.cpp(68): warning C4065: switch statement contains 'default' but no 'case' labels
-     1>Worker.cpp(71): error C2556: 'bool Worker::addTask(std::string,std::string,std::string,std::string,std::string)' : overloaded function differs only by return type from 'std::string Worker::addTask(std::string,std::string,std::string,std::string,std::string)'
-                 c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Worker.h(49) : see declaration of 'Worker::addTask'
-     1>Worker.cpp(71): error C2371: 'Worker::addTask' : redefinition; different basic types
-                 c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Worker.h(49) : see declaration of 'Worker::addTask'
-     1>Worker.cpp(71): error C2333: 'Worker::addTask' : error in function declaration; skipping function body
-     1>Worker.cpp(77): error C2601: 'Worker::removeTaskWithIndex' : local function definitions are illegal
-                 Worker.cpp(45): this line contains a '{' which has not yet been matched
-     1>Worker.cpp(90): error C2601: 'Worker::updateTaskWithIndex' : local function definitions are illegal
-                 Worker.cpp(45): this line contains a '{' which has not yet been matched
-     1>Worker.cpp(121): error C2601: 'Worker::markDoneTaskWithIndex' : local function definitions are illegal
-                 Worker.cpp(45): this line contains a '{' which has not yet been matched
-     1>Worker.cpp(132): error C2601: 'Worker::issueNewIndex' : local function definitions are illegal
-                 Worker.cpp(45): this line contains a '{' which has not yet been matched
-     1>Worker.cpp(196): fatal error C1075: end of file found before the left brace '{' at 'Worker.cpp(45)' was matched
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\Store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
          Generating Code...
-     1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)) -- FAILED.
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\updateeasydone\manager.cpp(66): warning C4700: uninitialized local variable 'continue_running' used
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /TP /analyze- /errorReport:prompt "C:\Users\Jiajun\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cpp"
+         .NETFramework,Version=v4.5.AssemblyAttributes.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\UpdateEasydone.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\UpdateEasydone.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\FileHandler.obj
+         Debug\Manager.obj
+         Debug\Parser.obj
+         Debug\Store.obj
+         Debug\Worker.obj
+         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+         UpdateEasydone.vcxproj -> C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\UpdateEasydone.exe
+     1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UpdateEasydone\UpdateEasydone.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.85
+Time Elapsed 00:00:06.81

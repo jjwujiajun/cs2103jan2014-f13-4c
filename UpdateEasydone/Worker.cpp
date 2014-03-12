@@ -9,14 +9,14 @@ out the desired operation.
 #include "Store.h"
 
 const string Worker::NULL_STRING = "";
-const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully";
-const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully";
-const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully"; 
-const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list";
+const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) ";
+const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :)";
+const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) "; 
+const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :)";
 const int NULL_DATE = -1;
 
 // const string Parser::MESSAGE_DELETE = "delete";
-/* JJ
+
 Worker::Worker() {
 
 
@@ -31,50 +31,79 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	 command =  parsedCommandstring[0];
 	 taskName = parsedCommandstring[1];
-	 day = parsedCommandstring[2];
-	 month = parsedCommandstring[3];
-	 year = parsedCommandstring[4];
-	 venue = parsedCommandstring[5];
+	 startDate = parsedCommandstring[2];
+	 startTime = parsedCommandstring[3];
+	 endDate = parsedCommandstring[4];
+	 endTime = parsedCommandstring[5];
+	 index = parsedCommandstring[6];
+	 fieldtoUupdate = parsedCommandstring[7];
+	 updateContent = parsedCommandstring[8]; 
 
 	string returnStringtomain = actonCommand(command);
 
-
+	return returnStringtomain;
 }
 
 string Worker::actonCommand(string command)
 {
+	/*
+
+	if(command == "add" || "create" ) {
+		successful = addTask();
+		
+	}
+
+	else if(command == "delete" || "remove") {
+		successful = removeTaskWithIndex();
+	}
 
 
-	switch (command) {
-	case "add" || "create":
-		bool successful = addTask();
-		string returnstring =  "add successful!" 
-		break;
-	case "delete" || "remove":
-		bool successful = removeTaskWithIndex();
-		break;
-	case "display" || "show":
-		break;
-	case "update" || "change":
-		break;
-	default:
-		return "Please enter a valid command!";
+	else if(command == "update" || "modify") {
+		successful = updateTaskWithIndex();
+	}
 
+	else if(command ==  "display" || "show") {
+		//successful = display();
+	}
+		
 
+	return successful;
+	*/
 
-
-
-
+	return "abc";
 }
+	
 
 
-bool Worker::addTask(string taskName, string date, string month, string year, string venue){
+
+string Worker::addTask() {
+	/*
+
+	int vectindexofNexttask = todoList.getSize() - 1;
+
+	todoList.accessSlot(vectindexofNexttask).taskName = taskName;
+	todoList.accessSlot(vectindexofNexttask).startDate = startDate;
+	todoList.accessSlot(vectindexofNexttask).startTime = startTime;
+	todoList.accessSlot(vectindexofNexttask).endDate = endDate;
+	todoList.accessSlot(vectindexofNexttask).endTime = endTime;
+	ostringstream lala; 
+	lala << issueNewIndex();
+    string converting = lala.str();
+	todoList.accessSlot(vectindexofNexttask).index = converting;
+		
+	
+
+
+
+	*/
 
 	
+	return "abds";
 
 }
 
 string Worker::removeTaskWithIndex(int index) {
+
 	/*for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
 	if (iter->index == index) {
 	todoList.erase(iter);			
@@ -83,7 +112,7 @@ string Worker::removeTaskWithIndex(int index) {
 	}
 	//cout << Error: Task cannot be found.
 	}*/
-/* JJ
+
 	return MESSAGE_DELETED_SUCCESSFULLY;
 }
 
@@ -114,28 +143,18 @@ string Worker::updateTaskWithIndex(int index, string update, string updateField)
 	if (endTime != NULL_DATE) {
 	todoList[item].endTime = endTime;
 	}*/
-/* 
+
 	return MESSAGE_UPDATED_SUCCESSFULLY;
 }
 
-string Worker::markDoneTaskWithIndex(int index) {
-	/*int item = searchForTaskWithIndex(index);
-
-	if (todoList[item].isCompleted == false) {
-	todoList[item].isCompleted = true;
-	}*/
-/*
-	return MESSAGE_CHECKED_SUCCESSFULLY;
-}
 
 
 int Worker::issueNewIndex(){
-	
-	vector<string> duplicatedtodoList = todoList.getDuplicatevector(todoList);
-	int size_todoList = duplicatedtodoList.size();
-
+	/*
+	int size_todoList =  todoList.getSize();
 	int newindex = size_todoList++;
-
+	*/
+	return 1;
 }
 
 

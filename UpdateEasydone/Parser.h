@@ -27,6 +27,11 @@ private:
 	static const string MESSAGE_DELETE;
 	static const string MESSAGE_SEARCH;
 	static const string MESSAGE_CHECK;
+	static const string MESSAGE_INVALID;
+	static const string MESSAGE_SUCCESSFUL;
+	static const string MESSAGE_ERROR;
+
+
 
 public:
 	// Task
@@ -45,7 +50,7 @@ public:
 	vector<string> parsedDetails;
 
 	enum Choice{
-		ADD, READ, UPDATE, DELETE, SEARCH, CHECK
+		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, ERROR
 	};
 
 	Choice userCommand(string);
@@ -53,11 +58,14 @@ public:
 	Parser(void);
 	~Parser(void);
 	vector<string> completeParse(string userInput); 
-	int parseCommand(string userInput);
-	vector<string> parseDetails(string userInput);
-	
+	vector<string> command;
 
-	void getInput(); // gets input from user
+	// this vector of strings to store the commands and pass it back to manager
+	vector<string> parseCommand(string userInput);
+
+	// parseDetails will return if the parsing of details was successful or not
+	bool parseDetails(string userInput);
+
 
 };
 
