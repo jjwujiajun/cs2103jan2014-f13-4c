@@ -9,6 +9,8 @@ const string Parser::MESSAGE_DELETE = "delete";
 const string Parser::MESSAGE_SEARCH = "search";
 const string Parser::MESSAGE_CHECK = "check";
 const string Parser::MESSAGE_INVALID  = "Wrong command! Please enter command again ";
+const string Parser::MESSAGE_SUCCESSFUL = "Details successfully Parsed";
+const string Parser::MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
 
 
 
@@ -98,23 +100,46 @@ bool Parser::parseDetails (string userInput) {
     unsigned int tStart = 0, tEnd = 0;
     string newUserInput;
     string token;
-    string keyWord_1 ("or");
-    string KeyWord_2 ("from");
-    string keyWord_3 = ("to");
-    tEnd = userInput.find_first_of (" "); // pos not provided. Default value of 0 is used
+    string keyWord_1 ("on");
+    string keyWord_2 ("from");
+    string keyWord_3 ("to");
+	// find_first_of -> will treat the string as a set of characters served as delimters
+	// it will also find the first occurrence of a member of string within the string to which it is applied
+
+	//srting.find will find the whole set of characters and not only one character. This differs from find first of which finds the character only
+   
     switch (enumCommand) {
 
         case ADD:
+			//  arun birthday on 2014/07/03 1330 (floating task)
+			//  project meeting from 2014/07/05 1330 to 2014/07/05 1530 (timed task)
+
+			
             newUserInput = userInput.substr (4, userInput.size());
             while (tEnd != string::npos) {
-                token = newUserInput.substr (tStart, tEnd - tStart);
+				if (newUserInput.find (keyWord_1)) {
+				tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
+                // start from pos 0 to the difference between start and end. this means after each iterration, the gap decreases
+				token = newUserInput.substr (tStart, tEnd - tStart);  
                 userInformation.push_back (token);
                 cout << "push " << token << endl;
                 tStart = tEnd + 1;
-                tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
-                if (newUserInput.find_first_of (keyWord_1)) {
+				}// start of a new word
+               // tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+            
+				if (newUserInput.find (keyWord_2)) {
+					tEnd = userInput.find (keyWord_2);
+					token = newUserInput.substr (tStart, tEnd - tStart);  
+				    userInformation.push_back (token);
+					tStart = tEnd + 1;
 
-                }
+					if(newUserInput.find (keyWord_3)) {
+						newUserInput.find (keyWord_3);
+						tEnd = userInput.find (keyWord_3);
+						token = newUserInput.substr (tStart, tEnd - tStart);  
+						userInformation.push_back (token);
+					}
+				}
             }
             // print last token
             if (tStart < newUserInput.size()) {
@@ -134,13 +159,16 @@ bool Parser::parseDetails (string userInput) {
             break;
 
         case UPDATE:
+			tEnd = userInput.find_first_of (" <>");
             newUserInput = userInput.substr (7, userInput.size());
 		    while (tEnd != string::npos) {
 			    token = newUserInput.substr (tStart, tEnd - tStart);
                 userInformation.push_back (token);
                 cout << "push " << token << endl;
                 tStart = tEnd + 1;
-                tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+                tEnd = newUserInput.find_first_of (" <>", tStart); // looks from tStart position
+				//example update index<field>things to be updated
+				
 			}
 
                 if (tStart < newUserInput.size()) {
@@ -193,9 +221,9 @@ bool Parser::parseDetails (string userInput) {
 	// check if vector is filled with information
 	if (userInformation.size != 0)
 			{
-				return true;
+				MESSAGE_SUCCESSFUL;
 			} else { 
-				return false;
+				MESSAGE_ERROR;
 			}
   
 }
@@ -211,7 +239,10 @@ while(token != mystring){
 
 
 vector<string> Parser::completeParse (string userInput) {
-    parsedDetails = parseDetails (userInput); //returns details of task inputted by user in the form of a vector<string>
+	
+	// juhi helppppppppppppppppppppp
+	// what to input here?? thanks!
+    command = parseCommand(userInput); //returns details of task inputted by user in the form of a vector<string>
     return command;
 }
 

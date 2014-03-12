@@ -28,6 +28,10 @@ private:
 	static const string MESSAGE_SEARCH;
 	static const string MESSAGE_CHECK;
 	static const string MESSAGE_INVALID;
+	static const string MESSAGE_SUCCESSFUL;
+	static const string MESSAGE_ERROR;
+
+
 
 public:
 	// Task

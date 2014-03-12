@@ -1,65 +1,45 @@
 #include "Store.h"
 
 
-int Store::getIndex(vector<Task> taskList) {
-	
-	int index = taskList[index].index;
 
-	return index;
+string Store::getTaskName(int index) {
+	
+	string taskName1 = taskList[index].taskName;
+
+	return taskName1;
 }
 
-string Store::getTaskName(vector<Task> taskList, int index) {
+string Store::getStartTime(int index) {
+	string startTime1=  taskList[index].startTime;
 	
-	string taskName = taskList[index].taskName;
-
-	return taskName;
-}
-string Store::getTaskVenue(vector<Task> taskList, int index) {
-	
-	string taskVenue = taskList[index].venue;
-
-	return taskVenue;
-
+	return startTime1;
 }
 
-int Store::getStartTime(vector<Task> taskList, int index)
-{
-	int startTime=  taskList[index].startTime;
+string Store::getEndTime(int index) {
+	string endTime1=  taskList[index].startTime;
 	
-	return startTime;
+	return endTime1;
 }
 
-int Store::getEndTime(vector<Task> taskList, int index)
-{
-	int endTime=  taskList[index].startTime;
+string Store::getStartDate(int index) {
+	string startDate1 = taskList[index].startDate;
 	
-	return endTime;
+	return startDate1;
 }
 
-int Store::getDate(vector<Task> taskList, int index)
-{
-	int day = taskList[index].date;
+string Store::getEndDate(int index) {
+	string getEndDate1 = taskList[index].endDate;
 	
-	return day;
+	return getEndDate1;
 }
 
-int Store::getMonth(vector<Task> taskList, int index)
-{
-	int month = taskList[index].month;
-	
-	return month;
+int Store::getSize() {
+	int sizeoftaskList = taskList.size();
+
+	return sizeoftaskList;
 }
 
-int Store::getYear(vector<Task> taskList, int index)
-{
-	int year = taskList[index].year;
-	
-	return year;
-}
+Task Store::accessSlot(int slot) {
 
-vector<string> Store::getDuplicatevector(Store objectwhoseVect2beduplicated)
-{
-	vector<string> duplicatedVector = objectwhoseVect2beduplicated.taskList[];
-
-	return duplicatedVector;
+	return taskList.[slot];
 }
