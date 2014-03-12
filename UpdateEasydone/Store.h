@@ -10,36 +10,36 @@
 
 using namespace std;
 
-
-typedef struct Task{
-	string taskName;
-	int index;	
-	int startDate;
-	int startTime;
-	int endDate;
-	int endTime;
-	int date;
-	int month;
-	int year;
-};
-
 class Store {
-	
 	private:
+
+		typedef struct Task{
+
+			string taskName;
+			string venue;
+			int index;
+			int startTime;
+			int endTime;
+			int date;
+			int month;
+			int year;
+		};
 		
 		vector<Task> taskList;
 	
 	
 	public:
 		
+
 		int getIndex(vector<Task> taskList);
-		string getTaskName(int index);
-		string getStartDate(int index);
-		string getStartTime(int index);
-		string getEndDate(int index);
-		string getEndTime(int index);
-		string getSize();
-		Task accessSlot(int slot); 
+		string getTaskName(vector<Task> taskList,int index);
+		string getTaskVenue(vector<Task> taskList, int index);
+		int getStartTime(vector<Task> taskList, int index);
+		int getEndTime(vector<Task> taskList, int index);
+		int getDate(vector<Task> taskList, int index);
+		int getMonth(vector<Task> taskList, int index);
+		int getYear(vector<Task> tasklist, int index);
+		vector<string> getDuplicatevector (Store objectwhoseVect2beduplicated);
 	
 };
 
