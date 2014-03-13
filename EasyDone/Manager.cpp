@@ -21,7 +21,7 @@ string Manager::getUserInput() {
 	return _userInput;
 }
 
-void Manager::init(int argc, char* argv[]) {
+void Manager::init() {
  
 	bool ready = 0;
 	FileHandler Loader;
@@ -29,7 +29,7 @@ void Manager::init(int argc, char* argv[]) {
 	Worker WorkerJob;
 	bool continue_running = true;
 
-	fileName = argv[1];
+	fileName = "storageFile.txt";
 
 //This condition checks if the filename input name contains the correct extension. 
 //If not, it by default appends the extension.

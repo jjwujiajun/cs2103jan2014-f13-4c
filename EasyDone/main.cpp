@@ -2,9 +2,9 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main() {
 	Manager manager;
-	manager.init(argc, argv);
+	manager.init();
 
 	return 0;
 }

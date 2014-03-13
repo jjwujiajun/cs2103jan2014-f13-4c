@@ -43,7 +43,7 @@ public:
 	Manager(void);
 	~Manager(void);
 
-	void init(int argc, char* argv[]);
+	void init();
 	void receiveInput(string);
 	string getUserInput();
 };
