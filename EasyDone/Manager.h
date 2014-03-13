@@ -15,7 +15,6 @@ using namespace std;
 #pragma once
 class Manager {
 private:
-	string _userInput;
 
 	int indexOfTask;
 	string contentToBeUpdated;
