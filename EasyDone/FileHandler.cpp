@@ -58,7 +58,7 @@ bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt 
 		
 		for (int i=0; i<size; i++)
 		{
-			ofile << sentencesVector[i] + "\n";
+			ofile << sentencesVector[i] << endl;//+ "\n";
 		}
 			
 		ofile.close();
