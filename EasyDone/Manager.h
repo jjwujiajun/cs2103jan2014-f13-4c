@@ -15,6 +15,14 @@ using namespace std;
 #pragma once
 class Manager {
 private:
+	
+	FileHandler fileHandler;
+	Parser parser;
+	Worker worker;
+
+	string fileName;
+
+	string GUIfeedback;
 
 	int indexOfTask;
 	string contentToBeUpdated;
@@ -31,7 +39,7 @@ private:
 	vector<string> detailsFromParser;
 	//bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
 
-	string fileName;
+	
 
 	string outputMessage;
 	string KeyWord;
