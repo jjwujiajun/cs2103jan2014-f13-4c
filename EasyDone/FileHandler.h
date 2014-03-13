@@ -27,6 +27,7 @@ public:
 	void remove();
 	bool fileReady(string fileName);
 	bool diskcopy(string fileName);
+	void copyfile();
 
 };
 
