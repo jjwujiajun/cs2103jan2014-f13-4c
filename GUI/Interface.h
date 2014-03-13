@@ -22,6 +22,11 @@ namespace GUI {
 			InitializeComponent();
 			// Add the constructor code here
 			manager = new Manager();
+
+			std::string receivedFeedback = manager->getFeedback();
+			String ^feedbackToDisplay = gcnew String(receivedFeedback.c_str());
+
+			feedbackBox->Text = feedbackToDisplay;
 		}
 
 	protected:
@@ -182,15 +187,17 @@ namespace GUI {
 					 String ^inputString;
 					 String ^feedbackToDisplay;
 					 std::string convertedInputString;
-					 std::string receivedString;
+					 std::string receivedFeedback;
 
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);
 
-					 manager->receiveInput(convertedInputString);
-					 receivedString = manager->getUserInput();
+					 //manager->receiveInput(convertedInputString);
+					 //receivedFeedback = manager->getFeedback();
 
-					 feedbackToDisplay = gcnew String(receivedString.c_str());
+					 receivedFeedback = convertedInputString;
+
+					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
 					 feedbackBox->Text = feedbackToDisplay;
 					 inputField->Text = "";
 				 }

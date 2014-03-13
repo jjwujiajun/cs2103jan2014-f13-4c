@@ -29,18 +29,22 @@ private:
 	string endDate; //vector index 4
 	string endTime; //vector index 5
 	string index; //vector index 6
-	string fieldtoUupdate; //vector index 7
+	string fieldtoUpdate; //vector index 7
 	string updateContent; //vector index 8
 
 	string successful;
-
-
-	int taskIndexIssuer;
+	int newIndex;
+	int size_todoList;
+	string returnStringtomain;
+	string stringToMain;
+		
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;
 	static const string MESSAGE_DELETED_SUCCESSFULLY;
 	static const string MESSAGE_UPDATED_SUCCESSFULLY;
 	static const string MESSAGE_CHECKED_SUCCESSFULLY;
+	static const string MESSAGE_WRONG_INDEX;
+	static const string MESSAGE_ENTER_VALID_COMMAND;
 	static const string NULL_STRING;
 
 
@@ -50,16 +54,15 @@ public:
 	~Worker();
 
 	// todoList function
-	string addTask();
-	string removeTaskWithIndex(int index);
-	string updateTaskWithIndex(int index, string update, string fieldUpdate);
+	string addTask(string taskName1, string startDate1, string startTime1, string endDate1, string endTime1);
+	string removeTaskWithIndex(string index);
+	string updateTaskWithIndex(string index, string update, string fieldUpdate);
 	//vector<string> displayTaskWithIndex(int index);
 
 	// support functions
 	string takeparsedCommand(vector<string> fromManager);
 	string actonCommand(string command);
-	int issueNewIndex();
-	int searchTasks(string keyword);
+	int issueNewTaskID();
 };
 
 #endif

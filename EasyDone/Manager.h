@@ -50,7 +50,7 @@ public:
 	~Manager(void);
 
 	void init();
-	void receiveInput(string);
+	void receiveInput(string input);
 	string getFeedback();
 };
 
