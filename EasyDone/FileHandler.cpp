@@ -15,7 +15,7 @@ void FileHandler::remove() {
 	sentencesVector.erase(sentencesVector.begin() + sentencesVector.size() -1);
 }
 
-
+/*
 bool FileHandler::fileReady(string fileName) {
 	
 	bool ready = 1;
@@ -65,4 +65,4 @@ bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt 
 	}
 	
 	return 1;
-}
+}*/
