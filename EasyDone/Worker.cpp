@@ -81,7 +81,7 @@ string Worker::actonCommand(string command)
 string Worker::addTask(string taskName1,string  startDate1,string  startTime1,string  endDate1,string  endTime1) {
 
 
-	int vectindexofNexttask = todoList.getSize() - 1;
+	int vectindexofNexttask = todoList.getSize();
 
 	todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
 	todoList.accessSlot(vectindexofNexttask).startDate = startDate1;

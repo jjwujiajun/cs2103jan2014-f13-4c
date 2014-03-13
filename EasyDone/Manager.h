@@ -1,14 +1,7 @@
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <queue>
+#include "Headers.h"
+#include "FileHandler.h"
 #include "Parser.h"
 #include "Worker.h"
-#include "FileHandler.h"
 
 using namespace std;
 
@@ -24,25 +17,8 @@ private:
 	// GUI displays
 	string GUIfeedbackBox;
 
-	int indexOfTask;
-	string contentToBeUpdated;
+	//others
 	string userInput;
-	string taskName;
-	string additionalDetails;
-	//string reminder;
-	//string duplciate;		//whats a duplicate
-	string startDate;
-	string startTime;
-	string endDate;
-	string endTime;
-	string isCompleted;		// '1': task completed '0':not completed
-	vector<string> detailsFromParser;
-	//bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
-
-	string outputMessage;
-	string KeyWord;
-	vector<string> toBeDisplayed;
-	string fieldToBeUpdated;
 
 public:
 
@@ -53,13 +29,3 @@ public:
 	void receiveInput(string input);
 	string getFeedback();
 };
-
-/*
-
-
-
-
-
-
-
-*/

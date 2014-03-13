@@ -1,16 +1,7 @@
 // Worker.h
 // Worker does all the command functions like add, delete etc
 
-
-#ifndef WORKER_H
-#define WORKER_H
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <stdio.h>
-#include <string>
-#include <vector>
+#include "Headers.h"
 #include "Store.h" 
 
 using namespace std;
@@ -65,5 +56,4 @@ public:
 	int issueNewTaskID();
 };
 
-#endif
 

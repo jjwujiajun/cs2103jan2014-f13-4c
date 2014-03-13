@@ -1,16 +1,4 @@
-
-
-#ifndef STORE_H
-#define STORE_H
-
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <cctype>
-
+#include "Headers.h"
 
 using namespace std;
 
@@ -29,5 +17,3 @@ public:
 	bool diskcopy(string fileName);
 
 };
-
-#endif 

@@ -1,15 +1,8 @@
-#pragma once
-
-#ifndef _STORE_H_
-#define _STORE_H_
-
-#include <iostream>
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <iterator>
+#include "Headers.h"
 
 using namespace std;
+
+#pragma once
 
 /*typedef struct DateFormat {
 	string day;
@@ -58,6 +51,3 @@ class Store {
 		
 	
 };
-
-
-#endif

@@ -66,6 +66,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="Headers.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Store.h" />
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="Headers.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Parser.cpp" />
