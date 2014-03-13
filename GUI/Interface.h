@@ -18,12 +18,9 @@ namespace GUI {
 	public ref class Interface : public System::Windows::Forms::Form
 	{
 	public:
-		Interface(void)
-		{
+		Interface(void) {
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			// Add the constructor code here
 			manager = new Manager();
 		}
 
@@ -31,10 +28,9 @@ namespace GUI {
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~Interface()
-		{
-			if (components)
-			{
+		~Interface() {
+			delete manager;
+			if (components)	{
 				delete components;
 			}
 		}
@@ -57,7 +53,6 @@ namespace GUI {
 	private: System::Windows::Forms::ColumnHeader^  startTime;
 	private: System::Windows::Forms::ColumnHeader^  task;
 	private: System::Windows::Forms::Label^  title;
-	protected: 
 
 	private:
 		/// <summary>
@@ -177,9 +172,11 @@ namespace GUI {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
 		}
 #pragma endregion
+		//
+		// function: press enter to take in string
+		//
 	private: System::Void enterPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 				 if (keyPressed->KeyCode == Keys::Enter) {
 					 String ^inputString;
@@ -198,5 +195,5 @@ namespace GUI {
 					 inputField->Text = "";
 				 }
 			 }
-};
+	};
 }
