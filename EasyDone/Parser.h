@@ -24,18 +24,7 @@ private:
 
 
 public:
-	// Task
-	/*string _taskName;
-	//Date
-	int _startDate;
-	int _endDate;
-	//Time
-	int _startTime;
-	int _endTime;
-	//Reminder
-	string _reminder;
-	//Repeat
-	string _duplicate;*/
+	
 	int actionIndex;
 	vector<string> parsedDetails;
 
@@ -48,7 +37,7 @@ public:
 	Parser(void);
 	~Parser(void);
 	vector<string> completeParse(string userInput); 
-	vector<string> command;
+	
 
 	// this vector of strings to store the commands and pass it back to manager
 	vector<string> parseCommand(string userInput);

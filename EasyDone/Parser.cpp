@@ -61,32 +61,45 @@ vector<string> Parser::parseCommand (string userInput) {
     */
     switch (enumCommand) {
         case ADD:
-            command[0] = MESSAGE_ADD;
+            userInformation[0] = MESSAGE_ADD;
             break;
         case READ:
-            command[1] = MESSAGE_READ;
+            userInformation[0] = MESSAGE_READ;
             break;
         case UPDATE:
-            command[2] = MESSAGE_UPDATE;
+            userInformation[0] = MESSAGE_UPDATE;
             break;
         case DELETE:
-            command[3] = MESSAGE_DELETE;
+            userInformation[0] = MESSAGE_DELETE;
             break;
         case SEARCH:
-            command[4] = MESSAGE_SEARCH;
+            userInformation[0] = MESSAGE_SEARCH;
             break;
         case CHECK:
-            command[5] = MESSAGE_CHECK;
+            userInformation[0] = MESSAGE_CHECK;
             break;
         case ERROR:
             cout << MESSAGE_INVALID << endl;
             break;
     }
-    return command;
+    return userInformation;
 }
 
 
 bool Parser::parseDetails (string userInput) {
+	/*
+	 command =  parsedCommandstring[0];
+	 taskName = parsedCommandstring[1];
+	 startDate = parsedCommandstring[2];
+	 startTime = parsedCommandstring[3];
+	 endDate = parsedCommandstring[4];
+	 endTime = parsedCommandstring[5];
+	 index = parsedCommandstring[6];
+	 fieldtoUupdate = parsedCommandstring[7];
+	 updateContent = parsedCommandstring[8]; 
+	 */
+
+
     /*
     //Breaks the entire user input string into words and stores it into the vector concatedUserInformation
     istringstream iss(userInput);
@@ -94,25 +107,25 @@ bool Parser::parseDetails (string userInput) {
     */
     Choice enumCommand;
     enumCommand = userCommand (userInput);
-    int counter = 1;
     int index;
-    vector<string>::iterator iter = userInformation.begin();
+    
     unsigned int tStart = 0, tEnd = 0;
     string newUserInput;
     string token;
     string keyWord_1 ("on");
     string keyWord_2 ("from");
-    string keyWord_3 ("to");
+    string keyWord_3 ("at");
+	string keyWord_4 ("to");
 	// find_first_of -> will treat the string as a set of characters served as delimters
 	// it will also find the first occurrence of a member of string within the string to which it is applied
-
+	
 	//srting.find will find the whole set of characters and not only one character. This differs from find first of which finds the character only
    
     switch (enumCommand) {
 
         case ADD:
-			//  arun birthday on 2014/07/03 1330 (floating task)
-			//  project meeting from 2014/07/05 1330 to 2014/07/05 1530 (timed task)
+			//  arun birthday on 20140703 1330 (floating task)
+			//  project meeting from 20140705 at 1330 to 20140705 at 1530 (timed task)
 
 			
             newUserInput = userInput.substr (4, userInput.size());
@@ -121,35 +134,44 @@ bool Parser::parseDetails (string userInput) {
 				tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
                 // start from pos 0 to the difference between start and end. this means after each iterration, the gap decreases
 				token = newUserInput.substr (tStart, tEnd - tStart);  
-                userInformation.push_back (token);
+                userInformation[1] = token;
                 cout << "push " << token << endl;
                 tStart = tEnd + 1;
 				}// start of a new word
-               // tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
-            
+
+				
+               tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+			}
+            /*
+			
 				if (newUserInput.find (keyWord_2)) {
 					tEnd = userInput.find (keyWord_2);
 					token = newUserInput.substr (tStart, tEnd - tStart);  
-				    userInformation.push_back (token);
+				    userInformation[2] = token;
 					tStart = tEnd + 1;
+				}
+
+					}
 
 					if(newUserInput.find (keyWord_3)) {
 						newUserInput.find (keyWord_3);
 						tEnd = userInput.find (keyWord_3);
 						token = newUserInput.substr (tStart, tEnd - tStart);  
-						userInformation.push_back (token);
+						userInformation[3] = token;
 					}
-				}
-            }
             // print last token
             if (tStart < newUserInput.size()) {
                 userInformation.push_back (newUserInput.substr (tStart));
                 cout << "push " << token << endl;
             }
-            for (iter = userInformation.begin()+1; iter != userInformation.end(); ++iter) {
-                cout << endl << counter << ". " << *iter;
-                counter++;
-            }
+			*/
+			userInformation[2] = "0";
+			userInformation[3] = "0";
+			userInformation[4] = "0";
+			userInformation[5] = "0";
+			userInformation[6] = "0";
+			userInformation[7] = "0";
+			userInformation[8] = "0";
 
             break;
 
@@ -159,7 +181,9 @@ bool Parser::parseDetails (string userInput) {
             break;
 
         case UPDATE:
-			tEnd = userInput.find_first_of (" <>");
+			
+		//	tEnd = userInput.find_first_of (" <>");
+			/*
             newUserInput = userInput.substr (7, userInput.size());
 		    while (tEnd != string::npos) {
 			    token = newUserInput.substr (tStart, tEnd - tStart);
@@ -175,11 +199,12 @@ bool Parser::parseDetails (string userInput) {
                     userInformation.push_back (newUserInput.substr (tStart));
                     cout << "push " << token << endl;
                 }
-           
+           */
             break;
 
         case DELETE:
             newUserInput = userInput.substr (7, userInput.size());
+			/*
             while (tEnd != string::npos) {
                 token = newUserInput.substr (tStart, tEnd - tStart);
                 userInformation.push_back (token);
@@ -193,11 +218,12 @@ bool Parser::parseDetails (string userInput) {
                     cout << "push " << token << endl;
                 }
    
-
+   */
             break;
 
         case SEARCH:
             newUserInput = userInput.substr (7, userInput.size());
+			/*
             while (tEnd != string::npos) {
                 token = newUserInput.substr (tStart, tEnd - tStart);
                 userInformation.push_back (token);
@@ -210,7 +236,7 @@ bool Parser::parseDetails (string userInput) {
                     userInformation.push_back (newUserInput.substr (tStart));
                     cout << "push " << token << endl;
                 }
-
+				*/
             break;
 
         case CHECK:
@@ -239,12 +265,9 @@ while(token != mystring){
 */
 
 
-vector<string> Parser::completeParse (string userInput) {
+vector<string> Parser::completeParse(string userInput) {
 	
-	// juhi helppppppppppppppppppppp
-	// what to input here?? thanks!
-    command = parseCommand(userInput); //returns details of task inputted by user in the form of a vector<string>
-    return command;
+    return userInformation; //returns details of task inputted by user in the form of a vector<string>
 }
 
 
