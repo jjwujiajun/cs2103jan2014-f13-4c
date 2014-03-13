@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Store.cpp" />

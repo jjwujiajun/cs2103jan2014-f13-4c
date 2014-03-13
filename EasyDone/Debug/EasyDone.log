@@ -1,18 +1,17 @@
-﻿Build started 13/03/2014 15:59:55.
+﻿Build started 13/03/2014 16:17:21.
      1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FileHandler.cpp Manager.cpp Parser.cpp Store.cpp Worker.cpp
-         Worker.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
-         Store.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
-         Parser.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\parser.cpp(98): warning C4101: 'index' : unreferenced local variable
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Manager.cpp Store.cpp Worker.cpp main.cpp
          Manager.cpp
-         FileHandler.cpp
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
          Generating Code...
+         Skipping... (no relevant changes detected)
+         main.cpp
+         Worker.cpp
+         Store.cpp
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.lib" /NOLOGO Debug\FileHandler.obj
+         Debug\main.obj
          Debug\Manager.obj
          Debug\Parser.obj
          Debug\Store.obj
@@ -23,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.32
+Time Elapsed 00:00:01.15
