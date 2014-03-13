@@ -36,7 +36,7 @@ private:
 	int newIndex;
 	int size_todoList;
 	string returnStringtomain;
-	vector<Task>::iterator iter;
+
 		
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;
