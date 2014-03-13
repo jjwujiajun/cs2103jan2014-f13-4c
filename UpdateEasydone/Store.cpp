@@ -1,7 +1,7 @@
 #include "Store.h"
 
 
-/*
+
 string Store::getTaskName(int index) {
 	
 	string taskName1 = taskList[index].taskName;
@@ -30,7 +30,7 @@ string Store::getStartDate(int index) {
 string Store::getEndDate(int index) {
 	string getEndDate1 = taskList[index].endDate;
 	
-	return getEndDate1;
+	string getEndDate1;
 }
 
 int Store::getSize() {
@@ -43,4 +43,22 @@ Task Store::accessSlot(int slot) {
 
 	return taskList.[slot];
 }
-*/
+
+vector<Task>::iterator Store::getIteratorBegin() {
+	
+	iter = taskList.begin(); 
+
+	return iter;
+}
+
+vector<Task>::iterator Store::getIteratorEnd() {
+	
+	iter = taskList.end();
+}
+
+bool Store::eraser(vector<Task>::iterator iteratorPassed) {
+	
+	taskList.erase(iteratorPassed);
+	
+	return 1;
+}

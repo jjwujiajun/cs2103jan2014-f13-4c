@@ -15,6 +15,8 @@ const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successful
 const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :)";
 const int NULL_DATE = -1;
 
+
+
 // const string Parser::MESSAGE_DELETE = "delete";
 
 Worker::Worker() {
@@ -23,7 +25,7 @@ Worker::Worker() {
 }
 
 Worker::~Worker() {
-	taskIndexIssuer;	// save the state of issuer pls
+	//taskIndexIssuer;	// save the state of issuer pls
 }
 
 
@@ -39,14 +41,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 fieldtoUupdate = parsedCommandstring[7];
 	 updateContent = parsedCommandstring[8]; 
 
-	string returnStringtomain = actonCommand(command);
+	 returnStringtomain = actonCommand(command);
 
-	return returnStringtomain;
+
 }
 
 string Worker::actonCommand(string command)
 {
-	/*
+
 
 	if(command == "add" || "create" ) {
 		successful = addTask();
@@ -68,16 +70,12 @@ string Worker::actonCommand(string command)
 		
 
 	return successful;
-	*/
 
-	return "abc";
 }
 	
 
-
-
 string Worker::addTask() {
-	/*
+
 
 	int vectindexofNexttask = todoList.getSize() - 1;
 
@@ -86,34 +84,39 @@ string Worker::addTask() {
 	todoList.accessSlot(vectindexofNexttask).startTime = startTime;
 	todoList.accessSlot(vectindexofNexttask).endDate = endDate;
 	todoList.accessSlot(vectindexofNexttask).endTime = endTime;
-	ostringstream lala; 
-	lala << issueNewIndex();
-    string converting = lala.str();
-	todoList.accessSlot(vectindexofNexttask).index = converting;
+	ostringstream issuedIndex; 
+	issuedIndex << issueNewIndex();
+    string strIssuedIndex = issuedIndex.str();
+	todoList.accessSlot(vectindexofNexttask).index = strIssuedIndex;
 		
-	
-
-
-
-	*/
-
-	
-	return "abds";
+	return MESSAGE_ADDED_SUCCESSFULLY;
 
 }
 
 string Worker::removeTaskWithIndex(int index) {
 
-	/*for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
-	if (iter->index == index) {
-	todoList.erase(iter);			
-	//highly inefficient accord to c++ lib. vector efficient for accessing vector[]. List efficient for insertion/deletion
-	return;
-	}
-	//cout << Error: Task cannot be found.
-	}*/
+	bool erased;
+	string indexString = to_string(index);
 
-	return MESSAGE_DELETED_SUCCESSFULLY;
+	for(iter = todoList.getIteratorBegin; iter < todoList.getIteratorEnd(); iter++) {
+
+		if((*iter).index == indexString)
+		{
+
+			erased = todoList.eraser(iter);
+		}
+
+
+	}
+
+	if( erased == 1) {
+
+	string nameofTask = todoList.getTaskName(index); //for output
+
+	return nameofTask + MESSAGE_DELETED_SUCCESSFULLY;
+
+	}
+
 }
 
 string Worker::updateTaskWithIndex(int index, string update, string updateField) {
@@ -150,11 +153,12 @@ string Worker::updateTaskWithIndex(int index, string update, string updateField)
 
 
 int Worker::issueNewIndex(){
-	/*
-	int size_todoList =  todoList.getSize();
-	int newindex = size_todoList++;
-	*/
-	return 1;
+	
+	size_todoList =  todoList.getSize();
+	newIndex = size_todoList++;
+
+	return newIndex;
+
 }
 
 

@@ -33,9 +33,11 @@ private:
 	string updateContent; //vector index 8
 
 	string successful;
-
-
-	int taskIndexIssuer;
+	int newIndex;
+	int size_todoList;
+	string returnStringtomain;
+	vector<Task>::iterator iter;
+		
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;
 	static const string MESSAGE_DELETED_SUCCESSFULLY;
