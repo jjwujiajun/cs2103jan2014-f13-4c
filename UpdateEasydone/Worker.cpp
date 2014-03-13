@@ -43,12 +43,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	 returnStringtomain = actonCommand(command);
 
-
+	 return returnStringtomain;
 }
 
 string Worker::actonCommand(string command)
 {
-
+	int index;
+	string update, updateField;
 
 	if(command == "add" || "create" ) {
 		successful = addTask();
@@ -56,12 +57,12 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command == "delete" || "remove") {
-		successful = removeTaskWithIndex();
+		successful = removeTaskWithIndex(index);
 	}
 
 
 	else if(command == "update" || "modify") {
-		successful = updateTaskWithIndex();
+		successful = updateTaskWithIndex(index, update, updateField);
 	}
 
 	else if(command ==  "display" || "show") {
@@ -97,8 +98,8 @@ string Worker::removeTaskWithIndex(int index) {
 
 	bool erased;
 	string indexString = to_string(index);
-
-	for(iter = todoList.getIteratorBegin; iter < todoList.getIteratorEnd(); iter++) {
+	vector<Task>::iterator iter;
+	for(iter = todoList.getIteratorBegin(); iter < todoList.getIteratorEnd(); iter++) {
 
 		if((*iter).index == indexString)
 		{
