@@ -1,9 +1,36 @@
-﻿Build started 13/03/2014 21:04:08.
-     1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         EasyDone.vcxproj -> C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.exe
-     1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" (Build target(s)).
+﻿Build started 3/13/2014 9:39:43 PM.
+     1>Project "C:\Users\mountainboy\Desktop\csproject\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FileHandler.cpp main.cpp Manager.cpp Parser.cpp Store.cpp Worker.cpp
+         Worker.cpp
+         Store.cpp
+     1>c:\users\mountainboy\desktop\csproject\easydone\store.cpp(85): warning C4018: '<' : signed/unsigned mismatch
+         Parser.cpp
+     1>c:\users\mountainboy\desktop\csproject\easydone\parser.cpp(98): warning C4101: 'index' : unreferenced local variable
+         Manager.cpp
+         main.cpp
+         FileHandler.cpp
+         Generating Code...
+     1>c:\users\mountainboy\desktop\csproject\easydone\store.cpp(96): warning C4715: 'Store::accesswithTaskID' : not all control paths return a value
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mountainboy\Desktop\csproject\Debug\EasyDone.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\mountainboy\Desktop\csproject\Debug\EasyDone.pdb" /TLBID:1 /ENTRY:"main" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mountainboy\Desktop\csproject\Debug\EasyDone.lib" /MACHINE:X86 Debug\FileHandler.obj
+         Debug\main.obj
+         Debug\Manager.obj
+         Debug\Parser.obj
+         Debug\Store.obj
+         Debug\Worker.obj
+     1>msvcprtd.lib(locale0_implib.obj) : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>FileHandler.obj : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>main.obj : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>Manager.obj : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>Parser.obj : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>Store.obj : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>Worker.obj : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>msvcprtd.lib(locale0_implib.obj) : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+     1>MSVCRTD.lib(atonexit.obj) : warning LNK4210: .CRT section exists; there may be unhandled static initializers or terminators
+         EasyDone.vcxproj -> C:\Users\mountainboy\Desktop\csproject\Debug\EasyDone.exe
+     1>Done Building Project "C:\Users\mountainboy\Desktop\csproject\EasyDone\EasyDone.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.06
+Time Elapsed 00:00:09.92
