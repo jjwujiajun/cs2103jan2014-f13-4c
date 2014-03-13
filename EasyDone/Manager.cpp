@@ -1,12 +1,15 @@
 #include "Manager.h"
 using namespace std;
 
-const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!";
+const string EMPTY = "";
+const string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!\n";
 const string USER_PROMPT = "What would you like to do today?\n";
 const string KEYED_EXIT = "exit";
 const string FILE_NAME = "storageFile.txt";
 
 Manager::Manager(void) {
+	fileName = FILE_NAME;
+	GUIfeedback = EMPTY;
 }
 
 
@@ -22,22 +25,17 @@ string Manager::getUserInput() {
 }
 
 void Manager::init() {
- 
-	bool ready = 0;
-	FileHandler Loader;
-	Parser parserJob;
-	Worker workerJob;
+
+	bool isReady = false;
 	bool continue_running = true;
 
-	fileName = FILE_NAME;
-
 	while(continue_running) {
-		ready = Loader.fileReady(fileName);
+		isReady = fileHandler.fileReady(fileName);
 
-		if(ready != 0) {
+		if(isReady) {
 			while (1) {
-				cout << WELCOME_MESSAGE;
-				cout << USER_PROMPT;
+				GUIfeedback += WELCOME_MESSAGE;
+				GUIfeedback += USER_PROMPT;
 				
 				//switch(userCommand)
 				if (userInput == KEYED_EXIT){
@@ -45,8 +43,8 @@ void Manager::init() {
 					continue_running = false;
 					break;
 
-					vector<string> parsedInput  = parserJob.completeParse (userInput);
-					string jobReturn = workerJob.takeparsedCommand(parsedInput);
+					vector<string> parsedInput  = parser.completeParse (userInput);
+					string jobReturn = worker.takeparsedCommand(parsedInput);
 
 					cout << jobReturn;
 				}
