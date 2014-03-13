@@ -1,0 +1,25 @@
+﻿Build started 13/03/2014 16:17:21.
+     1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Manager.cpp Store.cpp Worker.cpp main.cpp
+         Manager.cpp
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\store.h(24): warning C4091: 'typedef ' : ignored on left of 'Task' when no variable is declared
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         main.cpp
+         Worker.cpp
+         Store.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.lib" /NOLOGO Debug\FileHandler.obj
+         Debug\main.obj
+         Debug\Manager.obj
+         Debug\Parser.obj
+         Debug\Store.obj
+         Debug\Worker.obj
+     1>Store.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+         EasyDone.vcxproj -> C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.lib
+     1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.15
