@@ -30,14 +30,14 @@ typedef struct Task {
 	string year;
 };
 
-vector<Task>::iterator iter;
+
 
 class Store {
 	
 	private:
 		
 		vector<Task> taskList;
-	
+		
 	
 	public:
 		
@@ -52,7 +52,7 @@ class Store {
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		bool eraser(vector<Task>::iterator iterPassed);
-
+		vector<Task>::iterator iter;
 	
 };
 

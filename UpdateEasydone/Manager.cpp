@@ -48,7 +48,7 @@ int main (int argc, char* argv[]) {
 	FileHandler Loader;
 	Parser ParserJob;
 	Worker WorkerJob;
-	bool continue_running;
+	bool continue_running = true;
 
 	fileName = argv[1];
 
