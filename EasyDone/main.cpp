@@ -4,7 +4,15 @@ using namespace std;
 
 int main() {
 	Manager manager;
-	manager.init();
+	string userInput;
+	
+	while(userInput != "exit") {
+		cout << manager.getFeedback();
+		cin >> userInput;
+
+		manager.receiveInput(userInput);
+		cout << manager.getFeedback();
+	}
 
 	return 0;
 }
