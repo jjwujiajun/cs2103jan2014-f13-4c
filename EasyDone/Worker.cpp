@@ -13,7 +13,11 @@ const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! 
 const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :)";
 const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) "; 
 const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :)";
-const int NULL_DATE = -1;
+const string Worker::MESSAGE_WRONG_INDEX = "Please enter a valid index!";
+const string  Worker:: MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command!";
+//const int NULL_DATE = -1;
+
+
 
 // const string Parser::MESSAGE_DELETE = "delete";
 
@@ -23,7 +27,7 @@ Worker::Worker() {
 }
 
 Worker::~Worker() {
-	taskIndexIssuer;	// save the state of issuer pls
+	//taskIndexIssuer;	// save the state of issuer pls
 }
 
 
@@ -36,30 +40,32 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 endDate = parsedCommandstring[4];
 	 endTime = parsedCommandstring[5];
 	 index = parsedCommandstring[6];
-	 fieldtoUupdate = parsedCommandstring[7];
+	 fieldtoUpdate = parsedCommandstring[7];
 	 updateContent = parsedCommandstring[8]; 
 
-	string returnStringtomain = actonCommand(command);
+	 return stringToMain = actonCommand(command);
 
-	return returnStringtomain;
+	 
+
+
 }
 
 string Worker::actonCommand(string command)
 {
-	/*
+
 
 	if(command == "add" || "create" ) {
-		successful = addTask();
+		successful = addTask(taskName, startDate, startTime, endDate, endTime);
 		
 	}
 
 	else if(command == "delete" || "remove") {
-		successful = removeTaskWithIndex();
+		successful = removeTaskWithIndex(index);
 	}
 
 
 	else if(command == "update" || "modify") {
-		successful = updateTaskWithIndex();
+		successful = updateTaskWithIndex(index, updateContent, fieldtoUpdate);
 	}
 
 	else if(command ==  "display" || "show") {
@@ -68,93 +74,101 @@ string Worker::actonCommand(string command)
 		
 
 	return successful;
-	*/
 
-	return "abc";
 }
 	
 
+string Worker::addTask(string taskName1,string  startDate1,string  startTime1,string  endDate1,string  endTime1) {
 
-
-string Worker::addTask() {
-	/*
 
 	int vectindexofNexttask = todoList.getSize() - 1;
 
-	todoList.accessSlot(vectindexofNexttask).taskName = taskName;
-	todoList.accessSlot(vectindexofNexttask).startDate = startDate;
-	todoList.accessSlot(vectindexofNexttask).startTime = startTime;
-	todoList.accessSlot(vectindexofNexttask).endDate = endDate;
-	todoList.accessSlot(vectindexofNexttask).endTime = endTime;
-	ostringstream lala; 
-	lala << issueNewIndex();
-    string converting = lala.str();
-	todoList.accessSlot(vectindexofNexttask).index = converting;
+	todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
+	todoList.accessSlot(vectindexofNexttask).startDate = startDate1;
+	todoList.accessSlot(vectindexofNexttask).startTime = startTime1;
+	todoList.accessSlot(vectindexofNexttask).endDate = endDate1;
+	todoList.accessSlot(vectindexofNexttask).endTime = endTime1;
+	ostringstream issuedIndex; 
+	issuedIndex << issueNewTaskID();
+    string strIssuedIndex = issuedIndex.str();
+	todoList.accessSlot(vectindexofNexttask).taskID = strIssuedIndex;
 		
-	
-
-
-
-	*/
-
-	
-	return "abds";
+	return MESSAGE_ADDED_SUCCESSFULLY;
 
 }
 
-string Worker::removeTaskWithIndex(int index) {
+string Worker::removeTaskWithIndex(string indexString) {
 
-	/*for (iter = todoList.begin(); iter != todoList.end(); ++iter) {
-	if (iter->index == index) {
-	todoList.erase(iter);			
-	//highly inefficient accord to c++ lib. vector efficient for accessing vector[]. List efficient for insertion/deletion
-	return;
+	bool erased;
+	vector<Task>::iterator iter;
+
+	for(iter = todoList.getIteratorBegin(); iter < todoList.getIteratorEnd(); iter++) {
+
+		if((*iter).taskID == indexString)
+		{
+
+			erased = todoList.eraser(iter);
+		}
+
+
 	}
-	//cout << Error: Task cannot be found.
-	}*/
 
-	return MESSAGE_DELETED_SUCCESSFULLY;
+	if( erased == 1) {
+
+	//string nameofTask = todoList.getTaskName(indexString); //for output
+
+	return  MESSAGE_DELETED_SUCCESSFULLY;
+
+	}
+
+	else {
+
+		return MESSAGE_WRONG_INDEX;
+	}
+
 }
 
-string Worker::updateTaskWithIndex(int index, string update, string updateField) {
-	/*int item = searchForTaskWithIndex(index);
+string Worker::updateTaskWithIndex(string index, string update, string updateField) {
+	
+	int indexInt  = atoi(index.c_str());
 
-	if (taskName != NULL_STRING) {
-	todoList[item].taskName = taskName;
+	if(updateField == taskName && index == todoList.getTaskID(indexInt) ) {
+		todoList.accesswithTaskID(indexInt).taskName =  update;
 	}
-	if (additionalDetails != NULL_STRING) {
-	todoList[item].additionalDetails = additionalDetails;
+
+	else if(updateField == startDate && index == todoList.getTaskID(indexInt)) {
+		todoList.accesswithTaskID(indexInt).startDate =  update;
 	}
-	if (reminder != NULL_STRING) {
-	todoList[item].reminder = reminder;
+
+	else if(updateField == startTime && index == todoList.getTaskID(indexInt)) {
+		todoList.accesswithTaskID(indexInt).startTime =  update;
 	}
-	if (duplicate != NULL_STRING) {
-	todoList[item].duplciate = duplicate;
+	
+	else if(updateField == endDate && index == todoList.getTaskID(indexInt)) { 
+		todoList.accesswithTaskID(indexInt).endDate =  update;
 	}
-	if (startDate != NULL_DATE) {
-	todoList[item].startDate = startDate;
+	
+	else if(updateField == endTime && index == todoList.getTaskID(indexInt) ) {
+		todoList.accesswithTaskID(indexInt).endTime =  update;
 	}
-	if (startTime != NULL_DATE) {
-	todoList[item].startTime = startTime;
-	}
-	if (endDate != NULL_DATE) {
-	todoList[item].endDate = endDate;
-	}
-	if (endTime != NULL_DATE) {
-	todoList[item].endTime = endTime;
-	}*/
+
+	else
+		return MESSAGE_ENTER_VALID_COMMAND;
+
+
 
 	return MESSAGE_UPDATED_SUCCESSFULLY;
 }
 
 
 
-int Worker::issueNewIndex(){
-	/*
-	int size_todoList =  todoList.getSize();
-	int newindex = size_todoList++;
-	*/
-	return 1;
+int Worker::issueNewTaskID(){
+	
+	size_todoList =  todoList.getSize();
+	newIndex = size_todoList++;
+
+	return newIndex;
+
 }
 
 

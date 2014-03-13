@@ -8,7 +8,7 @@ int main() {
 	
 	while(userInput != "exit") {
 		cout << manager.getFeedback();
-		cin >> userInput;
+		getline(cin, userInput);
 
 		manager.receiveInput(userInput);
 		cout << manager.getFeedback();
