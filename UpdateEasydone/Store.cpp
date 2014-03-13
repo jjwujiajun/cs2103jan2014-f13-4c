@@ -30,7 +30,7 @@ string Store::getStartDate(int index) {
 string Store::getEndDate(int index) {
 	string getEndDate1 = taskList[index].endDate;
 	
-	string getEndDate1;
+	return getEndDate1;
 }
 
 int Store::getSize() {
@@ -41,7 +41,7 @@ int Store::getSize() {
 
 Task Store::accessSlot(int slot) {
 
-	return taskList.[slot];
+	return taskList[slot];
 }
 
 vector<Task>::iterator Store::getIteratorBegin() {
@@ -54,6 +54,7 @@ vector<Task>::iterator Store::getIteratorBegin() {
 vector<Task>::iterator Store::getIteratorEnd() {
 	
 	iter = taskList.end();
+	return iter;
 }
 
 bool Store::eraser(vector<Task>::iterator iteratorPassed) {
