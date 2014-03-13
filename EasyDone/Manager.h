@@ -16,13 +16,13 @@ using namespace std;
 class Manager {
 private:
 	
+	// member classes
 	FileHandler fileHandler;
 	Parser parser;
 	Worker worker;
 
-	string fileName;
-
-	string GUIfeedback;
+	// GUI displays
+	string GUIfeedbackBox;
 
 	int indexOfTask;
 	string contentToBeUpdated;
@@ -39,20 +39,19 @@ private:
 	vector<string> detailsFromParser;
 	//bool hasTimeSlot;		//true if timeslot is available, false if timeslot is occupied
 
-	
-
 	string outputMessage;
 	string KeyWord;
 	vector<string> toBeDisplayed;
 	string fieldToBeUpdated;
 
 public:
+
 	Manager(void);
 	~Manager(void);
 
 	void init();
 	void receiveInput(string);
-	string getUserInput();
+	string getFeedback();
 };
 
 /*
