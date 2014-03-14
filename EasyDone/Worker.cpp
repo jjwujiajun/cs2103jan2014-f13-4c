@@ -32,16 +32,19 @@ Worker::~Worker() {
 
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
+	//Task temp; 
 	 command =  parsedCommandstring[0];
-	 taskName = parsedCommandstring[1];
-	 startDate = parsedCommandstring[2];
-	 startTime = parsedCommandstring[3];
-	 endDate = parsedCommandstring[4];
-	 endTime = parsedCommandstring[5];
-	 index = parsedCommandstring[6];
-	 fieldtoUpdate = parsedCommandstring[7];
-	 updateContent = parsedCommandstring[8]; 
-	 
+	 taskID = parsedCommandstring[1];
+	 taskName = parsedCommandstring[2];
+	 startDate = parsedCommandstring[3];
+	 startTime = parsedCommandstring[4];
+	 endDate = parsedCommandstring[5];
+	 endTime = parsedCommandstring[6];
+	 index = parsedCommandstring[7];
+	 fieldtoUpdate = parsedCommandstring[8];
+	 updateContent = parsedCommandstring[9]; 
+	// cout << taskID <<" hhere" << endl;
+	 /*
 	 cout << command <<" here" << endl;
 	 cout << taskName << " retrieved" << endl;
 	 cout << startDate << " date" << endl;
@@ -51,6 +54,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 cout << index << " index" << endl;
 	 cout << fieldtoUpdate << " field" << endl;
 	 cout << updateContent << " content" << endl;
+	 */
 	 return stringToMain = actonCommand(command);
 }
 
@@ -61,7 +65,7 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command == "delete" ) {
-		successful = removeTaskWithIndex(index);
+		successful = removeTaskWithIndex(taskID);
 	}
 
 
@@ -69,8 +73,7 @@ string Worker::actonCommand(string command)
 		successful = updateTaskWithIndex(index, updateContent, fieldtoUpdate);
 	}
 
-	else if(command ==  "display") {
-		cout<<" can display";
+	else if(command ==  "read") {
 		successful = display();
 	}
 		
@@ -108,14 +111,14 @@ string Worker::addTask(string taskName1,string  startDate1,string  startTime1,st
 
 }
 
-string Worker::removeTaskWithIndex(string indexString) {
-
-	bool erased;
-	vector<Task>::iterator iter;
+string Worker::removeTaskWithIndex(string taskIndex) {
+	
+	bool erased = todoList.eraser(taskIndex);
+	/*vector<Task>::iterator iter;
 
 	for(iter = todoList.getIteratorBegin(); iter < todoList.getIteratorEnd(); iter++) {
 
-		if((*iter).taskID == indexString)
+		if((*iter).taskID == taskIndex)
 		{
 
 			erased = todoList.eraser(iter);
@@ -123,18 +126,19 @@ string Worker::removeTaskWithIndex(string indexString) {
 
 
 	}
+	*/
 
-	if( erased == 1) {
+	if( erased == true) {
 
 	//string nameofTask = todoList.getTaskName(indexString); //for output
 
-	return  MESSAGE_DELETED_SUCCESSFULLY;
+	return  "has been deleted successfully! :)";
 
 	}
 
 	else {
 
-		return MESSAGE_WRONG_INDEX;
+		return "Please enter a valid index!";
 	}
 
 }
@@ -187,18 +191,17 @@ string Worker::display() {
 
 	for(int i = 0; i<todoList.getSize(); i++) {
 		Task printTask = todoList.getTask(i);
-		if(printTask.taskID != "0"){
-			cout<<printTask.taskID<<"	";
-		}
+		cout<<"TaskID: "<<printTask.taskID<<"	";
 		if(printTask.taskName != "0"){
-			cout<<printTask.taskName<<"	";
+			cout<<"TaskName: "<<printTask.taskName<<"	";
 		}
 		if(printTask.startDate != "0"){
-			cout<<printTask.startDate<<"	";
+			cout<<"StartDate: "<<printTask.startDate<<"	";
 		}
 		if(printTask.startTime != "0"){
-			cout<<printTask.startTime<<"	";
+			cout<<"Starttime: "<<printTask.startTime<<"	";
 		}
+		cout<<endl;
 	}
 	return "End of file.\n";
 }

@@ -71,11 +71,30 @@ vector<Task>::iterator Store::getIteratorEnd() {
 	return iter;
 }
 
-bool Store::eraser(vector<Task>::iterator iteratorPassed) {
-	
-	taskList.erase(iteratorPassed);
-	
-	return 1;
+bool Store::eraser(string taskIndex) {
+	vector<Task>::iterator iter;
+	int i = 0;
+	bool erased = false;
+	cout<<iter->taskID<<taskIndex<<endl;
+	int j;
+	cin>>j;
+	for(iter = taskList.begin(); iter < taskList.end(); iter++){
+		cout<<iter->taskID<<taskIndex<<endl;
+		if(iter->taskID == taskIndex)
+		{
+			taskList.erase(iter);
+			erased = true;
+			break;
+		}
+	}
+	/*
+	int slot;
+	bool erased = false;
+	for(int i = 0; i<taskList.size(); i++) {
+		if(taskList[i].taskID == taskIndex) {
+
+	*/
+	return erased;
 }
 
 Task Store::accesswithTaskID(int indexEntered) {
@@ -96,13 +115,13 @@ Task Store::accesswithTaskID(int indexEntered) {
 }
 
 void Store::insert(Task newTask) {
+
 	taskList.push_back(newTask);
 
 }
 
 Task Store::getTask(int slot) {
+
 	return taskList[slot];
 }
-	
-
 	

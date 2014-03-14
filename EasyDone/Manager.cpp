@@ -38,9 +38,10 @@ void Manager::init() {
 		
 
 		parsedInput  = parser.completeParse (userInput);
-		for(int i=0; i<9; i++) {
+		
+		for(int i=0; i<9; i++)
 			parsedInput.push_back("0");
-		}
+		//cout<<"hereeee"<<parsedInput[0]<< "	"<<parsedInput[1]<<endl;
 		feedback = worker.takeparsedCommand(parsedInput);
 		
 		//GUIfeedbackBox = feedback;
