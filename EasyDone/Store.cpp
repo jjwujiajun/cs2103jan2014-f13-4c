@@ -75,11 +75,12 @@ bool Store::eraser(string taskIndex) {
 	vector<Task>::iterator iter;
 	int i = 0;
 	bool erased = false;
-	cout<<iter->taskID<<taskIndex<<endl;
+	//JJ commented this. Will not be shown by GUIFeedback. Find a way to "cout" to GUITaskListBox.
+	//cout<<iter->taskID<<taskIndex<<endl;
 	int j;
 	cin>>j;
 	for(iter = taskList.begin(); iter < taskList.end(); iter++){
-		cout<<iter->taskID<<taskIndex<<endl;
+		//cout<<iter->taskID<<taskIndex<<endl;
 		if(iter->taskID == taskIndex)
 		{
 			taskList.erase(iter);
