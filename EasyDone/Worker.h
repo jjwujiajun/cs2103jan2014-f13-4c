@@ -13,6 +13,7 @@ private:
 	Store todoList;
 
 	//variables to store the various components from parsedCommandstring
+	string taskID;
 	string command; //vector index 0
 	string taskName; //vector index 1
 	string startDate; //vector index 2
@@ -46,7 +47,7 @@ public:
 
 	// todoList function
 	string addTask(string taskName1, string startDate1, string startTime1, string endDate1, string endTime1);
-	string removeTaskWithIndex(string index);
+	string removeTaskWithIndex(string taskIndex);
 	string updateTaskWithIndex(string index, string update, string fieldUpdate);
 	//vector<string> displayTaskWithIndex(int index);
 
@@ -54,6 +55,7 @@ public:
 	string takeparsedCommand(vector<string> fromManager);
 	string actonCommand(string command);
 	int issueNewTaskID();
+	string display();
 };
 
 
