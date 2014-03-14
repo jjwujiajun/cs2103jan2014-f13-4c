@@ -11,7 +11,8 @@ int main() {
 		getline(cin, userInput);
 
 		manager.receiveInput(userInput);
-		cout << manager.getFeedback();
+	/*	cout << manager.getFeedback();
+	*/
 	}
 
 	return 0;

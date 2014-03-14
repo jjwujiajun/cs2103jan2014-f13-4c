@@ -32,44 +32,49 @@ Worker::~Worker() {
 
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
-
+	//Task temp; 
 	 command =  parsedCommandstring[0];
-	 taskName = parsedCommandstring[1];
-	 startDate = parsedCommandstring[2];
-	 startTime = parsedCommandstring[3];
-	 endDate = parsedCommandstring[4];
-	 endTime = parsedCommandstring[5];
-	 index = parsedCommandstring[6];
-	 fieldtoUpdate = parsedCommandstring[7];
-	 updateContent = parsedCommandstring[8]; 
-
+	 taskID = parsedCommandstring[1];
+	 taskName = parsedCommandstring[2];
+	 startDate = parsedCommandstring[3];
+	 startTime = parsedCommandstring[4];
+	 endDate = parsedCommandstring[5];
+	 endTime = parsedCommandstring[6];
+	 index = parsedCommandstring[7];
+	 fieldtoUpdate = parsedCommandstring[8];
+	 updateContent = parsedCommandstring[9]; 
+	// cout << taskID <<" hhere" << endl;
+	 /*
+	 cout << command <<" here" << endl;
+	 cout << taskName << " retrieved" << endl;
+	 cout << startDate << " date" << endl;
+	 cout << startTime << " time" << endl;
+	 cout << endDate << " endDate" << endl;
+	 cout << endTime << " endTime" << endl;
+	 cout << index << " index" << endl;
+	 cout << fieldtoUpdate << " field" << endl;
+	 cout << updateContent << " content" << endl;
+	 */
 	 return stringToMain = actonCommand(command);
-
-	 
-
-
 }
 
 string Worker::actonCommand(string command)
 {
-
-
-	if(command == "add" || "create" ) {
+	if(command == "add") {
 		successful = addTask(taskName, startDate, startTime, endDate, endTime);
-		
 	}
 
-	else if(command == "delete" || "remove") {
-		successful = removeTaskWithIndex(index);
+	else if(command == "delete" ) {
+		successful = removeTaskWithIndex(taskID);
 	}
 
 
-	else if(command == "update" || "modify") {
+	else if(command == "update" ) {
 		successful = updateTaskWithIndex(index, updateContent, fieldtoUpdate);
 	}
 
-	else if(command ==  "display" || "show") {
-		//successful = display();
+	else if(command ==  "read") {
+		successful = display();
 	}
 		
 
@@ -82,29 +87,38 @@ string Worker::addTask(string taskName1,string  startDate1,string  startTime1,st
 
 
 	int vectindexofNexttask = todoList.getSize();
-
-	todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
+	
+	Task newTask;
+	newTask.taskName = taskName1;
+	newTask.startDate = startDate1;
+	newTask.startTime = startTime1;
+	newTask.endDate = endDate1;
+	newTask.endTime = endTime1;
+	/*todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
 	todoList.accessSlot(vectindexofNexttask).startDate = startDate1;
 	todoList.accessSlot(vectindexofNexttask).startTime = startTime1;
 	todoList.accessSlot(vectindexofNexttask).endDate = endDate1;
 	todoList.accessSlot(vectindexofNexttask).endTime = endTime1;
+	*/
+	
 	ostringstream issuedIndex; 
 	issuedIndex << issueNewTaskID();
     string strIssuedIndex = issuedIndex.str();
-	todoList.accessSlot(vectindexofNexttask).taskID = strIssuedIndex;
-		
-	return MESSAGE_ADDED_SUCCESSFULLY;
+	newTask.taskID = strIssuedIndex;
+	todoList.insert(newTask);
+	
+	return "has been added successfully! :) ";
 
 }
 
-string Worker::removeTaskWithIndex(string indexString) {
-
-	bool erased;
-	vector<Task>::iterator iter;
+string Worker::removeTaskWithIndex(string taskIndex) {
+	
+	bool erased = todoList.eraser(taskIndex);
+	/*vector<Task>::iterator iter;
 
 	for(iter = todoList.getIteratorBegin(); iter < todoList.getIteratorEnd(); iter++) {
 
-		if((*iter).taskID == indexString)
+		if((*iter).taskID == taskIndex)
 		{
 
 			erased = todoList.eraser(iter);
@@ -112,18 +126,19 @@ string Worker::removeTaskWithIndex(string indexString) {
 
 
 	}
+	*/
 
-	if( erased == 1) {
+	if( erased == true) {
 
 	//string nameofTask = todoList.getTaskName(indexString); //for output
 
-	return  MESSAGE_DELETED_SUCCESSFULLY;
+	return  "has been deleted successfully! :)";
 
 	}
 
 	else {
 
-		return MESSAGE_WRONG_INDEX;
+		return "Please enter a valid index!";
 	}
 
 }
@@ -169,11 +184,27 @@ int Worker::issueNewTaskID(){
 
 	return newIndex;
 
+	
 }
 
+string Worker::display() {
 
-
-
+	for(int i = 0; i<todoList.getSize(); i++) {
+		Task printTask = todoList.getTask(i);
+		cout<<"TaskID: "<<printTask.taskID<<"	";
+		if(printTask.taskName != "0"){
+			cout<<"TaskName: "<<printTask.taskName<<"	";
+		}
+		if(printTask.startDate != "0"){
+			cout<<"StartDate: "<<printTask.startDate<<"	";
+		}
+		if(printTask.startTime != "0"){
+			cout<<"Starttime: "<<printTask.startTime<<"	";
+		}
+		cout<<endl;
+	}
+	return "End of file.\n";
+}
 
 
 
