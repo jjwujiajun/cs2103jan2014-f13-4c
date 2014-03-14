@@ -63,7 +63,7 @@ vector<string> Parser::parseCommand (string userInput) {
 			userInformation.push_back("add");
             break;
         case READ:
-			userInformationDelete.push_back("display");
+			userInformation.push_back("read");
             break;
         case UPDATE:
             userInformation.push_back("update");
@@ -144,12 +144,12 @@ bool Parser::parseDetails (string userInput) {
 			 if (tStart < newUserInput.size()) {
 				 token = newUserInput.substr (tStart);
                  userInformation.push_back (token);
-                cout << "push1 " << token << endl;
+                //cout << "push1 " << token << endl;
             }
 			    // print last token
-				for (iter = userInformation.begin(); iter != userInformation.end(); iter++) {
-					cout << *iter << " ";  
-			}
+				//for (iter = userInformation.begin(); iter != userInformation.end(); iter++) {
+				//	cout << *iter << " ";  
+			//}
 				cout << endl;
 				newUserInput = "0";
 		
@@ -188,10 +188,11 @@ bool Parser::parseDetails (string userInput) {
             break;
 
         case READ:
-			cout << newUserInput << " haha" << endl;
-			newUserInput =userInput.substr (7, userInput.size());
+			//cout << newUserInput << " haha";
+			//userInformation.push_back("read");
+			/*newUserInput =userInput.substr (7, userInput.size());
 			tEnd = newUserInput.find_first_of(" ");
-			cout << newUserInput << "can read" << endl;
+			//cout << newUserInput << "can read" << endl;
 			    while (tEnd != string::npos) {
 				//if (newUserInput.find (keyWord_1)) {
 				//tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
@@ -208,8 +209,8 @@ bool Parser::parseDetails (string userInput) {
 			 if (tStart < newUserInput.size()) {
 				 token = newUserInput.substr (tStart);
                  userInformation.push_back (token);
-                cout << "push1 " << token << endl;
-            }
+                //cout << "push1 " << token << endl;
+            }*/
             break;
 
         case UPDATE:
@@ -235,23 +236,36 @@ bool Parser::parseDetails (string userInput) {
             break;
 
         case DELETE:
-           
-            newUserInput = userInput.substr (6, userInput.size());
+
+			userInput.erase(0, 7);
+			userInformation.push_back(userInput);
+
+            /*newUserInput = userInput.substr (6, userInput.size());
 			tEnd = newUserInput.find_first_of(" ");
             while (tEnd != string::npos) {
-               
+				//if (newUserInput.find (keyWord_1)) {
+				//tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
+				
+                // start from pos 0 to the difference between start and end. this means after each iterration, the gap decreases
 				token = newUserInput.substr (tStart, tEnd - tStart);  
 				userInformation.push_back(token);
-               // cout << "push " << token << endl;
+                //cout << "push " << token << endl;
                 tStart = tEnd + 1;
 				tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
 				}// start of a new word
-	
+			
 			 if (tStart < newUserInput.size()) {
 				 token = newUserInput.substr (tStart);
                  userInformation.push_back (token);
-             //   cout << "push " << token << endl;
+                //cout << "push1 " << token << endl;
             }
+			    // print last token
+				//for (iter = userInformation.begin(); iter != userInformation.end(); iter++) {
+				//	cout << *iter << " ";  
+			//}
+				cout << endl;
+				newUserInput = "0";
+				*/
 			
             break;
 
@@ -302,12 +316,13 @@ while(token != mystring){
 vector<string> Parser::completeParse(string userInput) {
 	parseCommand(userInput);
 	parseDetails(userInput);
+	//cout<<"hello"<<userInformation[0]<<userInformation[1]<<endl;
     return userInformation; //returns details of task inputted by user in the form of a vector<string>
 }
 
 void Parser::parserEmpty() {
-	userInformation.empty();
-	parsedDetails.empty();
+	userInformation.clear();
+	parsedDetails.clear();
 }
 
 /*

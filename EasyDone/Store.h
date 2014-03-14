@@ -47,9 +47,10 @@ class Store {
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		Task accesswithTaskID(int indexEntered);
-		bool eraser(vector<Task>::iterator iterPassed);
+		bool eraser(string taskIndex);
 		void insert(Task newTask);
 		Task getTask(int slot);
+		//int findSlot(string taskIndex);
 		
 	
 };
