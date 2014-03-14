@@ -46,7 +46,7 @@ void Manager::init() {
 		
 		//GUIfeedbackBox = feedback;
 		//GUIfeedbackBox += "What would you like to do today?\r\n";
-		cout<<feedback<<endl;
+		//cout<<feedback<<endl;
 		parser.parserEmpty();
 	//}
 }
