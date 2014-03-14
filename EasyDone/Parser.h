@@ -10,6 +10,7 @@ class Parser {
 private:
 
 	vector<string> userInformation;
+	vector<string> userInformationDelete;
 	static const string MESSAGE_ADD;
 	static const string MESSAGE_NEW;
 	static const string MESSAGE_READ;
@@ -44,6 +45,8 @@ public:
 
 	// parseDetails will return if the parsing of details was successful or not
 	bool parseDetails(string userInput);
+
+	void parserEmpty();
 
 
 };
