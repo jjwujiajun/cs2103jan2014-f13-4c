@@ -1,19 +1,9 @@
-﻿Build started 13/03/2014 21:47:36.
+﻿Build started 14/03/2014 14:16:50.
      1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Worker.cpp
-         Worker.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.pdb" /TLBID:1 /ENTRY:"main" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.lib" /MACHINE:X86 Debug\FileHandler.obj
-         Debug\Headers.obj
-         Debug\main.obj
-         Debug\Manager.obj
-         Debug\Parser.obj
-         Debug\Store.obj
-         Debug\Worker.obj
-         EasyDone.vcxproj -> C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.exe
+     1>Lib:
+         EasyDone.vcxproj -> C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.lib
      1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.62
+Time Elapsed 00:00:00.13
