@@ -177,6 +177,7 @@ namespace GUI {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->ResumeLayout(false);
 			this->PerformLayout();
+
 		}
 #pragma endregion
 		//
@@ -192,10 +193,10 @@ namespace GUI {
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);
 
-					 //manager->receiveInput(convertedInputString);
-					 //receivedFeedback = manager->getFeedback();
+					 manager->receiveInput(convertedInputString);
+					 receivedFeedback = manager->getFeedback();
 
-					 receivedFeedback = convertedInputString;
+					 //receivedFeedback = convertedInputString;
 
 					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
 					 feedbackBox->Text = feedbackToDisplay;
