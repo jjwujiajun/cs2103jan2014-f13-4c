@@ -187,20 +187,25 @@ namespace GUI {
 				 if (keyPressed->KeyCode == Keys::Enter) {
 					 String ^inputString;
 					 String ^feedbackToDisplay;
+					 String ^inputToDisplay;
 					 std::string convertedInputString;
 					 std::string receivedFeedback;
-
+					 std::string receivedInput;
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);
 
 					 manager->receiveInput(convertedInputString);
 					 receivedFeedback = manager->getFeedback();
-
+					 receivedInput == "";
 					 //receivedFeedback = convertedInputString;
 
 					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
+					 inputToDisplay = gcnew String(receivedInput.c_str());
+
 					 feedbackBox->Text = feedbackToDisplay;
-					 inputField->Text = "";
+					 inputField->Text = inputToDisplay;
+
+					 delete feedbackToDisplay;
 				 }
 			 }
 	};
