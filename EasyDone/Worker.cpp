@@ -32,7 +32,6 @@ Worker::~Worker() {
 
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
-
 	 command =  parsedCommandstring[0];
 	 taskName = parsedCommandstring[1];
 	 startDate = parsedCommandstring[2];
@@ -42,34 +41,37 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 index = parsedCommandstring[6];
 	 fieldtoUpdate = parsedCommandstring[7];
 	 updateContent = parsedCommandstring[8]; 
-
-	 return stringToMain = actonCommand(command);
-
 	 
-
-
+	 cout << command <<" here" << endl;
+	 cout << taskName << " retrieved" << endl;
+	 cout << startDate << " date" << endl;
+	 cout << startTime << " time" << endl;
+	 cout << endDate << " endDate" << endl;
+	 cout << endTime << " endTime" << endl;
+	 cout << index << " index" << endl;
+	 cout << fieldtoUpdate << " field" << endl;
+	 cout << updateContent << " content" << endl;
+	 return stringToMain = actonCommand(command);
 }
 
 string Worker::actonCommand(string command)
 {
-
-
-	if(command == "add" || "create" ) {
+	if(command == "add") {
 		successful = addTask(taskName, startDate, startTime, endDate, endTime);
-		
 	}
 
-	else if(command == "delete" || "remove") {
+	else if(command == "delete" ) {
 		successful = removeTaskWithIndex(index);
 	}
 
 
-	else if(command == "update" || "modify") {
+	else if(command == "update" ) {
 		successful = updateTaskWithIndex(index, updateContent, fieldtoUpdate);
 	}
 
-	else if(command ==  "display" || "show") {
-		//successful = display();
+	else if(command ==  "display") {
+		cout<<" can display";
+		successful = display();
 	}
 		
 
@@ -82,18 +84,27 @@ string Worker::addTask(string taskName1,string  startDate1,string  startTime1,st
 
 
 	int vectindexofNexttask = todoList.getSize();
-
-	todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
+	
+	Task newTask;
+	newTask.taskName = taskName1;
+	newTask.startDate = startDate1;
+	newTask.startTime = startTime1;
+	newTask.endDate = endDate1;
+	newTask.endTime = endTime1;
+	/*todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
 	todoList.accessSlot(vectindexofNexttask).startDate = startDate1;
 	todoList.accessSlot(vectindexofNexttask).startTime = startTime1;
 	todoList.accessSlot(vectindexofNexttask).endDate = endDate1;
 	todoList.accessSlot(vectindexofNexttask).endTime = endTime1;
+	*/
+	
 	ostringstream issuedIndex; 
 	issuedIndex << issueNewTaskID();
     string strIssuedIndex = issuedIndex.str();
-	todoList.accessSlot(vectindexofNexttask).taskID = strIssuedIndex;
-		
-	return MESSAGE_ADDED_SUCCESSFULLY;
+	newTask.taskID = strIssuedIndex;
+	todoList.insert(newTask);
+	
+	return "has been added successfully! :) ";
 
 }
 
@@ -169,11 +180,28 @@ int Worker::issueNewTaskID(){
 
 	return newIndex;
 
+	
 }
 
+string Worker::display() {
 
-
-
+	for(int i = 0; i<todoList.getSize(); i++) {
+		Task printTask = todoList.getTask(i);
+		if(printTask.taskID != "0"){
+			cout<<printTask.taskID<<"	";
+		}
+		if(printTask.taskName != "0"){
+			cout<<printTask.taskName<<"	";
+		}
+		if(printTask.startDate != "0"){
+			cout<<printTask.startDate<<"	";
+		}
+		if(printTask.startTime != "0"){
+			cout<<printTask.startTime<<"	";
+		}
+	}
+	return "End of file.\n";
+}
 
 
 

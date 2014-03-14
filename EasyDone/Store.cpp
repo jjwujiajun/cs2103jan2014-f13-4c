@@ -95,8 +95,14 @@ Task Store::accesswithTaskID(int indexEntered) {
 
 }
 
+void Store::insert(Task newTask) {
+	taskList.push_back(newTask);
 
+}
 
+Task Store::getTask(int slot) {
+	return taskList[slot];
+}
 	
 
 	

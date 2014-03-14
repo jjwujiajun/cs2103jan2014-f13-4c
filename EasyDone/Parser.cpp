@@ -1,7 +1,7 @@
 #include "Parser.h"
 
 //These are messages that will be used by the programme
-const string Parser::MESSAGE_ADD =  "add";
+const string Parser::MESSAGE_ADD = "add";
 const string Parser::MESSAGE_NEW = "new";
 const string Parser::MESSAGE_READ = "display";
 const string Parser::MESSAGE_UPDATE = "update";
@@ -22,16 +22,16 @@ Parser::~Parser() {
 
 
 Parser::Choice Parser::userCommand (string input) {
-    if (input.substr (0,2) == MESSAGE_ADD) {
-        return ADD;
+	if (input.substr(0,3) == "add") {
+		return ADD;
     }
-    else if (input.substr (0,7) == MESSAGE_READ) {
+    else if (input.substr (0,7) == "display") {
         return READ;
     }
-    else if (input.substr (0,6) == MESSAGE_UPDATE) {
+    else if (input.substr (0,6) == "update") {
         return UPDATE;
     }
-    else if (input.substr (0,6) == MESSAGE_DELETE) {
+    else if (input.substr (0,6) == "delete") {
         return DELETE;
     }
     else if (input.substr (0,6) == MESSAGE_SEARCH) {
@@ -52,7 +52,6 @@ Parser::Choice Parser::userCommand (string input) {
 vector<string> Parser::parseCommand (string userInput) {
     Choice enumCommand;
     enumCommand = userCommand (userInput);
-    
     /*
     	for (int i =0; i < userInput.length(); ++i)
       {
@@ -61,19 +60,19 @@ vector<string> Parser::parseCommand (string userInput) {
     */
     switch (enumCommand) {
         case ADD:
-            userInformation[0] = MESSAGE_ADD;
+			userInformation.push_back("add");
             break;
         case READ:
-            userInformation[0] = MESSAGE_READ;
+			userInformationDelete.push_back("display");
             break;
         case UPDATE:
-            userInformation[0] = MESSAGE_UPDATE;
+            userInformation.push_back("update");
             break;
         case DELETE:
-            userInformation[0] = MESSAGE_DELETE;
+			userInformation.push_back("delete");
             break;
         case SEARCH:
-            userInformation[0] = MESSAGE_SEARCH;
+            userInformation.push_back("search");;
             break;
         case CHECK:
             userInformation[0] = MESSAGE_CHECK;
@@ -105,12 +104,13 @@ bool Parser::parseDetails (string userInput) {
     istringstream iss(userInput);
     copy(istream_iterator<string>(iss), istream_iterator<string>(),  back_inserter<vector<string> >(userInformation));
     */
+	vector<string>::iterator iter;
     Choice enumCommand;
     enumCommand = userCommand (userInput);
-    int index;
+    //int index;
     
     unsigned int tStart = 0, tEnd = 0;
-    string newUserInput;
+	string newUserInput;
     string token;
     string keyWord_1 ("on");
     string keyWord_2 ("from");
@@ -119,29 +119,40 @@ bool Parser::parseDetails (string userInput) {
 	// find_first_of -> will treat the string as a set of characters served as delimters
 	// it will also find the first occurrence of a member of string within the string to which it is applied
 	
-	//srting.find will find the whole set of characters and not only one character. This differs from find first of which finds the character only
+	//string.find will find the whole set of characters and not only one character. This differs from find first of which finds the character only
    
     switch (enumCommand) {
 
         case ADD:
 			//  arun birthday on 20140703 1330 (floating task)
 			//  project meeting from 20140705 at 1330 to 20140705 at 1530 (timed task)
-
 			
             newUserInput = userInput.substr (4, userInput.size());
+			tEnd = newUserInput.find_first_of(" ");
             while (tEnd != string::npos) {
-				if (newUserInput.find (keyWord_1)) {
-				tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
+				//if (newUserInput.find (keyWord_1)) {
+				//tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
+				
                 // start from pos 0 to the difference between start and end. this means after each iterration, the gap decreases
 				token = newUserInput.substr (tStart, tEnd - tStart);  
-                userInformation[1] = token;
-                cout << "push " << token << endl;
+				userInformation.push_back(token);
+                //cout << "push " << token << endl;
                 tStart = tEnd + 1;
+				tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
 				}// start of a new word
-
-				
-               tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+			
+			 if (tStart < newUserInput.size()) {
+				 token = newUserInput.substr (tStart);
+                 userInformation.push_back (token);
+                cout << "push1 " << token << endl;
+            }
+			    // print last token
+				for (iter = userInformation.begin(); iter != userInformation.end(); iter++) {
+					cout << *iter << " ";  
 			}
+				cout << endl;
+				newUserInput = "0";
+		
             /*
 			
 				if (newUserInput.find (keyWord_2)) {
@@ -164,7 +175,8 @@ bool Parser::parseDetails (string userInput) {
                 userInformation.push_back (newUserInput.substr (tStart));
                 cout << "push " << token << endl;
             }
-			*/
+			
+			
 			userInformation[2] = "0";
 			userInformation[3] = "0";
 			userInformation[4] = "0";
@@ -172,12 +184,32 @@ bool Parser::parseDetails (string userInput) {
 			userInformation[6] = "0";
 			userInformation[7] = "0";
 			userInformation[8] = "0";
-
+			*/
             break;
 
         case READ:
-            newUserInput =userInput.substr (7, userInput.size());
+			cout << newUserInput << " haha" << endl;
+			newUserInput =userInput.substr (7, userInput.size());
+			tEnd = newUserInput.find_first_of(" ");
+			cout << newUserInput << "can read" << endl;
+			    while (tEnd != string::npos) {
+				//if (newUserInput.find (keyWord_1)) {
+				//tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used
+				
+                // start from pos 0 to the difference between start and end. this means after each iterration, the gap decreases
+				token = newUserInput.substr (tStart, tEnd - tStart);  
+				userInformation.push_back(token);
+                //cout << "push " << token << endl;
+                tStart = tEnd + 1;
+				tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+				}// start of a new word
             // no details to be parsed since is just displaying
+				
+			 if (tStart < newUserInput.size()) {
+				 token = newUserInput.substr (tStart);
+                 userInformation.push_back (token);
+                cout << "push1 " << token << endl;
+            }
             break;
 
         case UPDATE:
@@ -203,22 +235,24 @@ bool Parser::parseDetails (string userInput) {
             break;
 
         case DELETE:
-            newUserInput = userInput.substr (7, userInput.size());
-			/*
+           
+            newUserInput = userInput.substr (6, userInput.size());
+			tEnd = newUserInput.find_first_of(" ");
             while (tEnd != string::npos) {
-                token = newUserInput.substr (tStart, tEnd - tStart);
-                userInformation.push_back (token);
-                cout << "push " << token << endl;
+               
+				token = newUserInput.substr (tStart, tEnd - tStart);  
+				userInformation.push_back(token);
+               // cout << "push " << token << endl;
                 tStart = tEnd + 1;
-                tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
-			}
-
-                if (tStart < newUserInput.size()) {
-                    userInformation.push_back (newUserInput.substr (tStart));
-                    cout << "push " << token << endl;
-                }
-   
-   */
+				tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+				}// start of a new word
+	
+			 if (tStart < newUserInput.size()) {
+				 token = newUserInput.substr (tStart);
+                 userInformation.push_back (token);
+             //   cout << "push " << token << endl;
+            }
+			
             break;
 
         case SEARCH:
@@ -248,9 +282,9 @@ bool Parser::parseDetails (string userInput) {
 	
 	if (userInformation.size() != 0)
 			{
-				 MESSAGE_SUCCESSFUL;
+				 cout << "Details successfully Parsed" << endl;
 			} else { 
-				 MESSAGE_ERROR;
+				 cout << "Details NOT Parsed ERROR!!!" << endl;
 			}
 	return 1;
 }
@@ -266,11 +300,15 @@ while(token != mystring){
 
 
 vector<string> Parser::completeParse(string userInput) {
-	
+	parseCommand(userInput);
+	parseDetails(userInput);
     return userInformation; //returns details of task inputted by user in the form of a vector<string>
 }
 
-
+void Parser::parserEmpty() {
+	userInformation.empty();
+	parsedDetails.empty();
+}
 
 /*
 #include "stdafx.h"

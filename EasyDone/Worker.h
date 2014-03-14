@@ -48,10 +48,11 @@ public:
 	string addTask(string taskName1, string startDate1, string startTime1, string endDate1, string endTime1);
 	string removeTaskWithIndex(string index);
 	string updateTaskWithIndex(string index, string update, string fieldUpdate);
+	string display();
 	//vector<string> displayTaskWithIndex(int index);
 
 	// support functions
-	string takeparsedCommand(vector<string> fromManager);
+	string takeparsedCommand(vector<string> parsedCommandstring);
 	string actonCommand(string command);
 	int issueNewTaskID();
 };
