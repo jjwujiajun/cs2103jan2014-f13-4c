@@ -75,7 +75,7 @@ bool Store::eraser(string taskIndex) {
 	vector<Task>::iterator iter;
 	int i = 0;
 	bool erased = false;
-	//JJ commented this. Will not be shown by GUIFeedback. Find a way to "cout" to GUITaskListBox.
+	//JJ commented this. Will not be shown by GUIFeedback. Find a way to "cout" to GUITaskListBox. (manager.worker.getTaskList?)
 	//cout<<iter->taskID<<taskIndex<<endl;
 	int j;
 	cin>>j;
