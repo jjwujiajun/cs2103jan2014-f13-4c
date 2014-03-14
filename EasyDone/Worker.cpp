@@ -43,6 +43,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 index = parsedCommandstring[7];
 	 fieldtoUpdate = parsedCommandstring[8];
 	 updateContent = parsedCommandstring[9]; 
+	 //JJ added:
+	 stringToMain = parsedCommandstring[10];
+
 	// cout << taskID <<" hhere" << endl;
 	 /*
 	 cout << command <<" here" << endl;
@@ -55,7 +58,10 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 cout << fieldtoUpdate << " field" << endl;
 	 cout << updateContent << " content" << endl;
 	 */
-	 return stringToMain = actonCommand(command);
+
+	 //JJ added:
+	 stringToMain += actonCommand(command);
+	 return stringToMain;
 }
 
 string Worker::actonCommand(string command)
@@ -187,6 +193,8 @@ int Worker::issueNewTaskID(){
 	
 }
 
+// display
+/*
 string Worker::display() {
 
 	for(int i = 0; i<todoList.getSize(); i++) {
@@ -205,7 +213,7 @@ string Worker::display() {
 	}
 	return "End of file.\n";
 }
-
+*/
 
 
 
