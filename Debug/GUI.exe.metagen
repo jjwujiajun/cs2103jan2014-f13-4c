@@ -18,4 +18,10 @@ Class GUI.Interface: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
+    displayTasksListBox(): PrivateScope, Public, HideBySig
+    displayTodayLabel(): PrivateScope, Public, HideBySig
+    displayAllTaskLabel(): PrivateScope, Public, HideBySig
+    displayTask(): PrivateScope, Public, HideBySig
+    displayTaskIndex(): PrivateScope, Public, HideBySig
+    displayTaskInformation(): PrivateScope, Public, HideBySig
     MarshalString(String, basic_string<char\,std::char_traits<char>\,std::allocator<char> >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
