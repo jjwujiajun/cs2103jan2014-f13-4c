@@ -13,19 +13,23 @@ private:
 	FileHandler fileHandler;
 	Parser parser;
 	Worker worker;
+	string userInput;
 
 	// GUI displays
+	string GUITaskList;
 	string GUIfeedbackBox;
+	string GUIInputField;
 
-	//others
-	string userInput;
+	void init();
+	void log();
 
 public:
 
 	Manager(void);
 	~Manager(void);
 
-	void init();
 	void receiveInput(string input);
+	string getTaskList();
 	string getFeedback();
+	string getInputField();
 };
