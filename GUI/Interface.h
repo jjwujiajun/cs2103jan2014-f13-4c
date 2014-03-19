@@ -23,9 +23,12 @@ namespace GUI {
 			// Add the constructor code here
 			manager = new Manager();
 
+			// manager->getTaskList();
+			// displayTasksListBox();
+
+			// display feedback
 			std::string receivedFeedback = manager->getFeedback();
 			String ^feedbackToDisplay = gcnew String(receivedFeedback.c_str());
-
 			feedbackBox->Text = feedbackToDisplay;
 		}
 
@@ -38,6 +41,85 @@ namespace GUI {
 			if (components)	{
 				delete components;
 			}
+		}
+
+	public:
+		void displayTasksListBox() {
+			richTaskList->Clear();
+			
+			// display Overdue
+			while(false) { //date is overdue
+				displayTask();
+			}
+
+			// display Today
+			if (true) { //first vector date is today
+				displayTodayLabel();
+			}
+			while(true) { //date still today
+				displayTask();
+			}
+
+			// display All Tasks
+			if (false) {  //date is after today
+				displayAllTaskLabel();
+			}
+			while (false) { // vector not finished
+				displayTask();
+			}
+		}
+
+		void displayTodayLabel() {
+			richTaskList->SelectionFont = gcnew System::Drawing::Font("Broadway", 12);
+			richTaskList->SelectionColor = Color::CornflowerBlue;
+			richTaskList->SelectedText = "Today \n";
+		}
+
+		void displayAllTaskLabel() {	
+			richTaskList->SelectionFont = gcnew System::Drawing::Font("Broadway", 12);
+			richTaskList->SelectionColor = Color::CornflowerBlue;
+			richTaskList->SelectedText = "All Tasks \n";
+		}
+
+		void displayTask() {
+			displayTaskIndex();
+			displayTaskInformation();
+		}
+
+		void displayTaskIndex() {
+			richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
+			richTaskList->SelectionColor = Color::Gray;
+			
+			richTaskList->SelectedText = "0000";
+		}
+
+		void displayTaskInformation() {
+			if (true) { //date is today
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Bold);
+			} else {
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10);
+			}
+
+			if (false) { //date is overdue
+				richTaskList->SelectionColor = Color::Red;
+			} else {
+				richTaskList->SelectionColor = Color::Black;
+			}
+
+			// ~~Spacing~~
+			richTaskList->SelectedText = "  ";
+			// - Date
+			richTaskList->SelectedText = "10 Jul";
+			// ~~Spacing~~
+			richTaskList->SelectedText = "  ";
+			// - Time
+			richTaskList->SelectedText = "10:00";
+			// ~~Spacing~~
+			richTaskList->SelectedText = "  ";
+			// - Description
+			richTaskList->SelectedText = "Run around in circles";
+			// ~~NewLine~~
+			richTaskList->SelectedText = "\n";
 		}
 
 	public:
@@ -58,6 +140,7 @@ namespace GUI {
 	private: System::Windows::Forms::ColumnHeader^  startTime;
 	private: System::Windows::Forms::ColumnHeader^  task;
 	private: System::Windows::Forms::Label^  title;
+	private: System::Windows::Forms::RichTextBox^  richTaskList;
 
 	private:
 		/// <summary>
@@ -80,6 +163,7 @@ namespace GUI {
 			this->startTime = (gcnew System::Windows::Forms::ColumnHeader());
 			this->task = (gcnew System::Windows::Forms::ColumnHeader());
 			this->title = (gcnew System::Windows::Forms::Label());
+			this->richTaskList = (gcnew System::Windows::Forms::RichTextBox());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -121,7 +205,7 @@ namespace GUI {
 			this->taskList->Location = System::Drawing::Point(12, 38);
 			this->taskList->Name = L"taskList";
 			this->taskList->Scrollable = false;
-			this->taskList->Size = System::Drawing::Size(351, 409);
+			this->taskList->Size = System::Drawing::Size(351, 35);
 			this->taskList->TabIndex = 2;
 			this->taskList->UseCompatibleStateImageBehavior = false;
 			this->taskList->View = System::Windows::Forms::View::Details;
@@ -160,6 +244,17 @@ namespace GUI {
 			this->title->Text = L"EasyDone";
 			this->title->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
+			// richTaskList
+			// 
+			this->richTaskList->Font = (gcnew System::Drawing::Font(L"Broadway", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->richTaskList->ForeColor = System::Drawing::SystemColors::InactiveCaption;
+			this->richTaskList->Location = System::Drawing::Point(12, 79);
+			this->richTaskList->Name = L"richTaskList";
+			this->richTaskList->Size = System::Drawing::Size(351, 368);
+			this->richTaskList->TabIndex = 4;
+			this->richTaskList->Text = L"";
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -167,6 +262,7 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->richTaskList);
 			this->Controls->Add(this->title);
 			this->Controls->Add(this->taskList);
 			this->Controls->Add(this->feedbackBox);
@@ -189,19 +285,24 @@ namespace GUI {
 					 String ^feedbackToDisplay;
 					 String ^inputToDisplay;
 					 std::string convertedInputString;
+					 std::string receivedTaskList;
 					 std::string receivedFeedback;
 					 std::string receivedInput;
+
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);
 
 					 manager->receiveInput(convertedInputString);
+
+					 receivedTaskList = manager->getTaskList();
 					 receivedFeedback = manager->getFeedback();
-					 receivedInput == "";
+					 receivedInput = manager->getInputField();
 					 //receivedFeedback = convertedInputString;
 
 					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
 					 inputToDisplay = gcnew String(receivedInput.c_str());
 
+					 //displayTasksListBox();
 					 feedbackBox->Text = feedbackToDisplay;
 					 inputField->Text = inputToDisplay;
 
