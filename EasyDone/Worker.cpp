@@ -109,6 +109,10 @@ string Worker::actonCommand(string command)
 
 }
 
+vector<Task> Worker::getTaskList() {
+	return userCommand.getTaskList();
+}
+
 /*
 string Worker::updateTaskWithIndex(string index, string update, string updateField) {
 	

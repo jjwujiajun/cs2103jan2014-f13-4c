@@ -24,6 +24,7 @@ public:
 	bool Display();
 	bool Search();
 	int issueNewTaskID();
+	vector<Task> getTaskList();
 
 };
 
