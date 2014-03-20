@@ -1,5 +1,4 @@
-#include <string>
-#include <vector>
+#include "Headers.h"
 #include "Manager.h"
 
 #pragma once
@@ -45,14 +44,19 @@ namespace GUI {
 		}
 
 	public:
-		void displayTasksListBox() {
-			richTaskList->Clear();
-			
-			// display Overdue
-			while(false) { //date is overdue
-				displayTask();
-			}
+		void displayTasksListBox(vector<Task> taskList) {
+			int i = 0;
 
+			richTaskList->Clear();
+			while (i < taskList.size() && i < 10)
+				displayTask(taskList[i]);
+			i++;
+			/* display Overdue
+			 * while(false) { //date is overdue
+			 *	displayTask();
+			 *}
+			 */
+			/*
 			// display Today
 			if (true) { //first vector date is today
 				displayTodayLabel();
@@ -68,6 +72,7 @@ namespace GUI {
 			while (false) { // vector not finished
 				displayTask();
 			}
+			*/
 		}
 
 		void displayTodayLabel() {
@@ -82,43 +87,44 @@ namespace GUI {
 			richTaskList->SelectedText = "All Tasks \n";
 		}
 
-		void displayTask() {
-			displayTaskIndex();
-			displayTaskInformation();
+		void displayTask(Task task) {
+			displayTaskIndex(task, task.isBold());
+			displayTaskInformation(task, task.isBold());
 		}
-
-		void displayTaskIndex() {
-			richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
+		void displayTaskIndex(Task task, bool isBold) {
+			if (isBold) {
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
+			} else {
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8);
+			}
 			richTaskList->SelectionColor = Color::Gray;
 			
-			richTaskList->SelectedText = "0000";
+			String ^index = gcnew String(task.taskID.c_str());
+			richTaskList->SelectedText = index;
 		}
-
-		void displayTaskInformation() {
-			if (true) { //date is today
+		void displayTaskInformation(Task task, bool isBold) {
+			if (isBold) {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Bold);
 			} else {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10);
 			}
-
-			if (false) { //date is overdue
-				richTaskList->SelectionColor = Color::Red;
-			} else {
-				richTaskList->SelectionColor = Color::Black;
-			}
+			richTaskList->SelectionColor = Color::Black;
 
 			// ~~Spacing~~
 			richTaskList->SelectedText = "  ";
 			// - Date
-			richTaskList->SelectedText = "10 Jul";
+			String ^startDate = gcnew String(task.startDate.c_str());
+			richTaskList->SelectedText = startDate;
 			// ~~Spacing~~
 			richTaskList->SelectedText = "  ";
 			// - Time
-			richTaskList->SelectedText = "10:00";
+			String ^startTime = gcnew String(task.startTime.c_str());
+			richTaskList->SelectedText = startTime;
 			// ~~Spacing~~
 			richTaskList->SelectedText = "  ";
 			// - Description
-			richTaskList->SelectedText = "Run around in circles";
+			String ^taskName = gcnew String(task.taskName.c_str());
+			richTaskList->SelectedText = taskName;
 			// ~~NewLine~~
 			richTaskList->SelectedText = "\n";
 		}
@@ -288,7 +294,7 @@ namespace GUI {
 					 std::string convertedInputString;
 					 std::string receivedFeedback;
 					 std::string receivedInput;
-					 std::vector<string> receivedTaskList;
+					 std::vector<Task> receivedTaskList;
 
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);
@@ -303,7 +309,7 @@ namespace GUI {
 					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
 					 inputToDisplay = gcnew String(receivedInput.c_str());
 
-					 //displayTasksListBox();
+					 displayTasksListBox(receivedTaskList);
 					 feedbackBox->Text = feedbackToDisplay;
 					 inputField->Text = inputToDisplay;
 
