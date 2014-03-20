@@ -1,30 +1,9 @@
-﻿Build started 20/03/2014 17:42:46.
-     1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Command.cpp FileHandler.cpp Headers.cpp main.cpp Manager.cpp Parser.cpp Store.cpp Task.cpp Worker.cpp
-         Worker.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         Task.cpp
-     1>c1xx : fatal error C1083: Cannot open source file: 'Task.cpp': No such file or directory
-         Store.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         Parser.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         Manager.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         main.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         FileHandler.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         Command.cpp
-     1>c1xx : fatal error C1083: Cannot open source file: 'Command.cpp': No such file or directory
-         Generating Code...
-         Compiling...
-         Headers.cpp
-     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\headers.h(12): fatal error C1083: Cannot open include file: 'Task.h': No such file or directory
-         Generating Code...
-     1>Done Building Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" (Build target(s)) -- FAILED.
+﻿Build started 20/3/2014 5:31:00 PM.
+     1>Project "C:\Users\DT\Desktop\EasyDone - Copy\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         EasyDone.vcxproj -> C:\Users\DT\Desktop\EasyDone - Copy\Debug\EasyDone.exe
+     1>Done Building Project "C:\Users\DT\Desktop\EasyDone - Copy\EasyDone\EasyDone.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:04.59
+Time Elapsed 00:00:00.13
