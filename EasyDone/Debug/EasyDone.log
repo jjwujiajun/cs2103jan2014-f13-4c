@@ -1,13 +1,18 @@
-﻿Build started 20/03/2014 17:13:48.
+﻿Build started 20/03/2014 16:43:27.
      1>Project "C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Manager.cpp Parser.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FileHandler.cpp Headers.cpp Log.cpp main.cpp Manager.cpp Parser.cpp Store.cpp Worker.cpp
+         Worker.cpp
+         Store.cpp
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\store.cpp(105): warning C4018: '<' : signed/unsigned mismatch
          Parser.cpp
-         Generating Code...
-         Compiling...
-         main.cpp
          Manager.cpp
+         main.cpp
+         Log.cpp
+         Headers.cpp
+         FileHandler.cpp
          Generating Code...
+     1>c:\users\jiajun\documents\visual studio 2012\projects\easydone\easydone\store.cpp(116): warning C4715: 'Store::accesswithTaskID' : not all control paths return a value
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\Debug\EasyDone.lib" /NOLOGO Debug\FileHandler.obj
          Debug\Headers.obj
@@ -22,4 +27,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.71
+Time Elapsed 00:00:06.07
