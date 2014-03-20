@@ -22,3 +22,11 @@ void Log::log(string input) {
 
 	file.close();
 }
+
+void Log::endLog() {
+	file.open("log.txt", ios::app);
+
+	file << "\n";
+
+	file.close();
+}

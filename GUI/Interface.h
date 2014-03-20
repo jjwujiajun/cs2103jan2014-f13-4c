@@ -51,30 +51,7 @@ namespace GUI {
 			while (i < taskList.size() && i < 10) {
 				displayTask(taskList[i]);
 				i++;
-			/* display Overdue
-			 * while(false) { //date is overdue
-			 *	displayTask();
-			 *}
-			 */
-			/*
-			// display Today
-			if (true) { //first vector date is today
-				displayTodayLabel();
 			}
-			while(true) { //date still today
-				displayTask();
-			}
-
-			// display All Tasks
-			if (false) {  //date is after today
-				displayAllTaskLabel();
-			}
-			while (false) { // vector not finished
-				displayTask();
-			}
-				*/
-			}
-			
 		}
 
 		void displayTodayLabel() {
@@ -97,7 +74,7 @@ namespace GUI {
 			if (task.isBold) {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
 			} else {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8);
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Regular);
 			}
 			richTaskList->SelectionColor = Color::Gray;
 			
@@ -108,7 +85,7 @@ namespace GUI {
 			if (task.isBold) {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Bold);
 			} else {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10);
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Regular);
 			}
 			richTaskList->SelectionColor = Color::Black;
 
@@ -306,7 +283,6 @@ namespace GUI {
 					 receivedTaskList = manager->getTaskList();
 					 receivedFeedback = manager->getFeedback();
 					 receivedInput = manager->getInputField();
-					 //receivedFeedback = convertedInputString;
 
 					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
 					 inputToDisplay = gcnew String(receivedInput.c_str());

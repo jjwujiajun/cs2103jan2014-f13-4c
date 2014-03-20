@@ -25,21 +25,27 @@ Parser::~Parser() {
 
 Parser::Choice Parser::userCommand (string input) {
 	if (input.substr(0,3) == "add") {
+		log.log("Parser: Command is ADD");
 		return ADD;
     }
     else if (input.substr (0,7) == "display") {
+		log.log("Parser: Command is READ");
         return READ;
     }
     else if (input.substr (0,6) == "update") {
+		log.log("Parser: Command is UPDATE");
         return UPDATE;
     }
     else if (input.substr (0,6) == "delete") {
+		log.log("Parser: Command is DELETE");
         return DELETE;
     }
     else if (input.substr (0,6) == MESSAGE_SEARCH) {
+		log.log("Parser: Command is SEARCH");
         return SEARCH;
     }
     else if (input.substr (0,5) == MESSAGE_CHECK) {
+		log.log("Parser: Command is CHECK");
         return CHECK;
     }
     else {
@@ -278,6 +284,7 @@ while(token != mystring){
 
 
 vector<string> Parser::completeParse(string userInput) {
+	parserEmpty();
 
 	log.log("Parser: parseCommand(userInput)");
 	parseCommand(userInput);

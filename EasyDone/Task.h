@@ -15,7 +15,7 @@ public:
 	string date;
 	string month;
 	string year;
-	int isBold;
+	bool isBold;
 	int isRed;
 };
 
