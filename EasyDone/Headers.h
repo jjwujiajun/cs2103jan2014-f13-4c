@@ -9,6 +9,7 @@
 #include <cctype>
 #include <iterator>
 #include "Log.h"
+#include "Task.h"
 
 #pragma once
 
