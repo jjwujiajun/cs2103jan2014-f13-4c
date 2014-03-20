@@ -8,7 +8,12 @@ string FILE_NAME = "storageFile.txt";
 
 Manager::Manager(void) {
 	GUIfeedbackBox = "Hi! Welcome to EasyDone!\r\n";
-	GUIfeedbackBox += "What would you like to do today?\r\n";			
+	GUIfeedbackBox += "What would you like to do today?\r\n";
+
+	ofstream file;
+	file.open("log.txt", ios::trunc);
+	file << "Log sequence: \n";
+	file.close();
 }
 
 
@@ -36,6 +41,8 @@ void Manager::init() {
 
 	vector<string> parsedInput;
 	string feedback;
+	
+	log();
 
 	/* FileHandler to be Deleted!
 	 * **********************************
@@ -53,8 +60,17 @@ void Manager::init() {
 		// set GUITaskList;
 
 		GUIfeedbackBox = feedback;
-		GUIfeedbackBox += "What would you like to do today?\r\n";
+		GUIfeedbackBox += "What else would you like to do? \r\n";
 
 		GUIInputField = "";
 	//}
+}
+
+void Manager::log() {
+	ofstream file;
+	file.open("log.txt", ios::app);
+
+	file << userInput << "\n";
+
+	file.close();
 }

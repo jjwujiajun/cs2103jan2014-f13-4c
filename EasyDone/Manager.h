@@ -21,6 +21,7 @@ private:
 	string GUIInputField;
 
 	void init();
+	void log();
 
 public:
 
