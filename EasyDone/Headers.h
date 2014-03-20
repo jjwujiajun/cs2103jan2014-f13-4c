@@ -1,3 +1,6 @@
+#ifndef HEADERS_H
+#define HEADER_H
+
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -19,4 +22,4 @@ public:
 	Headers(void);
 	~Headers(void);
 };
-
+#endif

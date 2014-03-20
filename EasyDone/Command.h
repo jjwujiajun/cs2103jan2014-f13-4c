@@ -1,4 +1,6 @@
 // This class does all the command functions like add, delete etc
+#ifndef COMMAND_H
+#define COMMAND_H
 
 #include "Headers.h"
 #include "Store.h" 
@@ -24,3 +26,5 @@ public:
 	int issueNewTaskID();
 
 };
+
+#endif
