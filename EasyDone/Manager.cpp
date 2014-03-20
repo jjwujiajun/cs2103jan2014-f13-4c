@@ -53,13 +53,11 @@ void Manager::init() {
 	 * **********************************/
 
 		// improve: return by pointer
-		log.log("Manager: Passing userInput to parser");
+		log.log("Manager: Pass userInput to parser");
 		parsedInput  = parser.completeParse (userInput);
-		log.log("Manager: Received parsedInput from parser");
 
-		log.log("Manager: Passing parsedInput to worker");
+		log.log("Manager: Pass parsedInput to worker");
 		feedback = worker.takeparsedCommand(parsedInput);
-		log.log("Manager: Received feedback from worker");
 		
 		// set GUITaskList;
 
