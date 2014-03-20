@@ -25,8 +25,8 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
-string Manager::getTaskList() {
-	return GUITaskList;
+vector<Task> Manager::getTaskList() {
+	return worker.getTaskList();
 }
 
 string Manager::getFeedback() {
@@ -60,7 +60,6 @@ void Manager::init() {
 		feedback = worker.takeparsedCommand(parsedInput);
 		
 		// set GUITaskList;
-
 		GUIfeedbackBox = feedback;
 		GUIfeedbackBox += "What else would you like to do? \r\n";
 
