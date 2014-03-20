@@ -55,7 +55,7 @@ public:
 	string takeparsedCommand(vector<string> fromManager);
 	string actonCommand(string command);
 	int issueNewTaskID();
-	string display();
+	//string display();
 };
 
 

@@ -10,7 +10,8 @@ class Parser {
 private:
 
 	vector<string> userInformation;
-	vector<string> userInformationDelete;
+	
+	//vector<string> userInformationDelete;
 	static const string MESSAGE_ADD;
 	static const string MESSAGE_NEW;
 	static const string MESSAGE_READ;
@@ -27,7 +28,7 @@ private:
 public:
 	
 	int actionIndex;
-	vector<string> parsedDetails;
+	
 
 	enum Choice{
 		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, ERROR
