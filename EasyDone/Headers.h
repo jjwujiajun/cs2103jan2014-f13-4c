@@ -8,6 +8,7 @@
 #include <queue>
 #include <cctype>
 #include <iterator>
+#include "Log.h"
 
 #pragma once
 

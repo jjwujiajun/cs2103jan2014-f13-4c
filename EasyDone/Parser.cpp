@@ -278,6 +278,8 @@ while(token != mystring){
 
 
 vector<string> Parser::completeParse(string userInput) {
+
+	log.log("Parser: parseCommand(userInput)");
 	parseCommand(userInput);
 	parseDetails(userInput);
 	//cout<<"hello"<<userInformation[0]<<userInformation[1]<<endl;
