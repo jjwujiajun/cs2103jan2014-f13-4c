@@ -1,4 +1,5 @@
 #include "Manager.h"
+
 using namespace std;
 
 string MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n";
@@ -18,6 +19,7 @@ Manager::~Manager(void) {
 }
 
 void Manager::receiveInput(string input) {
+	assert(input.size() > 0);
 	string logInput = "User input: " + input;
 	log.log(logInput);
 
@@ -43,28 +45,19 @@ void Manager::init() {
 	string feedback;
 	string logInput;
 
-	/* FileHandler to be Deleted!
-	 * **********************************
-	 * bool isReady = false;
-	 * isReady = fileHandler.fileReady(FILE_NAME);
-	 *
-	 * add: do assert isReady here!
-	 * if(isReady) {
-	 * **********************************/
+	// improve: return by pointer
+	log.log("Manager: Pass userInput to parser");
+	parsedInput  = parser.completeParse (userInput);
 
-		// improve: return by pointer
-		log.log("Manager: Pass userInput to parser");
-		parsedInput  = parser.completeParse (userInput);
-
-		log.log("Manager: Pass parsedInput to worker");
-		feedback = worker.takeparsedCommand(parsedInput);
+	log.log("Manager: Pass parsedInput to worker");
+	feedback = worker.takeparsedCommand(parsedInput);
 		
-		// set GUITaskList;
-		GUIfeedbackBox = feedback;
-		GUIfeedbackBox += "What else would you like to do? \r\n";
+	// set GUITaskList;
+	GUIfeedbackBox = feedback;
+	GUIfeedbackBox += "What else would you like to do? \r\n";
 
-		GUIInputField = "";
+	GUIInputField = "";
 
-		log.endLog();
-	//}
+	log.endLog();
+	
 }

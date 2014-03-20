@@ -31,6 +31,7 @@ Worker::~Worker() {
 
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
+
 	command =  parsedCommandstring[0];
 	//userTask.taskID = parsedCommandstring[1];
 	userTask.taskName = parsedCommandstring[1];
