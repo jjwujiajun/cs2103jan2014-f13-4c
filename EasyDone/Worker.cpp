@@ -6,7 +6,6 @@ out the desired operation.
 
 */
 #include "Worker.h"
-#include "Store.h"
 
 const string Worker::NULL_STRING = "";
 const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) ";
@@ -32,7 +31,15 @@ Worker::~Worker() {
 
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
-	//Task temp; 
+	command =  parsedCommandstring[0];
+	userTask.taskID = parsedCommandstring[1];
+	userTask.taskName = parsedCommandstring[2];
+	userTask.startDate = parsedCommandstring[3];
+	userTask.startTime = parsedCommandstring[4];
+	userTask.endDate = parsedCommandstring[5];
+	userTask.endTime = parsedCommandstring[6];
+
+	/*
 	 command =  parsedCommandstring[0];
 	 taskID = parsedCommandstring[1];
 	 taskName = parsedCommandstring[2];
@@ -42,7 +49,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 endTime = parsedCommandstring[6];
 	 index = parsedCommandstring[7];
 	 fieldtoUpdate = parsedCommandstring[8];
-	 updateContent = parsedCommandstring[9]; 
+	 updateContent = parsedCommandstring[9]; */
 	 //JJ added:
 	 stringToMain = parsedCommandstring[10];
 
@@ -67,86 +74,42 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 string Worker::actonCommand(string command)
 {
 	if(command == "add") {
-		successful = addTask(taskName, startDate, startTime, endDate, endTime);
+		if(userCommand.Add(userTask)) {
+			successful = "has been added successfully! :) ";
+		}
 	}
 
 	else if(command == "delete" ) {
-		successful = removeTaskWithIndex(taskID);
+		if(userCommand.Delete(userTask)) {
+			successful = "has been deleted successfully! :)";
+		}
+		else {
+		successful = "Please enter a valid index!";
+		}
 	}
 
 
 	else if(command == "update" ) {
-		successful = updateTaskWithIndex(index, updateContent, fieldtoUpdate);
+		if(userCommand.Update(userTask)) {
+			successful = "has been updated successfully! :)";
+		}
+		else {
+		successful = "Please enter a valid index!";
+		}
 	}
 
 	else if(command ==  "read") {
-		//successful = display();
+		if(userCommand.Display()) {
+			successful = "End of file.\n";
+		}
 	}
 		
 
 	return successful;
 
 }
-	
 
-string Worker::addTask(string taskName1,string  startDate1,string  startTime1,string  endDate1,string  endTime1) {
-
-
-	int vectindexofNexttask = todoList.getSize();
-	
-	Task newTask;
-	newTask.taskName = taskName1;
-	newTask.startDate = startDate1;
-	newTask.startTime = startTime1;
-	newTask.endDate = endDate1;
-	newTask.endTime = endTime1;
-	/*todoList.accessSlot(vectindexofNexttask).taskName = taskName1;
-	todoList.accessSlot(vectindexofNexttask).startDate = startDate1;
-	todoList.accessSlot(vectindexofNexttask).startTime = startTime1;
-	todoList.accessSlot(vectindexofNexttask).endDate = endDate1;
-	todoList.accessSlot(vectindexofNexttask).endTime = endTime1;
-	*/
-	
-	//JJ edited:
-	int newTaskID = issueNewTaskID();
-	newTask.taskID = to_string(newTaskID);
-	todoList.insert(newTask);
-
-	return "has been added successfully! :) ";
-}
-
-string Worker::removeTaskWithIndex(string taskIndex) {
-	
-	bool erased = todoList.eraser(taskIndex);
-	/*vector<Task>::iterator iter;
-
-	for(iter = todoList.getIteratorBegin(); iter < todoList.getIteratorEnd(); iter++) {
-
-		if((*iter).taskID == taskIndex)
-		{
-
-			erased = todoList.eraser(iter);
-		}
-
-
-	}
-	*/
-
-	if( erased == true) {
-
-	//string nameofTask = todoList.getTaskName(indexString); //for output
-
-	return  "has been deleted successfully! :)";
-
-	}
-
-	else {
-
-		return "Please enter a valid index!";
-	}
-
-}
-
+/*
 string Worker::updateTaskWithIndex(string index, string update, string updateField) {
 	
 	int indexInt  = atoi(index.c_str());
@@ -178,41 +141,7 @@ string Worker::updateTaskWithIndex(string index, string update, string updateFie
 
 	return MESSAGE_UPDATED_SUCCESSFULLY;
 }
-
-
-
-int Worker::issueNewTaskID(){
-	
-	size_todoList =  todoList.getSize();
-	newIndex = size_todoList++;
-
-	return newIndex;
-
-	
-}
-
-// display
-/*
-string Worker::display() {
-
-	for(int i = 0; i<todoList.getSize(); i++) {
-		Task printTask = todoList.getTask(i);
-		cout<<"TaskID: "<<printTask.taskID<<"	";
-		if(printTask.taskName != "0"){
-			cout<<"TaskName: "<<printTask.taskName<<"	";
-		}
-		if(printTask.startDate != "0"){
-			cout<<"StartDate: "<<printTask.startDate<<"	";
-		}
-		if(printTask.startTime != "0"){
-			cout<<"Starttime: "<<printTask.startTime<<"	";
-		}
-		cout<<endl;
-	}
-	return "End of file.\n";
-}
 */
-
 
 
 

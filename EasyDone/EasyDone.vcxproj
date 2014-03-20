@@ -65,15 +65,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Command.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Headers.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Store.h" />
+    <ClInclude Include="Task.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="Headers.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -81,6 +84,7 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Store.cpp" />
+    <ClCompile Include="Task.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,6 +10,7 @@ class Parser {
 private:
 
 	vector<string> userInformation;
+	Log log;
 	
 	//vector<string> userInformationDelete;
 	static const string MESSAGE_ADD;

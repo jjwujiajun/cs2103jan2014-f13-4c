@@ -1,8 +1,8 @@
 // Worker.h
-// Worker does all the command functions like add, delete etc
+
 
 #include "Headers.h"
-#include "Store.h" 
+#include "Command.h"
 
 using namespace std;
 
@@ -10,10 +10,13 @@ class Worker {
 private:
 
 	
-	Store todoList;
+	//Store todoList;
+	Command userCommand;
+	Task userTask; 
+	string command;
 
 	//variables to store the various components from parsedCommandstring
-	string taskID;
+	/*string taskID;
 	string command; //vector index 0
 	string taskName; //vector index 1
 	string startDate; //vector index 2
@@ -22,11 +25,11 @@ private:
 	string endTime; //vector index 5
 	string index; //vector index 6
 	string fieldtoUpdate; //vector index 7
-	string updateContent; //vector index 8
+	string updateContent; //vector index 8*/
 
 	string successful;
-	int newIndex;
-	int size_todoList;
+	//int newIndex;
+	//int size_todoList;
 	string returnStringtomain;
 	string stringToMain;
 		
@@ -54,7 +57,6 @@ public:
 	// support functions
 	string takeparsedCommand(vector<string> fromManager);
 	string actonCommand(string command);
-	int issueNewTaskID();
 	//string display();
 };
 
