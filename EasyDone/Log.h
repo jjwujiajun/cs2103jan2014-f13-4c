@@ -14,5 +14,6 @@ public:
 
 	void clear();
 	void log(string);
+	void endLog();
 };
 

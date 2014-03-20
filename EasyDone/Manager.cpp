@@ -1,7 +1,7 @@
 #include "Manager.h"
 using namespace std;
 
-string WELCOME_MESSAGE = "Hi! Welcome to EasyDone!\r\n";
+string MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n";
 string USER_PROMPT = "What would you like to do today?\r\n";
 string EXIT = "exit";
 string FILE_NAME = "storageFile.txt";
@@ -9,7 +9,7 @@ string FILE_NAME = "storageFile.txt";
 Manager::Manager(void) {
 	log.clear();
 
-	GUIfeedbackBox = "Hi! Welcome to EasyDone!\r\n";
+	GUIfeedbackBox = MESSAGE_WELCOME;
 	GUIfeedbackBox += "What would you like to do today?\r\n";
 }
 
@@ -64,5 +64,7 @@ void Manager::init() {
 		GUIfeedbackBox += "What else would you like to do? \r\n";
 
 		GUIInputField = "";
+
+		log.endLog();
 	//}
 }

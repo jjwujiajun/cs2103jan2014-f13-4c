@@ -128,10 +128,10 @@ void Store::dueToday() {
 	
 	for(int i = 0; i < taskList.size(); i++) {
 		if(taskList[i].startDate == "20140320") {
-			taskList[i].isBold = 1;
+			taskList[i].isBold = true;
 		}
 		else {
-			taskList[i].isBold = 0;
+			taskList[i].isBold = false;
 		}
 	}
 }
