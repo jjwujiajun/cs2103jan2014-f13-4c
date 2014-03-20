@@ -59,7 +59,7 @@ public:
 	string actonCommand(string command);
 	//string display();
 
-	vector<string> getTaskList();
+	vector<Task> getTaskList();
 };
 
 

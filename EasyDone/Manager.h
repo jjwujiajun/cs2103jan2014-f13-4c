@@ -17,7 +17,6 @@ private:
 	Log log;
 
 	// GUI displays
-	vector<string> GUITaskList;
 	string GUIfeedbackBox;
 	string GUIInputField;
 
@@ -31,5 +30,5 @@ public:
 	void receiveInput(string input);
 	string getFeedback();
 	string getInputField();
-	vector<string> getTaskList();
+	vector<Task> getTaskList();
 };

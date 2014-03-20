@@ -25,7 +25,7 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
-vector<string> Manager::getTaskList() {
+vector<Task> Manager::getTaskList() {
 	return worker.getTaskList();
 }
 

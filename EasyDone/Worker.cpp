@@ -109,7 +109,7 @@ string Worker::actonCommand(string command)
 
 }
 
-vector<string> Worker::getTaskList() {
+vector<Task> Worker::getTaskList() {
 	return userCommand.getTaskList();
 }
 
