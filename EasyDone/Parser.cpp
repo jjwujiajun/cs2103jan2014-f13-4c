@@ -95,7 +95,7 @@ vector<string> Parser::parseCommand (string userInput) {
 
 bool Parser::parseDetails (string userInput) {
 	
-
+	
 
     /*
     //Breaks the entire user input string into words and stores it into the vector concatedUserInformation
@@ -140,6 +140,12 @@ bool Parser::parseDetails (string userInput) {
 				 token = newUserInput.substr (tStart); // print the last token
                  userInformation.push_back (token);
             }
+
+
+			 for (int i =0; i < 2; ++i)
+			 {
+				 assert(userInformation[i] != "");
+			 }
 /*
 			 if (userInformation.size() != 0)
 			{
@@ -221,6 +227,8 @@ bool Parser::parseDetails (string userInput) {
 				 cout << "Details NOT Parsed ERROR!!!" << endl;
 			}
 			*/
+
+
             break;
 
         case DELETE:

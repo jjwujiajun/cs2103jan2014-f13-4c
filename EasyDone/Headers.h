@@ -13,6 +13,7 @@
 #include <iterator>
 #include "Log.h"
 #include "Task.h"
+#include <assert.h>
 
 #pragma once
 
