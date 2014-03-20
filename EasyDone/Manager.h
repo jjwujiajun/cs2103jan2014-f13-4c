@@ -17,7 +17,7 @@ private:
 	Log log;
 
 	// GUI displays
-	string GUITaskList;
+	vector<string> GUITaskList;
 	string GUIfeedbackBox;
 	string GUIInputField;
 
@@ -29,7 +29,7 @@ public:
 	~Manager(void);
 
 	void receiveInput(string input);
-	string getTaskList();
 	string getFeedback();
 	string getInputField();
+	vector<string> getTaskList();
 };

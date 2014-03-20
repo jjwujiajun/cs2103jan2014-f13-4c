@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 #include "Manager.h"
 
 #pragma once
@@ -285,9 +286,9 @@ namespace GUI {
 					 String ^feedbackToDisplay;
 					 String ^inputToDisplay;
 					 std::string convertedInputString;
-					 std::string receivedTaskList;
 					 std::string receivedFeedback;
 					 std::string receivedInput;
+					 std::vector<string> receivedTaskList;
 
 					 inputString = inputField->Text;
 					 MarshalString(inputString, convertedInputString);

@@ -58,6 +58,8 @@ public:
 	string takeparsedCommand(vector<string> fromManager);
 	string actonCommand(string command);
 	//string display();
+
+	vector<string> getTaskList();
 };
 
 
