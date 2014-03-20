@@ -61,3 +61,8 @@ int Command::issueNewTaskID(){
 
 	return newIndex;
 }
+
+vector<string> Command::getTaskList() {
+	vector<string> hieeee;
+	return hieeee;
+}
