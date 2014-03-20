@@ -20,8 +20,16 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
+string Manager::getTaskList() {
+	return GUITaskList;
+}
+
 string Manager::getFeedback() {
 	return GUIfeedbackBox;
+}
+
+string Manager::getInputField() {
+	return GUIInputField;
 }
 
 void Manager::init() {
@@ -42,9 +50,11 @@ void Manager::init() {
 		parsedInput  = parser.completeParse (userInput);
 		feedback = worker.takeparsedCommand(parsedInput);
 		
+		// set GUITaskList;
+
 		GUIfeedbackBox = feedback;
 		GUIfeedbackBox += "What would you like to do today?\r\n";
-		
-		parser.parserEmpty();
+
+		GUIInputField = "";
 	//}
 }

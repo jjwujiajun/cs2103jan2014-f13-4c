@@ -15,6 +15,8 @@ const string Parser::MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
 
 
 Parser::Parser (void) {
+	userInformation.clear();
+	parsedDetails.clear();
 }
 
 Parser::~Parser() {
@@ -49,16 +51,10 @@ Parser::Choice Parser::userCommand (string input) {
 // parseCommand to process usercommand and sieve out first word which is the command. Eg. add, delete etc
 // it will return a vector string storing all the commands
 
-vector<string> Parser::parseCommand (string userInput) {
-    Choice enumCommand;
-    enumCommand = userCommand (userInput);
-    /*
-    	for (int i =0; i < userInput.length(); ++i)
-      {
-        userInput.at(i);
-      }
-    */
-    switch (enumCommand) {
+void Parser::parseCommand (string userInput) {
+    Choice command = userCommand(userInput);
+
+    switch (command) {
         case ADD:
 			userInformation.push_back("add");
             break;
@@ -81,11 +77,10 @@ vector<string> Parser::parseCommand (string userInput) {
             cout << MESSAGE_INVALID << endl;
             break;
     }
-    return userInformation;
 }
 
 
-bool Parser::parseDetails (string userInput) {
+void Parser::parseDetails (string userInput) {
 	/*
 	 command =  parsedCommandstring[0];
 	 taskName = parsedCommandstring[1];
@@ -294,13 +289,11 @@ bool Parser::parseDetails (string userInput) {
 
 	// check if vector is filled with information
 	
-	if (userInformation.size() != 0)
-			{
-				 cout << "Details successfully Parsed" << endl;
-			} else { 
-				 cout << "Details NOT Parsed ERROR!!!" << endl;
-			}
-	return 1;
+	if (userInformation.size() != 0) {
+		 cout << "Details successfully Parsed" << endl;
+	} else { 
+		 cout << "Details NOT Parsed ERROR!!!" << endl;
+	}
 }
 
 /*
@@ -314,13 +307,21 @@ while(token != mystring){
 
 
 vector<string> Parser::completeParse(string userInput) {
+	emptyParserInfo();
+
 	parseCommand(userInput);
 	parseDetails(userInput);
+
 	//cout<<"hello"<<userInformation[0]<<userInformation[1]<<endl;
+
+	for(int i=0; i<9; i++) {
+			userInformation.push_back("0");
+	}
+
     return userInformation; //returns details of task inputted by user in the form of a vector<string>
 }
 
-void Parser::parserEmpty() {
+void Parser::emptyParserInfo() {
 	userInformation.clear();
 	parsedDetails.clear();
 }
