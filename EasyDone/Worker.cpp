@@ -80,7 +80,7 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command ==  "read") {
-		successful = display();
+		//successful = display();
 	}
 		
 
@@ -107,14 +107,12 @@ string Worker::addTask(string taskName1,string  startDate1,string  startTime1,st
 	todoList.accessSlot(vectindexofNexttask).endTime = endTime1;
 	*/
 	
-	ostringstream issuedIndex; 
-	issuedIndex << issueNewTaskID();
-    string strIssuedIndex = issuedIndex.str();
-	newTask.taskID = strIssuedIndex;
+	//JJ edited:
+	int newTaskID = issueNewTaskID();
+	newTask.taskID = to_string(newTaskID);
 	todoList.insert(newTask);
-	
-	return "has been added successfully! :) ";
 
+	return "has been added successfully! :) \r\n";
 }
 
 string Worker::removeTaskWithIndex(string taskIndex) {
