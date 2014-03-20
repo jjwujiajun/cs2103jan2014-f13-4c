@@ -63,6 +63,5 @@ int Command::issueNewTaskID(){
 }
 
 vector<Task> Command::getTaskList() {
-	vector<Task> hieeee;
-	return hieeee;
+	return todoList.getTaskList();
 }

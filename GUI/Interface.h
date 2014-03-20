@@ -48,9 +48,9 @@ namespace GUI {
 			int i = 0;
 
 			richTaskList->Clear();
-			while (i < taskList.size() && i < 10)
+			while (i < taskList.size() && i < 10) {
 				displayTask(taskList[i]);
-			i++;
+				i++;
 			/* display Overdue
 			 * while(false) { //date is overdue
 			 *	displayTask();
@@ -72,7 +72,9 @@ namespace GUI {
 			while (false) { // vector not finished
 				displayTask();
 			}
-			*/
+				*/
+			}
+			
 		}
 
 		void displayTodayLabel() {
@@ -88,11 +90,11 @@ namespace GUI {
 		}
 
 		void displayTask(Task task) {
-			displayTaskIndex(task, task.isBold());
-			displayTaskInformation(task, task.isBold());
+			displayTaskIndex(task);
+			displayTaskInformation(task);
 		}
-		void displayTaskIndex(Task task, bool isBold) {
-			if (isBold) {
+		void displayTaskIndex(Task task) {
+			if (task.isBold) {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
 			} else {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8);
@@ -102,8 +104,8 @@ namespace GUI {
 			String ^index = gcnew String(task.taskID.c_str());
 			richTaskList->SelectedText = index;
 		}
-		void displayTaskInformation(Task task, bool isBold) {
-			if (isBold) {
+		void displayTaskInformation(Task task) {
+			if (task.isBold) {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Bold);
 			} else {
 				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10);
