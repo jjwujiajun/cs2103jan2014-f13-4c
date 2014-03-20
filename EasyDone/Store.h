@@ -38,6 +38,8 @@ class Store {
 		Task getTask(int slot);
 		bool changeTask(int taskID, Task userTask);
 		//int findSlot(string taskIndex);
+		void dueToday();
+		vector<Task> getTaskList();
 		
 	
 };

@@ -123,3 +123,30 @@ bool Store::changeTask(int Index, Task userTask) {
 	taskList[Index] = userTask;
 	return true;
 }
+
+void Store::dueToday() {
+	
+	for(int i = 0; i < taskList.size(); i++) {
+		if(taskList[i].startDate == "20140320") {
+			taskList[i].isBold = 1;
+		}
+		else {
+			taskList[i].isBold = 0;
+		}
+	}
+}
+
+vector<Task> Store::getTaskList() {
+
+	vector<Task> duplicated;
+	duplicated = taskList;
+
+	return duplicated;
+}
+
+
+
+
+
+
+
