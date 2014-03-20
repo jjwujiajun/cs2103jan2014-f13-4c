@@ -1,4 +1,6 @@
-#include "Headers.h"
+#ifndef TASK_H
+#define TASK_H
+#include <string>
 
 using namespace std;
 
@@ -14,3 +16,5 @@ public:
 	string month;
 	string year;
 };
+
+#endif
