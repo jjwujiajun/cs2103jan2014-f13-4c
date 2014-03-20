@@ -1,4 +1,5 @@
 #include "Headers.h"
+#include "Task.h"
 
 using namespace std;
 
@@ -9,21 +10,6 @@ using namespace std;
 	string month;
 	string year;
 };*/
-
-
- struct Task {
-	string taskName;
-	string taskID;	
-	string startDate;
-	string startTime;
-	string endDate;
-	string endTime;
-	string date;
-	string month;
-	string year;
-};
-
-
 
 
 class Store {
@@ -48,8 +34,9 @@ class Store {
 		vector<Task>::iterator getIteratorEnd();
 		Task accesswithTaskID(int indexEntered);
 		bool eraser(string taskIndex);
-		void insert(Task newTask);
+		void pushback(Task newTask);
 		Task getTask(int slot);
+		bool changeTask(int taskID, Task userTask);
 		//int findSlot(string taskIndex);
 		
 	
