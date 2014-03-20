@@ -10,9 +10,8 @@ class Parser {
 private:
 
 	vector<string> userInformation;
-	Log log;
-	
-	//vector<string> userInformationDelete;
+	vector<string> userInformationDelete;
+
 	static const string MESSAGE_ADD;
 	static const string MESSAGE_NEW;
 	static const string MESSAGE_READ;
@@ -24,33 +23,25 @@ private:
 	static const string MESSAGE_SUCCESSFUL;
 	static const string MESSAGE_ERROR;
 
-
-
 public:
-	
-	int actionIndex;
-	
 
-	enum Choice{
+	enum Choice {
 		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, ERROR
 	};
 
-	Choice userCommand(string);
+	int actionIndex;
+	vector<string> parsedDetails;
 
 	Parser(void);
 	~Parser(void);
+
+	Choice userCommand(string);
 	vector<string> completeParse(string userInput); 
-	
-
 	// this vector of strings to store the commands and pass it back to manager
-	vector<string> parseCommand(string userInput);
-
+	void parseCommand(string userInput);
 	// parseDetails will return if the parsing of details was successful or not
-	bool parseDetails(string userInput);
-
-	void parserEmpty();
-
-
+	void parseDetails(string userInput);
+	void emptyParserInfo();
 };
 
 /*

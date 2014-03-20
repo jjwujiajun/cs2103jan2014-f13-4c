@@ -72,29 +72,22 @@ vector<Task>::iterator Store::getIteratorEnd() {
 }
 
 bool Store::eraser(string taskIndex) {
-	vector<Task>::iterator iter;
+	//vector<Task>::iterator iter;
 	int i = 0;
 	bool erased = false;
-	//JJ commented this. Will not be shown by GUIFeedback. Find a way to "cout" to GUITaskListBox. (manager.worker.getTaskList?)
-	//cout<<iter->taskID<<taskIndex<<endl;
-	int j;
-	cin>>j;
-	for(iter = taskList.begin(); iter < taskList.end(); iter++){
-		//cout<<iter->taskID<<taskIndex<<endl;
-		if(iter->taskID == taskIndex)
-		{
-			taskList.erase(iter);
-			erased = true;
-			break;
-		}
-	}
-	/*
+	
 	int slot;
-	bool erased = false;
 	for(int i = 0; i<taskList.size(); i++) {
 		if(taskList[i].taskID == taskIndex) {
-
-	*/
+			slot = i;
+		}
+		break;
+	}
+	for(slot; slot<taskList.size()-1; slot++){
+		taskList[slot] = taskList[slot+1];
+	}
+	taskList.pop_back();
+	
 	return erased;
 }
 
@@ -115,7 +108,7 @@ Task Store::accesswithTaskID(int indexEntered) {
 
 }
 
-void Store::insert(Task newTask) {
+void Store::pushback(Task newTask) {
 
 	taskList.push_back(newTask);
 
@@ -126,3 +119,7 @@ Task Store::getTask(int slot) {
 	return taskList[slot];
 }
 	
+bool Store::changeTask(int Index, Task userTask) {
+	taskList[Index] = userTask;
+	return true;
+}

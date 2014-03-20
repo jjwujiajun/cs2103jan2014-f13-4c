@@ -1,3 +1,6 @@
+#ifndef HEADERS_H
+#define HEADER_H
+
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -9,6 +12,7 @@
 #include <cctype>
 #include <iterator>
 #include "Log.h"
+#include "Task.h"
 
 #pragma once
 
@@ -18,4 +22,4 @@ public:
 	Headers(void);
 	~Headers(void);
 };
-
+#endif
