@@ -15,6 +15,8 @@ public:
 	string date;
 	string month;
 	string year;
+	int isBold;
+	int isRed;
 };
 
 #endif
