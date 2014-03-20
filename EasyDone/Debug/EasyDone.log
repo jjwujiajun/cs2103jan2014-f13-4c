@@ -1,9 +1,9 @@
-﻿Build started 20/3/2014 5:31:00 PM.
+﻿Build started 20/3/2014 6:02:43 PM.
      1>Project "C:\Users\DT\Desktop\EasyDone - Copy\EasyDone\EasyDone.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         EasyDone.vcxproj -> C:\Users\DT\Desktop\EasyDone - Copy\Debug\EasyDone.exe
+     1>Lib:
+         EasyDone.vcxproj -> C:\Users\DT\Desktop\EasyDone - Copy\Debug\EasyDone.lib
      1>Done Building Project "C:\Users\DT\Desktop\EasyDone - Copy\EasyDone\EasyDone.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.13
+Time Elapsed 00:00:00.09
