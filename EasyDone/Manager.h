@@ -14,6 +14,7 @@ private:
 	Parser parser;
 	Worker worker;
 	string userInput;
+	Log log;
 
 	// GUI displays
 	string GUITaskList;
@@ -21,7 +22,6 @@ private:
 	string GUIInputField;
 
 	void init();
-	void log();
 
 public:
 
