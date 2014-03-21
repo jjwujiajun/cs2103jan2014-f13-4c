@@ -68,12 +68,17 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	 */
 
 	 //JJ added:
+	 try {
 	 stringToMain += actonCommand(command);
 	 return stringToMain;
+	 } catch(int number) {
+		 throw 0;
+	 }
 }
 
 string Worker::actonCommand(string command)
 {
+	try{
 	if(command == "add") {
 		if(userCommand.Add(userTask)) {
 			successful = "has been added successfully! :) \n";
@@ -104,7 +109,10 @@ string Worker::actonCommand(string command)
 			successful = "End of file.\n";
 		}
 	}
-		
+	}
+	catch (int number) {
+		throw 0;
+	}
 
 	return successful;
 

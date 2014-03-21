@@ -77,6 +77,11 @@ bool Store::eraser(string taskIndex) {
 	bool erased = false;
 	
 	int slot;
+	//atoi(myString.c_str())
+	if(atoi(taskIndex.c_str()) > taskList.size()){
+		throw 0;
+	} else {
+
 	for(int i = 0; i<taskList.size(); i++) {
 		if(taskList[i].taskID == taskIndex) {
 			slot = i;
@@ -89,6 +94,7 @@ bool Store::eraser(string taskIndex) {
 	taskList.pop_back();
 	
 	return erased;
+	}
 }
 
 Task Store::accesswithTaskID(int indexEntered) {
