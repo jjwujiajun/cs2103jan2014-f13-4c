@@ -49,8 +49,12 @@ void Manager::init() {
 	log.log("Manager: Pass userInput to parser");
 	parsedInput  = parser.completeParse (userInput);
 
+	try {
 	log.log("Manager: Pass parsedInput to worker");
 	feedback = worker.takeparsedCommand(parsedInput);
+	} catch(int number) {
+		 throw 0;
+	 }
 		
 	// set GUITaskList;
 	GUIfeedbackBox = feedback;
