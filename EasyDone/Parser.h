@@ -5,29 +5,34 @@
 #define MAX_SIZE 255
 using namespace std; 
 
+const string MESSAGE_ADD = "add";
+const string MESSAGE_NEW = "new";
+const string MESSAGE_READ = "display";
+const string MESSAGE_UPDATE = "update";
+const string MESSAGE_DELETE = "delete";
+const string MESSAGE_SEARCH = "search";
+const string MESSAGE_CHECK = "check";
+const string MESSAGE_INVALID  = "Wrong command! Please enter command again ";
+const string MESSAGE_SUCCESSFUL = "Details successfully Parsed";
+const string MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
+
 class Parser {
 
 private:
 
+	
 	vector<string> userInformation;
+	vector<string> storeUserInfo;
 	Log log;
 	
 	//vector<string> userInformationDelete;
-	static const string MESSAGE_ADD;
-	static const string MESSAGE_NEW;
-	static const string MESSAGE_READ;
-	static const string MESSAGE_UPDATE;
-	static const string MESSAGE_DELETE;
-	static const string MESSAGE_SEARCH;
-	static const string MESSAGE_CHECK;
-	static const string MESSAGE_INVALID;
-	static const string MESSAGE_SUCCESSFUL;
-	static const string MESSAGE_ERROR;
+
 
 
 
 public:
-	
+	Parser(void);
+	~Parser(void);
 	int actionIndex;
 	
 
@@ -37,10 +42,9 @@ public:
 
 	Choice userCommand(string);
 
-	Parser(void);
-	~Parser(void);
-	vector<string> completeParse(string userInput); 
 	
+	vector<string> completeParse(string userInput); 
+	vector<string> storeInformation(string userInput);
 
 	// this vector of strings to store the commands and pass it back to manager
 	vector<string> parseCommand(string userInput);

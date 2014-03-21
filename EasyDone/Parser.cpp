@@ -3,16 +3,7 @@
 
 
 //These are messages that will be used by the programme
-const string Parser::MESSAGE_ADD = "add";
-const string Parser::MESSAGE_NEW = "new";
-const string Parser::MESSAGE_READ = "display";
-const string Parser::MESSAGE_UPDATE = "update";
-const string Parser::MESSAGE_DELETE = "delete";
-const string Parser::MESSAGE_SEARCH = "search";
-const string Parser::MESSAGE_CHECK = "check";
-const string Parser::MESSAGE_INVALID  = "Wrong command! Please enter command again ";
-const string Parser::MESSAGE_SUCCESSFUL = "Details successfully Parsed";
-const string Parser::MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
+
 
 
 
@@ -22,9 +13,32 @@ Parser::Parser (void) {
 Parser::~Parser() {
 }
 
+vector<string> Parser::storeInformation(string userInput) {
+
+	 unsigned int tStart = 0, tEnd = 0;
+	 string newUserInput;
+     string token;
+	 tEnd = newUserInput.find_first_of(" ");
+
+        while (tEnd != string::npos) {
+			//if (newUserInput.find (keyWord_1)) {
+			//tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used 
+			token = newUserInput.substr (tStart, tEnd - tStart);  
+			storeUserInfo.push_back(token);
+            tStart = tEnd + 1;  // start from pos 0 to the difference between start and end. this means after each iterration, the gap decreases
+			tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
+			}
+			
+			if (tStart < newUserInput.size()) {
+				token = newUserInput.substr (tStart); // print the last token
+                storeUserInfo.push_back (token);
+        }
+
+			return storeUserInfo;
+}
 
 Parser::Choice Parser::userCommand (string input) {
-	if (input.substr(0,3) == "add") {
+	if (input.substr(0,3) == MESSAGE_ADD) {
 		log.log("Parser: Command is ADD");
 		return ADD;
     }
@@ -36,7 +50,7 @@ Parser::Choice Parser::userCommand (string input) {
 		log.log("Parser: Command is UPDATE");
         return UPDATE;
     }
-    else if (input.substr (0,6) == "delete") {
+    else if (input.substr (0,6) == MESSAGE_DELETE) {
 		log.log("Parser: Command is DELETE");
         return DELETE;
     }
@@ -68,7 +82,7 @@ vector<string> Parser::parseCommand (string userInput) {
     */
     switch (enumCommand) {
         case ADD:
-			userInformation.push_back("add");
+			userInformation.push_back(MESSAGE_ADD);
             break;
         case READ:
 			userInformation.push_back("display");
@@ -77,7 +91,7 @@ vector<string> Parser::parseCommand (string userInput) {
             userInformation.push_back("update");
             break;
         case DELETE:
-			userInformation.push_back("delete");
+			userInformation.push_back(MESSAGE_DELETE);
             break;
         case SEARCH:
             userInformation.push_back("search");;
@@ -93,16 +107,16 @@ vector<string> Parser::parseCommand (string userInput) {
 }
 
 
+
 bool Parser::parseDetails (string userInput) {
 	
-	
-
     /*
     //Breaks the entire user input string into words and stores it into the vector concatedUserInformation
     istringstream iss(userInput);
     copy(istream_iterator<string>(iss), istream_iterator<string>(),  back_inserter<vector<string> >(userInformation));
     */
-	vector<string>::iterator iter;
+
+	
     Choice enumCommand;
     enumCommand = userCommand (userInput);
     //int index;

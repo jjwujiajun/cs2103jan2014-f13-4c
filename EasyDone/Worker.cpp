@@ -33,55 +33,35 @@ Worker::~Worker() {
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	command =  parsedCommandstring[0];
-	//userTask.taskID = parsedCommandstring[1];
-	userTask.taskName = parsedCommandstring[1];
-	userTask.startDate = parsedCommandstring[2];
-	userTask.startTime = parsedCommandstring[3];
-	userTask.endDate = parsedCommandstring[4];
-	userTask.endTime = parsedCommandstring[5];
+	if(command == "add"){
+		
+		userTask.taskName = parsedCommandstring[1];
+		userTask.startDate = parsedCommandstring[2];
+		userTask.startTime = parsedCommandstring[3];
+		userTask.endDate = parsedCommandstring[4];
+		userTask.endTime = parsedCommandstring[5];
+	} else {
+		userTask.taskID = parsedCommandstring[1];
+		userTask.taskName = parsedCommandstring[2];
+		userTask.startDate = parsedCommandstring[3];
+		userTask.startTime = parsedCommandstring[4];
+		userTask.endDate = parsedCommandstring[5];
+		userTask.endTime = parsedCommandstring[6];
+	}
 
-	/*
-	 command =  parsedCommandstring[0];
-	 taskID = parsedCommandstring[1];
-	 taskName = parsedCommandstring[2];
-	 startDate = parsedCommandstring[3];
-	 startTime = parsedCommandstring[4];
-	 endDate = parsedCommandstring[5];
-	 endTime = parsedCommandstring[6];
-	 index = parsedCommandstring[7];
-	 fieldtoUpdate = parsedCommandstring[8];
-	 updateContent = parsedCommandstring[9]; */
-	 //JJ added:
-	 stringToMain = parsedCommandstring[10];
+	 //stringToMain = parsedCommandstring[10];
 
-	// cout << taskID <<" hhere" << endl;
-	 /*
-	 cout << command <<" here" << endl;
-	 cout << taskName << " retrieved" << endl;
-	 cout << startDate << " date" << endl;
-	 cout << startTime << " time" << endl;
-	 cout << endDate << " endDate" << endl;
-	 cout << endTime << " endTime" << endl;
-	 cout << index << " index" << endl;
-	 cout << fieldtoUpdate << " field" << endl;
-	 cout << updateContent << " content" << endl;
-	 */
-
-	 //JJ added:
-	 try {
 	 stringToMain += actonCommand(command);
 	 return stringToMain;
-	 } catch(int number) {
-		 throw 0;
-	 }
 }
 
 string Worker::actonCommand(string command)
 {
-	try{
 	if(command == "add") {
 		if(userCommand.Add(userTask)) {
 			successful = "has been added successfully! :) \n";
+		} else{
+			successful = "has not been added successfully! ): \n";
 		}
 	}
 
@@ -90,7 +70,7 @@ string Worker::actonCommand(string command)
 			successful = "has been deleted successfully! :)\n";
 		}
 		else {
-		successful = "Please enter a valid index!\n";
+			successful = "Please enter a valid index!\n";
 		}
 	}
 
@@ -100,7 +80,7 @@ string Worker::actonCommand(string command)
 			successful = "has been updated successfully! :)\n";
 		}
 		else {
-		successful = "Please enter a valid index!\n";
+			successful = "Please enter a valid index!\n";
 		}
 	}
 
@@ -109,10 +89,7 @@ string Worker::actonCommand(string command)
 			successful = "End of file.\n";
 		}
 	}
-	}
-	catch (int number) {
-		throw 0;
-	}
+		
 
 	return successful;
 
@@ -122,39 +99,6 @@ vector<Task> Worker::getTaskList() {
 	return userCommand.getTaskList();
 }
 
-/*
-string Worker::updateTaskWithIndex(string index, string update, string updateField) {
-	
-	int indexInt  = atoi(index.c_str());
-
-	if(updateField == taskName && index == todoList.getTaskID(indexInt) ) {
-		todoList.accesswithTaskID(indexInt).taskName =  update;
-	}
-
-	else if(updateField == startDate && index == todoList.getTaskID(indexInt)) {
-		todoList.accesswithTaskID(indexInt).startDate =  update;
-	}
-
-	else if(updateField == startTime && index == todoList.getTaskID(indexInt)) {
-		todoList.accesswithTaskID(indexInt).startTime =  update;
-	}
-	
-	else if(updateField == endDate && index == todoList.getTaskID(indexInt)) { 
-		todoList.accesswithTaskID(indexInt).endDate =  update;
-	}
-	
-	else if(updateField == endTime && index == todoList.getTaskID(indexInt) ) {
-		todoList.accesswithTaskID(indexInt).endTime =  update;
-	}
-
-	else
-		return MESSAGE_ENTER_VALID_COMMAND;
-
-
-
-	return MESSAGE_UPDATED_SUCCESSFULLY;
-}
-*/
 
 
 

@@ -76,12 +76,7 @@ bool Store::eraser(string taskIndex) {
 	int i = 0;
 	bool erased = false;
 	
-	int slot;
-	//atoi(myString.c_str())
-	if(atoi(taskIndex.c_str()) > taskList.size()){
-		throw 0;
-	} else {
-
+	int slot=0;
 	for(int i = 0; i<taskList.size(); i++) {
 		if(taskList[i].taskID == taskIndex) {
 			slot = i;
@@ -89,12 +84,12 @@ bool Store::eraser(string taskIndex) {
 		break;
 	}
 	for(slot; slot<taskList.size()-1; slot++){
+		taskList[slot+1].taskID = to_string(slot+1);
 		taskList[slot] = taskList[slot+1];
 	}
 	taskList.pop_back();
 	
 	return erased;
-	}
 }
 
 Task Store::accesswithTaskID(int indexEntered) {
@@ -133,7 +128,7 @@ bool Store::changeTask(int Index, Task userTask) {
 void Store::dueToday() {
 	
 	for(int i = 0; i < taskList.size(); i++) {
-		if(taskList[i].startDate == "20140320") {
+		if(taskList[i].startDate == "20140321") {
 			taskList[i].isBold = true;
 		}
 		else {
