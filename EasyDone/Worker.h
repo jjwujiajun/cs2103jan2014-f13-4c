@@ -15,6 +15,8 @@ private:
 	Task userTask; 
 	string command;
 
+	void convertTaskDataToDisplayFormat(vector<Task> &);
+
 	//variables to store the various components from parsedCommandstring
 	/*string taskID;
 	string command; //vector index 0

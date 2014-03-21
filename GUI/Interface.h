@@ -79,13 +79,14 @@ namespace GUI {
 			richTaskList->SelectionColor = Color::Gray;
 			
 			String ^index = gcnew String(task.taskID.c_str());
+			richTaskList->SelectedText = "  ";
 			richTaskList->SelectedText = index;
 		}
 		void displayTaskInformation(Task task) {
 			if (task.isBold) {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Bold);
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Bold);
 			} else {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Regular);
+				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Regular);
 			}
 			richTaskList->SelectionColor = Color::Black;
 

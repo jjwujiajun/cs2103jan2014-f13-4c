@@ -96,7 +96,96 @@ string Worker::actonCommand(string command)
 }
 
 vector<Task> Worker::getTaskList() {
-	return userCommand.getTaskList();
+	vector<Task> displayedTaskList = userCommand.getTaskList();
+
+	convertTaskDataToDisplayFormat(displayedTaskList);
+
+	return displayedTaskList;
+}
+
+void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
+	for (int i = 0; i < taskList.size(); ++i) {
+		string taskIndex = taskList[i].taskID;
+		string time = taskList[i].startTime;
+		string sDate = taskList[i].startDate;
+		string sMonth;
+		string sDay;
+		int date;
+		int month;
+		int day;
+		bool isKnownDateFormat = true;
+		bool isKnownTimeFormat = true;
+
+
+		// 4 digit index display
+		while (taskIndex.size() < 4) {
+			taskIndex = "0" + taskIndex;
+		}
+		taskList[i].taskID = taskIndex;
+		
+		// Worded date display
+		date = stoi(sDate);
+		date %= 10000;
+		month = date/100;
+		day = date%100;
+		
+		assert(1 <= month && month <= 12);
+		
+		switch (month) {
+		case 1:
+			sMonth = " Jan";
+			break;
+		case 2:
+			sMonth = " Feb";
+			break;
+		case 3:
+			sMonth = " Mar";
+			break;
+		case 4:
+			sMonth = " Apr";
+			break;
+		case 5:
+			sMonth = " May";
+			break;
+		case 6:
+			sMonth = " Jun";
+			break;
+		case 7:
+			sMonth = " Jul";
+			break;
+		case 8:
+			sMonth = " Aug";
+			break;
+		case 9:
+			sMonth = " Sep";
+			break;
+		case 10:
+			sMonth = " Oct";
+			break;
+		case 11:
+			sMonth = " Nov";
+			break;
+		case 12:
+			sMonth = " Dec";
+			break;
+		default:
+			isKnownDateFormat = false;
+			break;
+		}
+
+		assert(1 <= day && day <= 31);
+		sDay = to_string(day);
+
+		if (isKnownDateFormat) {
+			taskList[i].startDate = sDay + sMonth;
+		}
+		
+		// Digital clock display
+		assert(time.size() <= 4);
+		isKnownTimeFormat = time.size() == 4;
+		time.insert(2, ":");
+		taskList[i].startTime = time;
+	}
 }
 
 

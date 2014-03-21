@@ -15,6 +15,10 @@
 #include "Task.h"
 #include <assert.h>
 
+const string GUI_LABEL_TODAY = "Today \n";
+const string GUI_LABEL_ALLTASKS = "All Tasks \n";
+const string GUI_FONT_LABEL = "Broadway";
+
 #pragma once
 
 class Headers
