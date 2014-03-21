@@ -2,16 +2,11 @@
 
 using namespace std;
 
-string MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n";
-string USER_PROMPT = "What would you like to do today?\r\n";
-string EXIT = "exit";
-string FILE_NAME = "storageFile.txt";
-
 Manager::Manager(void) {
 	log.clear();
 
-	GUIfeedbackBox = MESSAGE_WELCOME;
-	GUIfeedbackBox += "What would you like to do today?\r\n";
+	GUIfeedbackBox = FEEDBACK_MESSAGE_WELCOME;
+	GUIfeedbackBox += FEEDBACK_PROMPT_START;
 }
 
 
@@ -20,7 +15,7 @@ Manager::~Manager(void) {
 
 void Manager::receiveInput(string input) {
 	assert(input.size() > 0);
-	string logInput = "User input: " + input;
+	string logInput = LOG_STRING_USERINPUT + input;
 	log.log(logInput);
 
 	userInput = input;
@@ -46,21 +41,17 @@ void Manager::init() {
 	string logInput;
 
 	// improve: return by pointer
-	log.log("Manager: Pass userInput to parser");
+	log.log(LOG_MANAGER_TO_PARSER);
 	parsedInput  = parser.completeParse (userInput);
 
-	try {
-	log.log("Manager: Pass parsedInput to worker");
+	log.log(LOG_MANAGER_TO_WORKER);
 	feedback = worker.takeparsedCommand(parsedInput);
-	} catch(int number) {
-		 throw 0;
-	 }
 		
 	// set GUITaskList;
 	GUIfeedbackBox = feedback;
-	GUIfeedbackBox += "What else would you like to do? \r\n";
+	GUIfeedbackBox += FEEDBACK_PROMPT_OTHERS;
 
-	GUIInputField = "";
+	GUIInputField = NULL_STRING;
 
 	log.endLog();
 	
