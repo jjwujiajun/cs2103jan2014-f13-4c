@@ -179,8 +179,7 @@ namespace GUI {
 			// 
 			// taskList
 			// 
-			this->taskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
-				| System::Windows::Forms::AnchorStyles::Left) 
+			this->taskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->taskList->BackColor = System::Drawing::Color::White;
 			this->taskList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(4) {this->index, this->startDate, 
@@ -218,6 +217,7 @@ namespace GUI {
 			// 
 			// title
 			// 
+			this->title->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->title->AutoSize = true;
 			this->title->BackColor = System::Drawing::Color::White;
 			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
@@ -232,6 +232,9 @@ namespace GUI {
 			// 
 			// richTaskList
 			// 
+			this->richTaskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->richTaskList->Font = (gcnew System::Drawing::Font(L"Broadway", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->richTaskList->ForeColor = System::Drawing::SystemColors::InactiveCaption;
