@@ -19,9 +19,13 @@ bool Command::Add(Task userTask) {
 }
 
 bool Command::Delete(Task userTask) {
+	try {
 	bool erased = todoList.eraser(userTask.taskID);
 
 	return erased;
+	} catch (int number) {
+		throw 0;
+	}
 }
 
 bool Command::Display() {
