@@ -91,17 +91,17 @@ namespace GUI {
 			richTaskList->SelectionColor = Color::Black;
 
 			// ~~Spacing~~
-			richTaskList->SelectedText = "  ";
+			richTaskList->SelectedText = "\t";
 			// - Date
 			String ^startDate = gcnew String(task.startDate.c_str());
 			richTaskList->SelectedText = startDate;
 			// ~~Spacing~~
-			richTaskList->SelectedText = "  ";
+			richTaskList->SelectedText = "\t";
 			// - Time
 			String ^startTime = gcnew String(task.startTime.c_str());
 			richTaskList->SelectedText = startTime;
 			// ~~Spacing~~
-			richTaskList->SelectedText = "  ";
+			richTaskList->SelectedText = "\t";
 			// - Description
 			String ^taskName = gcnew String(task.taskName.c_str());
 			richTaskList->SelectedText = taskName;
@@ -121,13 +121,17 @@ namespace GUI {
 	private: Manager *manager;
 	private: System::Windows::Forms::TextBox^  inputField;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
-	private: System::Windows::Forms::ListView^  taskList;
-	private: System::Windows::Forms::ColumnHeader^  index;
-	private: System::Windows::Forms::ColumnHeader^  startDate;
-	private: System::Windows::Forms::ColumnHeader^  startTime;
-	private: System::Windows::Forms::ColumnHeader^  task;
+
+
+
+
+
 	private: System::Windows::Forms::Label^  title;
 	private: System::Windows::Forms::RichTextBox^  richTaskList;
+private: System::Windows::Forms::Label^  label1;
+private: System::Windows::Forms::Label^  label2;
+private: System::Windows::Forms::Label^  label3;
+private: System::Windows::Forms::Label^  label4;
 
 	private:
 		/// <summary>
@@ -144,13 +148,12 @@ namespace GUI {
 		{
 			this->inputField = (gcnew System::Windows::Forms::TextBox());
 			this->feedbackBox = (gcnew System::Windows::Forms::TextBox());
-			this->taskList = (gcnew System::Windows::Forms::ListView());
-			this->index = (gcnew System::Windows::Forms::ColumnHeader());
-			this->startDate = (gcnew System::Windows::Forms::ColumnHeader());
-			this->startTime = (gcnew System::Windows::Forms::ColumnHeader());
-			this->task = (gcnew System::Windows::Forms::ColumnHeader());
 			this->title = (gcnew System::Windows::Forms::Label());
 			this->richTaskList = (gcnew System::Windows::Forms::RichTextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -178,44 +181,6 @@ namespace GUI {
 			this->feedbackBox->Size = System::Drawing::Size(351, 96);
 			this->feedbackBox->TabIndex = 1;
 			// 
-			// taskList
-			// 
-			this->taskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->taskList->BackColor = System::Drawing::Color::White;
-			this->taskList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(4) {this->index, this->startDate, 
-				this->startTime, this->task});
-			this->taskList->ForeColor = System::Drawing::SystemColors::MenuBar;
-			this->taskList->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
-			this->taskList->LabelWrap = false;
-			this->taskList->Location = System::Drawing::Point(12, 38);
-			this->taskList->Name = L"taskList";
-			this->taskList->Scrollable = false;
-			this->taskList->Size = System::Drawing::Size(351, 35);
-			this->taskList->TabIndex = 2;
-			this->taskList->UseCompatibleStateImageBehavior = false;
-			this->taskList->View = System::Windows::Forms::View::Details;
-			// 
-			// index
-			// 
-			this->index->Text = L"Index";
-			this->index->Width = 38;
-			// 
-			// startDate
-			// 
-			this->startDate->Text = L"Date";
-			this->startDate->Width = 35;
-			// 
-			// startTime
-			// 
-			this->startTime->Text = L"Time";
-			this->startTime->Width = 37;
-			// 
-			// task
-			// 
-			this->task->Text = L"Task";
-			this->task->Width = 235;
-			// 
 			// title
 			// 
 			this->title->Anchor = System::Windows::Forms::AnchorStyles::Top;
@@ -236,14 +201,55 @@ namespace GUI {
 			this->richTaskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
 				| System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->richTaskList->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->richTaskList->Font = (gcnew System::Drawing::Font(L"Broadway", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->richTaskList->ForeColor = System::Drawing::SystemColors::InactiveCaption;
-			this->richTaskList->Location = System::Drawing::Point(12, 79);
+			this->richTaskList->Location = System::Drawing::Point(12, 61);
 			this->richTaskList->Name = L"richTaskList";
-			this->richTaskList->Size = System::Drawing::Size(351, 368);
+			this->richTaskList->Size = System::Drawing::Size(351, 386);
 			this->richTaskList->TabIndex = 4;
 			this->richTaskList->Text = L"";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->ForeColor = System::Drawing::Color::SkyBlue;
+			this->label1->Location = System::Drawing::Point(27, 42);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(18, 13);
+			this->label1->TabIndex = 5;
+			this->label1->Text = L"ID";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->ForeColor = System::Drawing::Color::SkyBlue;
+			this->label2->Location = System::Drawing::Point(63, 42);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(30, 13);
+			this->label2->TabIndex = 6;
+			this->label2->Text = L"Date";
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->ForeColor = System::Drawing::Color::SkyBlue;
+			this->label3->Location = System::Drawing::Point(111, 42);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(30, 13);
+			this->label3->TabIndex = 7;
+			this->label3->Text = L"Time";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->ForeColor = System::Drawing::Color::SkyBlue;
+			this->label4->Location = System::Drawing::Point(160, 42);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(31, 13);
+			this->label4->TabIndex = 8;
+			this->label4->Text = L"Task";
 			// 
 			// Interface
 			// 
@@ -252,9 +258,12 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->label4);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->richTaskList);
 			this->Controls->Add(this->title);
-			this->Controls->Add(this->taskList);
 			this->Controls->Add(this->feedbackBox);
 			this->Controls->Add(this->inputField);
 			this->MaximizeBox = false;
@@ -298,5 +307,6 @@ namespace GUI {
 					 delete feedbackToDisplay;
 				 }
 			 }
-	};
+
+};
 }

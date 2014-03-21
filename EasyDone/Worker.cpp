@@ -103,6 +103,7 @@ vector<Task> Worker::getTaskList() {
 	return displayedTaskList;
 }
 
+
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 	for (int i = 0; i < taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
@@ -114,7 +115,7 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 		int month;
 		int day;
 		bool isKnownDateFormat = true;
-		bool isKnownTimeFormat = true;
+		bool isKnownTimeFormat = time.size() == 4;
 
 
 		// 4 digit index display
@@ -124,67 +125,79 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 		taskList[i].taskID = taskIndex;
 		
 		// Worded date display
-		date = stoi(sDate);
-		date %= 10000;
-		month = date/100;
-		day = date%100;
-		
-		assert(1 <= month && month <= 12);
-		
-		switch (month) {
-		case 1:
-			sMonth = " Jan";
-			break;
-		case 2:
-			sMonth = " Feb";
-			break;
-		case 3:
-			sMonth = " Mar";
-			break;
-		case 4:
-			sMonth = " Apr";
-			break;
-		case 5:
-			sMonth = " May";
-			break;
-		case 6:
-			sMonth = " Jun";
-			break;
-		case 7:
-			sMonth = " Jul";
-			break;
-		case 8:
-			sMonth = " Aug";
-			break;
-		case 9:
-			sMonth = " Sep";
-			break;
-		case 10:
-			sMonth = " Oct";
-			break;
-		case 11:
-			sMonth = " Nov";
-			break;
-		case 12:
-			sMonth = " Dec";
-			break;
-		default:
-			isKnownDateFormat = false;
-			break;
+		if (!sDate.empty() && sDate != "0") {
+			date = stoi(sDate);
+			date %= 10000;
+
+			month = date/100;
+			//assert(1 <= month && month <= 12);
+			switch (month) {
+			case 1:
+				sMonth = " Jan";
+				break;
+			case 2:
+				sMonth = " Feb";
+				break;
+			case 3:
+				sMonth = " Mar";
+				break;
+			case 4:
+				sMonth = " Apr";
+				break;
+			case 5:
+				sMonth = " May";
+				break;
+			case 6:
+				sMonth = " Jun";
+				break;
+			case 7:
+				sMonth = " Jul";
+				break;
+			case 8:
+				sMonth = " Aug";
+				break;
+			case 9:
+				sMonth = " Sep";
+				break;
+			case 10:
+				sMonth = " Oct";
+				break;
+			case 11:
+				sMonth = " Nov";
+				break;
+			case 12:
+				sMonth = " Dec";
+				break;
+			default:
+				isKnownDateFormat = false;
+				break;
+			}
+
+			day = date%100;
+			//assert(1 <= day && day <= 31);
+			if (day < 10) {
+				sDay = " " + to_string(day);
+			} else {
+				sDay = to_string(day);
+			}
+
+			if (isKnownDateFormat) {
+				taskList[i].startDate = sDay + sMonth;
+			}
+		} else {
+			taskList[i].startDate = ""; //6 spaces
 		}
 
-		assert(1 <= day && day <= 31);
-		sDay = to_string(day);
-
-		if (isKnownDateFormat) {
-			taskList[i].startDate = sDay + sMonth;
+		if (!time.empty() && time != "0") {
+			// Digital clock display
+			//assert(time.size() <= 4);
+			if (isKnownTimeFormat) {
+				time.insert(2, ":");
+				taskList[i].startTime = time;
+			}
+		} else {
+			taskList[i].startTime = "";
 		}
-		
-		// Digital clock display
-		assert(time.size() <= 4);
-		isKnownTimeFormat = time.size() == 4;
-		time.insert(2, ":");
-		taskList[i].startTime = time;
 	}
 }
 
