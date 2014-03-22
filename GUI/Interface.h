@@ -19,18 +19,24 @@ namespace GUI {
 	{
 	public:
 		Interface(void);
-		void displayTasksListBox(vector<Task>);
-		void receiveUserInput();
+		void operateUserRequest();
+		void toggleHelpSection();
 		void convertSysToStdString(String ^, string&);
-		void convertStdToSysString(string&, String ^);
+		void convertStdToSysString(string&, String ^&);
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~Interface();
 
 	private:
+		// input functions
+		void receiveUserInput();
+
+		// display functions
+		void displayTasksListBox();
+		void displayFeedbackBox();
+		void displayInputField();
+
+		// taskList display functions
 		void displayTodayLabel();
 		void displayAllTaskLabel();
 		void displayTask(Task task);
@@ -48,6 +54,7 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  dateLabel;
 	private: System::Windows::Forms::Label^  timeLabel;
 	private: System::Windows::Forms::Label^  taskLabel;
+	private: System::Windows::Forms::RichTextBox^  helpBox;
 
 	private:
 		/// <summary>
@@ -70,6 +77,7 @@ namespace GUI {
 			this->dateLabel = (gcnew System::Windows::Forms::Label());
 			this->timeLabel = (gcnew System::Windows::Forms::Label());
 			this->taskLabel = (gcnew System::Windows::Forms::Label());
+			this->helpBox = (gcnew System::Windows::Forms::RichTextBox());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -81,7 +89,7 @@ namespace GUI {
 			this->inputField->Name = L"inputField";
 			this->inputField->Size = System::Drawing::Size(351, 20);
 			this->inputField->TabIndex = 0;
-			this->inputField->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Interface::enterPressed);
+			this->inputField->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Interface::keyPressed);
 			// 
 			// feedbackBox
 			// 
@@ -163,6 +171,16 @@ namespace GUI {
 			this->taskLabel->TabIndex = 8;
 			this->taskLabel->Text = L"Task";
 			// 
+			// helpBox
+			// 
+			this->helpBox->Anchor = System::Windows::Forms::AnchorStyles::Left;
+			this->helpBox->Location = System::Drawing::Point(369, 12);
+			this->helpBox->Name = L"helpBox";
+			this->helpBox->Size = System::Drawing::Size(293, 560);
+			this->helpBox->TabIndex = 9;
+			this->helpBox->Text = L"";
+			this->helpBox->Visible = false;
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -170,6 +188,7 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->helpBox);
 			this->Controls->Add(this->taskLabel);
 			this->Controls->Add(this->timeLabel);
 			this->Controls->Add(this->dateLabel);
@@ -190,25 +209,16 @@ namespace GUI {
 		//
 		// function: press enter to take in string
 		//
-	private: System::Void enterPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
+	private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 				 if (inputField->Text == "live search") {
 					 feedbackBox->Text = "live search!";
 				 }
-
 				 if (keyPressed->KeyCode == Keys::F1) {
-					 if (helpIsShown) {
-						 feedbackBox->Text = "Help page is closed\n";
-						 this->ClientSize = System::Drawing::Size(375, 587);
-					 } else {
-						 feedbackBox->Text = "Show help page\n";
-						 this->ClientSize = System::Drawing::Size(550, 587);
-					 }
-					 helpIsShown = !helpIsShown;
+					 toggleHelpSection();
 				 }
-				 
 				 if (keyPressed->KeyCode == Keys::Enter) {
-					 receiveUserInput();
+					 operateUserRequest();
 				 }
 			 }
-	};
+};
 }

@@ -34,37 +34,76 @@ GUI::Interface::~Interface() {
 	}
 }
 
+void GUI::Interface::operateUserRequest() {
+	receiveUserInput();
+
+	displayTasksListBox();
+	displayFeedbackBox();
+	displayInputField();
+}
+
+// input functions
 void GUI::Interface::receiveUserInput() {
 	String ^inputString;
-	String ^feedbackToDisplay;
-	String ^inputToDisplay;
 	std::string convertedInputString;
-	std::string receivedFeedback;
-	std::string receivedInput;
-	std::vector<Task> receivedTaskList;
 
 	inputString = inputField->Text;
 	convertSysToStdString(inputString, convertedInputString);
 
 	manager->receiveInput(convertedInputString);
+}
+
+void GUI::Interface::toggleHelpSection() {
+	if (helpIsShown) {
+		feedbackBox->Text = "Help page is closed\n";
+
+		this->ClientSize = System::Drawing::Size(375, 587);
+		this->helpBox->Visible = !this->helpBox->Visible;
+	} else {
+		feedbackBox->Text = "Show help page\n";
+		this->ClientSize = System::Drawing::Size(674, 587);
+		this->helpBox->Visible = !this->helpBox->Visible;
+	}
+	helpIsShown = !helpIsShown;
+}
+
+// display functions
+void GUI::Interface::displayTasksListBox() {
+	std::vector<Task> receivedTaskList;
+	int i = 0;
 
 	receivedTaskList = manager->getTaskList();
+
+	richTaskList->Clear();
+	while (i < receivedTaskList.size() && i < 10) {
+		displayTask(receivedTaskList[i]);
+		i++;
+	}
+}
+
+void GUI::Interface::displayFeedbackBox() {
+	String ^feedbackToDisplay;
+	std::string receivedFeedback;
+
 	receivedFeedback = manager->getFeedback();
-	receivedInput = manager->getInputField();
-
-	//convertStdToSysString(receivedFeedback, feedbackToDisplay);
-	feedbackToDisplay = gcnew String(receivedFeedback.c_str());
-	inputToDisplay = gcnew String(receivedInput.c_str());
-
-	displayTasksListBox(receivedTaskList);
+	convertStdToSysString(receivedFeedback, feedbackToDisplay);
 	feedbackBox->Text = feedbackToDisplay;
-	inputField->Text = inputToDisplay;
 
 	delete feedbackToDisplay;
+}
+
+void GUI::Interface::displayInputField() {
+	String ^inputToDisplay;
+	std::string receivedInput;
+
+	receivedInput = manager->getInputField();
+	convertStdToSysString(receivedInput, inputToDisplay);
+	inputField->Text = inputToDisplay;
+
 	delete inputToDisplay;
 }
 
-// string conversion
+// string conversion functions
 void GUI::Interface::convertSysToStdString(String ^ s, string& os) {
 	using namespace Runtime::InteropServices;
 	const char* chars = 
@@ -73,21 +112,11 @@ void GUI::Interface::convertSysToStdString(String ^ s, string& os) {
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 }
 
-void GUI::Interface::convertStdToSysString(string &os, String ^s) {
+void GUI::Interface::convertStdToSysString(string &os, String^ &s) {
 	s = gcnew String(os.c_str());
 }
 
-// taskList display
-void GUI::Interface::displayTasksListBox(vector<Task> taskList) {
-	int i = 0;
-
-	richTaskList->Clear();
-	while (i < taskList.size() && i < 10) {
-		displayTask(taskList[i]);
-		i++;
-	}
-}
-
+// taskList display functions
 void GUI::Interface::displayTask(Task task) {
 	displayTaskIndex(task);
 	displayTaskInformation(task);
