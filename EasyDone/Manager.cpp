@@ -34,6 +34,42 @@ string Manager::getInputField() {
 	return GUIInputField;
 }
 
+vector<string> Manager::getHelpHeadings() {
+	ifstream headingFile("helpHeadings.txt");
+	vector<string> helpHeadings;
+	string heading;
+
+	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
+		getline(headingFile, heading);
+		helpHeadings.push_back(heading);
+	}
+	headingFile.close();
+
+	return helpHeadings;
+}
+
+vector<string> Manager::getHelpInstructions() {
+	ifstream instructionFile;
+	vector<string> helpInstructions;
+	string fileName;
+
+	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
+		string instructionParagraph;
+		string instructionLine;
+
+		fileName = "helpInstruction" + to_string(i+1) + ".txt";
+		instructionFile.open(fileName);
+		getline(instructionFile, instructionLine);
+		while (getline(instructionFile, instructionLine)) {
+			instructionParagraph += instructionLine + "\r\n";
+		}
+		helpInstructions.push_back(instructionParagraph);
+		instructionFile.close();
+	}
+
+	return helpInstructions;
+}
+
 void Manager::init() {
 
 	vector<string> parsedInput;

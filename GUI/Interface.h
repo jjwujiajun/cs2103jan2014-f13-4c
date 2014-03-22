@@ -35,6 +35,7 @@ namespace GUI {
 		void displayTasksListBox();
 		void displayFeedbackBox();
 		void displayInputField();
+		void getHelpBoxDisplay();
 
 		// taskList display functions
 		void displayTodayLabel();
@@ -55,6 +56,7 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  timeLabel;
 	private: System::Windows::Forms::Label^  taskLabel;
 	private: System::Windows::Forms::RichTextBox^  helpBox;
+	private: System::Windows::Forms::Label^  helpDivider;
 
 	private:
 		/// <summary>
@@ -78,6 +80,7 @@ namespace GUI {
 			this->timeLabel = (gcnew System::Windows::Forms::Label());
 			this->taskLabel = (gcnew System::Windows::Forms::Label());
 			this->helpBox = (gcnew System::Windows::Forms::RichTextBox());
+			this->helpDivider = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -174,12 +177,24 @@ namespace GUI {
 			// helpBox
 			// 
 			this->helpBox->Anchor = System::Windows::Forms::AnchorStyles::Left;
-			this->helpBox->Location = System::Drawing::Point(369, 12);
+			this->helpBox->BackColor = System::Drawing::Color::White;
+			this->helpBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->helpBox->Location = System::Drawing::Point(376, 12);
 			this->helpBox->Name = L"helpBox";
+			this->helpBox->ReadOnly = true;
 			this->helpBox->Size = System::Drawing::Size(293, 560);
 			this->helpBox->TabIndex = 9;
 			this->helpBox->Text = L"";
 			this->helpBox->Visible = false;
+			// 
+			// helpDivider
+			// 
+			this->helpDivider->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->helpDivider->Location = System::Drawing::Point(372, 16);
+			this->helpDivider->Name = L"helpDivider";
+			this->helpDivider->Size = System::Drawing::Size(1, 560);
+			this->helpDivider->TabIndex = 10;
+			this->helpDivider->Visible = false;
 			// 
 			// Interface
 			// 
@@ -188,6 +203,7 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->helpDivider);
 			this->Controls->Add(this->helpBox);
 			this->Controls->Add(this->taskLabel);
 			this->Controls->Add(this->timeLabel);
