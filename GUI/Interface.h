@@ -18,120 +18,36 @@ namespace GUI {
 	public ref class Interface : public System::Windows::Forms::Form
 	{
 	public:
-		Interface(void) {
-			InitializeComponent();
-			// Add the constructor code here
-			manager = new Manager();
-
-			// manager->getTaskList();
-			// displayTasksListBox();
-
-			// display feedback
-			std::string receivedFeedback = manager->getFeedback();
-			String ^feedbackToDisplay = gcnew String(receivedFeedback.c_str());
-			feedbackBox->Text = feedbackToDisplay;
-		}
+		Interface(void);
+		void displayTasksListBox(vector<Task>);
+		void receiveUserInput();
+		void convertSysToStdString(String ^, string&);
+		void convertStdToSysString(string&, String ^);
 
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~Interface() {
-			delete manager;
-			if (components)	{
-				delete components;
-			}
-		}
+		~Interface();
 
-	public:
-		void displayTasksListBox(vector<Task> taskList) {
-			int i = 0;
+	private:
+		void displayTodayLabel();
+		void displayAllTaskLabel();
+		void displayTask(Task task);
+		void displayTaskIndex(Task task);
+		void displayTaskInformation(Task task);
+		
+		Manager *manager;
+		bool helpIsShown;
 
-			richTaskList->Clear();
-			while (i < taskList.size() && i < 10) {
-				displayTask(taskList[i]);
-				i++;
-			}
-		}
-
-		void displayTodayLabel() {
-			richTaskList->SelectionFont = gcnew System::Drawing::Font("Broadway", 12);
-			richTaskList->SelectionColor = Color::CornflowerBlue;
-			richTaskList->SelectedText = "Today \n";
-		}
-
-		void displayAllTaskLabel() {	
-			richTaskList->SelectionFont = gcnew System::Drawing::Font("Broadway", 12);
-			richTaskList->SelectionColor = Color::CornflowerBlue;
-			richTaskList->SelectedText = "All Tasks \n";
-		}
-
-		void displayTask(Task task) {
-			displayTaskIndex(task);
-			displayTaskInformation(task);
-		}
-		void displayTaskIndex(Task task) {
-			if (task.isBold) {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
-			} else {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Regular);
-			}
-			richTaskList->SelectionColor = Color::Gray;
-			
-			String ^index = gcnew String(task.taskID.c_str());
-			richTaskList->SelectedText = "  ";
-			richTaskList->SelectedText = index;
-		}
-		void displayTaskInformation(Task task) {
-			if (task.isBold) {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Bold);
-			} else {
-				richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Regular);
-			}
-			richTaskList->SelectionColor = Color::Black;
-
-			// ~~Spacing~~
-			richTaskList->SelectedText = "\t";
-			// - Date
-			String ^startDate = gcnew String(task.startDate.c_str());
-			richTaskList->SelectedText = startDate;
-			// ~~Spacing~~
-			richTaskList->SelectedText = "\t";
-			// - Time
-			String ^startTime = gcnew String(task.startTime.c_str());
-			richTaskList->SelectedText = startTime;
-			// ~~Spacing~~
-			richTaskList->SelectedText = "\t";
-			// - Description
-			String ^taskName = gcnew String(task.taskName.c_str());
-			richTaskList->SelectedText = taskName;
-			// ~~NewLine~~
-			richTaskList->SelectedText = "\n";
-		}
-
-	public:
-		void MarshalString ( String ^ s, string& os ) {
-		   using namespace Runtime::InteropServices;
-		   const char* chars = 
-			  (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-		   os = chars;
-		   Marshal::FreeHGlobal(IntPtr((void*)chars));
-		}
-
-	private: Manager *manager;
 	private: System::Windows::Forms::TextBox^  inputField;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
-
-
-
-
-
 	private: System::Windows::Forms::Label^  title;
 	private: System::Windows::Forms::RichTextBox^  richTaskList;
-private: System::Windows::Forms::Label^  label1;
-private: System::Windows::Forms::Label^  label2;
-private: System::Windows::Forms::Label^  label3;
-private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  IDLabel;
+	private: System::Windows::Forms::Label^  dateLabel;
+	private: System::Windows::Forms::Label^  timeLabel;
+	private: System::Windows::Forms::Label^  taskLabel;
 
 	private:
 		/// <summary>
@@ -150,16 +66,15 @@ private: System::Windows::Forms::Label^  label4;
 			this->feedbackBox = (gcnew System::Windows::Forms::TextBox());
 			this->title = (gcnew System::Windows::Forms::Label());
 			this->richTaskList = (gcnew System::Windows::Forms::RichTextBox());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->IDLabel = (gcnew System::Windows::Forms::Label());
+			this->dateLabel = (gcnew System::Windows::Forms::Label());
+			this->timeLabel = (gcnew System::Windows::Forms::Label());
+			this->taskLabel = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// inputField
 			// 
-			this->inputField->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
+			this->inputField->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->inputField->BackColor = System::Drawing::Color::White;
 			this->inputField->ForeColor = System::Drawing::SystemColors::WindowText;
 			this->inputField->Location = System::Drawing::Point(12, 555);
@@ -170,8 +85,7 @@ private: System::Windows::Forms::Label^  label4;
 			// 
 			// feedbackBox
 			// 
-			this->feedbackBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
+			this->feedbackBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->feedbackBox->BackColor = System::Drawing::Color::White;
 			this->feedbackBox->Cursor = System::Windows::Forms::Cursors::Arrow;
 			this->feedbackBox->Location = System::Drawing::Point(12, 453);
@@ -183,13 +97,12 @@ private: System::Windows::Forms::Label^  label4;
 			// 
 			// title
 			// 
-			this->title->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->title->AutoSize = true;
 			this->title->BackColor = System::Drawing::Color::White;
 			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->title->ForeColor = System::Drawing::Color::CornflowerBlue;
-			this->title->Location = System::Drawing::Point(143, 9);
+			this->title->Location = System::Drawing::Point(138, 9);
 			this->title->Name = L"title";
 			this->title->Size = System::Drawing::Size(97, 29);
 			this->title->TabIndex = 3;
@@ -198,9 +111,8 @@ private: System::Windows::Forms::Label^  label4;
 			// 
 			// richTaskList
 			// 
-			this->richTaskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
-				| System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
+			this->richTaskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left));
 			this->richTaskList->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->richTaskList->Font = (gcnew System::Drawing::Font(L"Broadway", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
@@ -211,45 +123,45 @@ private: System::Windows::Forms::Label^  label4;
 			this->richTaskList->TabIndex = 4;
 			this->richTaskList->Text = L"";
 			// 
-			// label1
+			// IDLabel
 			// 
-			this->label1->AutoSize = true;
-			this->label1->ForeColor = System::Drawing::Color::SkyBlue;
-			this->label1->Location = System::Drawing::Point(27, 42);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(18, 13);
-			this->label1->TabIndex = 5;
-			this->label1->Text = L"ID";
+			this->IDLabel->AutoSize = true;
+			this->IDLabel->ForeColor = System::Drawing::Color::SkyBlue;
+			this->IDLabel->Location = System::Drawing::Point(27, 42);
+			this->IDLabel->Name = L"IDLabel";
+			this->IDLabel->Size = System::Drawing::Size(18, 13);
+			this->IDLabel->TabIndex = 5;
+			this->IDLabel->Text = L"ID";
 			// 
-			// label2
+			// dateLabel
 			// 
-			this->label2->AutoSize = true;
-			this->label2->ForeColor = System::Drawing::Color::SkyBlue;
-			this->label2->Location = System::Drawing::Point(63, 42);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(30, 13);
-			this->label2->TabIndex = 6;
-			this->label2->Text = L"Date";
+			this->dateLabel->AutoSize = true;
+			this->dateLabel->ForeColor = System::Drawing::Color::SkyBlue;
+			this->dateLabel->Location = System::Drawing::Point(63, 42);
+			this->dateLabel->Name = L"dateLabel";
+			this->dateLabel->Size = System::Drawing::Size(30, 13);
+			this->dateLabel->TabIndex = 6;
+			this->dateLabel->Text = L"Date";
 			// 
-			// label3
+			// timeLabel
 			// 
-			this->label3->AutoSize = true;
-			this->label3->ForeColor = System::Drawing::Color::SkyBlue;
-			this->label3->Location = System::Drawing::Point(111, 42);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(30, 13);
-			this->label3->TabIndex = 7;
-			this->label3->Text = L"Time";
+			this->timeLabel->AutoSize = true;
+			this->timeLabel->ForeColor = System::Drawing::Color::SkyBlue;
+			this->timeLabel->Location = System::Drawing::Point(111, 42);
+			this->timeLabel->Name = L"timeLabel";
+			this->timeLabel->Size = System::Drawing::Size(30, 13);
+			this->timeLabel->TabIndex = 7;
+			this->timeLabel->Text = L"Time";
 			// 
-			// label4
+			// taskLabel
 			// 
-			this->label4->AutoSize = true;
-			this->label4->ForeColor = System::Drawing::Color::SkyBlue;
-			this->label4->Location = System::Drawing::Point(160, 42);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(31, 13);
-			this->label4->TabIndex = 8;
-			this->label4->Text = L"Task";
+			this->taskLabel->AutoSize = true;
+			this->taskLabel->ForeColor = System::Drawing::Color::SkyBlue;
+			this->taskLabel->Location = System::Drawing::Point(160, 42);
+			this->taskLabel->Name = L"taskLabel";
+			this->taskLabel->Size = System::Drawing::Size(31, 13);
+			this->taskLabel->TabIndex = 8;
+			this->taskLabel->Text = L"Task";
 			// 
 			// Interface
 			// 
@@ -258,10 +170,10 @@ private: System::Windows::Forms::Label^  label4;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
-			this->Controls->Add(this->label4);
-			this->Controls->Add(this->label3);
-			this->Controls->Add(this->label2);
-			this->Controls->Add(this->label1);
+			this->Controls->Add(this->taskLabel);
+			this->Controls->Add(this->timeLabel);
+			this->Controls->Add(this->dateLabel);
+			this->Controls->Add(this->IDLabel);
 			this->Controls->Add(this->richTaskList);
 			this->Controls->Add(this->title);
 			this->Controls->Add(this->feedbackBox);
@@ -279,34 +191,24 @@ private: System::Windows::Forms::Label^  label4;
 		// function: press enter to take in string
 		//
 	private: System::Void enterPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
+				 if (inputField->Text == "live search") {
+					 feedbackBox->Text = "live search!";
+				 }
+
+				 if (keyPressed->KeyCode == Keys::F1) {
+					 if (helpIsShown) {
+						 feedbackBox->Text = "Help page is closed\n";
+						 this->ClientSize = System::Drawing::Size(375, 587);
+					 } else {
+						 feedbackBox->Text = "Show help page\n";
+						 this->ClientSize = System::Drawing::Size(550, 587);
+					 }
+					 helpIsShown = !helpIsShown;
+				 }
+				 
 				 if (keyPressed->KeyCode == Keys::Enter) {
-					 String ^inputString;
-					 String ^feedbackToDisplay;
-					 String ^inputToDisplay;
-					 std::string convertedInputString;
-					 std::string receivedFeedback;
-					 std::string receivedInput;
-					 std::vector<Task> receivedTaskList;
-
-					 inputString = inputField->Text;
-					 MarshalString(inputString, convertedInputString);
-
-					 manager->receiveInput(convertedInputString);
-
-					 receivedTaskList = manager->getTaskList();
-					 receivedFeedback = manager->getFeedback();
-					 receivedInput = manager->getInputField();
-
-					 feedbackToDisplay = gcnew String(receivedFeedback.c_str());
-					 inputToDisplay = gcnew String(receivedInput.c_str());
-
-					 displayTasksListBox(receivedTaskList);
-					 feedbackBox->Text = feedbackToDisplay;
-					 inputField->Text = inputToDisplay;
-
-					 delete feedbackToDisplay;
+					 receiveUserInput();
 				 }
 			 }
-
-};
+	};
 }
