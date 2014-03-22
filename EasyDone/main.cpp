@@ -9,6 +9,9 @@ int main() {
 	vector<Task> taskList;
 	int i = 0;
 	
+	vector<string> headings = manager.getHelpInstructions();
+	cin >> userInput;
+	/*
 	while(userInput != "exit") {
 		cout << manager.getFeedback();
 		getline(cin, userInput);
@@ -26,6 +29,7 @@ int main() {
 
 		cout << manager.getFeedback() << endl;
 	}
+	*/
 
 	return 0;
 }

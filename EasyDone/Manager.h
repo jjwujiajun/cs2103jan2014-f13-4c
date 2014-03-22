@@ -11,6 +11,8 @@ const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n[Pres
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
+const int HELP_NUMBER_OF_SECTIONS = 4;
+const string HELP_FILE_HEADINGS = "helpHeadings.txt";
 const string NULL_STRING = "";
 
 #pragma once
@@ -39,4 +41,6 @@ public:
 	string getFeedback();
 	string getInputField();
 	vector<Task> getTaskList();
+	vector<string> getHelpHeadings();
+	vector<string> getHelpInstructions();
 };

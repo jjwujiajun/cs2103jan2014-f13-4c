@@ -14,17 +14,12 @@ void main(array<String^>^ args) {
 
 GUI::Interface::Interface(void) {
 	InitializeComponent();
-	// Add the constructor code here
+
 	manager = new Manager();
-	helpIsShown = false;
-
-	// manager->getTaskList();
-	// displayTasksListBox();
-
-	// display feedback
-	std::string receivedFeedback = manager->getFeedback();
-	String ^feedbackToDisplay = gcnew String(receivedFeedback.c_str());
-	feedbackBox->Text = feedbackToDisplay;
+	toggleHelpSection();
+	//displayTasksListBox();
+	displayFeedbackBox();
+	getHelpBoxDisplay();
 }
 
 GUI::Interface::~Interface() {
@@ -54,17 +49,18 @@ void GUI::Interface::receiveUserInput() {
 }
 
 void GUI::Interface::toggleHelpSection() {
+	helpIsShown = this->helpBox->Visible;
+	
 	if (helpIsShown) {
 		feedbackBox->Text = "Help page is closed\n";
-
 		this->ClientSize = System::Drawing::Size(375, 587);
-		this->helpBox->Visible = !this->helpBox->Visible;
 	} else {
-		feedbackBox->Text = "Show help page\n";
+		feedbackBox->Text = "[Press F1 to close Help]";
 		this->ClientSize = System::Drawing::Size(674, 587);
-		this->helpBox->Visible = !this->helpBox->Visible;
 	}
-	helpIsShown = !helpIsShown;
+
+	this->helpBox->Visible = !this->helpBox->Visible;
+	this->helpDivider->Visible = !this->helpDivider->Visible;
 }
 
 // display functions
@@ -75,7 +71,7 @@ void GUI::Interface::displayTasksListBox() {
 	receivedTaskList = manager->getTaskList();
 
 	richTaskList->Clear();
-	while (i < receivedTaskList.size() && i < 10) {
+	while (i < (int)receivedTaskList.size() && i < 10) {
 		displayTask(receivedTaskList[i]);
 		i++;
 	}
@@ -101,6 +97,35 @@ void GUI::Interface::displayInputField() {
 	inputField->Text = inputToDisplay;
 
 	delete inputToDisplay;
+}
+
+void GUI::Interface::getHelpBoxDisplay() {
+	vector<string> helpHeadings = manager->getHelpHeadings();
+	vector<string> helpInstructions = manager->getHelpInstructions();
+	
+	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
+		String ^heading;
+		String ^instruction;
+		convertStdToSysString(helpHeadings[i], heading);
+		convertStdToSysString(helpInstructions[i], instruction);
+
+		helpBox->SelectionFont = gcnew System::Drawing::Font("Calibri", 12, FontStyle::Bold);
+		helpBox->SelectionColor = Color::CornflowerBlue;
+
+		helpBox->SelectedText = heading;
+		helpBox->SelectedText = "\n";
+		delete helpBox->SelectionFont;
+
+		helpBox->SelectionFont = gcnew System::Drawing::Font("Calibri", 10, FontStyle::Regular);
+		helpBox->SelectionColor = Color::Black;
+
+		helpBox->SelectedText = instruction;
+		helpBox->SelectedText = "\n";
+		delete helpBox->SelectionFont;
+
+		delete heading;
+		delete instruction;
+	}
 }
 
 // string conversion functions
