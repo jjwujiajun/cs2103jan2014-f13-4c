@@ -20,6 +20,8 @@ GUI::Interface::Interface(void) {
 	displayTasksListBox();
 	displayFeedbackBox();
 	getHelpBoxDisplay();
+
+	numRowsToDisplay = 20;
 }
 
 GUI::Interface::~Interface() {
@@ -48,19 +50,50 @@ void GUI::Interface::receiveUserInput() {
 	manager->receiveInput(convertedInputString);
 }
 
+void GUI::Interface::retractWindow() {
+	this->ClientSize = System::Drawing::Size(375, 587);
+	this->helpDivider->Visible = !this->helpDivider->Visible;
+	windowIsExtended = !windowIsExtended;
+}
+
+void GUI::Interface::extendWindow() {
+	this->ClientSize = System::Drawing::Size(674, 587);
+	this->helpDivider->Visible = !this->helpDivider->Visible;
+	windowIsExtended = !windowIsExtended;
+}
+
 void GUI::Interface::toggleHelpSection() {
-	helpIsShown = this->helpBox->Visible;
+	assert(helpIsShown == this->helpBox->Visible);
 	
 	if (helpIsShown) {
 		feedbackBox->Text = "Help page is closed\n";
-		this->ClientSize = System::Drawing::Size(375, 587);
 	} else {
 		feedbackBox->Text = "[Press F1 to close Help]";
-		this->ClientSize = System::Drawing::Size(674, 587);
 	}
 
 	this->helpBox->Visible = !this->helpBox->Visible;
-	this->helpDivider->Visible = !this->helpDivider->Visible;
+	helpIsShown = !helpIsShown;
+}
+
+void GUI::Interface::toggleSettingSection() {
+	this->settingsTitle->Visible = !this->settingsTitle->Visible;
+	this->feedbackSetting->Visible = !this->feedbackSetting->Visible;
+	this->feedbackButton->Visible = !this->feedbackButton->Visible;
+}
+
+void GUI::Interface::toggleFeedback() {
+	this->feedbackBox->Visible = !this->feedbackBox->Visible;
+	bool feedbackIsShown = this->feedbackBox->Visible;
+
+	if (feedbackIsShown) {
+		this->richTaskList->Size = System::Drawing::Size(351, 386);
+		numRowsToDisplay = 19;
+	} else {
+		this->richTaskList->Size = System::Drawing::Size(351, 482);
+		numRowsToDisplay = 24;
+	}
+
+	displayTasksListBox();
 }
 
 // display functions
@@ -71,7 +104,7 @@ void GUI::Interface::displayTasksListBox() {
 	receivedTaskList = manager->getTaskList();
 
 	richTaskList->Clear();
-	while (i < (int)receivedTaskList.size() && i < 10) {
+	while (i < (int)receivedTaskList.size() && i < numRowsToDisplay) {
 		displayTask(receivedTaskList[i]);
 		i++;
 	}

@@ -20,7 +20,11 @@ namespace GUI {
 	public:
 		Interface(void);
 		void operateUserRequest();
+		void extendWindow();
+		void retractWindow();
 		void toggleHelpSection();
+		void toggleSettingSection();
+		void toggleFeedback();
 		void convertSysToStdString(String ^, string&);
 		void convertStdToSysString(string &, String ^&);
 
@@ -45,7 +49,9 @@ namespace GUI {
 		void displayTaskInformation(const Task &task);
 		
 		Manager *manager;
+		bool windowIsExtended;
 		bool helpIsShown;
+		int numRowsToDisplay;
 
 	private: System::Windows::Forms::TextBox^  inputField;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
@@ -57,6 +63,11 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  taskLabel;
 	private: System::Windows::Forms::RichTextBox^  helpBox;
 	private: System::Windows::Forms::Label^  helpDivider;
+	private: System::Windows::Forms::Label^  settingsTitle;
+	private: System::Windows::Forms::Label^  feedbackSetting;
+	private: System::Windows::Forms::Button^  feedbackButton;
+
+
 
 	private:
 		/// <summary>
@@ -81,6 +92,9 @@ namespace GUI {
 			this->taskLabel = (gcnew System::Windows::Forms::Label());
 			this->helpBox = (gcnew System::Windows::Forms::RichTextBox());
 			this->helpDivider = (gcnew System::Windows::Forms::Label());
+			this->settingsTitle = (gcnew System::Windows::Forms::Label());
+			this->feedbackSetting = (gcnew System::Windows::Forms::Label());
+			this->feedbackButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -197,6 +211,46 @@ namespace GUI {
 			this->helpDivider->TabIndex = 10;
 			this->helpDivider->Visible = false;
 			// 
+			// settingsTitle
+			// 
+			this->settingsTitle->AutoSize = true;
+			this->settingsTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->settingsTitle->ForeColor = System::Drawing::Color::CornflowerBlue;
+			this->settingsTitle->Location = System::Drawing::Point(487, 18);
+			this->settingsTitle->Name = L"settingsTitle";
+			this->settingsTitle->Size = System::Drawing::Size(70, 21);
+			this->settingsTitle->TabIndex = 11;
+			this->settingsTitle->Text = L"Settings";
+			this->settingsTitle->Visible = false;
+			// 
+			// feedbackSetting
+			// 
+			this->feedbackSetting->AutoSize = true;
+			this->feedbackSetting->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->feedbackSetting->ForeColor = System::Drawing::Color::RoyalBlue;
+			this->feedbackSetting->Location = System::Drawing::Point(379, 61);
+			this->feedbackSetting->Name = L"feedbackSetting";
+			this->feedbackSetting->Size = System::Drawing::Size(104, 20);
+			this->feedbackSetting->TabIndex = 12;
+			this->feedbackSetting->Text = L"Feedback Box";
+			this->feedbackSetting->Visible = false;
+			// 
+			// feedbackButton
+			// 
+			this->feedbackButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->feedbackButton->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->feedbackButton->Location = System::Drawing::Point(594, 61);
+			this->feedbackButton->Name = L"feedbackButton";
+			this->feedbackButton->Size = System::Drawing::Size(75, 23);
+			this->feedbackButton->TabIndex = 13;
+			this->feedbackButton->Text = L"Hide";
+			this->feedbackButton->UseVisualStyleBackColor = true;
+			this->feedbackButton->Visible = false;
+			this->feedbackButton->Click += gcnew System::EventHandler(this, &Interface::feedbackToggle);
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -204,6 +258,9 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->feedbackButton);
+			this->Controls->Add(this->feedbackSetting);
+			this->Controls->Add(this->settingsTitle);
 			this->Controls->Add(this->helpDivider);
 			this->Controls->Add(this->helpBox);
 			this->Controls->Add(this->taskLabel);
@@ -230,15 +287,30 @@ namespace GUI {
 				 if (inputField->Text == "live search") {
 					 feedbackBox->Text = "live search!";
 				 }
-				 if (keyPressed->KeyCode == Keys::Alt && keyPressed->KeyCode == Keys::Z) {
-					 feedbackBox->Text = "Undo!";
+				 if (keyPressed->KeyCode == Keys::F2) {
+					 if (windowIsExtended) {
+						 if (helpIsShown) toggleHelpSection();
+						 else retractWindow();
+					 } else {
+						 extendWindow();
+					 }
+					 toggleSettingSection();
 				 }
 				 if (keyPressed->KeyCode == Keys::F1) {
+					 if (windowIsExtended) {
+						 if (helpIsShown) retractWindow();
+						 else toggleSettingSection();
+					 } else {
+						 extendWindow();
+					 }
 					 toggleHelpSection();
 				 }
 				 if (keyPressed->KeyCode == Keys::Enter) {
 					 operateUserRequest();
 				 }
 			 }
+private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
+			 toggleFeedback();
+		 }
 };
 }
