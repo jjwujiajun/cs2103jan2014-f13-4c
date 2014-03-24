@@ -1,15 +1,6 @@
 <Help - Add> //add instructions below. This line is not displayed.
-add [description] [date] [time]
-Simply start will "add".
-then include your description.
-OMG Juhi can you help with this. I cant write a good instruction.
-the text for help is stored in a text file in "GUI\helpInstruction[i].txt"
-[i] stands for a numeral from 1 - 4
-1 - Add
-2 - Delete
-3 - Update
-4 - Read
-These numerical order of the 4 paragraphs corresponds to their order in "helpHeadings.txt"
+• add [task] on [start date] [start time]
+• add "task" from [start date] [start time] to [end date] [end time]
 
-*help section headings are stored in "helpHeadings.txt" due to different formatting. \r\n
-
+Try it!
+Type: Add Project meeting from 20140705 1330 to 20140705 1530
