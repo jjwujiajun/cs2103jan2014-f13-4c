@@ -33,7 +33,7 @@ Worker::~Worker() {
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	command =  parsedCommandstring[0];
-	if(command == "add"){
+	if(command == parsedCommandstring[0]){
 		
 		userTask.taskName = parsedCommandstring[1];
 		userTask.startDate = parsedCommandstring[2];
@@ -57,7 +57,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 string Worker::actonCommand(string command)
 {
-	if(command == "add") {
+	if(command == "add" || command == "new" || command == "create") {
 		if(userCommand.Add(userTask)) {
 			successful = "has been added successfully! :) \n";
 		} else{
