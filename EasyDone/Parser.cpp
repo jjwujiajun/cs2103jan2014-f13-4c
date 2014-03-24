@@ -173,7 +173,7 @@ bool Parser::parseDetails (string userInput) {
 							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_3 &&
 							 storeUserInfo[i] != keyWord_4 ) {
-					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
 					// then parse date
 					}
@@ -321,9 +321,9 @@ bool Parser::parseDetails (string userInput) {
 			// {
 				// assert(userInformation[i] != "");
 			// }
-
-            break;
 			*/
+            break;
+			
         case READ:
 			 stringSize = storeUserInfo[0];
 			 x = stringSize.size() + 1;

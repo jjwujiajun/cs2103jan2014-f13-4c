@@ -5,9 +5,9 @@ using namespace std;
 Manager::Manager(void) {
 	log.clear();
 
+	GUITaskList = worker.getTaskList();
 	GUIfeedbackBox = FEEDBACK_MESSAGE_WELCOME;
 	GUIfeedbackBox += FEEDBACK_PROMPT_START;
-
 	loadHelpPage();
 }
 
