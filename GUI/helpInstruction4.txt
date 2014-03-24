@@ -1,1 +1,6 @@
 <Help - Read> //add instructions below. This line is not displayed.
+• read [ID]
+
+Example: read 1
+
+The task ID is the grey number that is displayed to the left of your task.

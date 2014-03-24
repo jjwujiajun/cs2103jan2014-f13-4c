@@ -21,6 +21,10 @@ GUI::Interface::Interface(void) {
 	displayFeedbackBox();
 	getHelpBoxDisplay();
 
+	windowIsExtended = false;
+	helpIsShown = false;
+	settingIsShown = false;
+
 	numRowsToDisplay = 20;
 }
 
@@ -53,12 +57,20 @@ void GUI::Interface::receiveUserInput() {
 void GUI::Interface::retractWindow() {
 	this->ClientSize = System::Drawing::Size(375, 587);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
+
+	this->helpTab->Location = System::Drawing::Point(354, 174);
+	this->settingsTab->Location = System::Drawing::Point(355, 266);
+
 	windowIsExtended = !windowIsExtended;
 }
 
 void GUI::Interface::extendWindow() {
 	this->ClientSize = System::Drawing::Size(674, 587);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
+
+	this->helpTab->Location = System::Drawing::Point(653, 174);
+	this->settingsTab->Location = System::Drawing::Point(655, 266);
+
 	windowIsExtended = !windowIsExtended;
 }
 
@@ -67,11 +79,15 @@ void GUI::Interface::toggleHelpSection() {
 	
 	if (helpIsShown) {
 		feedbackBox->Text = "Help page is closed\n";
+		this->helpTab->BackColor = System::Drawing::Color::WhiteSmoke;
 	} else {
 		feedbackBox->Text = "[Press F1 to close Help]";
+		this->helpTab->BackColor = System::Drawing::Color::Silver;
 	}
 
 	this->helpBox->Visible = !this->helpBox->Visible;
+	this->helpTitle->Visible = !this->helpTitle->Visible;
+	this->helpIntro->Visible = !this->helpIntro->Visible;
 	helpIsShown = !helpIsShown;
 }
 
@@ -79,6 +95,17 @@ void GUI::Interface::toggleSettingSection() {
 	this->settingsTitle->Visible = !this->settingsTitle->Visible;
 	this->feedbackSetting->Visible = !this->feedbackSetting->Visible;
 	this->feedbackButton->Visible = !this->feedbackButton->Visible;
+	this->helpTabSetting->Visible = !this->helpTabSetting->Visible;
+	this->helpTabSettingButton->Visible = !this->helpTabSettingButton->Visible;
+	this->settingTabSetting->Visible = !this->settingTabSetting->Visible;
+	this->settingsTabSettingButton->Visible = !this->settingsTabSettingButton->Visible;
+	settingIsShown = !settingIsShown;
+
+	if (settingIsShown) {
+		this->settingsTab->BackColor = System::Drawing::Color::Silver;
+	} else {
+		this->settingsTab->BackColor = System::Drawing::Color::WhiteSmoke;
+	}
 }
 
 void GUI::Interface::toggleFeedback() {
@@ -88,12 +115,36 @@ void GUI::Interface::toggleFeedback() {
 	if (feedbackIsShown) {
 		this->richTaskList->Size = System::Drawing::Size(351, 386);
 		numRowsToDisplay = 19;
+		feedbackButton->Text = "Hide";
 	} else {
 		this->richTaskList->Size = System::Drawing::Size(351, 482);
 		numRowsToDisplay = 24;
+		feedbackButton->Text = "Show";
 	}
 
 	displayTasksListBox();
+}
+
+void GUI::Interface::toggleHelpTab() {
+	this->helpTab->Visible = !this->helpTab->Visible;
+
+	bool helpTabIsVisible = this->helpTab->Visible;
+	if (this->helpTab->Visible) {
+		helpTabSettingButton->Text = "Hide";
+	} else {
+		helpTabSettingButton->Text = "Show";
+	}
+}
+
+void GUI::Interface::toggleSettingsTab() {
+	this->settingsTab->Visible = !this->settingsTab->Visible;
+
+	bool settingTabIsVisible = this->settingsTab->Visible;
+	if (settingTabIsVisible) {
+		settingsTabSettingButton->Text = "Hide";
+	} else {
+		settingsTabSettingButton->Text = "Show";
+	}
 }
 
 // display functions
