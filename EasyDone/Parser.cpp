@@ -144,19 +144,81 @@ bool Parser::parseDetails (string userInput) {
 	size_t found_1;
 	size_t found_2;
 	size_t found_3;
+
+	//JJ added:
+	int i = 1; // note i start from 1 because command already pushed in. change to 0 if above pushing is removed in future.
+	string taskName = "";
+	string startDate = "";
+	string startTime = "";
+	string endDate = "";
+	string endTime = "";
 	
-    string keyWord_1 ("on");
-    string keyWord_2 ("from");
-    string keyWord_3 ("to");
-	string keyWord_4 ("at");
+    const string keyWord_1 ("on");
+    const string keyWord_2 ("from");
+    const string keyWord_3 ("to");
+	const string keyWord_4 ("at");
 	// find_first_of -> will treat the string as a set of characters served as delimters
 	// it will also find the first occurrence of a member of string within the string to which it is applied
 	
 	//string.find will find the whole set of characters and not only one character. This differs from find first of which finds the character only
    
     switch (enumCommand) {
-
+		// JJ edited this
         case ADD:
+
+			while (i < storeUserInfo.size()) {
+				if (storeUserInfo[i] == keyWord_1) {
+					++i;
+					while (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_2 &&
+							 storeUserInfo[i] != keyWord_3 &&
+							 storeUserInfo[i] != keyWord_4 ) {
+					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					++i;
+					// then parse date
+					}
+				} else if (storeUserInfo[i] == keyWord_2) {
+					++i;
+					while (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_1 &&
+							 storeUserInfo[i] != keyWord_3 &&
+							 storeUserInfo[i] != keyWord_4 )  {
+					startTime += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					++i;
+					// then parse time;
+					}
+				} else if (storeUserInfo[i] == keyWord_3) {
+					++i;
+					while (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_1 &&
+							 storeUserInfo[i] != keyWord_2 &&
+							 storeUserInfo[i] != keyWord_4 ) {
+					endTime += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					++i;
+					}
+				} else if (storeUserInfo[i] == keyWord_4) {
+					++i;
+					while (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_1 &&
+							 storeUserInfo[i] != keyWord_2 &&
+							 storeUserInfo[i] != keyWord_3 ) {
+					startTime += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					++i;
+					// then parse time;
+					// then,
+					// endTime = parsedStartTime + 100;  which means 1 hour right?
+					}
+				} else {
+					taskName += storeUserInfo[i] + " ";
+					++i;
+				}
+			}
+			userInformation.push_back(taskName);
+			userInformation.push_back(startDate);
+			userInformation.push_back(startTime);
+			userInformation.push_back(endDate);
+			userInformation.push_back(endTime);
+			/*
 			//  arun birthday on 20140703 1330 (floating task)
 			//  project meeting from 20140705 1330 to 20140705 1530 (timed task)
 			
@@ -261,7 +323,7 @@ bool Parser::parseDetails (string userInput) {
 			// }
 
             break;
-
+			*/
         case READ:
 			 stringSize = storeUserInfo[0];
 			 x = stringSize.size() + 1;
