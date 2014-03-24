@@ -12,7 +12,10 @@ const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
 const int HELP_NUMBER_OF_SECTIONS = 4;
-const string HELP_FILE_HEADINGS = "helpHeadings.txt";
+const string HELP_FILE_HEADINGS = "helpHeadings";
+const string HELP_FILE_INSTRUCTIONS = "helpInstruction";
+const string TYPE_TEXTFILE = ".txt";
+const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
 
 #pragma once
@@ -27,10 +30,14 @@ private:
 	Log log;
 
 	// GUI displays
+	vector<Task> GUITaskList;
 	string GUIfeedbackBox;
 	string GUIInputField;
+	vector<string> GUIHelpHeadings;
+	vector<string> GUIHelpInstructions;
 
 	void init();
+	void loadHelpPage();
 
 public:
 
@@ -38,9 +45,9 @@ public:
 	~Manager(void);
 
 	void receiveInput(string input);
-	string getFeedback();
-	string getInputField();
-	vector<Task> getTaskList();
-	vector<string> getHelpHeadings();
-	vector<string> getHelpInstructions();
+	string& getFeedback();
+	string& getInputField();
+	vector<Task>& getTaskList();
+	vector<string>& getHelpHeadings();
+	vector<string>& getHelpInstructions();
 };

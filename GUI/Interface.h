@@ -22,7 +22,7 @@ namespace GUI {
 		void operateUserRequest();
 		void toggleHelpSection();
 		void convertSysToStdString(String ^, string&);
-		void convertStdToSysString(string&, String ^&);
+		void convertStdToSysString(string &, String ^&);
 
 	protected:
 		~Interface();
@@ -40,9 +40,9 @@ namespace GUI {
 		// taskList display functions
 		void displayTodayLabel();
 		void displayAllTaskLabel();
-		void displayTask(Task task);
-		void displayTaskIndex(Task task);
-		void displayTaskInformation(Task task);
+		void displayTask(const Task &task);
+		void displayTaskIndex(const Task &task);
+		void displayTaskInformation(const Task &task);
 		
 		Manager *manager;
 		bool helpIsShown;
@@ -179,6 +179,7 @@ namespace GUI {
 			this->helpBox->Anchor = System::Windows::Forms::AnchorStyles::Left;
 			this->helpBox->BackColor = System::Drawing::Color::White;
 			this->helpBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->helpBox->Cursor = System::Windows::Forms::Cursors::IBeam;
 			this->helpBox->Location = System::Drawing::Point(376, 12);
 			this->helpBox->Name = L"helpBox";
 			this->helpBox->ReadOnly = true;
@@ -228,6 +229,9 @@ namespace GUI {
 	private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 				 if (inputField->Text == "live search") {
 					 feedbackBox->Text = "live search!";
+				 }
+				 if (keyPressed->KeyCode == Keys::Alt && keyPressed->KeyCode == Keys::Z) {
+					 feedbackBox->Text = "Undo!";
 				 }
 				 if (keyPressed->KeyCode == Keys::F1) {
 					 toggleHelpSection();

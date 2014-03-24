@@ -7,6 +7,8 @@ Manager::Manager(void) {
 
 	GUIfeedbackBox = FEEDBACK_MESSAGE_WELCOME;
 	GUIfeedbackBox += FEEDBACK_PROMPT_START;
+
+	loadHelpPage();
 }
 
 
@@ -22,52 +24,25 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
-vector<Task> Manager::getTaskList() {
-	return worker.getTaskList();
+vector<Task>& Manager::getTaskList() {
+	GUITaskList = worker.getTaskList();
+	return GUITaskList;
 }
 
-string Manager::getFeedback() {
+string& Manager::getFeedback() {
 	return GUIfeedbackBox;
 }
 
-string Manager::getInputField() {
+string& Manager::getInputField() {
 	return GUIInputField;
 }
 
-vector<string> Manager::getHelpHeadings() {
-	ifstream headingFile("helpHeadings.txt");
-	vector<string> helpHeadings;
-	string heading;
-
-	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
-		getline(headingFile, heading);
-		helpHeadings.push_back(heading);
-	}
-	headingFile.close();
-
-	return helpHeadings;
+vector<string>& Manager::getHelpHeadings() {
+	return GUIHelpHeadings;
 }
 
-vector<string> Manager::getHelpInstructions() {
-	ifstream instructionFile;
-	vector<string> helpInstructions;
-	string fileName;
-
-	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
-		string instructionParagraph;
-		string instructionLine;
-
-		fileName = "helpInstruction" + to_string(i+1) + ".txt";
-		instructionFile.open(fileName);
-		getline(instructionFile, instructionLine);
-		while (getline(instructionFile, instructionLine)) {
-			instructionParagraph += instructionLine + "\r\n";
-		}
-		helpInstructions.push_back(instructionParagraph);
-		instructionFile.close();
-	}
-
-	return helpInstructions;
+vector<string>& Manager::getHelpInstructions() {
+	return GUIHelpInstructions;
 }
 
 void Manager::init() {
@@ -91,4 +66,35 @@ void Manager::init() {
 
 	log.endLog();
 	
+}
+
+void Manager::loadHelpPage() {
+	string fileName;
+	ifstream file;
+	string heading;
+
+	GUIHelpHeadings.clear();
+	GUIHelpInstructions.clear();
+
+	fileName = HELP_FILE_HEADINGS + TYPE_TEXTFILE;
+	file.open(fileName);
+	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
+		getline(file, heading);
+		GUIHelpHeadings.push_back(heading);
+	}
+	file.close();
+
+	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
+		string instructionParagraph;
+		string instructionLine;
+
+		fileName = HELP_FILE_INSTRUCTIONS + to_string(i+1) + TYPE_TEXTFILE;
+		file.open(fileName);
+		getline(file, instructionLine);
+		while (getline(file, instructionLine)) {
+			instructionParagraph += instructionLine + SYSTEM_ENDL;
+		}
+		GUIHelpInstructions.push_back(instructionParagraph);
+		file.close();
+	}
 }

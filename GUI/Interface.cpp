@@ -16,8 +16,8 @@ GUI::Interface::Interface(void) {
 	InitializeComponent();
 
 	manager = new Manager();
-	toggleHelpSection();
-	//displayTasksListBox();
+
+	displayTasksListBox();
 	displayFeedbackBox();
 	getHelpBoxDisplay();
 }
@@ -129,7 +129,7 @@ void GUI::Interface::getHelpBoxDisplay() {
 }
 
 // string conversion functions
-void GUI::Interface::convertSysToStdString(String ^ s, string& os) {
+void GUI::Interface::convertSysToStdString(String ^s, string &os) {
 	using namespace Runtime::InteropServices;
 	const char* chars = 
 		(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
@@ -142,12 +142,12 @@ void GUI::Interface::convertStdToSysString(string &os, String^ &s) {
 }
 
 // taskList display functions
-void GUI::Interface::displayTask(Task task) {
+void GUI::Interface::displayTask(const Task &task) {
 	displayTaskIndex(task);
 	displayTaskInformation(task);
 }
 
-void GUI::Interface::displayTaskIndex(Task task) {
+void GUI::Interface::displayTaskIndex(const Task &task) {
 	if (task.isBold) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
 	} else {
@@ -163,7 +163,7 @@ void GUI::Interface::displayTaskIndex(Task task) {
 	delete index;
 }
 
-void GUI::Interface::displayTaskInformation(Task task) {
+void GUI::Interface::displayTaskInformation(const Task &task) {
 	if (task.isBold) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Bold);
 	} else {
