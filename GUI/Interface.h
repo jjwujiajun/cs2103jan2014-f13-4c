@@ -303,7 +303,7 @@ namespace GUI {
 			this->helpTab->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->helpTab->Font = (gcnew System::Drawing::Font(L"Segoe UI Semilight", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->helpTab->Location = System::Drawing::Point(354, 174);
+			this->helpTab->Location = System::Drawing::Point(354, 327);
 			this->helpTab->Name = L"helpTab";
 			this->helpTab->Size = System::Drawing::Size(21, 80);
 			this->helpTab->TabIndex = 16;
@@ -316,7 +316,7 @@ namespace GUI {
 			this->settingsTab->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->settingsTab->Font = (gcnew System::Drawing::Font(L"Segoe UI Semilight", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->settingsTab->Location = System::Drawing::Point(355, 266);
+			this->settingsTab->Location = System::Drawing::Point(355, 417);
 			this->settingsTab->Name = L"settingsTab";
 			this->settingsTab->Size = System::Drawing::Size(20, 119);
 			this->settingsTab->TabIndex = 17;

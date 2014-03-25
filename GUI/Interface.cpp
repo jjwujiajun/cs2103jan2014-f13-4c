@@ -58,8 +58,8 @@ void GUI::Interface::retractWindow() {
 	this->ClientSize = System::Drawing::Size(375, 587);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
 
-	this->helpTab->Location = System::Drawing::Point(354, 174);
-	this->settingsTab->Location = System::Drawing::Point(355, 266);
+	this->helpTab->Location = System::Drawing::Point(354, 327);
+	this->settingsTab->Location = System::Drawing::Point(355, 417);
 
 	windowIsExtended = !windowIsExtended;
 }
@@ -68,8 +68,8 @@ void GUI::Interface::extendWindow() {
 	this->ClientSize = System::Drawing::Size(674, 587);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
 
-	this->helpTab->Location = System::Drawing::Point(653, 174);
-	this->settingsTab->Location = System::Drawing::Point(655, 266);
+	this->helpTab->Location = System::Drawing::Point(653, 327);
+	this->settingsTab->Location = System::Drawing::Point(655, 417);
 
 	windowIsExtended = !windowIsExtended;
 }
@@ -78,10 +78,8 @@ void GUI::Interface::toggleHelpSection() {
 	assert(helpIsShown == this->helpBox->Visible);
 	
 	if (helpIsShown) {
-		feedbackBox->Text = "Help page is closed\n";
 		this->helpTab->BackColor = System::Drawing::Color::WhiteSmoke;
 	} else {
-		feedbackBox->Text = "[Press F1 to close Help]";
 		this->helpTab->BackColor = System::Drawing::Color::Silver;
 	}
 
