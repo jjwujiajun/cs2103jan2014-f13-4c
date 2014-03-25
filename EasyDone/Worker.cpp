@@ -33,24 +33,32 @@ Worker::~Worker() {
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	command =  parsedCommandstring[0];
-	if(command == parsedCommandstring[0]){
-		
+	if(command == "add"){
 		userTask.taskName = parsedCommandstring[1];
 		userTask.startDate = parsedCommandstring[2];
 		userTask.startTime = parsedCommandstring[3];
 		userTask.endDate = parsedCommandstring[4];
 		userTask.endTime = parsedCommandstring[5];
-	} else {
+	} else if(command == "update"){
 		userTask.taskID = parsedCommandstring[1];
-		userTask.taskName = parsedCommandstring[2];
-		userTask.startDate = parsedCommandstring[3];
-		userTask.startTime = parsedCommandstring[4];
-		userTask.endDate = parsedCommandstring[5];
-		userTask.endTime = parsedCommandstring[6];
+		updateField = parsedCommandstring[2];
+
+		if(updateField == "taskName") {
+			userTask.taskName = parsedCommandstring[3];
+		} else if(updateField == "startDate") {
+			userTask.startDate = parsedCommandstring[3];
+		} else if(updateField == "startTime") {
+			userTask.startTime = parsedCommandstring[3];
+		} else if(updateField == "endDate") {
+			userTask.endDate = parsedCommandstring[3];
+		} else if(updateField == "endTime") {
+			userTask.endTime = parsedCommandstring[3];
+		}
+	} else if(command == "delete") {
+		userTask.taskID = parsedCommandstring[1];
 	}
 
-	 //stringToMain = parsedCommandstring[10];
-
+	stringToMain = command;
 	 stringToMain += actonCommand(command);
 	 return stringToMain;
 }
@@ -76,7 +84,7 @@ string Worker::actonCommand(string command)
 
 
 	else if(command == "update" ) {
-		if(userCommand.Update(userTask)) {
+		if(userCommand.Update(userTask, updateField)) {
 			successful = "has been updated successfully! :)\n";
 		}
 		else {
@@ -88,6 +96,10 @@ string Worker::actonCommand(string command)
 		if(userCommand.Display()) {
 			successful = "End of file.\n";
 		}
+	}
+
+	else if(command ==  "undo") {
+		userCommand.undo();
 	}
 		
 

@@ -20,11 +20,12 @@ public:
 	//bool userCommnad(string userInput);
 	bool Add(Task userTask);
 	bool Delete(Task userTask);
-	bool Update(Task userTask);
+	bool Update(Task userTask, string updateField);
 	bool Display();
 	bool Search();
 	int issueNewTaskID();
 	vector<Task> getTaskList();
+	void undo();
 
 };
 
