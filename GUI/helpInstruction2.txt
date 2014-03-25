@@ -1,0 +1,4 @@
+<Help - Delete> //add instructions below. This line is not displayed.
+• remove [ID]
+
+Example: remove 2

@@ -1,0 +1,6 @@
+<Help - Add> //add instructions below. This line is not displayed.
+• add [task] on [start date] [start time]
+• add "task" from [start date] [start time] to [end date] [end time]
+
+Try it!
+Type: Add Project meeting from 20140705 1330 to 20140705 1530
