@@ -1,4 +1,3 @@
 <Help - Update> //add instructions below. This line is not displayed.
-• update [ID] ...
-
-Example: update 2 ...
+• update [ID] [field you want to update] [updated information]
+Example: update 2 20141212 20141213

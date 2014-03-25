@@ -31,7 +31,7 @@ public:
 	
 
 	enum Choice{
-		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, ERROR
+		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, UNDO, ERROR
 	};
 
 	Choice userCommand(vector<string> storeUserInfo);

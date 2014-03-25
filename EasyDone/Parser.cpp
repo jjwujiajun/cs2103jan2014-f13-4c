@@ -75,6 +75,10 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 		log.log("Parser: Command is CHECK");
         return CHECK;
     }
+	else if (storeUserInfo[0] == "undo") {
+		log.log("Parser: Command is UNDO");
+        return UNDO;
+	}
     else {
         return ERROR;
     }
@@ -108,6 +112,9 @@ vector<string> Parser::parseCommand (vector<string> storeUserInfo) {
         case CHECK:
             userInformation.push_back(storeUserInfo[0]);
             break;
+		case UNDO:
+			userInformation.push_back(storeUserInfo[0]);
+			break;
         case ERROR:
             cout << MESSAGE_INVALID  << endl;
             break;
@@ -147,16 +154,18 @@ bool Parser::parseDetails (string userInput) {
 
 	//JJ added:
 	int i = 1; // note i start from 1 because command already pushed in. change to 0 if above pushing is removed in future.
-	string taskName = "";
-	string startDate = "";
-	string startTime = "";
-	string endDate = "";
-	string endTime = "";
+	
+	string taskName;
+	string startDate;
+	string startTime;
+	string endDate;
+	string endTime;
 	
     const string keyWord_1 ("on");
     const string keyWord_2 ("from");
     const string keyWord_3 ("to");
-	const string keyWord_4 ("at");
+	const string keyWord_4 ("start");
+	const string  keyWord_5 ("end");
 	// find_first_of -> will treat the string as a set of characters served as delimters
 	// it will also find the first occurrence of a member of string within the string to which it is applied
 	
@@ -167,52 +176,76 @@ bool Parser::parseDetails (string userInput) {
         case ADD:
 
 			while (i < storeUserInfo.size()) {
+			
+				
 				if (storeUserInfo[i] == keyWord_1) {
+					int a = find(storeUserInfo.begin(), storeUserInfo.end(), keyWord_2) - storeUserInfo.begin();
+					//taskName += storeUserInfo[a-1] + " ";
 					++i;
-					while (i < storeUserInfo.size() && 
+					if (i < storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_2 &&
-							 storeUserInfo[i] != keyWord_3 &&
-							 storeUserInfo[i] != keyWord_4 ) {
+							 storeUserInfo[i] != keyWord_3) {
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
-					// then parse date
 					}
-				} else if (storeUserInfo[i] == keyWord_2) {
 					++i;
-					while (i < storeUserInfo.size() && 
-							 storeUserInfo[i] != keyWord_1 &&
+					startTime += storeUserInfo[storeUserInfo.size()-1];		
+				}			
+				 else if (storeUserInfo[i] == keyWord_2) { // start date
+					++i;
+					if (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_3 &&
-							 storeUserInfo[i] != keyWord_4 )  {
-					startTime += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+							 storeUserInfo[i] != keyWord_4 &&
+							 storeUserInfo[i] != keyWord_5) {
+					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
-					// then parse time;
 					}
-				} else if (storeUserInfo[i] == keyWord_3) {
+				 }
+				else if (storeUserInfo[i] == keyWord_3) { // end date
+					++i;
+						if (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_1 &&
+							 storeUserInfo[i] != keyWord_2 &&
+							 storeUserInfo[i] != keyWord_4 &&
+							 storeUserInfo[i] != keyWord_5 ) {
+					endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					++i;
+					}
+						
+				}
+				else if (storeUserInfo[i] == keyWord_4) { // start time
 					++i;
 					while (i < storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_1 &&
 							 storeUserInfo[i] != keyWord_2 &&
-							 storeUserInfo[i] != keyWord_4 ) {
-					endTime += storeUserInfo[i]; // remember to add " " spacing next time for parsing
-					++i;
-					}
-				} else if (storeUserInfo[i] == keyWord_4) {
-					++i;
-					while (i < storeUserInfo.size() && 
-							 storeUserInfo[i] != keyWord_1 &&
-							 storeUserInfo[i] != keyWord_2 &&
-							 storeUserInfo[i] != keyWord_3 ) {
+							 storeUserInfo[i] != keyWord_3 &&
+							 storeUserInfo[i] != keyWord_5 ) {
 					startTime += storeUserInfo[i]; // remember to add " " spacing next time for parsing
 					++i;
 					// then parse time;
 					// then,
 					// endTime = parsedStartTime + 100;  which means 1 hour right?
 					}
+								
+					// then parse date		
+				}
+				else if (storeUserInfo[i] == keyWord_5) { // end time
+					++i;
+					while (i < storeUserInfo.size() && 
+							 storeUserInfo[i] != keyWord_1 &&
+							 storeUserInfo[i] != keyWord_2 &&
+							 storeUserInfo[i] != keyWord_3 &&
+							 storeUserInfo[i] != keyWord_4) {
+					endTime = storeUserInfo[i]; // remember to add " " spacing next time for parsing
+					++i;
+					}
 				} else {
 					taskName += storeUserInfo[i] + " ";
 					++i;
-				}
-			}
+					}
+		}
+				
 			userInformation.push_back(taskName);
 			userInformation.push_back(startDate);
 			userInformation.push_back(startTime);
@@ -430,6 +463,14 @@ bool Parser::parseDetails (string userInput) {
 			
             newUserInput = userInput.substr (x, userInput.size());
             break;
+
+		case UNDO:
+			stringSize = storeUserInfo[0];
+			x = stringSize.size() + 1;
+			
+            newUserInput = userInput.substr (x, userInput.size());
+            break;
+
     }
 
 
