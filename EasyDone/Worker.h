@@ -14,24 +14,13 @@ private:
 	Command userCommand;
 	Task userTask; 
 	string command;
+	string updateField;
 
 	void convertTaskDataToDisplayFormat(vector<Task> &);
 
-	//variables to store the various components from parsedCommandstring
-	/*string taskID;
-	string command; //vector index 0
-	string taskName; //vector index 1
-	string startDate; //vector index 2
-	string startTime; //vector index 3
-	string endDate; //vector index 4
-	string endTime; //vector index 5
-	string index; //vector index 6
-	string fieldtoUpdate; //vector index 7
-	string updateContent; //vector index 8*/
+	
 
 	string successful;
-	//int newIndex;
-	//int size_todoList;
 	string returnStringtomain;
 	string stringToMain;
 		
