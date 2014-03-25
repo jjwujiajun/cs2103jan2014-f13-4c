@@ -72,16 +72,15 @@ vector<Task>::iterator Store::getIteratorEnd() {
 }
 
 bool Store::eraser(string taskIndex) {
-	//vector<Task>::iterator iter;
-	int i = 0;
 	bool erased = false;
-	
 	int slot=0;
+
 	for(int i = 0; i<taskList.size(); i++) {
 		if(taskList[i].taskID == taskIndex) {
 			slot = i;
+			erased = true;
+			break;
 		}
-		break;
 	}
 	for(slot; slot<taskList.size()-1; slot++){
 		taskList[slot+1].taskID = to_string(slot+1);
@@ -120,8 +119,18 @@ Task Store::getTask(int slot) {
 	return taskList[slot];
 }
 	
-bool Store::changeTask(int Index, Task userTask) {
-	taskList[Index] = userTask;
+bool Store::changeTask(int Index, Task userTask, string updateField) {
+	if(updateField == "taskName") {
+		taskList[Index].taskName = userTask.taskName;
+	} else if(updateField == "startDate") {
+		taskList[Index].startDate = userTask.startDate;
+	} else if(updateField == "startTime") {
+		taskList[Index].startTime = userTask.startTime;
+	} else if(updateField == "endDate") {
+		taskList[Index].endDate = userTask.endDate;
+	} else if(updateField == "endTime") {
+		taskList[Index].endTime = userTask.endTime;
+	}
 	return true;
 }
 
@@ -145,7 +154,29 @@ vector<Task> Store::getTaskList() {
 	return duplicated;
 }
 
+void Store::stackToList() {
+	vector<Task> temp = undoList.back();
+	taskList.clear();
+	while(!temp.empty()) {
+		taskList.push_back(temp.back());
+		temp.pop_back();
+	}
+	undoList.pop_back();
+}
 
+void Store::listToStack() {
+	vector<Task> temp;
+	Task tempTask;
+	vector<Task> copyList = taskList;
+	int i = copyList.size();
+	while(!copyList.empty()) {
+		i--;
+		tempTask = copyList[i];
+		copyList.pop_back();
+		temp.push_back(tempTask);
+	}
+	undoList.push_back(temp);
+}
 
 
 

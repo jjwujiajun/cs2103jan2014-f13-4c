@@ -17,6 +17,7 @@ class Store {
 	private:
 		
 		vector<Task> taskList;
+		vector< vector<Task> > undoList;
 	
 	
 	public:
@@ -36,10 +37,11 @@ class Store {
 		bool eraser(string taskIndex);
 		void pushback(Task newTask);
 		Task getTask(int slot);
-		bool changeTask(int taskID, Task userTask);
+		bool changeTask(int taskID, Task userTask, string updateField);
 		//int findSlot(string taskIndex);
 		void dueToday();
 		vector<Task> getTaskList();
-		
+		void stackToList();
+		void listToStack();
 	
 };

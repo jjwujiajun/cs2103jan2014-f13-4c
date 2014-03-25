@@ -14,14 +14,14 @@ bool Command::Add(Task userTask) {
 	int newTaskID = issueNewTaskID();
 	userTask.taskID = to_string(newTaskID);
 	todoList.pushback(userTask);
-
+	todoList.listToStack();
 	return true;
 }
 
 bool Command::Delete(Task userTask) {
 	try {
 	bool erased = todoList.eraser(userTask.taskID);
-
+	todoList.listToStack();
 	return erased;
 	} catch (int number) {
 		throw 0;
@@ -47,13 +47,14 @@ bool Command::Display() {
 	return true;
 }
 
-bool Command::Update(Task userTask) {
+bool Command::Update(Task userTask, string updateField) {
 	bool updated = false;
 	int Index = 0;
 	while(userTask.taskID != todoList.getTask(Index).taskID) {
 		Index++;
 	}
-	updated = todoList.changeTask(Index, userTask);
+	updated = todoList.changeTask(Index, userTask, updateField);
+	todoList.listToStack();
 	return updated;
 }
 
@@ -69,4 +70,8 @@ int Command::issueNewTaskID(){
 vector<Task> Command::getTaskList() {
 	todoList.dueToday();
 	return todoList.getTaskList();
+}
+
+void Command::undo() {
+	todoList.stackToList();
 }
