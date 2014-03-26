@@ -154,14 +154,19 @@ vector<Task> Store::getTaskList() {
 	return duplicated;
 }
 
-void Store::stackToList() {
-	vector<Task> temp = undoList.back();
-	taskList.clear();
-	while(!temp.empty()) {
-		taskList.push_back(temp.back());
-		temp.pop_back();
+bool Store::stackToList() {
+	bool undo = false;
+	if(undoList.size()!=0) {
+		vector<Task> temp = undoList.back();
+		taskList.clear();
+		while(!temp.empty()) {
+			taskList.push_back(temp.back());
+			temp.pop_back();
+		}
+		undoList.pop_back();
+		undo = true;
 	}
-	undoList.pop_back();
+	return undo;
 }
 
 void Store::listToStack() {

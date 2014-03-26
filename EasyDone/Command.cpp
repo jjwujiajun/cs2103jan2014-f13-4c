@@ -9,23 +9,23 @@ Command::~Command() {
 }
 
 bool Command::Add(Task userTask) {
+	todoList.listToStack();
+
 	int vectindexofNexttask = todoList.getSize();
 	
 	int newTaskID = issueNewTaskID();
 	userTask.taskID = to_string(newTaskID);
 	todoList.pushback(userTask);
-	todoList.listToStack();
+	
 	return true;
 }
 
 bool Command::Delete(Task userTask) {
-	try {
-	bool erased = todoList.eraser(userTask.taskID);
 	todoList.listToStack();
+	
+	bool erased = todoList.eraser(userTask.taskID);
+	
 	return erased;
-	} catch (int number) {
-		throw 0;
-	}
 }
 
 bool Command::Display() {
@@ -48,13 +48,15 @@ bool Command::Display() {
 }
 
 bool Command::Update(Task userTask, string updateField) {
+	todoList.listToStack();
+	
 	bool updated = false;
 	int Index = 0;
 	while(userTask.taskID != todoList.getTask(Index).taskID) {
 		Index++;
 	}
 	updated = todoList.changeTask(Index, userTask, updateField);
-	todoList.listToStack();
+	
 	return updated;
 }
 
@@ -72,6 +74,8 @@ vector<Task> Command::getTaskList() {
 	return todoList.getTaskList();
 }
 
-void Command::undo() {
-	todoList.stackToList();
+bool Command::undo() {
+	bool Undo;
+	Undo = todoList.stackToList();
+	return Undo;
 }
