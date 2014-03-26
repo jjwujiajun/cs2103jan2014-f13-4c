@@ -1,4 +1,5 @@
-Add
-Delete
-Update
-Read
+add/create/new
+delete
+update
+read
+undo
