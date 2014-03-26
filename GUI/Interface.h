@@ -51,6 +51,7 @@ namespace GUI {
 		void displayTaskInformation(const Task &task);
 		
 		Manager *manager;
+		Log *log;
 		bool windowIsExtended;
 		bool helpIsShown;
 		bool settingIsShown;
@@ -419,6 +420,7 @@ namespace GUI {
 					 feedbackBox->Text = "live search!";
 				 }
 				 if (keyPressed->KeyCode == Keys::F2) {
+					 log->log("User: F2 is pressed, toggleSettingSection()");
 					 if (windowIsExtended) {
 						 if (helpIsShown) toggleHelpSection();
 						 else retractWindow();
@@ -428,6 +430,7 @@ namespace GUI {
 					 toggleSettingSection();
 				 }
 				 if (keyPressed->KeyCode == Keys::F1) {
+					 log->log("User: F1 is pressed, toggleHelpSetion()");
 					 if (windowIsExtended) {
 						 if (helpIsShown) retractWindow();
 						 else toggleSettingSection();
@@ -437,18 +440,22 @@ namespace GUI {
 					 toggleHelpSection();
 				 }
 				 if (keyPressed->KeyCode == Keys::Enter) {
+					 log->log("User: Enter is pressed, operateUserRequest()");
 					 operateUserRequest();
 				 }
 			 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
+			 log->log("User: Settings toggled feedback show/hide");
 			 toggleFeedback();
 		 }
 
 private: System::Void settingTabSettingToggle(System::Object^  sender, System::EventArgs^  settingTabToggled) {
+			 log->log("User: Settings toggled settingTab show/hide");
 			 toggleSettingsTab();
 		 }
 
 private: System::Void helpTabSettingToggle(System::Object^  sender, System::EventArgs^  helpTabToggled) {
+			 log->log("User: Settings toggled helpTab show/hide");
 			 toggleHelpTab();
 		 }
 };

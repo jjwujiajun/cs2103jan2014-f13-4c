@@ -14,33 +14,51 @@ void main(array<String^>^ args) {
 
 GUI::Interface::Interface(void) {
 	InitializeComponent();
+	log = new Log();
+	log->clear();
 
+	log->log("GUI: Instatiate new manager");
 	manager = new Manager();
+	
+	log->log("GUI: Set numRowsToDisplay to 20 lines");
+	numRowsToDisplay = 20;
 
+	log->log("GUI: display taskListBox, feedbackBox");
 	displayTasksListBox();
 	displayFeedbackBox();
+
+	log->log("GUI: get helpBox display");
 	getHelpBoxDisplay();
 
+	log->log("GUI: Hide windowIsExtend, helpIsShow, settingIsShown");
 	windowIsExtended = false;
 	helpIsShown = false;
 	settingIsShown = false;
 
-	numRowsToDisplay = 20;
+	log->endLog();
 }
 
 GUI::Interface::~Interface() {
+	log->log("GUI: delete manager");
 	delete manager;
+	delete log;
 	if (components)	{
 		delete components;
 	}
+
+	log->endLog();
 }
 
 void GUI::Interface::operateUserRequest() {
+	log->log("GUI: receiveUserInput");
 	receiveUserInput();
 
+	log->log("GUI: display taskListBox, feedbackBox, inputField");
 	displayTasksListBox();
 	displayFeedbackBox();
 	displayInputField();
+
+	log->endLog();
 }
 
 // input functions
@@ -48,10 +66,14 @@ void GUI::Interface::receiveUserInput() {
 	String ^inputString;
 	std::string convertedInputString;
 
+	log->log("GUI: receive inputField->Text, convert to std:string");
 	inputString = inputField->Text;
 	convertSysToStdString(inputString, convertedInputString);
 
+	log->log("GUI: Pass convertedInputString to manager");
 	manager->receiveInput(convertedInputString);
+
+	log->endLog();
 }
 
 void GUI::Interface::retractWindow() {
@@ -62,6 +84,7 @@ void GUI::Interface::retractWindow() {
 	this->settingsTab->Location = System::Drawing::Point(355, 417);
 
 	windowIsExtended = !windowIsExtended;
+	log->log("GUI: window is retracted");
 }
 
 void GUI::Interface::extendWindow() {
@@ -72,6 +95,7 @@ void GUI::Interface::extendWindow() {
 	this->settingsTab->Location = System::Drawing::Point(655, 417);
 
 	windowIsExtended = !windowIsExtended;
+	log->log("GUI: window is extended");
 }
 
 void GUI::Interface::toggleHelpSection() {
@@ -87,6 +111,8 @@ void GUI::Interface::toggleHelpSection() {
 	this->helpTitle->Visible = !this->helpTitle->Visible;
 	this->helpIntro->Visible = !this->helpIntro->Visible;
 	helpIsShown = !helpIsShown;
+
+	log->log("GUI: help section is toggled");
 }
 
 void GUI::Interface::toggleSettingSection() {
@@ -104,6 +130,8 @@ void GUI::Interface::toggleSettingSection() {
 	} else {
 		this->settingsTab->BackColor = System::Drawing::Color::WhiteSmoke;
 	}
+
+	log->log("GUI: setting section is toggled");
 }
 
 void GUI::Interface::toggleFeedback() {
@@ -119,7 +147,8 @@ void GUI::Interface::toggleFeedback() {
 		numRowsToDisplay = 24;
 		feedbackButton->Text = "Show";
 	}
-
+	log->log("GUI: feedback is toggled");
+	log->log("GUI: taskListBox is displayed");
 	displayTasksListBox();
 }
 
@@ -132,6 +161,7 @@ void GUI::Interface::toggleHelpTab() {
 	} else {
 		helpTabSettingButton->Text = "Show";
 	}
+	log->log("GUI: helpTab is toggled");
 }
 
 void GUI::Interface::toggleSettingsTab() {
@@ -143,6 +173,7 @@ void GUI::Interface::toggleSettingsTab() {
 	} else {
 		settingsTabSettingButton->Text = "Show";
 	}
+	log->log("GUI: settingsTab is toggled");
 }
 
 // display functions
