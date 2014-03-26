@@ -1,5 +1,4 @@
 #include "Headers.h"
-#include "FileHandler.h"
 #include "Parser.h"
 #include "Worker.h"
 
@@ -12,8 +11,8 @@ const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
 const int HELP_NUMBER_OF_SECTIONS = 4;
-const string HELP_FILE_HEADINGS = "helpHeadings";
-const string HELP_FILE_INSTRUCTIONS = "helpInstruction";
+const string FILE_HELP_HEADINGS = "helpHeadings";
+const string FILE_HELP_INSTRUCTIONS = "helpInstruction";
 const string TYPE_TEXTFILE = ".txt";
 const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
@@ -23,7 +22,6 @@ class Manager {
 private:
 	
 	// member classes
-	FileHandler fileHandler;
 	Parser parser;
 	Worker worker;
 	string userInput;
@@ -45,9 +43,9 @@ public:
 	~Manager(void);
 
 	void receiveInput(string input);
-	string& getFeedback();
-	string& getInputField();
-	vector<Task>& getTaskList();
-	vector<string>& getHelpHeadings();
-	vector<string>& getHelpInstructions();
+	string getFeedback();
+	string getInputField();
+	vector<Task> getTaskList();
+	vector<string> getHelpHeadings();
+	vector<string> getHelpInstructions();
 };

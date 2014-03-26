@@ -1,20 +1,21 @@
+#ifndef FILEHANDLER_H
+#define FILEHANDLER_H
+
 #include "Headers.h"
 
 using namespace std;
 
+const string FILE_TASKLIST = "taskList.txt";
+
 class FileHandler {
 
 private:
-	string line;
-	vector<string> sentencesVector;
-	static const string MESSAGE_OUTPUT_WELCOME;
-	static const string MESSAGE_READY_FOR_USE;
+	ofstream writeFile;
+	ifstream readFile;
 
 public:
-	void load(string inputText);
-	void remove();
-	bool fileReady(string fileName);
-	bool diskcopy(string fileName);
-	void copyfile();
-
+	vector<Task> getTaskList();
+	void saveTaskList(const vector<Task>&);
 };
+
+#endif
