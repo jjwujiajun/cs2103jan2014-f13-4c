@@ -25,7 +25,7 @@ public:
 	bool Search();
 	int issueNewTaskID();
 	vector<Task> getTaskList();
-	void undo();
+	bool undo();
 
 };
 

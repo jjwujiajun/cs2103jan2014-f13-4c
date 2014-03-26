@@ -43,7 +43,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.taskID = parsedCommandstring[1];
 		updateField = parsedCommandstring[2];
 
-		if(updateField == "taskName") {
+		if(updateField == "startName") {
 			userTask.taskName = parsedCommandstring[3];
 		} else if(updateField == "startDate") {
 			userTask.startDate = parsedCommandstring[3];
@@ -58,9 +58,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.taskID = parsedCommandstring[1];
 	}
 
-	stringToMain = command;
-	 stringToMain += actonCommand(command);
-	 return stringToMain;
+	stringToMain.erase(stringToMain.begin(), stringToMain.end());
+	stringToMain += actonCommand(command);
+	return stringToMain;
 }
 
 string Worker::actonCommand(string command)
@@ -99,7 +99,13 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command ==  "undo") {
-		userCommand.undo();
+		bool undo;
+		undo = userCommand.undo();
+		if(undo) {
+			successful = "undo done";
+		} else {
+			successful = "nothing to undo";
+		}
 	}
 		
 
