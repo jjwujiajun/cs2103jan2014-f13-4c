@@ -33,7 +33,7 @@ Worker::~Worker() {
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	command =  parsedCommandstring[0];
-	if(command == "add"){
+	if(command == "add" || command == "create" || command == "new"){
 		userTask.taskName = parsedCommandstring[1];
 		userTask.startDate = parsedCommandstring[2];
 		userTask.startTime = parsedCommandstring[3];
@@ -67,7 +67,7 @@ string Worker::actonCommand(string command)
 {
 	if(command == "add" || command == "new" || command == "create") {
 		if(userCommand.Add(userTask)) {
-			successful = "has been added successfully! :) \n";
+			successful = " has been added successfully! :) \n";
 		} else{
 			successful = "has not been added successfully! ): \n";
 		}
@@ -75,7 +75,7 @@ string Worker::actonCommand(string command)
 
 	else if(command == "delete" ) {
 		if(userCommand.Delete(userTask)) {
-			successful = "has been deleted successfully! :)\n";
+			successful = " has been deleted successfully! :)\n";
 		}
 		else {
 			successful = "Please enter a valid index!\n";
@@ -85,7 +85,7 @@ string Worker::actonCommand(string command)
 
 	else if(command == "update" ) {
 		if(userCommand.Update(userTask, updateField)) {
-			successful = "has been updated successfully! :)\n";
+			successful = " has been updated successfully! :)\n";
 		}
 		else {
 			successful = "Please enter a valid index!\n";
