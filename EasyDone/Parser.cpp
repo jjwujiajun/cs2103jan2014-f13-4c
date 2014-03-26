@@ -165,7 +165,7 @@ bool Parser::parseDetails (string userInput) {
     const string keyWord_2 ("from");
     const string keyWord_3 ("to");
 	const string keyWord_4 ("start");
-	const string  keyWord_5 ("end");
+	const string keyWord_5 ("end");
 	// find_first_of -> will treat the string as a set of characters served as delimters
 	// it will also find the first occurrence of a member of string within the string to which it is applied
 	
@@ -465,10 +465,7 @@ bool Parser::parseDetails (string userInput) {
             break;
 
 		case UNDO:
-			stringSize = storeUserInfo[0];
-			x = stringSize.size() + 1;
-			
-            newUserInput = userInput.substr (x, userInput.size());
+			userInformation.push_back(storeUserInfo[0]);
             break;
 
     }
