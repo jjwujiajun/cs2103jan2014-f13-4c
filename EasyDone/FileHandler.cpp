@@ -1,68 +1,60 @@
 #include "FileHandler.h"
 
-const string FileHandler::MESSAGE_OUTPUT_WELCOME = "WELCOME TO easyDone.txt!";
-const string FileHandler::MESSAGE_READY_FOR_USE = "Ready for use";
+using namespace std;
 
-FileHandler TB_Object;
+vector<Task> FileHandler::getTaskList() {
+	string line;
+	bool isReadable;
+	Task task;
+	vector<Task> taskList;
 
-void FileHandler::load(string inputString) {
+	readFile.open(FILE_TASKLIST);
 
-	sentencesVector.push_back(inputString);
+	while(getline(readFile, line)) {
+		task.taskID = line;
+		
+		isReadable = getline(readFile, line);
+		assert(isReadable == true);
+		task.taskName = line;
+		
+		isReadable = getline(readFile, line);
+		assert(isReadable == true);
+		task.startDate = line;
+		
+		isReadable = getline(readFile, line);
+		assert(isReadable == true);
+		task.startTime = line;
+		
+		isReadable = getline(readFile, line);
+		assert(isReadable == true);
+		task.endDate = line;
+		
+		isReadable = getline(readFile, line);
+		assert(isReadable == true);
+		task.endTime = line;
 
+		taskList.push_back(task);
+		getline(readFile, line);
+	}
+
+	readFile.close();
+
+	return taskList;
 }
 
-void FileHandler::remove() {
-	sentencesVector.erase(sentencesVector.begin() + sentencesVector.size() -1);
+void FileHandler::saveTaskList(const vector<Task>& taskList) {
+	writeFile.open(FILE_TASKLIST, ios::trunc);
+
+	for (int i = 0; i < taskList.size(); ++i) {
+		writeFile << taskList[i].taskID << endl;
+		writeFile << taskList[i].taskName << endl;
+		writeFile << taskList[i].startDate << endl;
+		writeFile << taskList[i].startTime << endl;
+		writeFile << taskList[i].endDate << endl;
+		writeFile << taskList[i].endTime << endl;
+		writeFile << endl;
+	}
+
+	writeFile.close();
 }
 
-/*
-bool FileHandler::fileReady(string fileName) {
-	
-	bool ready = 1;
-	ifstream inputFile(fileName);
-
-	if (inputFile){
-		
-		if (inputFile.is_open()){
-			
-			while (inputFile.good())
-			{
-				getline(inputFile, line);
-				TB_Object.load(line);
-			}
-
-			TB_Object.remove();			
-			cout << MESSAGE_OUTPUT_WELCOME + fileName + MESSAGE_READY_FOR_USE;
-			return ready;
-		}
-	}
-		
-	else{
-	
-		ofstream create(fileName);
-		cout <<  MESSAGE_OUTPUT_WELCOME + fileName + MESSAGE_READY_FOR_USE;
-		return ready;
-		
-	}
-	
-
-	return 1;
-}
-
-bool FileHandler::diskcopy(string fileName)  //to copy changes made to the .txt file are copied onto the harddisk
-{
-	
-	ofstream ofile(fileName);
-	int size = sentencesVector.size();
-	if (ofile.is_open()){
-		
-		for (int i=0; i<size; i++)
-		{
-			ofile << sentencesVector[i] << endl;//+ "\n";
-		}
-			
-		ofile.close();
-	}
-	
-	return 1;
-}*/

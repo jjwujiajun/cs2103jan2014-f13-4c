@@ -45,7 +45,7 @@ class Store {
 		//int findSlot(string taskIndex);
 		void dueToday();
 		vector<Task> getTaskList();
-		void stackToList();
+		bool stackToList();
 		void listToStack();
 	
 };

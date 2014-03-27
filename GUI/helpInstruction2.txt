@@ -1,4 +1,6 @@
 <Help - Delete> //add instructions below. This line is not displayed.
-• remove [ID]
+• remove/delete [ID]
+• Please exclude the "" when typing. These are meant to showcase the field to type.
 
-Example: remove 2
+Example: remove 2 or delete 10
+	 

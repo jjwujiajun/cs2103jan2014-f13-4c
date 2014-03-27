@@ -14,33 +14,51 @@ void main(array<String^>^ args) {
 
 GUI::Interface::Interface(void) {
 	InitializeComponent();
+	log = new Log();
+	log->clear();
 
+	log->log("GUI: Instatiate new manager");
 	manager = new Manager();
+	
+	log->log("GUI: Set numRowsToDisplay to 20 lines");
+	numRowsToDisplay = TASKLIST_RETRACT_ROW;
 
+	log->log("GUI: display taskListBox, feedbackBox");
 	displayTasksListBox();
 	displayFeedbackBox();
+
+	log->log("GUI: get helpBox display");
 	getHelpBoxDisplay();
 
+	log->log("GUI: Hide windowIsExtend, helpIsShow, settingIsShown");
 	windowIsExtended = false;
 	helpIsShown = false;
 	settingIsShown = false;
 
-	numRowsToDisplay = 20;
+	log->endLog();
 }
 
 GUI::Interface::~Interface() {
+	log->log("GUI: delete manager");
 	delete manager;
+	delete log;
 	if (components)	{
 		delete components;
 	}
+
+	log->endLog();
 }
 
 void GUI::Interface::operateUserRequest() {
+	log->log("GUI: receiveUserInput");
 	receiveUserInput();
 
+	log->log("GUI: display taskListBox, feedbackBox, inputField");
 	displayTasksListBox();
 	displayFeedbackBox();
 	displayInputField();
+
+	log->endLog();
 }
 
 // input functions
@@ -48,47 +66,53 @@ void GUI::Interface::receiveUserInput() {
 	String ^inputString;
 	std::string convertedInputString;
 
+	log->log("GUI: receive inputField->Text, convert to std:string");
 	inputString = inputField->Text;
 	convertSysToStdString(inputString, convertedInputString);
 
+	log->log("GUI: Pass convertedInputString to manager");
 	manager->receiveInput(convertedInputString);
+
+	log->endLog();
 }
 
 void GUI::Interface::retractWindow() {
-	this->ClientSize = System::Drawing::Size(375, 587);
+	this->ClientSize = System::Drawing::Size(FORM_X_RETRACT, FORM_Y);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
 
-	this->helpTab->Location = System::Drawing::Point(354, 174);
-	this->settingsTab->Location = System::Drawing::Point(355, 266);
+	this->helpTab->Location = System::Drawing::Point(TAB_X_RETRACT, TAB_Y_HELP);
+	this->settingsTab->Location = System::Drawing::Point(TAB_X_RETRACT, TAB_Y_SETTING);
 
 	windowIsExtended = !windowIsExtended;
+	log->log("GUI: window is retracted");
 }
 
 void GUI::Interface::extendWindow() {
-	this->ClientSize = System::Drawing::Size(674, 587);
+	this->ClientSize = System::Drawing::Size(FORM_X_EXTENT, FORM_Y);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
 
-	this->helpTab->Location = System::Drawing::Point(653, 174);
-	this->settingsTab->Location = System::Drawing::Point(655, 266);
+	this->helpTab->Location = System::Drawing::Point(TAB_X_EXTENT, TAB_Y_HELP);
+	this->settingsTab->Location = System::Drawing::Point(TAB_X_EXTENT, TAB_Y_SETTING);
 
 	windowIsExtended = !windowIsExtended;
+	log->log("GUI: window is extended");
 }
 
 void GUI::Interface::toggleHelpSection() {
 	assert(helpIsShown == this->helpBox->Visible);
-	
-	if (helpIsShown) {
-		feedbackBox->Text = "Help page is closed\n";
-		this->helpTab->BackColor = System::Drawing::Color::WhiteSmoke;
-	} else {
-		feedbackBox->Text = "[Press F1 to close Help]";
-		this->helpTab->BackColor = System::Drawing::Color::Silver;
-	}
 
 	this->helpBox->Visible = !this->helpBox->Visible;
 	this->helpTitle->Visible = !this->helpTitle->Visible;
 	this->helpIntro->Visible = !this->helpIntro->Visible;
 	helpIsShown = !helpIsShown;
+
+	if (helpIsShown) {
+		this->helpTab->BackColor = TAB_SELECTED_COLOUR();
+	} else {
+		this->helpTab->BackColor = TAB_NOT_SELECTED_COLOUR();
+	}
+
+	log->log("GUI: help section is toggled");
 }
 
 void GUI::Interface::toggleSettingSection() {
@@ -99,13 +123,20 @@ void GUI::Interface::toggleSettingSection() {
 	this->helpTabSettingButton->Visible = !this->helpTabSettingButton->Visible;
 	this->settingTabSetting->Visible = !this->settingTabSetting->Visible;
 	this->settingsTabSettingButton->Visible = !this->settingsTabSettingButton->Visible;
+	this->themeSettingLabel->Visible = !this->themeSettingLabel->Visible;
+	this->whiteThemeLabel->Visible = !this->whiteThemeLabel->Visible;
+	this->blueThemeLabel->Visible = !this->blueThemeLabel->Visible;
+	this->whiteThemeButton->Visible = !this->whiteThemeButton->Visible;
+	this->blueThemeButton->Visible = !this->blueThemeButton->Visible ;
 	settingIsShown = !settingIsShown;
 
 	if (settingIsShown) {
-		this->settingsTab->BackColor = System::Drawing::Color::Silver;
+		this->settingsTab->BackColor = TAB_SELECTED_COLOUR();
 	} else {
-		this->settingsTab->BackColor = System::Drawing::Color::WhiteSmoke;
+		this->settingsTab->BackColor = TAB_NOT_SELECTED_COLOUR();
 	}
+
+	log->log("GUI: setting section is toggled");
 }
 
 void GUI::Interface::toggleFeedback() {
@@ -113,15 +144,16 @@ void GUI::Interface::toggleFeedback() {
 	bool feedbackIsShown = this->feedbackBox->Visible;
 
 	if (feedbackIsShown) {
-		this->richTaskList->Size = System::Drawing::Size(351, 386);
-		numRowsToDisplay = 19;
+		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_RETRACT);
+		numRowsToDisplay = TASKLIST_RETRACT_ROW;
 		feedbackButton->Text = "Hide";
 	} else {
-		this->richTaskList->Size = System::Drawing::Size(351, 482);
-		numRowsToDisplay = 24;
+		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_EXTENT);
+		numRowsToDisplay = TASKLIST_EXTENT_ROW;
 		feedbackButton->Text = "Show";
 	}
-
+	log->log("GUI: feedback is toggled");
+	log->log("GUI: taskListBox is displayed");
 	displayTasksListBox();
 }
 
@@ -134,6 +166,7 @@ void GUI::Interface::toggleHelpTab() {
 	} else {
 		helpTabSettingButton->Text = "Show";
 	}
+	log->log("GUI: helpTab is toggled");
 }
 
 void GUI::Interface::toggleSettingsTab() {
@@ -145,6 +178,35 @@ void GUI::Interface::toggleSettingsTab() {
 	} else {
 		settingsTabSettingButton->Text = "Show";
 	}
+	log->log("GUI: settingsTab is toggled");
+}
+
+void GUI::Interface::selectWhiteTheme() {
+	this->BackColor = ThemeWhite::background();
+	this->title->BackColor = ThemeWhite::background();
+	this->title->ForeColor = ThemeWhite::label();
+	this->richTaskList->BackColor = ThemeWhite::background();
+	this->helpTitle->BackColor = ThemeWhite::background();
+	this->helpTitle->ForeColor = ThemeWhite::label();
+	this->settingsTitle->BackColor = ThemeWhite::background();
+	this->settingsTitle->ForeColor = ThemeWhite::label();
+	
+	this->blueThemeButton->Text = "Choose me!";
+	this->whiteThemeButton->Text = "Yay!";
+}
+
+void GUI::Interface::selectBlueTheme() {
+	this->BackColor = ThemeBlue::background();
+	this->title->BackColor = ThemeBlue::background();
+	this->title->ForeColor = ThemeBlue::label();
+	this->richTaskList->BackColor = ThemeBlue::background();
+	this->helpTitle->BackColor = ThemeBlue::background();
+	this->helpTitle->ForeColor = ThemeBlue::label();
+	this->settingsTitle->BackColor = ThemeBlue::background();
+	this->settingsTitle->ForeColor = ThemeBlue::label();
+	
+	this->blueThemeButton->Text = "Yay!";
+	this->whiteThemeButton->Text = "Choose me!";
 }
 
 // display functions
