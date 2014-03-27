@@ -1,4 +1,4 @@
-add/create/new
+add
 delete
 update
 read

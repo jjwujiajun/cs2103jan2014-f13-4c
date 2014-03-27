@@ -1,6 +1,8 @@
 <Help - Delete> //add instructions below. This line is not displayed.
-• remove/delete [ID]
-• Please exclude the "" when typing. These are meant to showcase the field to type.
+Example: 
+• delete 10
 
-Example: remove 2 or delete 10
+Format
+• remove <task ID>
+• delete <task ID>
 	 

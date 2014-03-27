@@ -189,9 +189,11 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 
 			if (isKnownDateFormat) {
 				taskList[i].startDate = sDay + sMonth;
+			} else {
+				taskList[i].startDate = "";
 			}
 		} else {
-			taskList[i].startDate = ""; //6 spaces
+			taskList[i].startDate = "";
 		}
 
 		if (!time.empty() && time != "0") {
@@ -200,6 +202,8 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 			if (isKnownTimeFormat) {
 				time.insert(2, ":");
 				taskList[i].startTime = time;
+			} else {
+				taskList[i].startTime = "";
 			}
 		} else {
 			taskList[i].startTime = "";

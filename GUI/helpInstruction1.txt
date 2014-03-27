@@ -1,10 +1,19 @@
 <Help - Add> //add instructions below. This line is not displayed.
-• add "task" on "startDate" "startTime"
-• add "task" from "start date" start "start time" to "end date" end "end time"
-• ***** NOTE: keywords "from", "start", "to", "end" need not be in fixed order *****
-• Please exclude the "" when typing. These are meant to differentiate the field to type. Enjoy!
+Examples:
+• add Project meeting from 20140705 start 1330 to 20140705 end 1530
+• new Birthday party start 1200 from 20141212
+• create buy eraser
+
+Format:
+• add <task> on <startDate> <startTime>
+• add <task> from <start date> <start time> to <end date> <end time>
+
+Explaination:
+• Start adding tasks with a keyword: add/new/create
+• attach date and time in any order
+• Keywords you can use: on/from/to
+
+Date Format: YYMMDD
+Time Format: HHMM
 
 Try it!
-Type: add Project meeting from 20140705 start 1330 to 20140705 end 1530
-Type: new Birthday party start 1200 from 20141212
-Type: create buy eraser
