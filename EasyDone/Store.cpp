@@ -216,6 +216,11 @@ void Store::listToStack() {
 	undoList.push_back(temp);
 }
 
+void Store::updateTaskID() {
+	for(int i = 0; i < taskList.size(); i++) {
+		taskList[i].taskID = to_string(i+1);
+	}
+}
 
 
 
