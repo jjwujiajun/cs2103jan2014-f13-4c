@@ -3,6 +3,31 @@
 
 #pragma once
 
+const int TASKLIST_RETRACT_ROW = 19;
+const int TASKLIST_EXTENT_ROW = 24;
+const int TASKLIST_X = 351;
+const int TASKLIST_Y_RETRACT = 386;
+const int TASKLIST_Y_EXTENT = 482;
+const int FORM_X_RETRACT = 375;
+const int FORM_X_EXTENT = 674;
+const int FORM_Y = 587;
+const int TAB_X_RETRACT = 355;
+const int TAB_X_EXTENT = 655;
+const int TAB_Y_HELP = 327;
+const int TAB_Y_SETTING = 417;
+const System::Drawing::Color TAB_SELECTED_COLOUR() {return System::Drawing::Color::Silver;}
+const System::Drawing::Color TAB_NOT_SELECTED_COLOUR() {return System::Drawing::Color::WhiteSmoke;}
+
+struct ThemeWhite {
+	static const System::Drawing::Color background() {return System::Drawing::Color::White;}
+	static const System::Drawing::Color label() {return System::Drawing::Color::CornflowerBlue;}
+};
+struct ThemeBlue {
+	static const System::Drawing::Color background() {return System::Drawing::Color::CornflowerBlue;}
+	static const System::Drawing::Color label() {return System::Drawing::Color::White;}
+};
+
+
 namespace GUI {
 
 	using namespace System;
@@ -27,6 +52,8 @@ namespace GUI {
 		void toggleFeedback();
 		void toggleHelpTab();
 		void toggleSettingsTab();
+		void selectWhiteTheme();
+		void selectBlueTheme();
 		void convertSysToStdString(String ^, string&);
 		void convertStdToSysString(string &, String ^&);
 
@@ -78,6 +105,14 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  settingTabSetting;
 	private: System::Windows::Forms::Button^  helpTabSettingButton;
 	private: System::Windows::Forms::Button^  settingsTabSettingButton;
+	private: System::Windows::Forms::Label^  themeSettingLabel;
+	private: System::Windows::Forms::Label^  whiteThemeLabel;
+	private: System::Windows::Forms::Label^  blueThemeLabel;
+	private: System::Windows::Forms::Button^  whiteThemeButton;
+	private: System::Windows::Forms::Button^  blueThemeButton;
+
+
+
 
 	private:
 		/// <summary>
@@ -113,6 +148,11 @@ namespace GUI {
 			this->settingTabSetting = (gcnew System::Windows::Forms::Label());
 			this->helpTabSettingButton = (gcnew System::Windows::Forms::Button());
 			this->settingsTabSettingButton = (gcnew System::Windows::Forms::Button());
+			this->themeSettingLabel = (gcnew System::Windows::Forms::Label());
+			this->whiteThemeLabel = (gcnew System::Windows::Forms::Label());
+			this->blueThemeLabel = (gcnew System::Windows::Forms::Label());
+			this->whiteThemeButton = (gcnew System::Windows::Forms::Button());
+			this->blueThemeButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -375,6 +415,71 @@ namespace GUI {
 			this->settingsTabSettingButton->Visible = false;
 			this->settingsTabSettingButton->Click += gcnew System::EventHandler(this, &Interface::settingTabSettingToggle);
 			// 
+			// themeSettingLabel
+			// 
+			this->themeSettingLabel->AutoSize = true;
+			this->themeSettingLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->themeSettingLabel->ForeColor = System::Drawing::Color::RoyalBlue;
+			this->themeSettingLabel->Location = System::Drawing::Point(379, 223);
+			this->themeSettingLabel->Name = L"themeSettingLabel";
+			this->themeSettingLabel->Size = System::Drawing::Size(60, 21);
+			this->themeSettingLabel->TabIndex = 22;
+			this->themeSettingLabel->Text = L"Theme";
+			this->themeSettingLabel->Visible = false;
+			// 
+			// whiteThemeLabel
+			// 
+			this->whiteThemeLabel->AutoSize = true;
+			this->whiteThemeLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->whiteThemeLabel->Location = System::Drawing::Point(422, 271);
+			this->whiteThemeLabel->Name = L"whiteThemeLabel";
+			this->whiteThemeLabel->Size = System::Drawing::Size(44, 17);
+			this->whiteThemeLabel->TabIndex = 23;
+			this->whiteThemeLabel->Text = L"White";
+			this->whiteThemeLabel->Visible = false;
+			// 
+			// blueThemeLabel
+			// 
+			this->blueThemeLabel->AutoSize = true;
+			this->blueThemeLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->blueThemeLabel->Location = System::Drawing::Point(422, 327);
+			this->blueThemeLabel->Name = L"blueThemeLabel";
+			this->blueThemeLabel->Size = System::Drawing::Size(34, 17);
+			this->blueThemeLabel->TabIndex = 24;
+			this->blueThemeLabel->Text = L"Blue";
+			this->blueThemeLabel->Visible = false;
+			// 
+			// whiteThemeButton
+			// 
+			this->whiteThemeButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->whiteThemeButton->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->whiteThemeButton->Location = System::Drawing::Point(531, 269);
+			this->whiteThemeButton->Name = L"whiteThemeButton";
+			this->whiteThemeButton->Size = System::Drawing::Size(99, 23);
+			this->whiteThemeButton->TabIndex = 25;
+			this->whiteThemeButton->Text = L"Yay :)";
+			this->whiteThemeButton->UseVisualStyleBackColor = true;
+			this->whiteThemeButton->Visible = false;
+			this->whiteThemeButton->Click += gcnew System::EventHandler(this, &Interface::whiteThemeClicked);
+			// 
+			// blueThemeButton
+			// 
+			this->blueThemeButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->blueThemeButton->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->blueThemeButton->Location = System::Drawing::Point(531, 327);
+			this->blueThemeButton->Name = L"blueThemeButton";
+			this->blueThemeButton->Size = System::Drawing::Size(99, 23);
+			this->blueThemeButton->TabIndex = 26;
+			this->blueThemeButton->Text = L"Choose me!";
+			this->blueThemeButton->UseVisualStyleBackColor = true;
+			this->blueThemeButton->Visible = false;
+			this->blueThemeButton->Click += gcnew System::EventHandler(this, &Interface::blueThemeClicked);
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -382,6 +487,11 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->blueThemeButton);
+			this->Controls->Add(this->whiteThemeButton);
+			this->Controls->Add(this->blueThemeLabel);
+			this->Controls->Add(this->whiteThemeLabel);
+			this->Controls->Add(this->themeSettingLabel);
 			this->Controls->Add(this->settingsTabSettingButton);
 			this->Controls->Add(this->helpTabSettingButton);
 			this->Controls->Add(this->settingTabSetting);
@@ -457,6 +567,12 @@ private: System::Void settingTabSettingToggle(System::Object^  sender, System::E
 private: System::Void helpTabSettingToggle(System::Object^  sender, System::EventArgs^  helpTabToggled) {
 			 log->log("User: Settings toggled helpTab show/hide");
 			 toggleHelpTab();
+		 }
+private: System::Void whiteThemeClicked(System::Object^  sender, System::EventArgs^  e) {
+			 selectWhiteTheme();
+		 }
+private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  e) {
+			 selectBlueTheme();
 		 }
 };
 }
