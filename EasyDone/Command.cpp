@@ -9,19 +9,23 @@ Command::~Command() {
 }
 
 bool Command::Add(Task userTask) {
+	todoList.listToStack();
+
 	int vectindexofNexttask = todoList.getSize();
 	
 	int newTaskID = issueNewTaskID();
 	userTask.taskID = to_string(newTaskID);
 	todoList.pushback(userTask);
-	todoList.listToStack();
+	
 	return true;
 }
 
 bool Command::Delete(Task userTask) {
+	todoList.listToStack();
+
 	try {
 	bool erased = todoList.eraser(userTask.taskID);
-	todoList.listToStack();
+	
 	return erased;
 	} catch (int number) {
 		throw 0;
@@ -48,13 +52,15 @@ bool Command::Display() {
 }
 
 bool Command::Update(Task userTask, string updateField) {
+	todoList.listToStack();
+
 	bool updated = false;
 	int Index = 0;
 	while(userTask.taskID != todoList.getTask(Index).taskID) {
 		Index++;
 	}
 	updated = todoList.changeTask(Index, userTask, updateField);
-	todoList.listToStack();
+	
 	return updated;
 }
 
@@ -74,4 +80,30 @@ vector<Task> Command::getTaskList() {
 
 void Command::undo() {
 	todoList.stackToList();
+}
+
+void Command::sort() {
+	Task next;
+	int nextDate;
+	for(int i =1; i<todoList.getSize(); i++) {
+		next = todoList.accessSlot(i);
+		nextDate = stoi(next.startDate);
+		int j;
+
+		for(j=i-1; j>=0 && stoi((todoList.accessSlot(j)).startDate)>nextDate; --j)
+			todoList.changeTask(j+1, todoList.accessSlot(j));
+
+		todoList.changeTask(j+1, next);
+	}
+
+	for(int i =1; i<todoList.getSize(); i++) {
+		next = todoList.accessSlot(i);
+		nextDate = stoi(next.startTime);
+		int j;
+
+		for(j=i-1; j>=0 && stoi((todoList.accessSlot(j)).startTime)>nextDate; --j)
+			todoList.changeTask(j+1, todoList.accessSlot(j));
+
+		todoList.changeTask(j+1, next);
+	}
 }

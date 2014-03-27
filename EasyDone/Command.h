@@ -26,6 +26,7 @@ public:
 	int issueNewTaskID();
 	vector<Task> getTaskList();
 	void undo();
+	void sort();
 
 };
 

@@ -58,7 +58,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.taskID = parsedCommandstring[1];
 	}
 
-	stringToMain = command;
+	//stringToMain = command;
 	 stringToMain += actonCommand(command);
 	 return stringToMain;
 }
