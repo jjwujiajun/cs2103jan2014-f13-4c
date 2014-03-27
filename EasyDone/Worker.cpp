@@ -43,15 +43,15 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.taskID = parsedCommandstring[1];
 		updateField = parsedCommandstring[2];
 
-		if(updateField == "taskName") {
+		if(updateField == "task") {
 			userTask.taskName = parsedCommandstring[3];
-		} else if(updateField == "startDate") {
+		} else if(updateField == "sd") {
 			userTask.startDate = parsedCommandstring[3];
-		} else if(updateField == "startTime") {
+		} else if(updateField == "st") {
 			userTask.startTime = parsedCommandstring[3];
-		} else if(updateField == "endDate") {
+		} else if(updateField == "ed") {
 			userTask.endDate = parsedCommandstring[3];
-		} else if(updateField == "endTime") {
+		} else if(updateField == "et") {
 			userTask.endTime = parsedCommandstring[3];
 		}
 	} else if(command == "delete") {

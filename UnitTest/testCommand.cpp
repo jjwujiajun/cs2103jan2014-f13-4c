@@ -30,8 +30,7 @@ namespace workerTest {
 			string test1 = getList[0].taskName;
 			string test2 = testHardCase[0].taskName;
 
-			string test3 = getList[0].startDate;
-			string test4 = testHardCase[0].startDate;
+			
 			
 			Assert::AreEqual(test1, test2);
 		
@@ -58,9 +57,7 @@ namespace workerTest {
 			testTask.startDate = "20141214";
 			testHardCase.push_back(testTask);
 
-			string test1 = getList[0].taskName;
-			string test2 = testHardCase[0].taskName;
-
+			
 			string test3 = getList[0].startDate;
 			string test4 = testHardCase[0].startDate;
 			

@@ -26,7 +26,7 @@ bool Command::Add(Task userTask) {
 bool Command::Delete(Task userTask) {
 	todoList.listToStack();
 	log.log("Command: Deleting task");
-	try {
+	
 	bool erased = todoList.eraser(userTask.taskID);
 	
 	sort();
@@ -34,9 +34,7 @@ bool Command::Delete(Task userTask) {
 	log.log("Command: Task Deleted");
 
 	return erased;
-	} catch (int number) {
-		throw 0;
-	}
+	
 }
 
 bool Command::Update(Task userTask, string updateField) {
@@ -77,6 +75,7 @@ void Command::undo() {
 }
 
 void Command::sort() {
+	
 	log.log("Command: sorting List");
 	Task next;
 	int Date, nextDate;
@@ -149,4 +148,5 @@ void Command::sort() {
 	}
 	todoList.updateTaskID();
 	log.log("Command: List sorted");
+	
 }
