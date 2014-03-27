@@ -45,8 +45,6 @@ GUI::Interface::~Interface() {
 	if (components)	{
 		delete components;
 	}
-
-	log->endLog();
 }
 
 void GUI::Interface::operateUserRequest() {

@@ -8,12 +8,12 @@ out the desired operation.
 #include "Worker.h"
 
 const string Worker::NULL_STRING = "";
-const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) ";
-const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :)";
-const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) "; 
-const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :)";
-const string Worker::MESSAGE_WRONG_INDEX = "Please enter a valid index!";
-const string  Worker:: MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command!";
+const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
+const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
+const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n"; 
+const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
+const string Worker::MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
+const string Worker:: MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
 //const int NULL_DATE = -1;
 
 
@@ -67,28 +67,28 @@ string Worker::actonCommand(string command)
 {
 	if(command == "add" || command == "new" || command == "create") {
 		if(userCommand.Add(userTask)) {
-			successful = "has been added successfully! :) \n";
+			successful = "has been added successfully! :) \r\n";
 		} else{
-			successful = "has not been added successfully! ): \n";
+			successful = "has not been added successfully! ): \r\n";
 		}
 	}
 
 	else if(command == "delete" ) {
 		if(userCommand.Delete(userTask)) {
-			successful = "has been deleted successfully! :)\n";
+			successful = "has been deleted successfully! :) \r\n";
 		}
 		else {
-			successful = "Please enter a valid index!\n";
+			successful = "Please enter a valid index!\r\n";
 		}
 	}
 
 
 	else if(command == "update" ) {
 		if(userCommand.Update(userTask, updateField)) {
-			successful = "has been updated successfully! :)\n";
+			successful = "has been updated successfully! :)\r\n";
 		}
 		else {
-			successful = "Please enter a valid index!\n";
+			successful = "Please enter a valid index!\r\n";
 		}
 	}
 

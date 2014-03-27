@@ -533,6 +533,10 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 					 feedbackBox->Text = "live search!";
 				 }
 
+				 if (keyPressed->KeyCode == Keys::F4) {
+					 Application::Exit();
+				 }
+
 				 if (keyPressed->KeyCode == Keys::F2) {
 				 log->log("User: F2 is pressed, toggleSettingSection()");
 				 if (windowIsExtended) {
