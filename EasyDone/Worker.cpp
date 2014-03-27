@@ -33,7 +33,7 @@ Worker::~Worker() {
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	command =  parsedCommandstring[0];
-	if(command == "add"){
+	if(command == "add" || command == "new" || command == "create" ){
 		userTask.taskName = parsedCommandstring[1];
 		userTask.startDate = parsedCommandstring[2];
 		userTask.startTime = parsedCommandstring[3];
