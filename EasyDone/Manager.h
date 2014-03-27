@@ -18,8 +18,15 @@ const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
 
 #pragma once
+
+#define TESTMODE
+
 class Manager {
-private:
+#ifndef TESTMODE 
+private: 
+#else 
+public: 
+#endif
 	
 	// member classes
 	Parser parser;

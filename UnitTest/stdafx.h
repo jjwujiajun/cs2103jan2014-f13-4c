@@ -11,8 +11,8 @@
 #include "CppUnitTest.h"
 
 // TODO: reference additional headers your program requires here
-#include "Parser.h"
-#include "Worker.h"
+
 #include "store.h"
 #include "Command.h"
 #include "Headers.h"
+#include "Manager.h"
