@@ -21,7 +21,9 @@ class Store {
 	
 	
 	public:
-		
+		Store();
+		~Store();
+
 		//string getIndex(int index);
 		string getTaskName(int slotNumber);
 		string getStartDate(int slotNumber);
@@ -34,6 +36,8 @@ class Store {
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		Task accesswithTaskID(int indexEntered);
+		void switchTask(int slot1, int slot2);
+		void changeTask(int slot, Task slotTask);
 		bool eraser(string taskIndex);
 		void pushback(Task newTask);
 		Task getTask(int slot);

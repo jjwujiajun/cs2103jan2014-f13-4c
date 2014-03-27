@@ -1,6 +1,9 @@
 #include "Store.h"
 
 
+Store::Store() {
+	
+}
 
 string Store::getTaskName(int index) {
 	
@@ -69,6 +72,16 @@ vector<Task>::iterator Store::getIteratorEnd() {
 	iter = taskList.end();
 
 	return iter;
+}
+
+void Store::switchTask(int slot1, int slot2) {
+	Task tempTask = taskList[slot1];
+	taskList[slot1] = taskList[slot2];
+	taskList[slot2] = tempTask;
+}
+
+void Store::changeTask(int slot, Task slotTask) {
+	taskList[slot] = slotTask;
 }
 
 bool Store::eraser(string taskIndex) {
