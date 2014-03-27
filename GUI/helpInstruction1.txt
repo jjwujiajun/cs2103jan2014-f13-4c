@@ -1,0 +1,9 @@
+<Help - Add> //add instructions below. This line is not displayed.
+• add [task] on [start date] [start time]
+• add "task" from [start date] start [start time] to [end date] end [end time]
+• NOTE: keywords "from", "start", "to", "end" need not be in fixed order
+
+Try it!
+Type: add Project meeting from 20140705 start 1330 to 20140705 end 1530
+Type: new Birthday party start 1200 from 20141212
+Type: create buy eraser

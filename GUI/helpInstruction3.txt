@@ -1,0 +1,6 @@
+<Help - Update> //add instructions below. This line is not displayed.
+• update [ID] [field you want to update] [updated information]
+• [field you want to update] : keywords-> task, sd, st, ed, et
+where task: taskName, sd:startDate, st:startTime, ed:endDate, et:endTime 
+
+Example: update 2 SD 20141213

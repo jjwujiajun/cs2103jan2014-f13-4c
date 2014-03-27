@@ -1,0 +1,5 @@
+add/create/new
+delete
+update
+read
+undo
