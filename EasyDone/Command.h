@@ -10,18 +10,15 @@ using namespace std;
 class Command {
 private:
 	Store todoList;
-	/*enum command {
-		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, ERROR
-	};*/
+	Log log;
 
 public:
 	Command();
 	~Command();
-	//bool userCommnad(string userInput);
+	
 	bool Add(Task userTask);
 	bool Delete(Task userTask);
 	bool Update(Task userTask, string updateField);
-	bool Display();
 	bool Search();
 	int issueNewTaskID();
 	vector<Task> getTaskList();

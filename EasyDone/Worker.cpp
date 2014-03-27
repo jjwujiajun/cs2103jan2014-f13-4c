@@ -92,12 +92,6 @@ string Worker::actonCommand(string command)
 		}
 	}
 
-	else if(command ==  "read") {
-		if(userCommand.Display()) {
-			successful = "End of file.\n";
-		}
-	}
-
 	else if(command ==  "undo") {
 		userCommand.undo();
 	}
