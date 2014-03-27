@@ -1,7 +1,8 @@
 <Help - Add> //add instructions below. This line is not displayed.
-• add [task] on [start date] [start time]
-• add "task" from [start date] start [start time] to [end date] end [end time]
-• NOTE: keywords "from", "start", "to", "end" need not be in fixed order
+• add "task" on "startDate" "startTime"
+• add "task" from "start date" start "start time" to "end date" end "end time"
+• ***** NOTE: keywords "from", "start", "to", "end" need not be in fixed order *****
+• Please exclude the "" when typing. These are meant to differentiate the field to type. Enjoy!
 
 Try it!
 Type: add Project meeting from 20140705 start 1330 to 20140705 end 1530
