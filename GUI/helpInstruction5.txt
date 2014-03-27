@@ -1,4 +1,5 @@
 <Help - Undo> //add instructions below. This line is not displayed.
+Format:
 • undo
 
-Example: undo
+That's it.
