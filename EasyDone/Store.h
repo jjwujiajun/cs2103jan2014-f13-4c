@@ -52,5 +52,6 @@ class Store {
 		vector<Task> getTaskList();
 		bool stackToList();
 		void listToStack();
+		void updateTaskID();
 	
 };

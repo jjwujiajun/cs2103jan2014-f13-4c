@@ -80,20 +80,20 @@ void Command::sort() {
 	log.log("Command: sorting List");
 	Task next;
 	int Date, nextDate;
-	for(int i =1; i<todoList.getSize(); i++) {
+	for(int i = 1; i < todoList.getSize(); i++) {
 		next = todoList.accessSlot(i);
 		if(!next.startDate.empty()) {
 			Date = stoi(next.startDate);
 		} else {
 			Date = 0;
 		}
-		int j=i-1;
+		int j = i-1;
 		if(!todoList.accessSlot(j).startDate.empty()) {
 			nextDate = stoi(todoList.accessSlot(j).startDate);
 		} else {
 			nextDate = 0;
 		}
-		for(j=i-1; j>=0 && nextDate>Date; --j) {
+		for(j = i-1; j >= 0 && nextDate > Date; --j) {
 			todoList.changeTask(j+1, todoList.accessSlot(j));
 			if(!todoList.accessSlot(j).startDate.empty()) {
 				nextDate = stoi(todoList.accessSlot(j).startDate);
@@ -103,22 +103,25 @@ void Command::sort() {
 		}
 		todoList.changeTask(j+1, next);
 	}
-
-	int Time, nextTime, prevsameDate, sameDate = 1, counter = 1;
 	
-	while(sameDate<todoList.getSize()) {
+	int Time, nextTime, prevsameDate, sameDate = 0, counter = 1, countNum;
+	
+	while(sameDate < todoList.getSize()) {
 		prevsameDate = sameDate;
 		next = todoList.getTask(sameDate);
 
-		while(next.startDate == todoList.getTask(sameDate-1).startDate && sameDate<todoList.getSize()) {
-			sameDate++;
+		while((sameDate+1)<todoList.getSize()) {
+			if(next.startDate == todoList.getTask(sameDate+1).startDate)
+				sameDate++;
+			else
+				break;
 		}
 
-		counter = prevsameDate;;
-		prevsameDate = sameDate - prevsameDate;
+		counter = prevsameDate+1;
+		countNum = sameDate - prevsameDate;
 
-		if(counter>0 && prevsameDate>0) {
-			for(int i = counter; i<sameDate; i++) {
+		if(countNum>0) {
+			for(int i = counter; i <= sameDate; i++) {
 				next = todoList.accessSlot(i);
 				if(!next.startDate.empty()) {
 					Time = stoi(next.startTime);
@@ -131,7 +134,7 @@ void Command::sort() {
 				} else {
 					nextTime = 0;
 				}
-				for(j=i-1; j>=0 && nextTime>Time; --j) {
+				for(j = i-1; j >= prevsameDate && nextTime > Time; --j) {
 					todoList.changeTask(j+1, todoList.accessSlot(j));
 					if(!todoList.accessSlot(j).startTime.empty()) {
 						nextTime = stoi(todoList.accessSlot(j).startTime);
@@ -144,5 +147,6 @@ void Command::sort() {
 		}
 		sameDate++;
 	}
+	todoList.updateTaskID();
 	log.log("Command: List sorted");
 }
