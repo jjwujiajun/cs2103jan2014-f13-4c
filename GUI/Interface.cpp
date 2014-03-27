@@ -190,9 +190,15 @@ void GUI::Interface::selectWhiteTheme() {
 	this->helpTitle->ForeColor = ThemeWhite::label();
 	this->settingsTitle->BackColor = ThemeWhite::background();
 	this->settingsTitle->ForeColor = ThemeWhite::label();
-	
+	this->feedbackSetting->ForeColor = ThemeWhite::label();
+	this->helpTabSetting->ForeColor = ThemeWhite::label();
+	this->settingTabSetting->ForeColor = ThemeWhite::label();
+	this->themeSettingLabel->ForeColor = ThemeWhite::label();
+	indexColor = ThemeWhite::index();
+
 	this->blueThemeButton->Text = "Choose me!";
 	this->whiteThemeButton->Text = "Yay!";
+	displayTasksListBox();
 }
 
 void GUI::Interface::selectBlueTheme() {
@@ -204,9 +210,15 @@ void GUI::Interface::selectBlueTheme() {
 	this->helpTitle->ForeColor = ThemeBlue::label();
 	this->settingsTitle->BackColor = ThemeBlue::background();
 	this->settingsTitle->ForeColor = ThemeBlue::label();
-	
+	this->feedbackSetting->ForeColor = ThemeBlue::label();
+	this->helpTabSetting->ForeColor = ThemeBlue::label();
+	this->settingTabSetting->ForeColor = ThemeBlue::label();
+	this->themeSettingLabel->ForeColor = ThemeBlue::label();
+	indexColor = ThemeBlue::index();
+
 	this->blueThemeButton->Text = "Yay!";
 	this->whiteThemeButton->Text = "Choose me!";
+	displayTasksListBox();
 }
 
 // display functions
@@ -299,7 +311,7 @@ void GUI::Interface::displayTaskIndex(const Task &task) {
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Regular);
 	}
-	richTaskList->SelectionColor = Color::Gray;
+	richTaskList->SelectionColor = indexColor;
 			
 	String ^index = gcnew String(task.taskID.c_str());
 	richTaskList->SelectedText = "  ";

@@ -21,10 +21,12 @@ const System::Drawing::Color TAB_NOT_SELECTED_COLOUR() {return System::Drawing::
 struct ThemeWhite {
 	static const System::Drawing::Color background() {return System::Drawing::Color::White;}
 	static const System::Drawing::Color label() {return System::Drawing::Color::CornflowerBlue;}
+	static const System::Drawing::Color index() {return System::Drawing::Color::Gray;}
 };
 struct ThemeBlue {
 	static const System::Drawing::Color background() {return System::Drawing::Color::CornflowerBlue;}
 	static const System::Drawing::Color label() {return System::Drawing::Color::White;}
+	static const System::Drawing::Color index() {return System::Drawing::Color::White;}
 };
 
 
@@ -83,6 +85,7 @@ namespace GUI {
 		bool helpIsShown;
 		bool settingIsShown;
 		int numRowsToDisplay;
+		System::Drawing::Color indexColor;
 
 	private: System::Windows::Forms::TextBox^  inputField;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
@@ -182,12 +185,12 @@ namespace GUI {
 			// 
 			this->title->AutoSize = true;
 			this->title->BackColor = System::Drawing::Color::White;
-			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->title->ForeColor = System::Drawing::Color::CornflowerBlue;
-			this->title->Location = System::Drawing::Point(138, 9);
+			this->title->Location = System::Drawing::Point(134, 7);
 			this->title->Name = L"title";
-			this->title->Size = System::Drawing::Size(97, 29);
+			this->title->Size = System::Drawing::Size(129, 39);
 			this->title->TabIndex = 3;
 			this->title->Text = L"EasyDone";
 			this->title->TextAlign = System::Drawing::ContentAlignment::TopCenter;
@@ -525,30 +528,33 @@ namespace GUI {
 		//
 		// function: press enter to take in string
 		//
-	private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
+private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 				 if (inputField->Text == "live search") {
 					 feedbackBox->Text = "live search!";
 				 }
+
 				 if (keyPressed->KeyCode == Keys::F2) {
-					 log->log("User: F2 is pressed, toggleSettingSection()");
-					 if (windowIsExtended) {
-						 if (helpIsShown) toggleHelpSection();
-						 else retractWindow();
-					 } else {
-						 extendWindow();
-					 }
-					 toggleSettingSection();
+				 log->log("User: F2 is pressed, toggleSettingSection()");
+				 if (windowIsExtended) {
+					 if (helpIsShown) toggleHelpSection();
+					 else retractWindow();
 				 }
+				 else extendWindow();
+
+				 toggleSettingSection();
+				 }
+
 				 if (keyPressed->KeyCode == Keys::F1) {
-					 log->log("User: F1 is pressed, toggleHelpSetion()");
-					 if (windowIsExtended) {
-						 if (helpIsShown) retractWindow();
-						 else toggleSettingSection();
-					 } else {
-						 extendWindow();
-					 }
-					 toggleHelpSection();
+				 log->log("User: F1 is pressed, toggleHelpSetion()");
+				 if (windowIsExtended) {
+					 if (helpIsShown) retractWindow();
+				 	 else toggleSettingSection();
+				 } 
+				 else extendWindow();
+
+				 toggleHelpSection();
 				 }
+
 				 if (keyPressed->KeyCode == Keys::Enter) {
 					 log->log("User: Enter is pressed, operateUserRequest()");
 					 operateUserRequest();
@@ -568,6 +574,7 @@ private: System::Void helpTabSettingToggle(System::Object^  sender, System::Even
 			 log->log("User: Settings toggled helpTab show/hide");
 			 toggleHelpTab();
 		 }
+
 private: System::Void whiteThemeClicked(System::Object^  sender, System::EventArgs^  e) {
 			 selectWhiteTheme();
 		 }
