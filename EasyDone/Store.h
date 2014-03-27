@@ -1,5 +1,6 @@
 #include "Headers.h"
-#include "Task.h"
+#include "FileHandler.h"
+
 
 using namespace std;
 
@@ -15,9 +16,11 @@ using namespace std;
 class Store {
 	
 	private:
-		
+		FileHandler file;
 		vector<Task> taskList;
 		vector< vector<Task> > undoList;
+
+		Log log;
 	
 	
 	public:
@@ -35,6 +38,8 @@ class Store {
 		string getTaskID(int slotNumber);
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
+		void saveToFile();
+
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);

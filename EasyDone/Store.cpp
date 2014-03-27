@@ -2,7 +2,14 @@
 
 
 Store::Store() {
-	
+	taskList.clear();
+	taskList = file.getTaskList();
+	undoList.clear();
+}
+
+Store::~Store() {
+	undoList.clear();
+	file.saveTaskList(taskList);
 }
 
 string Store::getTaskName(int index) {
@@ -74,17 +81,25 @@ vector<Task>::iterator Store::getIteratorEnd() {
 	return iter;
 }
 
+void Store::saveToFile() {
+	log.log("Store: saving to file");
+	file.saveTaskList(taskList);
+}
+
 void Store::switchTask(int slot1, int slot2) {
+	log.log("Store: switching task");
 	Task tempTask = taskList[slot1];
 	taskList[slot1] = taskList[slot2];
 	taskList[slot2] = tempTask;
 }
 
 void Store::changeTask(int slot, Task slotTask) {
+	log.log("Store: changing task");
 	taskList[slot] = slotTask;
 }
 
 bool Store::eraser(string taskIndex) {
+	log.log("Store: erasing task");
 	bool erased = false;
 	int slot=0;
 
@@ -100,7 +115,8 @@ bool Store::eraser(string taskIndex) {
 		taskList[slot] = taskList[slot+1];
 	}
 	taskList.pop_back();
-	
+	log.log("Store: task erased");
+
 	return erased;
 }
 
@@ -133,6 +149,7 @@ Task Store::getTask(int slot) {
 }
 	
 bool Store::changeTask(int Index, Task userTask, string updateField) {
+	log.log("Store: updating a task field");
 	if(updateField == "taskName") {
 		taskList[Index].taskName = userTask.taskName;
 	} else if(updateField == "startDate") {
@@ -144,11 +161,12 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 	} else if(updateField == "endTime") {
 		taskList[Index].endTime = userTask.endTime;
 	}
+	log.log("Store: field updated");
 	return true;
 }
 
 void Store::dueToday() {
-	
+	log.log("Store: changing due status");
 	for(int i = 0; i < taskList.size(); i++) {
 		if(taskList[i].startDate == "20140321") {
 			taskList[i].isBold = true;
@@ -168,6 +186,7 @@ vector<Task> Store::getTaskList() {
 }
 
 bool Store::stackToList() {
+	log.log("Store: undoing the change in list");
 	bool undo = false;
 	if(undoList.size()!=0) {
 		vector<Task> temp = undoList.back();
@@ -183,6 +202,7 @@ bool Store::stackToList() {
 }
 
 void Store::listToStack() {
+	log.log("Store: saving the change in list");
 	vector<Task> temp;
 	Task tempTask;
 	vector<Task> copyList = taskList;

@@ -188,8 +188,9 @@ bool Parser::parseDetails (string userInput) {
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
 					}
+					if(i<storeUserInfo.size()) 
+						startTime += storeUserInfo[i];
 					++i;
-					startTime += storeUserInfo[storeUserInfo.size()-1];		
 				}			
 				 else if (storeUserInfo[i] == keyWord_2) { // start date
 					++i;
