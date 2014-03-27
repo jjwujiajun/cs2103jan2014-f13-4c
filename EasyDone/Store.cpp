@@ -150,15 +150,15 @@ Task Store::getTask(int slot) {
 	
 bool Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
-	if(updateField == "taskName") {
+	if(updateField == "task") {
 		taskList[Index].taskName = userTask.taskName;
-	} else if(updateField == "startDate") {
+	} else if(updateField == "sd") {
 		taskList[Index].startDate = userTask.startDate;
-	} else if(updateField == "startTime") {
+	} else if(updateField == "st") {
 		taskList[Index].startTime = userTask.startTime;
-	} else if(updateField == "endDate") {
+	} else if(updateField == "ed") {
 		taskList[Index].endDate = userTask.endDate;
-	} else if(updateField == "endTime") {
+	} else if(updateField == "et") {
 		taskList[Index].endTime = userTask.endTime;
 	}
 	log.log("Store: field updated");

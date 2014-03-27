@@ -6,10 +6,8 @@
 using namespace std; 
 
 
-
 class Parser {
 
-private:
 
 	vector<string> storeUserInfo;
 	vector<string> userInformation;

@@ -142,17 +142,20 @@ bool Parser::parseDetails (string userInput) {
 	string newUserInput;
     string token;
 	string stringSize;
-	string taskInfo;
-	string taskInfo_2;
-	string taskInfo_3;
-	string afterOnInput;
-	string afterFromInput;
-	string afterToInput;
-	size_t found_1;
-	size_t found_2;
-	size_t found_3;
+	//string taskInfo;
+	//string taskInfo_2;
+	//string taskInfo_3;
+	//string afterOnInput;
+	//string afterFromInput;
+	//string afterToInput;
+	//size_t found_1;
+	//size_t found_2;
+	//size_t found_3;
 
-	//JJ added:
+	string checkDate;
+	string checkTime;
+
+
 	int i = 1; // note i start from 1 because command already pushed in. change to 0 if above pushing is removed in future.
 	
 	string taskName;
@@ -172,7 +175,7 @@ bool Parser::parseDetails (string userInput) {
 	//string.find will find the whole set of characters and not only one character. This differs from find first of which finds the character only
    
     switch (enumCommand) {
-		// JJ edited this
+		
         case ADD:
 
 			while (i < storeUserInfo.size()) {
@@ -199,6 +202,13 @@ bool Parser::parseDetails (string userInput) {
 							 storeUserInfo[i] != keyWord_3 &&
 							 storeUserInfo[i] != keyWord_4 &&
 							 storeUserInfo[i] != keyWord_5) {
+
+					checkDate += storeUserInfo[i];
+					if (checkDate.size() < 6) {
+						
+					}
+
+					
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
 					}

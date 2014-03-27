@@ -7,9 +7,8 @@
 using namespace std;
 
 class Worker {
-private:
 
-	
+
 	//Store todoList;
 	Command userCommand;
 	Task userTask; 

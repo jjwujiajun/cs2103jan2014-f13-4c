@@ -26,7 +26,7 @@ namespace workerTest {
 			example = test.takeparsedCommand(randomCase);
 
 			 
-			string testHardCase = " has been added successfully! :) \n";
+			string testHardCase = "has been added successfully! :) \n";
 
 			Assert::AreEqual(example, testHardCase);
 		
