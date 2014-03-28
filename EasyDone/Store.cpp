@@ -168,7 +168,7 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 void Store::dueToday() {
 	log.log("Store: changing due status");
 	for(int i = 0; i < (int) taskList.size(); i++) {
-		if(taskList[i].startDate == "20140321") {
+		if(taskList[i].startDate == "20140328") {
 			taskList[i].isBold = true;
 		}
 		else {

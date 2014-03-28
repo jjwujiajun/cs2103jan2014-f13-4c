@@ -85,11 +85,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="Themes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interface.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Themes.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Interface.resx">
