@@ -170,27 +170,27 @@ bool Parser::parseDetails (string userInput) {
 		
         case ADD:
 
-			while (i < storeUserInfo.size()) {
+			while (i < (int) storeUserInfo.size()) {
 			
 				
 				if (storeUserInfo[i] == keyWord_1) {
 					int a = find(storeUserInfo.begin(), storeUserInfo.end(), keyWord_2) - storeUserInfo.begin();
 					//taskName += storeUserInfo[a-1] + " ";
 					++i;
-					if (i < storeUserInfo.size() && 
+					if (i < (int) storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_3) {
 					
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
 					}
-					if(i<storeUserInfo.size()) 
+					if(i < (int) storeUserInfo.size()) 
 						startTime += storeUserInfo[i];
 					++i;
 				}			
 				 else if (storeUserInfo[i] == keyWord_2) { // start date "from"
 					++i;
-					if (i < storeUserInfo.size() && 
+					if (i < (int) storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_3 &&
 							 storeUserInfo[i] != keyWord_4 &&

@@ -45,7 +45,7 @@ vector<Task> FileHandler::getTaskList() {
 void FileHandler::saveTaskList(const vector<Task>& taskList) {
 	writeFile.open(FILE_TASKLIST, ios::trunc);
 
-	for (int i = 0; i < taskList.size(); ++i) {
+	for (int i = 0; i < (int) taskList.size(); ++i) {
 		writeFile << taskList[i].taskID << endl;
 		writeFile << taskList[i].taskName << endl;
 		writeFile << taskList[i].startDate << endl;

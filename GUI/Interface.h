@@ -1,34 +1,17 @@
 #include "Headers.h"
 #include "Manager.h"
-
+#include "Themes.h"
 #pragma once
 
-const int TASKLIST_RETRACT_ROW = 19;
-const int TASKLIST_EXTENT_ROW = 24;
-const int TASKLIST_X = 351;
-const int TASKLIST_Y_RETRACT = 386;
-const int TASKLIST_Y_EXTENT = 482;
-const int FORM_X_RETRACT = 375;
-const int FORM_X_EXTENT = 674;
-const int FORM_Y = 587;
-const int TAB_X_RETRACT = 355;
-const int TAB_X_EXTENT = 655;
-const int TAB_Y_HELP = 327;
-const int TAB_Y_SETTING = 417;
-const System::Drawing::Color TAB_SELECTED_COLOUR() {return System::Drawing::Color::Silver;}
-const System::Drawing::Color TAB_NOT_SELECTED_COLOUR() {return System::Drawing::Color::WhiteSmoke;}
-
-struct ThemeWhite {
-	static const System::Drawing::Color background() {return System::Drawing::Color::White;}
-	static const System::Drawing::Color label() {return System::Drawing::Color::CornflowerBlue;}
-	static const System::Drawing::Color index() {return System::Drawing::Color::Gray;}
-};
-struct ThemeBlue {
-	static const System::Drawing::Color background() {return System::Drawing::Color::CornflowerBlue;}
-	static const System::Drawing::Color label() {return System::Drawing::Color::White;}
-	static const System::Drawing::Color index() {return System::Drawing::Color::White;}
-};
-
+using namespace System::Drawing;
+const Color TAB_SELECTED_COLOUR() {return Color::Silver;}
+const Color TAB_NOT_SELECTED_COLOUR() {return Color::WhiteSmoke;}
+const Color HELP_COLOR_HEADING() {return Color::CornflowerBlue;}
+const Color HELP_COLOR_INSTRUCTION() {return Color::Black;}
+const Color TASKLIST_COLOR_TASKINFO() {return Color::Black;}
+const Color TASKLIST_COLOR_HEADING() {return Color::CornflowerBlue;}
+const FontStyle HELP_FONTSTYLE_HEADING() {return FontStyle::Bold;}
+const FontStyle HELP_FONTSTYLE_INSTRUCTION() {return FontStyle::Regular;}
 
 namespace GUI {
 
@@ -44,25 +27,30 @@ namespace GUI {
 	/// </summary>
 	public ref class Interface : public System::Windows::Forms::Form
 	{
-	public:
-		Interface(void);
-		void operateUserRequest();
-		void extendWindow();
-		void retractWindow();
-		void toggleHelpSection();
-		void toggleSettingSection();
-		void toggleFeedback();
-		void toggleHelpTab();
-		void toggleSettingsTab();
-		void selectWhiteTheme();
-		void selectBlueTheme();
-		void convertSysToStdString(String ^, string&);
-		void convertStdToSysString(string &, String ^&);
-
-	protected:
-		~Interface();
-
 	private:
+		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
+		literal String ^TASKLIST_HEADING_ALL = "All Tasks \n";
+		literal String ^BUTTON_HIDE = "Hide";
+		literal String ^BUTTON_SHOW = "Show";
+		literal String ^BUTTON_THEME_SELECTED = "Yay :)";
+		literal String ^BUTTON_THEME_NOT_SELECTED = "Choose me!";
+		literal String ^TASKLIST_FONT_TASK = "Calibri";
+		literal String ^HELP_FONT_HEADING = "Calibri";
+		literal String ^HELP_FONT_INSTRUCTION = "Calibri";
+		literal String ^TASKLIST_FONT_HEADING = "Broadway";
+		literal String ^ENDL = "\n";
+		literal String ^TABL = "\t";
+		literal String ^TASKLIST_FORMATTING_INDEX = "  ";
+
+		int numRowsToDisplay;
+		bool windowIsExtended;
+		bool helpIsShown;
+		bool settingIsShown;
+		Color indexColor;
+		array<Theme^> ^theme;
+		Manager *manager;
+		Log *log;
+
 		// input functions
 		void receiveUserInput();
 
@@ -75,47 +63,63 @@ namespace GUI {
 		// taskList display functions
 		void displayTodayLabel();
 		void displayAllTaskLabel();
-		void displayTask(const Task &task);
-		void displayTaskIndex(const Task &task);
-		void displayTaskInformation(const Task &task);
-		
-		Manager *manager;
-		Log *log;
-		bool windowIsExtended;
-		bool helpIsShown;
-		bool settingIsShown;
-		int numRowsToDisplay;
-		System::Drawing::Color indexColor;
+		void displayTask(const Task&);
+		void displayTaskIndex(const Task&);
+		void displayTaskInformation(const Task&);
 
-	private: System::Windows::Forms::TextBox^  inputField;
-	private: System::Windows::Forms::TextBox^  feedbackBox;
+		// string conversion functions
+		void convertSysToStdString(String ^, string &);
+		void convertStdToSysString(string &, String ^&);
+		
+	public:
+		Interface(void);
+		~Interface(void);
+
+		void operateUserRequest();
+		void extendWindow();
+		void retractWindow();
+		void toggleHelpSection();
+		void toggleSettingSection();
+		void toggleFeedback();
+		void toggleHelpTab();
+		void toggleSettingsTab();
+		void selectTheme(themeColor);
+
+		// form
+	private: System::Windows::Forms::Label^  helpDivider;
+	private: System::Windows::Forms::Label^  helpTab;
+	private: System::Windows::Forms::Label^  settingsTab;
+		// main Display
 	private: System::Windows::Forms::Label^  title;
 	private: System::Windows::Forms::RichTextBox^  richTaskList;
+	private: System::Windows::Forms::TextBox^  feedbackBox;
+	private: System::Windows::Forms::TextBox^  inputField;
+		// taskList Labels
 	private: System::Windows::Forms::Label^  IDLabel;
 	private: System::Windows::Forms::Label^  dateLabel;
 	private: System::Windows::Forms::Label^  timeLabel;
 	private: System::Windows::Forms::Label^  taskLabel;
-	private: System::Windows::Forms::RichTextBox^  helpBox;
-	private: System::Windows::Forms::Label^  helpDivider;
-	private: System::Windows::Forms::Label^  settingsTitle;
-	private: System::Windows::Forms::Label^  feedbackSetting;
-	private: System::Windows::Forms::Button^  feedbackButton;
+		// help Section
 	private: System::Windows::Forms::Label^  helpTitle;
 	private: System::Windows::Forms::TextBox^  helpIntro;
-	private: System::Windows::Forms::Label^  helpTab;
-	private: System::Windows::Forms::Label^  settingsTab;
+	private: System::Windows::Forms::RichTextBox^  helpBox;
+		// settings Section
+	private: System::Windows::Forms::Label^  settingsTitle;
+			 // feedback setting
+	private: System::Windows::Forms::Label^  feedbackSetting;
+	private: System::Windows::Forms::Button^  feedbackButton;
+			 // helpTab setting
 	private: System::Windows::Forms::Label^  helpTabSetting;
-	private: System::Windows::Forms::Label^  settingTabSetting;
 	private: System::Windows::Forms::Button^  helpTabSettingButton;
+			 // settingTab setting
+	private: System::Windows::Forms::Label^  settingTabSetting;
 	private: System::Windows::Forms::Button^  settingsTabSettingButton;
+			 // theme setting
 	private: System::Windows::Forms::Label^  themeSettingLabel;
 	private: System::Windows::Forms::Label^  whiteThemeLabel;
 	private: System::Windows::Forms::Label^  blueThemeLabel;
 	private: System::Windows::Forms::Button^  whiteThemeButton;
 	private: System::Windows::Forms::Button^  blueThemeButton;
-
-
-
 
 	private:
 		/// <summary>
@@ -579,11 +583,11 @@ private: System::Void helpTabSettingToggle(System::Object^  sender, System::Even
 			 toggleHelpTab();
 		 }
 
-private: System::Void whiteThemeClicked(System::Object^  sender, System::EventArgs^  e) {
-			 selectWhiteTheme();
+private: System::Void whiteThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
+			 selectTheme(WHITE);
 		 }
-private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  e) {
-			 selectBlueTheme();
+private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
+			 selectTheme(BLUE);
 		 }
 };
 }
