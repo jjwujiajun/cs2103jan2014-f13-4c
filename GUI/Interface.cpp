@@ -35,7 +35,30 @@ GUI::Interface::Interface(void) {
 	helpIsShown = false;
 	settingIsShown = false;
 
+	theme = setThemeColors();
+
 	log->endLog();
+}
+
+array<Theme^>^ GUI::Interface::setThemeColors() {
+	array <Theme^> ^ themeArray = gcnew array<Theme^> (THEME_NUMBER);
+
+	Theme ^whiteTheme;
+	whiteTheme = gcnew Theme;
+	whiteTheme->background = System::Drawing::Color::White;
+	whiteTheme->label = System::Drawing::Color::CornflowerBlue;
+	whiteTheme->index = System::Drawing::Color::Gray;
+		 
+	Theme ^blueTheme;
+	blueTheme = gcnew Theme;
+	blueTheme->background = System::Drawing::Color::CornflowerBlue;
+	blueTheme->label = System::Drawing::Color::White;
+	blueTheme->index = System::Drawing::Color::White;
+		 
+	themeArray[0] = whiteTheme;
+	themeArray[1] = blueTheme;
+
+	return themeArray;
 }
 
 GUI::Interface::~Interface() {
@@ -179,43 +202,29 @@ void GUI::Interface::toggleSettingsTab() {
 	log->log("GUI: settingsTab is toggled");
 }
 
-void GUI::Interface::selectWhiteTheme() {
-	this->BackColor = ThemeWhite::background();
-	this->title->BackColor = ThemeWhite::background();
-	this->title->ForeColor = ThemeWhite::label();
-	this->richTaskList->BackColor = ThemeWhite::background();
-	this->helpTitle->BackColor = ThemeWhite::background();
-	this->helpTitle->ForeColor = ThemeWhite::label();
-	this->settingsTitle->BackColor = ThemeWhite::background();
-	this->settingsTitle->ForeColor = ThemeWhite::label();
-	this->feedbackSetting->ForeColor = ThemeWhite::label();
-	this->helpTabSetting->ForeColor = ThemeWhite::label();
-	this->settingTabSetting->ForeColor = ThemeWhite::label();
-	this->themeSettingLabel->ForeColor = ThemeWhite::label();
-	indexColor = ThemeWhite::index();
+void GUI::Interface::selectTheme(themeColor color) {
+	this->BackColor = theme[color]->background;
+	this->title->BackColor = theme[color]->background;
+	this->title->ForeColor = theme[color]->label;
+	this->richTaskList->BackColor = theme[color]->background;
+	this->helpTitle->BackColor = theme[color]->background;
+	this->helpTitle->ForeColor = theme[color]->label;
+	this->settingsTitle->BackColor = theme[color]->background;
+	this->settingsTitle->ForeColor = theme[color]->label;
+	this->feedbackSetting->ForeColor = theme[color]->label;
+	this->helpTabSetting->ForeColor = theme[color]->label;
+	this->settingTabSetting->ForeColor = theme[color]->label;
+	this->themeSettingLabel->ForeColor = theme[color]->label;
+	indexColor = theme[color]->index;
 
-	this->blueThemeButton->Text = "Choose me!";
-	this->whiteThemeButton->Text = "Yay!";
-	displayTasksListBox();
-}
+	if (color == WHITE) {
+		this->blueThemeButton->Text = "Choose me!";
+		this->whiteThemeButton->Text = "Yay!";
+	} else if (color == BLUE) {
+		this->blueThemeButton->Text = "Choose me!";
+		this->whiteThemeButton->Text = "Yay!";
+	}
 
-void GUI::Interface::selectBlueTheme() {
-	this->BackColor = ThemeBlue::background();
-	this->title->BackColor = ThemeBlue::background();
-	this->title->ForeColor = ThemeBlue::label();
-	this->richTaskList->BackColor = ThemeBlue::background();
-	this->helpTitle->BackColor = ThemeBlue::background();
-	this->helpTitle->ForeColor = ThemeBlue::label();
-	this->settingsTitle->BackColor = ThemeBlue::background();
-	this->settingsTitle->ForeColor = ThemeBlue::label();
-	this->feedbackSetting->ForeColor = ThemeBlue::label();
-	this->helpTabSetting->ForeColor = ThemeBlue::label();
-	this->settingTabSetting->ForeColor = ThemeBlue::label();
-	this->themeSettingLabel->ForeColor = ThemeBlue::label();
-	indexColor = ThemeBlue::index();
-
-	this->blueThemeButton->Text = "Yay!";
-	this->whiteThemeButton->Text = "Choose me!";
 	displayTasksListBox();
 }
 
@@ -305,9 +314,9 @@ void GUI::Interface::displayTask(const Task &task) {
 
 void GUI::Interface::displayTaskIndex(const Task &task) {
 	if (task.isBold) {
-		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Bold);
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, 8, FontStyle::Bold);
 	} else {
-		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 8, FontStyle::Regular);
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, 8, FontStyle::Regular);
 	}
 	richTaskList->SelectionColor = indexColor;
 			
@@ -321,9 +330,9 @@ void GUI::Interface::displayTaskIndex(const Task &task) {
 
 void GUI::Interface::displayTaskInformation(const Task &task) {
 	if (task.isBold) {
-		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Bold);
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, 11, FontStyle::Bold);
 	} else {
-		richTaskList->SelectionFont = gcnew System::Drawing::Font("Calibri", 11, FontStyle::Regular);
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, 11, FontStyle::Regular);
 	}
 	richTaskList->SelectionColor = Color::Black;
 

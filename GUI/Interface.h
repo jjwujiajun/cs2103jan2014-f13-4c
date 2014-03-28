@@ -15,20 +15,16 @@ const int TAB_X_RETRACT = 355;
 const int TAB_X_EXTENT = 655;
 const int TAB_Y_HELP = 327;
 const int TAB_Y_SETTING = 417;
+const int THEME_NUMBER = 2;
 const System::Drawing::Color TAB_SELECTED_COLOUR() {return System::Drawing::Color::Silver;}
 const System::Drawing::Color TAB_NOT_SELECTED_COLOUR() {return System::Drawing::Color::WhiteSmoke;}
+enum themeColor {WHITE, BLUE};
 
-struct ThemeWhite {
-	static const System::Drawing::Color background() {return System::Drawing::Color::White;}
-	static const System::Drawing::Color label() {return System::Drawing::Color::CornflowerBlue;}
-	static const System::Drawing::Color index() {return System::Drawing::Color::Gray;}
+ref struct Theme {
+	System::Drawing::Color background;
+	System::Drawing::Color label;
+	System::Drawing::Color index;
 };
-struct ThemeBlue {
-	static const System::Drawing::Color background() {return System::Drawing::Color::CornflowerBlue;}
-	static const System::Drawing::Color label() {return System::Drawing::Color::White;}
-	static const System::Drawing::Color index() {return System::Drawing::Color::White;}
-};
-
 
 namespace GUI {
 
@@ -45,6 +41,8 @@ namespace GUI {
 	public ref class Interface : public System::Windows::Forms::Form
 	{
 	public:
+		literal String ^TASKLIST_FONT_TASK = "Calibri";
+
 		Interface(void);
 		void operateUserRequest();
 		void extendWindow();
@@ -54,8 +52,7 @@ namespace GUI {
 		void toggleFeedback();
 		void toggleHelpTab();
 		void toggleSettingsTab();
-		void selectWhiteTheme();
-		void selectBlueTheme();
+		void selectTheme(themeColor);
 		void convertSysToStdString(String ^, string&);
 		void convertStdToSysString(string &, String ^&);
 
@@ -78,6 +75,9 @@ namespace GUI {
 		void displayTask(const Task &task);
 		void displayTaskIndex(const Task &task);
 		void displayTaskInformation(const Task &task);
+
+		// other functions
+		array<Theme^>^ setThemeColors();
 		
 		Manager *manager;
 		Log *log;
@@ -86,6 +86,7 @@ namespace GUI {
 		bool settingIsShown;
 		int numRowsToDisplay;
 		System::Drawing::Color indexColor;
+		array<Theme^> ^theme;
 
 	private: System::Windows::Forms::TextBox^  inputField;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
@@ -113,9 +114,6 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  blueThemeLabel;
 	private: System::Windows::Forms::Button^  whiteThemeButton;
 	private: System::Windows::Forms::Button^  blueThemeButton;
-
-
-
 
 	private:
 		/// <summary>
@@ -579,11 +577,11 @@ private: System::Void helpTabSettingToggle(System::Object^  sender, System::Even
 			 toggleHelpTab();
 		 }
 
-private: System::Void whiteThemeClicked(System::Object^  sender, System::EventArgs^  e) {
-			 selectWhiteTheme();
+private: System::Void whiteThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
+			 selectTheme(WHITE);
 		 }
-private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  e) {
-			 selectBlueTheme();
+private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
+			 selectTheme(BLUE);
 		 }
 };
 }
