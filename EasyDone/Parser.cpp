@@ -52,31 +52,31 @@ vector<string> Parser::storeInformation(string userInput) {
 Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 
 	if (storeUserInfo[0] == "add" || storeUserInfo[0] == "create" || storeUserInfo[0] == "new"  ) {
-		log.log("Parser: Command is ADD");
+		//log.log("Parser: Command is ADD");
 		return ADD;
     }
     else if (storeUserInfo[0] == "display") {
-		log.log("Parser: Command is READ");
+		//log.log("Parser: Command is READ");
         return READ;
     }
     else if (storeUserInfo[0] == "update" || storeUserInfo[0] == "change" || storeUserInfo[0] == "edit") {
-		log.log("Parser: Command is UPDATE");
+		//log.log("Parser: Command is UPDATE");
         return UPDATE;
     }
     else if (storeUserInfo[0] == "delete" || storeUserInfo[0] == "remove") {
-		log.log("Parser: Command is DELETE");
+		//log.log("Parser: Command is DELETE");
         return DELETE;
     }
     else if (storeUserInfo[0] == "search") {
-		log.log("Parser: Command is SEARCH");
+		//log.log("Parser: Command is SEARCH");
         return SEARCH;
     }
     else if (storeUserInfo[0] == MESSAGE_CHECK) {
-		log.log("Parser: Command is CHECK");
+		//log.log("Parser: Command is CHECK");
         return CHECK;
     }
 	else if (storeUserInfo[0] == "undo") {
-		log.log("Parser: Command is UNDO");
+		//log.log("Parser: Command is UNDO");
         return UNDO;
 	}
     else {
@@ -153,6 +153,7 @@ bool Parser::parseDetails (string userInput) {
 	//size_t found_3;
 
 	string checkDate;
+	string checkDate2;
 	string checkTime;
 
 
@@ -188,6 +189,7 @@ bool Parser::parseDetails (string userInput) {
 					if (i < storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_3) {
+					
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
 					}
@@ -195,7 +197,7 @@ bool Parser::parseDetails (string userInput) {
 						startTime += storeUserInfo[i];
 					++i;
 				}			
-				 else if (storeUserInfo[i] == keyWord_2) { // start date
+				 else if (storeUserInfo[i] == keyWord_2) { // start date "from"
 					++i;
 					if (i < storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_2 &&
@@ -204,28 +206,53 @@ bool Parser::parseDetails (string userInput) {
 							 storeUserInfo[i] != keyWord_5) {
 
 					checkDate += storeUserInfo[i];
-					if (checkDate.size() < 6) {
-						
+					if (checkDate.size() > 5) {
+
+						startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+						++i;
+						if(storeUserInfo[i] == keyWord_3) {
+						++i;
+						endDate += storeUserInfo[i];
+						++i;
+						} else {
+						startTime += storeUserInfo[i];
+						++i;
+						}
+
+					} else {
+						startTime += storeUserInfo[i];
+						i++;
 					}
 
-					
-					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
-					++i;
+					//startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					//++i;
 					}
 				 }
-				else if (storeUserInfo[i] == keyWord_3) { // end date
-					++i;
+				 
+				else if (storeUserInfo[i] == keyWord_3) { // end date "to"
+						++i;
 						if (i < storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_1 &&
 							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_4 &&
 							 storeUserInfo[i] != keyWord_5 ) {
+
+					checkDate2 += storeUserInfo[i];
+					if (checkDate.size() > 5) {
 					endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
 					++i;
+					endTime += storeUserInfo[i];
+					++i;
+					} else {
+						endTime += storeUserInfo[i];
+						i++;
 					}
 						
 				}
-				else if (storeUserInfo[i] == keyWord_4) { // start time
+				
+			
+				
+			/*	else if (storeUserInfo[i] == keyWord_4) { // start time
 					++i;
 					while (i < storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_1 &&
@@ -251,10 +278,12 @@ bool Parser::parseDetails (string userInput) {
 					endTime = storeUserInfo[i]; // remember to add " " spacing next time for parsing
 					++i;
 					}
+					*/
 				} else {
 					taskName += storeUserInfo[i] + " ";
 					++i;
 					}
+					
 		}
 				
 			userInformation.push_back(taskName);
@@ -369,12 +398,15 @@ bool Parser::parseDetails (string userInput) {
             break;
 			
         case READ:
+			/*
 			 stringSize = storeUserInfo[0];
 			 x = stringSize.size() + 1;
 			
              newUserInput = userInput.substr (x, userInput.size());
 			 token = "0";
 			 userInformation.push_back(token);	
+			 */
+			userInformation.push_back(storeUserInfo[1]);
             // no details to be parsed since is just displaying
 /*
 			 if (userInformation.size() != 0)
@@ -493,7 +525,7 @@ vector<string> Parser::completeParse(string userInput) {
 	
 	parserEmpty();
 	
-	log.log("Parser: parseCommand(userInput)");
+	//log.log("Parser: parseCommand(userInput)");
 	
 	storeInformation(userInput);
 	
@@ -581,6 +613,6 @@ if (stringCommand == "d" || stringCommand == "del" || stringCommand == "delete" 
 command = DELETE;
 }
 
-++i;
+++i
 }
 */
