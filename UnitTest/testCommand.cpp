@@ -7,7 +7,11 @@ namespace workerTest {
 	TEST_CLASS(Easydone)
 	{
 	public:
-		
+
+/**********These tests check if the functions in Command class work successfully: ************
+they are supposed to perform the CURD functions on the storage vector<Task> in Store class*/
+
+		/*Tests if Add function in Command class successfully manages to Add a task to the storage vector */
 		TEST_METHOD(testCommand_addTaskName)
 		{
 			
@@ -65,6 +69,9 @@ namespace workerTest {
 			Assert::AreNotEqual(test3, test4);
 			
 		}
+
+		/*Tests if Delete function in Command class successfully manages to Delete a task in the storage vector
+		while ensuring the tasks behind the deleted task get pushed forward by an index in the storage vector */
 
 		TEST_METHOD(testCommand_delete)
 		{

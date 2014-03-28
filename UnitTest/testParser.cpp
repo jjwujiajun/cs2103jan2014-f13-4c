@@ -8,6 +8,9 @@ namespace parserTest {
 	{
 	public:
 		
+
+		
+		/*This tests if the breaking up of userInput string via spaces and the storage of this concated string in a vector<string> is successful. */
 		TEST_METHOD(parseUserInput)
 		{
 			// TODO: Your test code here
@@ -32,7 +35,7 @@ namespace parserTest {
 			}
 
 		}
-
+		/*This tests if parseCommand performs it's functionality: to retrieve the command from the concated userInput string*/
 		TEST_METHOD(parseCommand)
 		{
 			// TODO: Your test code here
@@ -53,6 +56,8 @@ namespace parserTest {
 
 		}
 
+		/*******These tests check if completeParse performs it's functionality for CRUD: to completely parse the 
+		*************userInput string and store it in a vector<string> to be returned to Manager*******/
 		TEST_METHOD(completeParse_1)
 		{
 			// TODO: Your test code here
