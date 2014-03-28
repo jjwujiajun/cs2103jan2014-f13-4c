@@ -56,6 +56,8 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 	} else if(command == "delete") {
 		userTask.taskID = parsedCommandstring[1];
+	} else if(command == "display") {
+		userTask.taskID = parsedCommandstring[1];
 	}
 
 	stringToMain.erase(stringToMain.begin(), stringToMain.end());
@@ -93,6 +95,15 @@ string Worker::actonCommand(string command)
 		}
 	}
 
+	else if(command == "display") {
+		vector<Task> taskList = userCommand.getTaskList();
+		int intID = stoi(userTask.taskID) - 1;
+		Task task = taskList.at(intID);
+
+		successful = "\r\nTask: " + task.taskName + "\r\n" +
+						"Starts: " + task.startDate + task.startTime + "\r\n" +
+						"Ends: " + task.endDate + task.endTime + "\r\n";
+	}
 	else if(command ==  "undo") {
 		userCommand.undo();
 	}
