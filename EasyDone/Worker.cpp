@@ -59,6 +59,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	}
 
 	stringToMain.erase(stringToMain.begin(), stringToMain.end());
+	stringToMain = "\"" + stringToMain + "\" ";
 	stringToMain += actonCommand(command);
 	return stringToMain;
 }
@@ -111,7 +112,7 @@ vector<Task> Worker::getTaskList() {
 
 
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
-	for (int i = 0; i < taskList.size(); ++i) {
+	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
 		string time = taskList[i].startTime;
 		string sDate = taskList[i].startDate;

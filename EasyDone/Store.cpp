@@ -103,14 +103,14 @@ bool Store::eraser(string taskIndex) {
 	bool erased = false;
 	int slot=0;
 
-	for(int i = 0; i<taskList.size(); i++) {
+	for(int i = 0; i < (int) taskList.size(); i++) {
 		if(taskList[i].taskID == taskIndex) {
 			slot = i;
 			erased = true;
 			break;
 		}
 	}
-	for(slot; slot<taskList.size()-1; slot++){
+	for(slot; slot < (int) taskList.size()-1; slot++){
 		taskList[slot+1].taskID = to_string(slot+1);
 		taskList[slot] = taskList[slot+1];
 	}
@@ -124,7 +124,7 @@ Task Store::accesswithTaskID(int indexEntered) {
 	
 	string convertedIndex = to_string(indexEntered);
 
-	for(int i=0; i < taskList.size(); i++) {
+	for(int i=0; i < (int) taskList.size(); i++) {
 
 		if(taskList[i].taskID == convertedIndex) {
 
@@ -167,7 +167,7 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 
 void Store::dueToday() {
 	log.log("Store: changing due status");
-	for(int i = 0; i < taskList.size(); i++) {
+	for(int i = 0; i < (int) taskList.size(); i++) {
 		if(taskList[i].startDate == "20140321") {
 			taskList[i].isBold = true;
 		}
@@ -217,7 +217,7 @@ void Store::listToStack() {
 }
 
 void Store::updateTaskID() {
-	for(int i = 0; i < taskList.size(); i++) {
+	for(int i = 0; i < (int) taskList.size(); i++) {
 		taskList[i].taskID = to_string(i+1);
 	}
 }
