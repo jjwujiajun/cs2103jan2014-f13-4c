@@ -7,7 +7,10 @@ namespace workerTest {
 	TEST_CLASS(Easydone)
 	{
 	public:
-		
+
+/*These tests check if flow of actions from takeParsedCommand in Worker class to functions in  Command class takes place successfully i.e. 
+***********************successful perfomation of CRUD is carried out for FlexiCommand on the vector in Store.*************************/
+
 		TEST_METHOD(takeparsedCommand)
 		{
 			// TODO: Your test code here
