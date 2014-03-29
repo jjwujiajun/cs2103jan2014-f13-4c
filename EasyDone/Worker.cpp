@@ -69,7 +69,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 string Worker::actonCommand(string command)
 {
 	if(command == "add" || command == "new" || command == "create") {
-		if(userCommand.Add(userTask)) {
+		if(usercommandAdd.Addition(userTask)) {
 			successful = "has been added successfully! :) \r\n";
 		} else{
 			successful = "has not been added successfully! ): \r\n";
@@ -77,7 +77,7 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command == "delete" ) {
-		if(userCommand.Delete(userTask)) {
+		if(usercommandDelete.Deletion(userTask)) {
 			successful = "has been deleted successfully! :) \r\n";
 		}
 		else {
@@ -87,7 +87,7 @@ string Worker::actonCommand(string command)
 
 
 	else if(command == "update" ) {
-		if(userCommand.Update(userTask, updateField)) {
+		if(usercommandUpdate.Updating(userTask, updateField)) {
 			successful = "has been updated successfully! :)\r\n";
 		}
 		else {
@@ -105,7 +105,7 @@ string Worker::actonCommand(string command)
 						"Ends: " + task.endDate + task.endTime + "\r\n";
 	}
 	else if(command ==  "undo") {
-		userCommand.undo();
+		userCommand.Undo();
 	}
 		
 
