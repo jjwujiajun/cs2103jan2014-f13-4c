@@ -50,9 +50,7 @@ namespace GUI {
 		Color indexColor;
 		array<Theme^> ^theme;
 		Manager *manager;
-	private: System::Windows::Forms::Label^  metalThemeLabel;
-	private: System::Windows::Forms::Button^  metalThemeButton;
-			 Log *log;
+		Log *log;
 
 		// input functions
 		void receiveUserInput();
@@ -66,9 +64,9 @@ namespace GUI {
 		// taskList display functions
 		void displayTodayLabel();
 		void displayAllTaskLabel();
-		void displayTask(const Task&);
+		void displayTask(const Task&, const bool&);
 		void displayTaskIndex(const Task&);
-		void displayTaskInformation(const Task&);
+		void displayTaskInformation(const Task&, const bool&);
 
 		// string conversion functions
 		void convertSysToStdString(String ^, string &);
@@ -79,10 +77,14 @@ namespace GUI {
 		~Interface(void);
 
 		void operateUserRequest();
+
+		// window opening functions
 		void extendWindow();
 		void retractWindow();
 		void toggleHelpSection();
 		void toggleSettingSection();
+
+		// setting selection functions
 		void toggleFeedback();
 		void toggleHelpTab();
 		void toggleSettingsTab();
@@ -121,8 +123,10 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  themeSettingLabel;
 	private: System::Windows::Forms::Label^  whiteThemeLabel;
 	private: System::Windows::Forms::Label^  blueThemeLabel;
+	private: System::Windows::Forms::Label^  metalThemeLabel;
 	private: System::Windows::Forms::Button^  whiteThemeButton;
 	private: System::Windows::Forms::Button^  blueThemeButton;
+	private: System::Windows::Forms::Button^  metalThemeButton;
 
 	private:
 		/// <summary>
