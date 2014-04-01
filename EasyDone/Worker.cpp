@@ -125,6 +125,7 @@ vector<Task> Worker::getTaskList() {
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
+		string taskName = taskList[i].taskName;
 		string time = taskList[i].startTime;
 		string sDate = taskList[i].startDate;
 		string sMonth;
@@ -135,9 +136,15 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 		bool isKnownDateFormat = true;
 		bool isKnownTimeFormat = time.size() == 4;
 
+		//limit taskName length for display
+		if (taskName.size() > TASKLIST_NAME_LENGTH) {
+			taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
+			taskName += "...";
+			taskList[i].taskName = taskName;
+		}
 
 		// 4 digit index display
-		while (taskIndex.size() < 4) {
+		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
 			taskIndex = "0" + taskIndex;
 		}
 		taskList[i].taskID = taskIndex;
