@@ -120,3 +120,31 @@ void Manager::loadHelpPage() {
 		file.close();
 	}
 }
+
+themeColor Manager::getPresetTheme(){
+	ifstream presetTheme;
+	string fileStoredTheme;
+	themeColor theme;
+
+	presetTheme.open("theme.txt");
+	getline(presetTheme, fileStoredTheme);
+
+	if (fileStoredTheme == "blue") {
+		theme = BLUE;
+	} else {
+		theme = WHITE;
+	}
+	return theme;
+}
+
+void Manager::saveTheme(themeColor theme) {
+	ofstream presetTheme;
+	string fileStoredTheme;
+	presetTheme.open("theme.txt", ios::trunc);
+
+	if (theme == WHITE) {
+		presetTheme << "white" << endl;
+	} else if (theme == BLUE) {
+		presetTheme << "blue" << endl;
+	}
+}

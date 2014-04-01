@@ -42,6 +42,10 @@ const float TASKLIST_SIZE_INDEX = 8;
 const float TASKLIST_SIZE_TASKINFO = 11;
 const float TASKLIST_SIZE_HEADING = 12;
 
+const int THEME_NUMBER = 2;
+enum themeColor {WHITE, BLUE};
+
+
 // MGR
 const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n";
 const string FEEDBACK_PROMPT_START = "What would you like to do today?\r\n";
