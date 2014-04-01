@@ -16,6 +16,8 @@ private:
 public:
 	vector<Task> getTaskList();
 	void saveTaskList(const vector<Task>&);
+	bool getPresetSetting(const string&);
+	void saveSettingForFile(const bool&, const string&);
 };
 
 #endif

@@ -140,43 +140,10 @@ themeColor Manager::getPresetTheme(){
 	return theme;
 }
 
-bool Manager::getPresetFeedbackToggleSetting() {
-	string fileStoredFeedbackSetting;
-	ifstream presetFeedback;
-	bool setting;
-
-	presetFeedback.open(FILE_SETTING_FEEDBACK);
-	if (getline(presetFeedback, fileStoredFeedbackSetting)) {
-		setting = fileStoredFeedbackSetting == FILE_STRING_TRUE;
-		return setting;
-	}
-	return true;
-}
-
-bool Manager::getPresetHelpTabSetting() {
-	string fileStoredHelpTabSetting;
-	ifstream presetHelpTab;
-	bool setting;
-
-	presetHelpTab.open(FILE_SETTING_HELPTAB);
-	if (getline(presetHelpTab, fileStoredHelpTabSetting)) {
-		setting = fileStoredHelpTabSetting == FILE_STRING_TRUE;
-		return setting;
-	}
-	return true;
-}
-
-bool Manager::getPresetSettingsTabSetting() {
-	string fileStoreSettingTabSetting;
-	ifstream presetSettingsTab;
-	bool setting;
-
-	presetSettingsTab.open(FILE_SETTING_SETTINGSTAB);
-	if(getline(presetSettingsTab, fileStoreSettingTabSetting)) {
-		setting = (fileStoreSettingTabSetting == FILE_STRING_TRUE);
-		return setting;
-	}
-	return true;
+void Manager::getPresetSettingFor(bool &feedback, bool &helpTab, bool &settingsTab) {
+	feedback = fileHandler.getPresetSetting(FILE_SETTING_FEEDBACK);
+	helpTab = fileHandler.getPresetSetting(FILE_SETTING_HELPTAB);
+	settingsTab = fileHandler.getPresetSetting(FILE_SETTING_SETTINGSTAB);
 }
 
 void Manager::saveTheme(themeColor theme) {
@@ -194,33 +161,12 @@ void Manager::saveTheme(themeColor theme) {
 }
 
 void Manager::saveFeedbackBoxSetting(bool isOn) {
-	ofstream presetFeedbackSetting;
-	
-	presetFeedbackSetting.open(FILE_SETTING_FEEDBACK, ios::trunc);
-	if (isOn) {
-		presetFeedbackSetting << FILE_STRING_TRUE;
-	} else {
-		presetFeedbackSetting << FILE_STRING_FALSE;
-	}
+	fileHandler.saveSettingForFile(isOn, FILE_SETTING_FEEDBACK);
 }
 
 void Manager::saveHelpTabSetting(bool isOn) {
-	ofstream presetHelpTabSetting;
-
-	presetHelpTabSetting.open(FILE_SETTING_HELPTAB, ios::trunc);
-	if (isOn) {
-		presetHelpTabSetting << FILE_STRING_TRUE;
-	} else {
-		presetHelpTabSetting << FILE_STRING_FALSE;
-	}
+	fileHandler.saveSettingForFile(isOn, FILE_SETTING_HELPTAB);
 }
 void Manager::saveSettingTabSetting(bool isOn) {
-	ofstream presetSettingsTabSetting;
-
-	presetSettingsTabSetting.open(FILE_SETTING_SETTINGSTAB, ios::trunc);
-	if (isOn) {
-		presetSettingsTabSetting << FILE_STRING_TRUE;
-	} else {
-		presetSettingsTabSetting << FILE_STRING_FALSE;
-	}
+	fileHandler.saveSettingForFile(isOn, FILE_SETTING_SETTINGSTAB);
 }
