@@ -24,11 +24,11 @@ const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
 
 // GUI
-const int TASKLIST_RETRACT_ROW = 19;
-const int TASKLIST_EXTENT_ROW = 24;
+const int TASKLIST_RETRACT_ROW = 20;
+const int TASKLIST_EXTENT_ROW = 25;
 const int TASKLIST_X = 351;
 const int TASKLIST_Y_RETRACT = 386;
-const int TASKLIST_Y_EXTENT = 482;
+const int TASKLIST_Y_EXTENT = 492;
 const int FORM_X_RETRACT = 375;
 const int FORM_X_EXTENT = 674;
 const int FORM_Y = 587;
@@ -57,6 +57,15 @@ const int HELP_NUMBER_OF_SECTIONS = 4;
 const string FILE_HELP_HEADINGS = "helpHeadings";
 const string FILE_HELP_INSTRUCTIONS = "helpInstruction";
 const string TYPE_TEXTFILE = ".txt";
+const string FILE_SETTINGS_THEME = "theme.txt";
+const string FILE_SETTING_FEEDBACK = "feedbackSetting.txt";
+const string FILE_SETTING_HELPTAB = "helpTabSetting.txt";
+const string FILE_SETTING_SETTINGSTAB = "settingsTabSetting.txt";
+const string FILE_STRING_TRUE = "true";
+const string FILE_STRING_FALSE = "false";
+const string FILE_STRING_WHITETHEME = "white";
+const string FILE_STRING_BLUETHEME = "blue";
+const string FILE_STRING_METALTHEME = "metal";
 
 // WKR
 const int TASKLIST_INDEX_LENGTH = 2;
