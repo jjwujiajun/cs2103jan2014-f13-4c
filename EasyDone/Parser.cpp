@@ -254,13 +254,13 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 				// from {time} to {time}				 
 				else if (storeUserInfo[i] == keyWord_4) { // end date "to"
 						++i;
-						if (i < storeUserInfo.size() && 
+						if (i < (int) storeUserInfo.size() && 
 							 storeUserInfo[i] != keyWord_1 &&
 							 storeUserInfo[i] != keyWord_2 &&
 							 storeUserInfo[i] != keyWord_3 ) {
 
 					checkDate2 += storeUserInfo[i];
-					if (checkDate2.size() > 5) {
+					if ((int) checkDate2.size() > 5) {
 					endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
 					++i;
 					//if (i < (int) storeUserInfo.size()) {
@@ -304,11 +304,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			// 3) st -> startTime
 			// 4) ed -> endDate
 			// 5) et -> endTime
-			while (i < storeUserInfo.size()) {
+			while (i < (int) storeUserInfo.size()) {
 				if(storeUserInfo[i] == "sd" || storeUserInfo[i] == "st" || storeUserInfo[i] == "ed" || storeUserInfo[i] == "et" ) {		
 					startDate += storeUserInfo[i];
 					++i;
-					while(i<storeUserInfo.size()){
+					while(i < (int) storeUserInfo.size()){
 
 						startTime += storeUserInfo[i];
 					++i;
@@ -340,7 +340,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
         case DELETE:
 			// only detail to parse is the Index on the GUI
 
-			if(i<storeUserInfo.size()) {
+			if(i < (int) storeUserInfo.size()) {
 			userInformation.push_back(storeUserInfo[1]);
 			}
 		
@@ -348,7 +348,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
         case SEARCH:
             
-			if(i<storeUserInfo.size()) {
+			if(i < (int) storeUserInfo.size()) {
 			userInformation.push_back(storeUserInfo[1]);
 			}
 			//stringSize = storeUserInfo[0];
@@ -373,7 +373,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
         case CHECK:
             
-			if(i<storeUserInfo.size()) {
+			if(i < (int) storeUserInfo.size()) {
 			userInformation.push_back(storeUserInfo[1]);
 			}
 

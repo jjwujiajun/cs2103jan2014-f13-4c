@@ -126,29 +126,101 @@ themeColor Manager::getPresetTheme(){
 	string fileStoredTheme;
 	themeColor theme;
 
-	presetTheme.open("theme.txt");
+	presetTheme.open(FILE_SETTINGS_THEME);
 	getline(presetTheme, fileStoredTheme);
 
-	if (fileStoredTheme == "blue") {
+	if (fileStoredTheme == FILE_STRING_BLUETHEME) {
 		theme = BLUE;
-	} else if (fileStoredTheme == "metal") {
+	} else if (fileStoredTheme == FILE_STRING_METALTHEME) {
 		theme = METAL;
 	} else {
 		theme = WHITE;
 	}
+	presetTheme.close();
 	return theme;
+}
+
+bool Manager::getPresetFeedbackToggleSetting() {
+	string fileStoredFeedbackSetting;
+	ifstream presetFeedback;
+	bool setting;
+
+	presetFeedback.open(FILE_SETTING_FEEDBACK);
+	getline(presetFeedback, fileStoredFeedbackSetting);
+
+	setting = fileStoredFeedbackSetting == FILE_STRING_TRUE;
+
+	return setting;
+}
+
+bool Manager::getPresetHelpTabSetting() {
+	string fileStoredHelpTabSetting;
+	ifstream presetHelpTab;
+	bool setting;
+
+	presetHelpTab.open(FILE_SETTING_HELPTAB);
+	getline(presetHelpTab, fileStoredHelpTabSetting);
+
+	setting = fileStoredHelpTabSetting == FILE_STRING_TRUE;
+
+	return setting;
+}
+
+bool Manager::getPresetSettingsTabSetting() {
+	string fileStoreSettingTabSetting;
+	ifstream presetSettingsTab;
+	bool setting;
+
+	presetSettingsTab.open(FILE_SETTING_SETTINGSTAB);
+	getline(presetSettingsTab, fileStoreSettingTabSetting);
+
+	setting = (fileStoreSettingTabSetting == FILE_STRING_TRUE);
+
+	return setting;
 }
 
 void Manager::saveTheme(themeColor theme) {
 	ofstream presetTheme;
 	string fileStoredTheme;
-	presetTheme.open("theme.txt", ios::trunc);
+	presetTheme.open(FILE_SETTINGS_THEME, ios::trunc);
 
 	if (theme == WHITE) {
-		presetTheme << "white" << endl;
+		presetTheme << FILE_STRING_WHITETHEME << endl;
 	} else if (theme == BLUE) {
-		presetTheme << "blue" << endl;
+		presetTheme << FILE_STRING_BLUETHEME << endl;
 	} else if (theme == METAL) {
-		presetTheme << "metal" << endl;
+		presetTheme << FILE_STRING_METALTHEME << endl;
+	}
+}
+
+void Manager::saveFeedbackBoxSetting(bool isOn) {
+	ofstream presetFeedbackSetting;
+	
+	presetFeedbackSetting.open(FILE_SETTING_FEEDBACK, ios::trunc);
+	if (isOn) {
+		presetFeedbackSetting << FILE_STRING_TRUE;
+	} else {
+		presetFeedbackSetting << FILE_STRING_FALSE;
+	}
+}
+
+void Manager::saveHelpTabSetting(bool isOn) {
+	ofstream presetHelpTabSetting;
+
+	presetHelpTabSetting.open(FILE_SETTING_HELPTAB, ios::trunc);
+	if (isOn) {
+		presetHelpTabSetting << FILE_STRING_TRUE;
+	} else {
+		presetHelpTabSetting << FILE_STRING_FALSE;
+	}
+}
+void Manager::saveSettingTabSetting(bool isOn) {
+	ofstream presetSettingsTabSetting;
+
+	presetSettingsTabSetting.open(FILE_SETTING_SETTINGSTAB, ios::trunc);
+	if (isOn) {
+		presetSettingsTabSetting << FILE_STRING_TRUE;
+	} else {
+		presetSettingsTabSetting << FILE_STRING_FALSE;
 	}
 }

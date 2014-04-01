@@ -42,5 +42,11 @@ public:
 	vector<string> getHelpHeadings();
 	vector<string> getHelpInstructions();
 	themeColor getPresetTheme();
+	bool getPresetFeedbackToggleSetting();
+	bool getPresetHelpTabSetting();
+	bool getPresetSettingsTabSetting();
 	void saveTheme(themeColor);
+	void saveFeedbackBoxSetting(bool);
+	void saveHelpTabSetting(bool);
+	void saveSettingTabSetting(bool);
 };
