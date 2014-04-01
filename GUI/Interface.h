@@ -50,7 +50,9 @@ namespace GUI {
 		Color indexColor;
 		array<Theme^> ^theme;
 		Manager *manager;
-		Log *log;
+	private: System::Windows::Forms::Label^  metalThemeLabel;
+	private: System::Windows::Forms::Button^  metalThemeButton;
+			 Log *log;
 
 		// input functions
 		void receiveUserInput();
@@ -161,6 +163,8 @@ namespace GUI {
 			this->blueThemeLabel = (gcnew System::Windows::Forms::Label());
 			this->whiteThemeButton = (gcnew System::Windows::Forms::Button());
 			this->blueThemeButton = (gcnew System::Windows::Forms::Button());
+			this->metalThemeLabel = (gcnew System::Windows::Forms::Label());
+			this->metalThemeButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -488,6 +492,32 @@ namespace GUI {
 			this->blueThemeButton->Visible = false;
 			this->blueThemeButton->Click += gcnew System::EventHandler(this, &Interface::blueThemeClicked);
 			// 
+			// metalThemeLabel
+			// 
+			this->metalThemeLabel->AutoSize = true;
+			this->metalThemeLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->metalThemeLabel->Location = System::Drawing::Point(422, 383);
+			this->metalThemeLabel->Name = L"metalThemeLabel";
+			this->metalThemeLabel->Size = System::Drawing::Size(74, 17);
+			this->metalThemeLabel->TabIndex = 23;
+			this->metalThemeLabel->Text = L"Metal Gray";
+			this->metalThemeLabel->Visible = false;
+			// 
+			// metalThemeButton
+			// 
+			this->metalThemeButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->metalThemeButton->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->metalThemeButton->Location = System::Drawing::Point(531, 383);
+			this->metalThemeButton->Name = L"metalThemeButton";
+			this->metalThemeButton->Size = System::Drawing::Size(99, 23);
+			this->metalThemeButton->TabIndex = 26;
+			this->metalThemeButton->Text = L"Choose me!";
+			this->metalThemeButton->UseVisualStyleBackColor = true;
+			this->metalThemeButton->Visible = false;
+			this->metalThemeButton->Click += gcnew System::EventHandler(this, &Interface::metalThemeClicked);
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -495,6 +525,8 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->metalThemeButton);
+			this->Controls->Add(this->metalThemeLabel);
 			this->Controls->Add(this->blueThemeButton);
 			this->Controls->Add(this->whiteThemeButton);
 			this->Controls->Add(this->blueThemeLabel);
@@ -534,8 +566,9 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-				 if (inputField->Text == "live search") {
-					 feedbackBox->Text = "live search!";
+				 if (inputField->Text == "testmetal") {
+					 feedbackBox->Text = "metal!";
+					 selectTheme(METAL);
 				 }
 
 				 if (keyPressed->KeyCode == Keys::F4) {
@@ -589,6 +622,9 @@ private: System::Void whiteThemeClicked(System::Object^  sender, System::EventAr
 		 }
 private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
 			 selectTheme(BLUE);
+		 }
+private: System::Void metalThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
+			 selectTheme(METAL);
 		 }
 };
 }
