@@ -42,8 +42,8 @@ const float TASKLIST_SIZE_INDEX = 8;
 const float TASKLIST_SIZE_TASKINFO = 11;
 const float TASKLIST_SIZE_HEADING = 12;
 
-const int THEME_NUMBER = 2;
-enum themeColor {WHITE, BLUE};
+const int THEME_NUMBER = 3;
+enum themeColor {WHITE, BLUE, METAL};
 
 
 // MGR

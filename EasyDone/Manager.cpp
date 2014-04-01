@@ -131,6 +131,8 @@ themeColor Manager::getPresetTheme(){
 
 	if (fileStoredTheme == "blue") {
 		theme = BLUE;
+	} else if (fileStoredTheme == "metal") {
+		theme = METAL;
 	} else {
 		theme = WHITE;
 	}
@@ -146,5 +148,7 @@ void Manager::saveTheme(themeColor theme) {
 		presetTheme << "white" << endl;
 	} else if (theme == BLUE) {
 		presetTheme << "blue" << endl;
+	} else if (theme == METAL) {
+		presetTheme << "metal" << endl;
 	}
 }

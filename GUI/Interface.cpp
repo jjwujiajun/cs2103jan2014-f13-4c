@@ -133,8 +133,10 @@ void GUI::Interface::toggleSettingSection() {
 	this->themeSettingLabel->Visible = settingIsShown;
 	this->whiteThemeLabel->Visible = settingIsShown;
 	this->blueThemeLabel->Visible = settingIsShown;
+	this->metalThemeLabel->Visible = settingIsShown;
 	this->whiteThemeButton->Visible = settingIsShown;
 	this->blueThemeButton->Visible = settingIsShown;
+	this->metalThemeButton->Visible = settingIsShown;
 
 	if (settingIsShown) {
 		this->settingsTab->BackColor = TAB_SELECTED_COLOUR();
@@ -200,16 +202,28 @@ void GUI::Interface::selectTheme(themeColor color) {
 	this->helpTabSetting->ForeColor = theme[color]->label;
 	this->settingTabSetting->ForeColor = theme[color]->label;
 	this->themeSettingLabel->ForeColor = theme[color]->label;
+	this->IDLabel->ForeColor = theme[color]->label;
+	this->dateLabel->ForeColor = theme[color]->label;
+	this->timeLabel->ForeColor = theme[color]->label;
+	this->taskLabel->ForeColor = theme[color]->label;
+	
 	indexColor = theme[color]->index;
 
 	if (color == WHITE) {
 		this->blueThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
 		this->whiteThemeButton->Text = BUTTON_THEME_SELECTED;
+		this->metalThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
 		manager->saveTheme(WHITE);
 	} else if (color == BLUE) {
 		this->blueThemeButton->Text = BUTTON_THEME_SELECTED;
 		this->whiteThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
+		this->metalThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
 		manager->saveTheme(BLUE);
+	} else if (color == METAL) {
+		this->blueThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
+		this->whiteThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
+		this->metalThemeButton->Text = BUTTON_THEME_SELECTED;
+		manager->saveTheme(METAL);
 	}
 
 	displayTasksListBox();

@@ -22,8 +22,15 @@ static array<Theme^>^ prepareThemes() {
 	blueTheme->label = System::Drawing::Color::White;
 	blueTheme->index = System::Drawing::Color::White;
 		 
+	Theme ^metallicTheme;
+	metallicTheme = gcnew Theme;
+	metallicTheme->background = System::Drawing::Color::Gray;
+	metallicTheme->label = System::Drawing::Color::Black;
+	metallicTheme->index = System::Drawing::Color::White;
+
 	themeArray[0] = whiteTheme;
 	themeArray[1] = blueTheme;
+	themeArray[2] = metallicTheme;
 
 	return themeArray;
 }
