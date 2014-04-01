@@ -20,7 +20,7 @@ bool Command::Add(Task userTask) {
 	sort();
 	todoList.saveToFile();
 	log.log("Command: New task added");
-	return true;
+	return true; 
 }
 
 bool Command::Delete(Task userTask) {
