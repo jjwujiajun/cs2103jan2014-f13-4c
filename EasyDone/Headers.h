@@ -54,6 +54,9 @@ const string FILE_HELP_HEADINGS = "helpHeadings";
 const string FILE_HELP_INSTRUCTIONS = "helpInstruction";
 const string TYPE_TEXTFILE = ".txt";
 
+// WKR
+const int TASKLIST_INDEX_LENGTH = 2;
+const int TASKLIST_NAME_LENGTH = 25;
 
 #pragma once
 
