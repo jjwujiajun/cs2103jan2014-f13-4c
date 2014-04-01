@@ -146,11 +146,11 @@ bool Manager::getPresetFeedbackToggleSetting() {
 	bool setting;
 
 	presetFeedback.open(FILE_SETTING_FEEDBACK);
-	getline(presetFeedback, fileStoredFeedbackSetting);
-
-	setting = fileStoredFeedbackSetting == FILE_STRING_TRUE;
-
-	return setting;
+	if (getline(presetFeedback, fileStoredFeedbackSetting)) {
+		setting = fileStoredFeedbackSetting == FILE_STRING_TRUE;
+		return setting;
+	}
+	return true;
 }
 
 bool Manager::getPresetHelpTabSetting() {
@@ -159,11 +159,11 @@ bool Manager::getPresetHelpTabSetting() {
 	bool setting;
 
 	presetHelpTab.open(FILE_SETTING_HELPTAB);
-	getline(presetHelpTab, fileStoredHelpTabSetting);
-
-	setting = fileStoredHelpTabSetting == FILE_STRING_TRUE;
-
-	return setting;
+	if (getline(presetHelpTab, fileStoredHelpTabSetting)) {
+		setting = fileStoredHelpTabSetting == FILE_STRING_TRUE;
+		return setting;
+	}
+	return true;
 }
 
 bool Manager::getPresetSettingsTabSetting() {
@@ -172,11 +172,11 @@ bool Manager::getPresetSettingsTabSetting() {
 	bool setting;
 
 	presetSettingsTab.open(FILE_SETTING_SETTINGSTAB);
-	getline(presetSettingsTab, fileStoreSettingTabSetting);
-
-	setting = (fileStoreSettingTabSetting == FILE_STRING_TRUE);
-
-	return setting;
+	if(getline(presetSettingsTab, fileStoreSettingTabSetting)) {
+		setting = (fileStoreSettingTabSetting == FILE_STRING_TRUE);
+		return setting;
+	}
+	return true;
 }
 
 void Manager::saveTheme(themeColor theme) {

@@ -36,14 +36,14 @@ GUI::Interface::Interface(void) {
 	settingIsShown = false;
 
 	themeColor presetTheme = manager->getPresetTheme();
-	bool isPresetFeedbackOn = manager->getPresetFeedbackToggleSetting();
-	bool isPresetHelpTabOn = manager->getPresetHelpTabSetting();
-	bool isPresetSettingTabOn = manager->getPresetSettingsTabSetting();
+	feedbackIsVisible = manager->getPresetFeedbackToggleSetting();
+	helpTabIsVisible = manager->getPresetHelpTabSetting();
+	settingsTabIsVisible = manager->getPresetSettingsTabSetting();
 
 	selectTheme(presetTheme);
-	if (!isPresetFeedbackOn) toggleFeedback();
-	if (!isPresetHelpTabOn) toggleHelpTab();
-	if (!isPresetSettingTabOn) toggleSettingsTab();
+	if (!feedbackIsVisible) toggleFeedback();
+	if (!helpTabIsVisible) toggleHelpTab();
+	if (!settingsTabIsVisible) toggleSettingsTab();
 
 	log->endLog();
 }
@@ -156,19 +156,20 @@ void GUI::Interface::toggleSettingSection() {
 
 // setting selection functions
 void GUI::Interface::toggleFeedback() {
-	this->feedbackBox->Visible = !this->feedbackBox->Visible;
-	bool feedbackIsShown = this->feedbackBox->Visible;
-
-	if (feedbackIsShown) {
-		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_RETRACT);
-		numRowsToDisplay = TASKLIST_RETRACT_ROW;
-		feedbackButton->Text = BUTTON_HIDE;
-		manager->saveFeedbackBoxSetting(true);
-	} else {
+	feedbackIsVisible = !feedbackIsVisible;
+	
+	if (feedbackIsVisible) {
+		this->feedbackBox->Hide();
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_EXTENT);
 		numRowsToDisplay = TASKLIST_EXTENT_ROW;
 		feedbackButton->Text = BUTTON_SHOW;
 		manager->saveFeedbackBoxSetting(false);
+	} else {
+		this->feedbackBox->Show();
+		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_RETRACT);
+		numRowsToDisplay = TASKLIST_RETRACT_ROW;
+		feedbackButton->Text = BUTTON_HIDE;
+		manager->saveFeedbackBoxSetting(true);
 	}
 	log->log("GUI: feedback is toggled");
 	log->log("GUI: taskListBox is displayed");
@@ -176,29 +177,31 @@ void GUI::Interface::toggleFeedback() {
 }
 
 void GUI::Interface::toggleHelpTab() {
-	this->helpTab->Visible = !this->helpTab->Visible;
-
-	bool helpTabIsVisible = this->helpTab->Visible;
+	helpTabIsVisible = !helpTabIsVisible;
+	
 	if (helpTabIsVisible) {
-		helpTabSettingButton->Text = BUTTON_HIDE;
-		manager->saveHelpTabSetting(true);
-	} else {
+		this->helpTab->Hide();
 		helpTabSettingButton->Text = BUTTON_SHOW;
 		manager->saveHelpTabSetting(false);
+	} else {
+		this->helpTab->Show();
+		helpTabSettingButton->Text = BUTTON_HIDE;
+		manager->saveHelpTabSetting(true);
 	}
 	log->log("GUI: helpTab is toggled");
 }
 
 void GUI::Interface::toggleSettingsTab() {
-	this->settingsTab->Visible = !this->settingsTab->Visible;
-
-	bool settingTabIsVisible = this->settingsTab->Visible;
-	if (settingTabIsVisible) {
-		settingsTabSettingButton->Text = "Hide";
-		manager->saveSettingTabSetting(true);
-	} else {
+	settingsTabIsVisible = !settingsTabIsVisible;
+	
+	if (settingsTabIsVisible) {
+		this->settingsTab->Hide();
 		settingsTabSettingButton->Text = "Show";
 		manager->saveSettingTabSetting(false);
+	} else {
+		this->settingsTab->Show();
+		settingsTabSettingButton->Text = "Hide";
+		manager->saveSettingTabSetting(true);
 	}
 	log->log("GUI: settingsTab is toggled");
 }
