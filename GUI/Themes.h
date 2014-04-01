@@ -1,7 +1,5 @@
+#include "Headers.h"
 #pragma once
-
-const int THEME_NUMBER = 2;
-enum themeColor {WHITE, BLUE};
 
 ref struct Theme {
 	System::Drawing::Color background;

@@ -12,6 +12,7 @@ const Color TASKLIST_COLOR_TASKINFO() {return Color::Black;}
 const Color TASKLIST_COLOR_HEADING() {return Color::CornflowerBlue;}
 const FontStyle HELP_FONTSTYLE_HEADING() {return FontStyle::Bold;}
 const FontStyle HELP_FONTSTYLE_INSTRUCTION() {return FontStyle::Regular;}
+const FontStyle TASKLIST_FONTSTYLE_INDEX() {return FontStyle::Regular;}
 
 namespace GUI {
 
