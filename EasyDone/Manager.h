@@ -1,0 +1,44 @@
+#include "Headers.h"
+#include "Parser.h"
+#include "Worker.h"
+using namespace std;
+
+#pragma once
+
+#define TESTMODE
+
+class Manager {
+#ifndef TESTMODE 
+private: 
+#else 
+public: 
+#endif
+	
+	// member classes
+	Parser parser;
+	Worker worker;
+	string userInput;
+	Log log;
+
+	// GUI displays
+	vector<Task> GUITaskList;
+	string GUIfeedbackBox;
+	string GUIInputField;
+	vector<string> GUIHelpHeadings;
+	vector<string> GUIHelpInstructions;
+
+	void init();
+	void loadHelpPage();
+
+public:
+
+	Manager(void);
+	~Manager(void);
+
+	void receiveInput(string input);
+	string getFeedback();
+	string getInputField();
+	vector<Task> getTaskList();
+	vector<string> getHelpHeadings();
+	vector<string> getHelpInstructions();
+};
