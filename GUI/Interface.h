@@ -47,6 +47,9 @@ namespace GUI {
 		bool windowIsExtended;
 		bool helpIsShown;
 		bool settingIsShown;
+		bool feedbackIsVisible;
+		bool helpTabIsVisible;
+		bool settingsTabIsVisible;
 		Color indexColor;
 		array<Theme^> ^theme;
 		Manager *manager;
