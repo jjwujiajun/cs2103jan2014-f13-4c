@@ -41,4 +41,6 @@ public:
 	vector<Task> getTaskList();
 	vector<string> getHelpHeadings();
 	vector<string> getHelpInstructions();
+	themeColor getPresetTheme();
+	void saveTheme(themeColor);
 };
