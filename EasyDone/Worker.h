@@ -11,16 +11,12 @@ class Worker {
 
 	//Store todoList;
 	Command userCommand;
-	Add usercommandAdd;
-	Delete usercommandDelete;
-	Update usercommandUpdate;
-	Display usercommandDisplay;
 	Task userTask; 
 	string command;
 	string updateField;
 
 	void convertTaskDataToDisplayFormat(vector<Task> &);
-
+	 
 	
 
 	string successful;

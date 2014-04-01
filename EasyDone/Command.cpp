@@ -8,7 +8,7 @@ Command::~Command() {
 
 }
 
-bool Add::Addition(Task userTask)  {
+bool Command::Add(Task userTask) {
 	todoList.listToStack();
 	log.log("Command: Adding new task");
 	int vectindexofNexttask = todoList.getSize();
@@ -17,26 +17,27 @@ bool Add::Addition(Task userTask)  {
 	userTask.taskID = to_string(newTaskID);
 	todoList.pushback(userTask);
 	
-	Sort();
+	sort();
 	todoList.saveToFile();
 	log.log("Command: New task added");
-	return true;
+	return true; 
 }
 
-bool Delete::Deletion(Task userTask) {
+bool Command::Delete(Task userTask) {
 	todoList.listToStack();
 	log.log("Command: Deleting task");
 	
 	bool erased = todoList.eraser(userTask.taskID);
 	
-	Sort();
+	sort();
 	todoList.saveToFile();
 	log.log("Command: Task Deleted");
 
 	return erased;
 	
 }
-bool Update::Updating(Task userTask, string updateField) {
+
+bool Command::Update(Task userTask, string updateField) {
 	todoList.listToStack();
 	log.log("Command: Updating task");
 	bool updated = false;
@@ -46,7 +47,7 @@ bool Update::Updating(Task userTask, string updateField) {
 	}
 	updated = todoList.changeTask(Index, userTask, updateField);
 	
-	Sort();
+	sort();
 	todoList.saveToFile();
 	log.log("Command: Task updated");
 
@@ -67,13 +68,13 @@ vector<Task> Command::getTaskList() {
 	return todoList.getTaskList();
 }
 
-void Command::Undo() {
+void Command::undo() {
 	log.log("Command: undo");
 	todoList.stackToList();
 	todoList.saveToFile();
 }
 
-void Command::Sort() {
+void Command::sort() {
 	
 	log.log("Command: sorting List");
 	Task next;
