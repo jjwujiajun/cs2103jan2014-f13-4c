@@ -69,7 +69,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 string Worker::actonCommand(string command)
 {
 	if(command == "add" || command == "new" || command == "create") {
-		if(usercommandAdd.Addition(userTask)) {
+		if(userCommand.Add(userTask)) {
 			successful = "has been added successfully! :) \r\n";
 		} else{
 			successful = "has not been added successfully! ): \r\n";
@@ -77,7 +77,7 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command == "delete" ) {
-		if(usercommandDelete.Deletion(userTask)) {
+		if(userCommand.Delete(userTask)) {
 			successful = "has been deleted successfully! :) \r\n";
 		}
 		else {
@@ -87,7 +87,7 @@ string Worker::actonCommand(string command)
 
 
 	else if(command == "update" ) {
-		if(usercommandUpdate.Updating(userTask, updateField)) {
+		if(userCommand.Update(userTask, updateField)) {
 			successful = "has been updated successfully! :)\r\n";
 		}
 		else {
@@ -105,7 +105,7 @@ string Worker::actonCommand(string command)
 						"Ends: " + task.endDate + task.endTime + "\r\n";
 	}
 	else if(command ==  "undo") {
-		userCommand.Undo();
+		userCommand.undo();
 	}
 		
 
@@ -125,6 +125,7 @@ vector<Task> Worker::getTaskList() {
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
+		string taskName = taskList[i].taskName;
 		string time = taskList[i].startTime;
 		string sDate = taskList[i].startDate;
 		string sMonth;
@@ -135,9 +136,15 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 		bool isKnownDateFormat = true;
 		bool isKnownTimeFormat = time.size() == 4;
 
+		//limit taskName length for display
+		if (taskName.size() > TASKLIST_NAME_LENGTH) {
+			taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
+			taskName += "...";
+			taskList[i].taskName = taskName;
+		}
 
 		// 4 digit index display
-		while (taskIndex.size() < 4) {
+		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
 			taskIndex = "0" + taskIndex;
 		}
 		taskList[i].taskID = taskIndex;
