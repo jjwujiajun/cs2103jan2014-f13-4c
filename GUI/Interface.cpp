@@ -35,10 +35,16 @@ GUI::Interface::Interface(void) {
 	helpIsShown = false;
 	settingIsShown = false;
 
+	bool feedbackSetting;
+	bool helpTabSetting;
+	bool settingTabSetting;
+
 	themeColor presetTheme = manager->getPresetTheme();
-	feedbackIsVisible = manager->getPresetFeedbackToggleSetting();
-	helpTabIsVisible = manager->getPresetHelpTabSetting();
-	settingsTabIsVisible = manager->getPresetSettingsTabSetting();
+	manager->getPresetSettingFor(feedbackSetting, helpTabSetting, settingTabSetting);
+
+	feedbackIsVisible = feedbackSetting;
+	helpTabIsVisible = helpTabSetting;
+	settingsTabIsVisible = settingTabSetting;
 
 	selectTheme(presetTheme);
 	if (!feedbackIsVisible) toggleFeedback();

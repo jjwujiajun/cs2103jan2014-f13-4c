@@ -58,3 +58,26 @@ void FileHandler::saveTaskList(const vector<Task>& taskList) {
 	writeFile.close();
 }
 
+bool FileHandler::getPresetSetting(const string& fileName) {
+	string fileStoredSetting;
+	ifstream file;
+	bool setting;
+
+	file.open(fileName);
+	if (getline(file, fileStoredSetting)) {
+		setting = fileStoredSetting == FILE_STRING_TRUE;
+		return setting;
+	}
+	return true;
+}
+
+void FileHandler::saveSettingForFile(const bool& isOn, const string& fileName) {
+	ofstream presetFile;
+	
+	presetFile.open(fileName, ios::trunc);
+	if (isOn) {
+		presetFile << FILE_STRING_TRUE;
+	} else {
+		presetFile << FILE_STRING_FALSE;
+	}
+}
