@@ -36,6 +36,8 @@ GUI::Interface::Interface(void) {
 	settingIsShown = false;
 
 	theme = prepareThemes();
+	themeColor presetTheme = manager->getPresetTheme();
+	selectTheme(presetTheme);
 
 	log->endLog();
 }
@@ -203,9 +205,11 @@ void GUI::Interface::selectTheme(themeColor color) {
 	if (color == WHITE) {
 		this->blueThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
 		this->whiteThemeButton->Text = BUTTON_THEME_SELECTED;
+		manager->saveTheme(WHITE);
 	} else if (color == BLUE) {
 		this->blueThemeButton->Text = BUTTON_THEME_SELECTED;
 		this->whiteThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
+		manager->saveTheme(BLUE);
 	}
 
 	displayTasksListBox();
@@ -296,11 +300,7 @@ void GUI::Interface::displayTask(const Task &task) {
 }
 
 void GUI::Interface::displayTaskIndex(const Task &task) {
-	if (task.isBold) {
-		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_INDEX, FontStyle::Bold);
-	} else {
-		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_INDEX, FontStyle::Regular);
-	}
+	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_INDEX, TASKLIST_FONTSTYLE_INDEX());
 	richTaskList->SelectionColor = indexColor;
 			
 	String ^index = gcnew String(task.taskID.c_str());
