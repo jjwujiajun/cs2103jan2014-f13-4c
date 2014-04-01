@@ -19,11 +19,11 @@ GUI::Interface::Interface(void) {
 
 	log->log("GUI: Instatiate new manager");
 	manager = new Manager();
+	theme = prepareThemes();
 	
 	log->log("GUI: Set numRowsToDisplay to 20 lines");
-	numRowsToDisplay = TASKLIST_RETRACT_ROW;
-
 	log->log("GUI: display taskListBox, feedbackBox");
+	numRowsToDisplay = TASKLIST_RETRACT_ROW;
 	displayTasksListBox();
 	displayFeedbackBox();
 
@@ -35,9 +35,15 @@ GUI::Interface::Interface(void) {
 	helpIsShown = false;
 	settingIsShown = false;
 
-	theme = prepareThemes();
 	themeColor presetTheme = manager->getPresetTheme();
+	bool isPresetFeedbackOn = manager->getPresetFeedbackToggleSetting();
+	bool isPresetHelpTabOn = manager->getPresetHelpTabSetting();
+	bool isPresetSettingTabOn = manager->getPresetSettingsTabSetting();
+
 	selectTheme(presetTheme);
+	if (!isPresetFeedbackOn) toggleFeedback();
+	if (!isPresetHelpTabOn) toggleHelpTab();
+	if (!isPresetSettingTabOn) toggleSettingsTab();
 
 	log->endLog();
 }
@@ -78,6 +84,7 @@ void GUI::Interface::receiveUserInput() {
 	log->endLog();
 }
 
+// window opening functions
 void GUI::Interface::retractWindow() {
 	this->ClientSize = System::Drawing::Size(FORM_X_RETRACT, FORM_Y);
 	this->helpDivider->Visible = !this->helpDivider->Visible;
@@ -147,6 +154,7 @@ void GUI::Interface::toggleSettingSection() {
 	log->log("GUI: setting section is toggled");
 }
 
+// setting selection functions
 void GUI::Interface::toggleFeedback() {
 	this->feedbackBox->Visible = !this->feedbackBox->Visible;
 	bool feedbackIsShown = this->feedbackBox->Visible;
@@ -155,10 +163,12 @@ void GUI::Interface::toggleFeedback() {
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_RETRACT);
 		numRowsToDisplay = TASKLIST_RETRACT_ROW;
 		feedbackButton->Text = BUTTON_HIDE;
+		manager->saveFeedbackBoxSetting(true);
 	} else {
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_EXTENT);
 		numRowsToDisplay = TASKLIST_EXTENT_ROW;
 		feedbackButton->Text = BUTTON_SHOW;
+		manager->saveFeedbackBoxSetting(false);
 	}
 	log->log("GUI: feedback is toggled");
 	log->log("GUI: taskListBox is displayed");
@@ -169,10 +179,12 @@ void GUI::Interface::toggleHelpTab() {
 	this->helpTab->Visible = !this->helpTab->Visible;
 
 	bool helpTabIsVisible = this->helpTab->Visible;
-	if (this->helpTab->Visible) {
+	if (helpTabIsVisible) {
 		helpTabSettingButton->Text = BUTTON_HIDE;
+		manager->saveHelpTabSetting(true);
 	} else {
 		helpTabSettingButton->Text = BUTTON_SHOW;
+		manager->saveHelpTabSetting(false);
 	}
 	log->log("GUI: helpTab is toggled");
 }
@@ -183,8 +195,10 @@ void GUI::Interface::toggleSettingsTab() {
 	bool settingTabIsVisible = this->settingsTab->Visible;
 	if (settingTabIsVisible) {
 		settingsTabSettingButton->Text = "Hide";
+		manager->saveSettingTabSetting(true);
 	} else {
 		settingsTabSettingButton->Text = "Show";
+		manager->saveSettingTabSetting(false);
 	}
 	log->log("GUI: settingsTab is toggled");
 }
@@ -233,12 +247,14 @@ void GUI::Interface::selectTheme(themeColor color) {
 void GUI::Interface::displayTasksListBox() {
 	std::vector<Task> receivedTaskList;
 	int i = 0;
+	bool isLastRow;
 
 	receivedTaskList = manager->getTaskList();
 
 	richTaskList->Clear();
 	while (i < (int)receivedTaskList.size() && i < numRowsToDisplay) {
-		displayTask(receivedTaskList[i]);
+		isLastRow = (i == (int) receivedTaskList.size()-1 || i == numRowsToDisplay-1);
+		displayTask(receivedTaskList[i], isLastRow);
 		i++;
 	}
 }
@@ -308,9 +324,9 @@ void GUI::Interface::convertStdToSysString(string &os, String^ &s) {
 }
 
 // taskList display functions
-void GUI::Interface::displayTask(const Task &task) {
+void GUI::Interface::displayTask(const Task &task, const bool &isLastRow) {
 	displayTaskIndex(task);
-	displayTaskInformation(task);
+	displayTaskInformation(task, isLastRow);
 }
 
 void GUI::Interface::displayTaskIndex(const Task &task) {
@@ -325,7 +341,7 @@ void GUI::Interface::displayTaskIndex(const Task &task) {
 	delete index;
 }
 
-void GUI::Interface::displayTaskInformation(const Task &task) {
+void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLastRow) {
 	if (task.isBold) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Bold);
 	} else {
@@ -349,7 +365,9 @@ void GUI::Interface::displayTaskInformation(const Task &task) {
 	String ^taskName = gcnew String(task.taskName.c_str());
 	richTaskList->SelectedText = taskName;
 	// ~~NewLine~~
-	richTaskList->SelectedText = ENDL;
+	if (!isLastRow) {
+		richTaskList->SelectedText = ENDL;
+	}
 
 	delete richTaskList->SelectionFont;
 	delete startDate;
