@@ -16,7 +16,7 @@ class Worker {
 	string updateField;
 
 	void convertTaskDataToDisplayFormat(vector<Task> &);
-
+	 
 	
 
 	string successful;

@@ -24,7 +24,7 @@ public:
 	vector<Task> getTaskList();
 	void undo();
 	void sort();
-
+ 
 };
 
 #endif
