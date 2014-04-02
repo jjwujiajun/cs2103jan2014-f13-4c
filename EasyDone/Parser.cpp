@@ -152,8 +152,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
     const string keyWord_3 ("from");
 	const string keyWord_4 ("to");
 
+	const string task ("task");
+	const string sd ("sd");
 	const string st ("st");
-
+	const string ed ("ed");
+	const string et ("et");
 	
 
    
@@ -305,7 +308,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			// 4) ed -> endDate
 			// 5) et -> endTime
 			while (i < (int) storeUserInfo.size()) {
-				if(storeUserInfo[i] == "sd" || storeUserInfo[i] == "st" || storeUserInfo[i] == "ed" || storeUserInfo[i] == "et" ) {		
+				if(storeUserInfo[i] == sd || storeUserInfo[i] == st || storeUserInfo[i] == ed || storeUserInfo[i] == et ) {		
 					startDate += storeUserInfo[i];
 					++i;
 					while(i < (int) storeUserInfo.size()){
@@ -314,7 +317,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					++i;
 				}
 					
-				} else if (storeUserInfo[i] == "task") {
+				} else if (storeUserInfo[i] == task) {
 					startDate += storeUserInfo[i];
 					++i;
 					while(i<storeUserInfo.size()){
@@ -514,6 +517,96 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 }
 
 
+// *** date input format is DD/MM/YY ***
+string Parser::parseDate(string date)
+{
+    int start = 0;
+    int keystroke = date.find("/", 0);
+	
+    start = atoi(date.substr(0, keystroke).c_str());
+	cout << start << endl;
+
+    //exception handling for the date input
+    if (start < 1 || start > 31){		
+		successful =  "wrong date inputed";
+		cout << successful << endl;
+				
+    } else {
+		successful =  "date inputed";		
+		cout << successful << endl;;		
+	}
+
+	return successful;
+     
+}
+
+string Parser::parseMonth(string date) {
+	
+	// 12/12/2014
+    int start = 0;
+    int keystroke = date.find("/", 0); // finds first /12/2014
+
+    int startOfMonth = keystroke + 1; // 2
+    int startOfKeystroke = date.find("/", startOfMonth); 
+    start = atoi(date.substr(startOfMonth, startOfKeystroke).c_str()); // converts string to int
+	cout << start << endl;
+
+    //exception handling for the month input
+    if (start < 1 || start > 12)
+    {
+       successful =  "wrong month inputed";
+    } else {
+	   successful =  "month inputed";
+	}
+
+	return successful;
+}
+
+string Parser:: parseYear(string date) {
+	// 12/09/14
+	int start = 0;
+
+	int firstKeyStroke = date.find("/", 0);
+	int startOfMonth = firstKeyStroke + 1;
+	int secondKeyStroke = date.find("/",startOfMonth); 
+	int startOfYear = secondKeyStroke + 1;
+
+	start = atoi(date.substr(startOfYear).c_str()); // converts string to int
+	cout << start << endl;
+
+	//exception handling for the Year input
+	if (start < 0 || start > 99)
+    {
+       successful =  "wrong Year inputed";
+    } else {
+	   successful =  "Year inputed";
+	}
+
+	return successful;
+
+}
+// *** Time input format is HH:MM ***
+string Parser:: parseTime(string time) {
+
+	int keyStroke = time.find(".", 0);
+	int startOfMinute = keyStroke + 1;
+
+	int hour = atoi(time.substr(0,keyStroke).c_str());
+    int min = atoi(time.substr(startOfMinute).c_str());
+
+	cout << hour << endl;
+	cout << min << endl;
+	
+	if (hour < 0 || hour > 24 || min < 0 || min > 60) {
+	   successful =  "wrong time inputed";
+    } else {
+	   successful =  "Time inputed";
+	}
+
+	return successful;
+
+}
+
 vector<string> Parser::completeParse(string userInput) {
 	
 	parserEmpty();
@@ -525,9 +618,9 @@ vector<string> Parser::completeParse(string userInput) {
 	parseCommand(storeUserInfo);
 	parseDetails(storeUserInfo);
 
-    for(int i=0; i<9; i++) {
-			userInformation.push_back("0"); // initialise rest of vector
-	}
+   // for(int i=0; i<9; i++) {
+//			userInformation.push_back("0"); // initialise rest of vector
+//	}
 	
 			
 	
