@@ -59,7 +59,8 @@ namespace GUI {
 		void receiveUserInput();
 
 		// display functions
-		void displayTasksListBox();
+		void displayAllTasksListBox();
+		void displaySummaryTaskListBox();
 		void displayFeedbackBox();
 		void displayInputField();
 		void getHelpBoxDisplay();

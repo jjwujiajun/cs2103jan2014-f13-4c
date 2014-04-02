@@ -24,7 +24,7 @@ GUI::Interface::Interface(void) {
 	log->log("GUI: Set numRowsToDisplay to 20 lines");
 	log->log("GUI: display taskListBox, feedbackBox");
 	numRowsToDisplay = TASKLIST_RETRACT_ROW;
-	displayTasksListBox();
+	displayAllTasksListBox(); //jj change
 	displayFeedbackBox();
 
 	log->log("GUI: get helpBox display");
@@ -68,7 +68,7 @@ void GUI::Interface::operateUserRequest() {
 	receiveUserInput();
 
 	log->log("GUI: display taskListBox, feedbackBox, inputField");
-	displayTasksListBox();
+	displayAllTasksListBox(); //JJ change
 	displayFeedbackBox();
 	displayInputField();
 
@@ -179,7 +179,7 @@ void GUI::Interface::toggleFeedback() {
 	}
 	log->log("GUI: feedback is toggled");
 	log->log("GUI: taskListBox is displayed");
-	displayTasksListBox();
+	displayAllTasksListBox(); //JJ change
 }
 
 void GUI::Interface::toggleHelpTab() {
@@ -249,21 +249,53 @@ void GUI::Interface::selectTheme(themeColor color) {
 		manager->saveTheme(METAL);
 	}
 
-	displayTasksListBox();
+	displayAllTasksListBox(); //JJ change
 }
 
 // display functions
-void GUI::Interface::displayTasksListBox() {
+void GUI::Interface::displayAllTasksListBox() {
 	std::vector<Task> receivedTaskList;
 	int i = 0;
 	bool isLastRow;
 
-	receivedTaskList = manager->getTaskList();
+	receivedTaskList = manager->getAllTaskList();
 
 	richTaskList->Clear();
+
+	displayAllTaskLabel();
 	while (i < (int)receivedTaskList.size() && i < numRowsToDisplay) {
 		isLastRow = (i == (int) receivedTaskList.size()-1 || i == numRowsToDisplay-1);
 		displayTask(receivedTaskList[i], isLastRow);
+		i++;
+	}
+}
+
+void GUI::Interface::displaySummaryTaskListBox() {
+	std::vector<Task> receivedTodayTaskList;
+	std::vector<Task> receivedTomorrowTaskList;
+	std::vector<Task> receivedDueTaskList;
+	bool isLastRow;
+
+	receivedDueTaskList = manager->getDueTaskList();
+	receivedTodayTaskList = manager->getTodayTaskList();
+	receivedTomorrowTaskList = manager->getTomorrowTaskList();
+
+	richTaskList->Clear();
+
+	for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
+		isLastRow = (i == (int) receivedDueTaskList.size()-1);
+		displayTask(receivedDueTaskList[i], isLastRow);
+		i++;
+	}
+	displayTodayLabel();
+	for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
+		isLastRow = (i == (int) receivedTodayTaskList.size()-1);
+		displayTask(receivedTodayTaskList[i], isLastRow);
+		i++;
+	}
+	for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
+		isLastRow = (i == (int) receivedTomorrowTaskList.size()-1);
+		displayTask(receivedTomorrowTaskList[i], isLastRow);
 		i++;
 	}
 }

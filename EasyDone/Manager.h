@@ -41,7 +41,10 @@ public:
 
 	string getFeedback();
 	string getInputField();
-	vector<Task> getTaskList();
+	vector<Task> getAllTaskList();
+	vector<Task> getTodayTaskList();
+	vector<Task> getTomorrowTaskList();
+	vector<Task> getDueTaskList();
 	vector<string> getHelpHeadings();
 	vector<string> getHelpInstructions();
 	themeColor getPresetTheme();

@@ -33,12 +33,25 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
-vector<Task> Manager::getTaskList() {
+vector<Task> Manager::getAllTaskList() {
 	log.log("Manager: getTaskList from worker");
 	GUITaskList = worker.getTaskList();
 
 	log.endLog();
 	return GUITaskList;
+}
+
+vector<Task> Manager::getDueTaskList() {
+	vector<Task> temp;
+	return temp;
+}
+vector<Task> Manager::getTodayTaskList() {
+	vector<Task> temp;
+	return temp;
+}
+vector<Task> Manager::getTomorrowTaskList() {
+	vector<Task> temp;
+	return temp;
 }
 
 string Manager::getFeedback() {
