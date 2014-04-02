@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <queue>
 #include <cctype>
+#include <time.h>
+#include <ctime>
 #include <iterator>
 #include "Log.h"
 #include "Task.h"

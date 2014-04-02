@@ -296,7 +296,7 @@ void GUI::Interface::displayTask(const Task &task) {
 }
 
 void GUI::Interface::displayTaskIndex(const Task &task) {
-	if (task.isBold) {
+	if (task.isToday) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_INDEX, FontStyle::Bold);
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_INDEX, FontStyle::Regular);
@@ -312,7 +312,7 @@ void GUI::Interface::displayTaskIndex(const Task &task) {
 }
 
 void GUI::Interface::displayTaskInformation(const Task &task) {
-	if (task.isBold) {
+	if (task.isToday) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Bold);
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);

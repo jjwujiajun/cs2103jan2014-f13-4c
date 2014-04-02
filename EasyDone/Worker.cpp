@@ -7,18 +7,14 @@ out the desired operation.
 */
 #include "Worker.h"
 
-const string Worker::NULL_STRING = "";
-const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
-const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
-const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n"; 
-const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
-const string Worker::MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
-const string Worker:: MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
-//const int NULL_DATE = -1;
-
-
-
-// const string Parser::MESSAGE_DELETE = "delete";
+/*const string NULL_STRING = "";
+const string MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
+const string MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
+const string MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n"; 
+const string MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
+const string MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
+const string MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
+*/
 
 Worker::Worker() {
 

@@ -62,9 +62,50 @@ int Command::issueNewTaskID(){
 	return newIndex;
 }
 
+
+
 vector<Task> Command::getTaskList() {
 	todoList.dueToday();
 	return todoList.getTaskList();
+}
+
+vector<Task> Command::getTodayTask() {
+	
+	int i;
+	todoList.dueToday();
+	vector<Task> tasksReturned;
+
+	for( i = 0; i < todoList.getSize(); i++)
+	{
+		Task task = todoList.getTask(i);
+		
+		if(task.isToday = true)
+		{
+			tasksReturned.push_back(task);
+		}
+
+	}
+
+	return tasksReturned;
+}
+
+vector<Task> Command::getTomorrowTask() {
+	
+	int i;
+	todoList.dueTomorrow();
+	vector<Task> tasksReturned;
+
+	for( i = 0 ; todoList.getSize(); i++) {
+
+		Task task = todoList.getTask(i);
+
+		if(task.isTomorrow == true)
+		{
+			tasksReturned.push_back(task);
+		}
+	}
+
+	return tasksReturned;
 }
 
 void Command::Undo() {
@@ -79,22 +120,22 @@ void Command::Sort() {
 	Task next;
 	int Date, nextDate;
 	for(int i = 1; i < todoList.getSize(); i++) {
-		next = todoList.accessSlot(i);
+		next = todoList.getTask(i);
 		if(!next.startDate.empty()) {
 			Date = stoi(next.startDate);
 		} else {
 			Date = 0;
 		}
 		int j = i-1;
-		if(!todoList.accessSlot(j).startDate.empty()) {
-			nextDate = stoi(todoList.accessSlot(j).startDate);
+		if(!todoList.getTask(j).startDate.empty()) {
+			nextDate = stoi(todoList.getTask(j).startDate);
 		} else {
 			nextDate = 0;
 		}
 		for(j = i-1; j >= 0 && nextDate > Date; --j) {
-			todoList.changeTask(j+1, todoList.accessSlot(j));
-			if(!todoList.accessSlot(j).startDate.empty()) {
-				nextDate = stoi(todoList.accessSlot(j).startDate);
+			todoList.changeTask(j+1, todoList.getTask(j));
+			if(!todoList.getTask(j).startDate.empty()) {
+				nextDate = stoi(todoList.getTask(j).startDate);
 			} else {
 				nextDate = 0;
 			}
@@ -120,22 +161,22 @@ void Command::Sort() {
 
 		if(countNum>0) {
 			for(int i = counter; i <= sameDate; i++) {
-				next = todoList.accessSlot(i);
+				next = todoList.getTask(i);
 				if(!next.startDate.empty()) {
 					Time = stoi(next.startTime);
 				} else {
 					Time = 0;
 				}
 				int j=i-1;
-				if(!todoList.accessSlot(j).startTime.empty()) {
-					nextTime = stoi(todoList.accessSlot(j).startTime);
+				if(!todoList.getTask(j).startTime.empty()) {
+					nextTime = stoi(todoList.getTask(j).startTime);
 				} else {
 					nextTime = 0;
 				}
 				for(j = i-1; j >= prevsameDate && nextTime > Time; --j) {
-					todoList.changeTask(j+1, todoList.accessSlot(j));
-					if(!todoList.accessSlot(j).startTime.empty()) {
-						nextTime = stoi(todoList.accessSlot(j).startTime);
+					todoList.changeTask(j+1, todoList.getTask(j));
+					if(!todoList.getTask(j).startTime.empty()) {
+						nextTime = stoi(todoList.getTask(j).startTime);
 					} else {
 						nextTime = 0;
 					}

@@ -6,12 +6,6 @@ using namespace std;
 
 #pragma once
 
-/*typedef struct DateFormat {
-	string day;
-	string month;
-	string year;
-};*/
-
 
 class Store {
 	
@@ -19,6 +13,10 @@ class Store {
 		FileHandler file;
 		vector<Task> taskList;
 		vector< vector<Task> > undoList;
+
+		string currentDay();
+		string currentMonth();
+		string currentYear();
 
 		Log log;
 	
@@ -33,13 +31,18 @@ class Store {
 		string getStartTime(int slotNumber);
 		string getEndDate(int slotNumber);
 		string getEndTime(int slotNumber);
+		string getDay(int slotNumber);
+		string getMonth(int slotNumber);
+		string getYear(int slotNumber);
+
+
+
 		int getSize();
-		Task accessSlot(int slot); 
+		//Task accessSlot(int slot); 
 		string getTaskID(int slotNumber);
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		void saveToFile();
-
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);
@@ -48,10 +51,10 @@ class Store {
 		Task getTask(int slot);
 		bool changeTask(int taskID, Task userTask, string updateField);
 		//int findSlot(string taskIndex);
-		void dueToday();
 		vector<Task> getTaskList();
 		bool stackToList();
 		void listToStack();
 		void updateTaskID();
-	
+		void dueToday();
+		void dueTomorrow();
 };

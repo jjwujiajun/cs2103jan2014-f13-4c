@@ -44,6 +44,31 @@ string Store::getEndDate(int index) {
 	return getEndDate1;
 }
 
+string Store::getDay(int index) {          //only works for startDate
+
+	string date = taskList[index].startDate;
+	string day = date.substr(6,2);
+
+	return day;
+}
+
+string Store::getMonth(int index) {
+	
+	string date = taskList[index].startDate;
+	string month = date.substr(4,2);
+
+	return month;
+}
+
+string Store::getYear(int index) {
+
+	string date = taskList[index].startDate;
+	string year =  date.substr(0,4);
+
+	return year;
+}
+
+
 int Store::getSize() {
 
 	int sizeoftaskList = taskList.size();
@@ -58,11 +83,11 @@ string Store::getTaskID(int slotNumber) {
 	return taskID;
 }
 
-Task Store::accessSlot(int slot) {
+/*Task Store::accessSlot(int slot) {
 
 	Task toReturn = taskList[slot];
 	return toReturn;
-}
+}*/
 
 
 vector<Task>::iterator Store::getIteratorBegin() {
@@ -167,14 +192,72 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 
 void Store::dueToday() {
 	log.log("Store: changing due status");
+
+	string todayDay = currentDay();
+	string todayMonth = currentMonth();
+	string todayYear = currentYear();
+
 	for(int i = 0; i < (int) taskList.size(); i++) {
-		if(taskList[i].startDate == "20140328") {
-			taskList[i].isBold = true;
+		if(getDay(i) == todayDay && getMonth(i) == todayMonth && getYear(i) ==  todayYear) {
+			taskList[i].isToday = true;
 		}
 		else {
-			taskList[i].isBold = false;
+			taskList[i].isToday = false;
 		}
 	}
+}
+
+void Store::dueTomorrow() { //implemented for non-leap years
+
+	string todayDay = currentDay();
+	string todayMonth = currentMonth();
+	string todayYear = currentYear();
+
+	int days[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+
+	int valueDay = atoi(todayDay.c_str());
+	int valueMonth = atoi(todayMonth.c_str());
+	int valueYear = atoi(todayYear.c_str());
+
+	valueDay++;
+
+	if ( valueDay > days[valueMonth - 1]){
+		
+		valueDay = 01;
+		valueMonth++;
+
+		if ( valueMonth > 12 ) {
+			{ valueYear++; todayMonth=01; }
+		}
+	 }
+
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << valueDay;
+
+	string tmrwDaystr = convert.str();
+
+	convert << valueMonth;
+
+	string tmrwMonthstr = convert.str();
+
+	convert << valueYear;
+
+	string tmrwYearstr = convert.str();
+
+
+	for(int i =0; i < taskList.size(); i++) {
+
+		if(getDay(i) ==  tmrwDaystr && getMonth(i) == tmrwMonthstr && getYear(i) == tmrwYearstr) {
+
+			taskList[i].isTomorrow = true;
+		}
+		else
+			taskList[i].isTomorrow = false;
+
+	}
+
 }
 
 vector<Task> Store::getTaskList() {
@@ -220,6 +303,65 @@ void Store::updateTaskID() {
 	for(int i = 0; i < (int) taskList.size(); i++) {
 		taskList[i].taskID = to_string(i+1);
 	}
+}
+
+string Store::currentDay() {
+
+	time_t rawtime;
+	time(&rawtime);
+
+	tm now;
+	localtime_s(&now, &rawtime);
+
+	int nowDay = (&now)->tm_mday; 
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << nowDay; 
+
+	string nowDaystr = convert.str();
+
+	return nowDaystr;
+
+}
+
+string Store::currentMonth() {
+
+	time_t rawtime;
+	time(&rawtime);
+
+	tm now;
+	localtime_s(&now, &rawtime);
+
+	int nowMonth = (&now)->tm_mon; 
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << nowMonth; 
+
+	string nowMonthstr = convert.str();
+
+	return nowMonthstr;
+}
+
+string Store::currentYear() {
+
+	time_t rawtime;
+	time(&rawtime);
+
+	tm now;
+	localtime_s(&now, &rawtime);
+
+	int nowYear = 1900 + (&now)->tm_year;  
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << nowYear; 
+
+	string nowYearstr = convert.str();
+
+	return nowYearstr;
+
 }
 
 

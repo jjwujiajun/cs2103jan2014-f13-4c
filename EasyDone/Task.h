@@ -5,6 +5,7 @@
 using namespace std;
 
 class Task {
+
 public:
 	string taskName;
 	string taskID;	
@@ -15,8 +16,17 @@ public:
 	string date;
 	string month;
 	string year;
-	bool isBold;
+	bool isToday;
+	bool isTomorrow;
 	int isRed;
+
+	struct DateFormat {
+	string day;
+	string month;
+	string year;
+	};
+
+
 };
 
 #endif

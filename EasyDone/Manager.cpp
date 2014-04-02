@@ -76,7 +76,8 @@ void Manager::init() {
 	GUIfeedbackBox += FEEDBACK_PROMPT_OTHERS;
 
 	log.log("Manager: Format GUIInputField to be displayed in GUI");
-	GUIInputField = NULL_STRING;
+	//GUIInputField = NULL_STRING;
+	GUIInputField = "";
 
 	log.endLog();
 	

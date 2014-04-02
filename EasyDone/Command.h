@@ -14,6 +14,8 @@ class Command {
 		Command();
 		~Command();
 		vector<Task> getTaskList();
+		vector<Task> getTodayTask();
+		vector<Task> getTomorrowTask();
 		void Undo();
 
 	protected:
@@ -21,6 +23,10 @@ class Command {
 		void Sort();
 		int issueNewTaskID();
 
+	private: 
+		/*string currentDay();
+		string currentMonth();
+		string currentYear();*/
 };
 
 
