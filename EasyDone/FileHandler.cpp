@@ -71,6 +71,25 @@ bool FileHandler::getPresetSetting(const string& fileName) {
 	return true;
 }
 
+themeColor FileHandler::getPresetTheme() {
+	ifstream presetTheme;
+	string fileStoredTheme;
+	themeColor theme;
+
+	presetTheme.open(FILE_SETTINGS_THEME);
+	getline(presetTheme, fileStoredTheme);
+
+	if (fileStoredTheme == FILE_STRING_BLUETHEME) {
+		theme = BLUE;
+	} else if (fileStoredTheme == FILE_STRING_METALTHEME) {
+		theme = METAL;
+	} else {
+		theme = WHITE;
+	}
+	presetTheme.close();
+	return theme;
+}
+
 void FileHandler::saveSettingForFile(const bool& isOn, const string& fileName) {
 	ofstream presetFile;
 	
@@ -79,5 +98,19 @@ void FileHandler::saveSettingForFile(const bool& isOn, const string& fileName) {
 		presetFile << FILE_STRING_TRUE;
 	} else {
 		presetFile << FILE_STRING_FALSE;
+	}
+}
+
+void FileHandler::saveTheme(const themeColor& theme) {
+	ofstream presetTheme;
+	string fileStoredTheme;
+	presetTheme.open(FILE_SETTINGS_THEME, ios::trunc);
+
+	if (theme == WHITE) {
+		presetTheme << FILE_STRING_WHITETHEME << endl;
+	} else if (theme == BLUE) {
+		presetTheme << FILE_STRING_BLUETHEME << endl;
+	} else if (theme == METAL) {
+		presetTheme << FILE_STRING_METALTHEME << endl;
 	}
 }
