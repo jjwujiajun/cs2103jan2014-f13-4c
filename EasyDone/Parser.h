@@ -23,7 +23,9 @@ const string MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
 class Parser {
 
 	vector<string> storeUserInfo;
+	vector<string> storeOther;
 	vector<string> userInformation;
+	
 	
 	Log log;
 	
@@ -32,7 +34,7 @@ public:
 	~Parser(void);
 
 	enum Choice{
-		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, UNDO, ERROR
+		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, UNDO, OTHER
 	};
 
 	Choice userCommand(vector<string> storeUserInfo);

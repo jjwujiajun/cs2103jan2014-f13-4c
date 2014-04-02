@@ -78,8 +78,8 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
         return UNDO;
 	}
     else { 
-		//storeUserInfo[0] == "add";
-        return ERROR;
+		storeOther.push_back("add");
+        return OTHER;
     }
 }
 
@@ -114,8 +114,8 @@ vector<string> Parser::parseCommand (vector<string> storeUserInfo) {
 		case UNDO:
 			userInformation.push_back(storeUserInfo[0]);
 			break;
-        case ERROR:
-           // userInformation.push_back(storeUserInfo[0]);
+        case OTHER:
+            userInformation.push_back(storeOther[0]);
             break;
     }
     return userInformation;
@@ -390,8 +390,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			userInformation.push_back(endTime);
             break;
 
-		case ERROR:
-			/*
+		case OTHER:
+					int i = 0;
 					while (i < (int) storeUserInfo.size()) {
 			
 				// keyword is "on"
@@ -506,7 +506,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			userInformation.push_back(startTime);
 			userInformation.push_back(endDate);
 			userInformation.push_back(endTime);
-		*/
+		
             break;
     }
 
