@@ -26,6 +26,7 @@ class Parser {
 	vector<string> storeOther;
 	vector<string> userInformation;
 	
+	string successful;
 	
 	Log log;
 	
@@ -39,15 +40,32 @@ public:
 
 	Choice userCommand(vector<string> storeUserInfo);
 
+	// guards against wrong date and time
+	// parse to manager as a string which will bring to worker to output error
+	string parseDate(string date);
+	string parseMonth(string date);
+	string parseYear(string date);
+	string parseTime(string time);
+
+
+
+
+
+
+	// ***** Main functions of Parser *****
+
+	// Most important function for manager to call parser
 	vector<string> completeParse(string userInput); 
+
+	// Foundation of the Parser: splits up user input into a vector of strings
 	vector<string> storeInformation(string userInput);
 
+	// parseDetails will parse the relevant details of different commands to worker
+	bool parseDetails(vector<string> storeUserInfo);
 	// this vector of strings to store the commands and pass it back to manager
 	vector<string> parseCommand(vector<string> storeUserInfo);
 
-	// parseDetails will return if the parsing of details was successful or not
-	bool parseDetails(vector<string> storeUserInfo);
-
+	// resets the parser to take in new commands
 	void parserEmpty();
 
 };
