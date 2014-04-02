@@ -38,6 +38,7 @@ public:
 	~Manager(void);
 
 	void receiveInput(string input);
+
 	string getFeedback();
 	string getInputField();
 	vector<Task> getTaskList();
@@ -45,6 +46,7 @@ public:
 	vector<string> getHelpInstructions();
 	themeColor getPresetTheme();
 	void getPresetSettingFor(bool& feedback, bool& helpTab, bool& settingsTab);
+
 	void saveTheme(themeColor);
 	void saveFeedbackBoxSetting(bool);
 	void saveHelpTabSetting(bool);

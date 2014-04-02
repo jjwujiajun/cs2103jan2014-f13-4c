@@ -122,22 +122,7 @@ void Manager::loadHelpPage() {
 }
 
 themeColor Manager::getPresetTheme(){
-	ifstream presetTheme;
-	string fileStoredTheme;
-	themeColor theme;
-
-	presetTheme.open(FILE_SETTINGS_THEME);
-	getline(presetTheme, fileStoredTheme);
-
-	if (fileStoredTheme == FILE_STRING_BLUETHEME) {
-		theme = BLUE;
-	} else if (fileStoredTheme == FILE_STRING_METALTHEME) {
-		theme = METAL;
-	} else {
-		theme = WHITE;
-	}
-	presetTheme.close();
-	return theme;
+	return fileHandler.getPresetTheme();
 }
 
 void Manager::getPresetSettingFor(bool &feedback, bool &helpTab, bool &settingsTab) {
@@ -147,17 +132,7 @@ void Manager::getPresetSettingFor(bool &feedback, bool &helpTab, bool &settingsT
 }
 
 void Manager::saveTheme(themeColor theme) {
-	ofstream presetTheme;
-	string fileStoredTheme;
-	presetTheme.open(FILE_SETTINGS_THEME, ios::trunc);
-
-	if (theme == WHITE) {
-		presetTheme << FILE_STRING_WHITETHEME << endl;
-	} else if (theme == BLUE) {
-		presetTheme << FILE_STRING_BLUETHEME << endl;
-	} else if (theme == METAL) {
-		presetTheme << FILE_STRING_METALTHEME << endl;
-	}
+	fileHandler.saveTheme(theme);
 }
 
 void Manager::saveFeedbackBoxSetting(bool isOn) {
