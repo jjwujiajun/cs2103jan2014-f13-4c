@@ -66,7 +66,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		searchItem = parsedCommandstring[2];
 	}
 
-	int taskID = atoi(userTask.taskID.c_str());
+	int taskID = atoi(userTask.taskID.c_str()) - 1;
 	Task task = userCommand.getTask(taskID);
 
 	stringToMain.clear();
