@@ -60,6 +60,12 @@ public:
 
 	bool compare(int start, int end);
 
+	// main securtiy function to run all the guards & conversion
+
+	string guardConvertParserDate(string verifyDate, string verifyMonth, string verifyYear, string date);
+	string guardConvertParserTime(string verifyTime, string time);
+
+
 
 
 	// ***** Main functions of Parser *****
@@ -72,6 +78,7 @@ public:
 
 	// parseDetails will parse the relevant details of different commands to worker
 	bool parseDetails(vector<string> storeUserInfo);
+
 	// this vector of strings to store the commands and pass it back to manager
 	vector<string> parseCommand(vector<string> storeUserInfo);
 
