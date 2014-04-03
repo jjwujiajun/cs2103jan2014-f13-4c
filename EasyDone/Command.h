@@ -25,7 +25,7 @@ public:
 	Task getTask(int Index);
 	void undo();
 	void sort();
- 
+	vector<Task> getSearchedList();
 };
 
 #endif

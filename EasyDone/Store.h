@@ -52,6 +52,7 @@ class Store {
 		//int findSlot(string taskIndex);
 		void dueToday();
 		vector<Task> getTaskList();
+		vector<Task> getSearchedList();
 		bool stackToList();
 		void listToStack();
 		void updateTaskID();

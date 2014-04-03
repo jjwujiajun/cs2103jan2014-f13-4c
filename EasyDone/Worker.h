@@ -52,6 +52,11 @@ public:
 	//string display();
 
 	vector<Task> getTaskList();
+	vector<Task> getSearchedList();
+
+	// formatting functions
+	string formatDate(string);
+	string formatTime(string);
 };
 
 

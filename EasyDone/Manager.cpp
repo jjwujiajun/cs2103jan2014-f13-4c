@@ -54,6 +54,10 @@ vector<Task> Manager::getTomorrowTaskList() {
 	return temp;
 }
 
+vector<Task> Manager::getSearchedList() {
+	return worker.getSearchedList();
+}
+
 string Manager::getFeedback() {
 	return GUIfeedbackBox;
 }

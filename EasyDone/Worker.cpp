@@ -113,8 +113,8 @@ string Worker::actonCommand(string command)
 		Task task = taskList.at(intID);
 
 		successful = "\r\nTask: " + task.taskName + "\r\n" +
-						"Starts: " + task.startDate + task.startTime + "\r\n" +
-						"Ends: " + task.endDate + task.endTime + "\r\n";
+						"Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
+						"Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
 	}
 	else if(command ==  "undo") {
 		userCommand.undo();
@@ -133,20 +133,18 @@ vector<Task> Worker::getTaskList() {
 	return displayedTaskList;
 }
 
+vector<Task> Worker::getSearchedList() {
+	vector<Task> displayedTaskList = userCommand.getSearchedList();
+
+	convertTaskDataToDisplayFormat(displayedTaskList);
+
+	return displayedTaskList;
+}
 
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
 		string taskName = taskList[i].taskName;
-		string time = taskList[i].startTime;
-		string sDate = taskList[i].startDate;
-		string sMonth;
-		string sDay;
-		int date;
-		int month;
-		int day;
-		bool isKnownDateFormat = true;
-		bool isKnownTimeFormat = time.size() == 4;
 
 		//limit taskName length for display
 		if (taskName.size() > TASKLIST_NAME_LENGTH) {
@@ -161,8 +159,23 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 		}
 		taskList[i].taskID = taskIndex;
 		
-		// Worded date display
-		if (!sDate.empty() && sDate != "0") {
+		// Worded date/time display
+		taskList[i].startDate = formatDate(taskList[i].startDate);
+		taskList[i].startTime = formatTime(taskList[i].startTime);
+	}
+}
+
+string Worker::formatDate(string dataDate) {
+	string sDate = dataDate;
+	string sMonth;
+	string sDay;
+	string resultDate;
+	int date;
+	int month;
+	int day;
+	bool isKnownDateFormat = true;
+
+	if (!sDate.empty() && sDate != "0") {
 			date = stoi(sDate);
 			date %= 10000;
 
@@ -219,27 +232,34 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 			}
 
 			if (isKnownDateFormat) {
-				taskList[i].startDate = sDay + sMonth;
+				resultDate = sDay + sMonth;
 			} else {
-				taskList[i].startDate = "";
+				resultDate = "";
 			}
 		} else {
-			taskList[i].startDate = "";
+			resultDate = "";
 		}
+	return resultDate;
+}
 
-		if (!time.empty() && time != "0") {
-			// Digital clock display
-			//assert(time.size() <= 4);
-			if (isKnownTimeFormat) {
-				time.insert(2, ":");
-				taskList[i].startTime = time;
-			} else {
-				taskList[i].startTime = "";
-			}
+string Worker::formatTime(string sTime) {
+	string time = sTime;
+	string resultTime;
+	bool isKnownTimeFormat = time.size() == 4;
+
+	if (!time.empty() && time != "0") {
+		// Digital clock display
+		//assert(time.size() <= 4);
+		if (isKnownTimeFormat) {
+			time.insert(2, ":");
+			resultTime = time;
 		} else {
-			taskList[i].startTime = "";
+			resultTime = "";
 		}
+	} else {
+		resultTime = "";
 	}
+	return resultTime;
 }
 
 
