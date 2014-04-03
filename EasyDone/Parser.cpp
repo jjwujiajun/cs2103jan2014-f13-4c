@@ -144,7 +144,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	string convertedDate_End;
 	string convertedTime_End;
 
-
+	// pushing guard variables into vector
+	string verifyDate;
+	string verifyMonth;
+	string verifyYear;
+	string verifyTime;
 
 	int i = 1; // note i start from 1 because command already pushed in. change to 0 if above pushing is removed in future.
 	
@@ -188,64 +192,70 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
-					// Guards
-					checkParseDate(startDate);
-					checkParseMonth(startDate);
-					checkParseYear(startDate);
+// Guards
+					verifyDate = checkParseDate(startDate);
+					verifyMonth = checkParseMonth(startDate);
+					verifyYear = checkParseYear(startDate);
 
-					// Conversion of date
-					convertedDate_Start = convertDate(startDate);
-					startDate = convertedDate_Start;
-					++i;			
-				}
+					// push back guard output into vector
+					// error is not = 1
+					if (verifyDate == "1") {
+						// Conversion of date
+						convertedDate_Start = convertDate(startDate);
+						startDate = convertedDate_Start;
+					} else {
+						startDate = "1";
+				
+					}
+					
+					if (verifyMonth == "1" && verifyDate == "1" ) {
+						startDate = convertedDate_Start;
 
-					if(i < (int) storeUserInfo.size()) {
+						} else if (verifyDate == "1" && verifyMonth != "1") {
+							startDate = "2";
 
+						} else if (verifyDate != "1" && verifyMonth != "1") {
+							startDate = "12";
+						}
+			
 
+					if (verifyDate == "1" && verifyMonth == "1" && verifyYear == "1") {
+						startDate = convertedDate_Start;
+
+						} else if (verifyDate == "1" && verifyMonth == "1" && verifyYear != "1") {
+							startDate = "3";
+
+						} else if (verifyDate != "1" && verifyMonth != "1" && verifyYear != "1") {
+							startDate = "123";
+						} else if (verifyDate == "1" && verifyMonth != "1" && verifyYear != "1") {
+							startDate = "23";
+						} else if (verifyDate != "1" && verifyMonth == "1" && verifyYear != "1") {
+							startDate = "13";
+						}
+
+					++i;				
+					}
+
+					if(i < (int) storeUserInfo.size()) { 
 						startTime += storeUserInfo[i];
 
-					// guards
-					checkParseTime(startTime);
+						// guards
+						verifyTime = checkParseTime(startTime);
 
-					// Conversion of time
-					convertedTime_Start = convertTime(startTime);
-					startTime = convertedTime_Start;
+						// push back guard output into vector
 
-					++i;
+						if (verifyTime == "1") {
+							// Conversion of time
+							convertedTime_Start = convertTime(startTime);
+							startTime = convertedTime_Start;
+							++i;
+						} else {
+							startTime = "0";
+				
 					}
 				}	
+			}			
 
-
-
-				// keyword is "by"
-				// Purpose is for deadline tasks to be done by that day & time or day/time
-				else if(storeUserInfo[i] == keyWord_2)
-				{
-					++i;
-					
-					if (i < (int) storeUserInfo.size() && 
-							 storeUserInfo[i] != keyWord_1 &&
-							 storeUserInfo[i] != keyWord_3 &&
-							 storeUserInfo[i] != keyWord_4) {
-					
-					endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
-
-					// guards
-					checkParseDate(endDate);
-					checkParseMonth(endDate);
-					checkParseYear(endDate);
-
-					++i;
-					}
-					if(i < (int) storeUserInfo.size()) 
-						endTime += storeUserInfo[i];
-
-					// guards
-					checkParseTime(endTime);
-					++i;
-
-				}
-				
 				// keyword is "from"
 				// Works in tandem with keyword "to"
 				// Purpose is for timed tasks from a {date} {time} to {date} {time} 
