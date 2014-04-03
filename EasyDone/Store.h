@@ -41,6 +41,7 @@ class Store {
 		vector<Task>::iterator getIteratorEnd();
 		void saveToFile();
 
+		bool MarkDone(Task taskID);
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);
