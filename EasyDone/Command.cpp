@@ -81,6 +81,12 @@ vector<Task> Command::getTaskList() {
 	return todoList.getTaskList();
 }
 
+bool Command::markDone(Task task) {
+	bool done = false;
+	done = todoList.MarkDone(task);
+	return done;
+}
+
 void Command::undo() {
 	log.log("Command: undo");
 	todoList.stackToList();
