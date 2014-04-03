@@ -52,6 +52,14 @@ public:
 	string convertDate(string date);
 	string convertTime(string time);
 
+	// convert function from string to int
+
+	int convertStringToInt(string input); 
+
+	// guard to check if startTime/startDate is more than endTime/endDate
+
+	bool compare(int start, int end);
+
 
 
 	// ***** Main functions of Parser *****
