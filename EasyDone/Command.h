@@ -19,9 +19,10 @@ public:
 	bool Add(Task userTask);
 	bool Delete(Task userTask);
 	bool Update(Task userTask, string updateField);
-	bool Search();
+	bool  Search(string searchField, string searchItem);
 	int issueNewTaskID();
 	vector<Task> getTaskList();
+	Task getTask(int Index);
 	void undo();
 	void sort();
  

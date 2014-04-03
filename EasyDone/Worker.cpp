@@ -58,6 +58,8 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "display") {
 		userTask.taskID = parsedCommandstring[1];
+	} else if(command == "search") {
+		searchItem = parsedCommandstring[1];
 	}
 
 	stringToMain.erase(stringToMain.begin(), stringToMain.end());
@@ -92,6 +94,16 @@ string Worker::actonCommand(string command)
 		}
 		else {
 			successful = "Please enter a valid index!\r\n";
+		}
+	}
+
+	else if(command == "search" ) {
+		bool found = userCommand.Search(searchField, searchItem);
+		if(found) {
+			successful = "These tasks found";
+		}
+		else {
+			successful = "Task not found";
 		}
 	}
 

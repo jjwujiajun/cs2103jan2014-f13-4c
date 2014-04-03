@@ -54,6 +54,19 @@ bool Command::Update(Task userTask, string updateField) {
 	return updated;
 }
 
+bool Command::Search(string searchField, string searchItem) {
+	log.log("Searching: Updating task");
+	bool found = false;
+	int counter = 0;
+	found = todoList.SearchItem(counter, searchField, searchItem);
+	log.log("Command: Finished searching");
+
+	return found;
+}
+
+Task Command::getTask(int Index) {
+	return todoList.getTask(Index);
+}
 
 int Command::issueNewTaskID(){
 	

@@ -165,6 +165,38 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 	return true;
 }
 
+bool Store::SearchItem(int Index, string searchField, string searchItem) {
+	log.log("Store: searching the task");
+	bool found = false;
+	while(Index < getSize()) {
+		if(searchField == "task") {
+			if(taskList[Index].taskName == searchItem)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == "sd") {
+			if(taskList[Index].taskName == searchItem)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == "st") {
+			if(taskList[Index].taskName == searchItem)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == "ed") {
+			if(taskList[Index].taskName == searchItem)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == "et") {
+			if(taskList[Index].taskName == searchItem)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		}
+		Index++;
+	}
+	log.log("Store: finished searching");
+	
+	return found;
+}
+
 void Store::dueToday() {
 	log.log("Store: changing due status");
 	for(int i = 0; i < (int) taskList.size(); i++) {
