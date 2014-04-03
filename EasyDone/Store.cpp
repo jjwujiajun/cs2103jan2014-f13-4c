@@ -180,11 +180,16 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 bool Store::SearchItem(int Index, string searchField, string searchItem) {
 	log.log("Store: searching the task");
 	bool found = false;
+	
+	//JJ add
+	searchTask.clear();
+
 	while(Index < getSize()) {
 		if(searchField == "task") {
-			if(taskList[Index].taskName == searchItem)
+			if(taskList[Index].taskName == searchItem) {
 				searchTask.push_back(taskList[Index]);
 				found = true;
+			}
 		} else if(searchField == "sd") {
 			if(taskList[Index].taskName == searchItem)
 				searchTask.push_back(taskList[Index]);
