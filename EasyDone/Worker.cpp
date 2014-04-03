@@ -66,11 +66,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		searchItem = parsedCommandstring[2];
 	}
 
-	int taskID = atoi(userTask.taskID.c_str()) - 1;
-	Task task = userCommand.getTask(taskID);
-
 	stringToMain.clear();
-	stringToMain = "\"" + task.taskName + "\" ";
+
+	if (!userTask.taskID.empty()) {
+		int taskID = atoi(userTask.taskID.c_str()) - 1;
+		Task task = userCommand.getTask(taskID);
+		stringToMain = "\"" + task.taskName + "\" \r\n";
+	}
+
 	stringToMain += actonCommand(command);
 	return stringToMain;
 }
@@ -129,9 +132,8 @@ string Worker::actonCommand(string command)
 		int intID = stoi(userTask.taskID) - 1;
 		Task task = taskList.at(intID);
 
-		successful = "\r\nTask: " + task.taskName + "\r\n" +
-						"Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
-						"Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
+		successful = "Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
+					 "Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
 	}
 	else if(command ==  "undo") {
 		userCommand.undo();
