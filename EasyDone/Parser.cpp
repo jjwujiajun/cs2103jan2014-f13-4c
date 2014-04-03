@@ -548,6 +548,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 					 
 	}
+
+		startDate = startDate.substr(0, startDate.size()-1);
+
 		userInformation.push_back(taskName);
 		userInformation.push_back(startDate);
 		userInformation.push_back(startTime);
