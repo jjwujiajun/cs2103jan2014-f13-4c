@@ -751,6 +751,22 @@ string Parser::convertTime(string time) {
 
 }
 
+int Parser::convertStringToInt(string input) {
+	
+	int value = atoi(input.c_str());
+	return value;
+
+}
+
+bool Parser::compare(int start, int end) {
+
+	if (start > end) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
 
 vector<string> Parser::completeParse(string userInput) {
 	
