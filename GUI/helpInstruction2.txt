@@ -1,0 +1,8 @@
+<Help - Delete> //add instructions below. This line is not displayed.
+Example: 
+• delete 10
+
+Format
+• remove <task ID>
+• delete <task ID>
+	 
