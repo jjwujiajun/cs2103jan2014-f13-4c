@@ -434,9 +434,50 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
         case SEARCH:
             
+		while (i < (int) storeUserInfo.size()) {
+				if(storeUserInfo[i] == "sd" || storeUserInfo[i] == "st" || storeUserInfo[i] == "ed" || storeUserInfo[i] == "et" ) {		
+					taskName += storeUserInfo[i];
+					++i;
+					while(i < (int) storeUserInfo.size()){
+
+						startDate += storeUserInfo[i];
+					++i;
+				}
+					
+				} else if (storeUserInfo[i] == "task") {
+					taskName += storeUserInfo[i];
+					++i;
+					while(i<storeUserInfo.size()){
+						startDate += storeUserInfo[i] + " ";
+					++i;
+				}	
+
+			} else {
+					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					++i;
+					}
+
+					 
+	}
+		userInformation.push_back(taskName);
+		userInformation.push_back(startDate);
+		userInformation.push_back(startTime);
+		userInformation.push_back(endDate);
+		userInformation.push_back(endTime);
+
+
+
+
+
+
+			/*
 			if(i < (int) storeUserInfo.size()) {
 			userInformation.push_back(storeUserInfo[1]);
 			}
+			*/
+
+
+
 			//stringSize = storeUserInfo[0];
 			//x = stringSize.size() + 1;
 			

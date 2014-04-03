@@ -59,7 +59,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	} else if(command == "display") {
 		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "search") {
-		searchItem = parsedCommandstring[1];
+		
+		searchField = parsedCommandstring[1];
+		searchItem = parsedCommandstring[2];
 	}
 
 	stringToMain.erase(stringToMain.begin(), stringToMain.end());
