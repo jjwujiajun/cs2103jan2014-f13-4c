@@ -138,7 +138,7 @@ Task Store::accesswithTaskID(int indexEntered) {
 }
 
 void Store::pushback(Task newTask) {
-
+	newTask.isDone = false;
 	taskList.push_back(newTask);
 
 }
@@ -146,6 +146,18 @@ void Store::pushback(Task newTask) {
 Task Store::getTask(int slot) {
 
 	return taskList[slot];
+}
+
+bool Store::MarkDone(Task task) {
+	bool done = false;
+	int counter = 0;
+	while(counter <getSize()) {
+		if(taskList[counter].taskID == task.taskID) {
+			taskList[counter].isDone = true;
+			done = true;
+		}
+	}
+	return done;
 }
 	
 bool Store::changeTask(int Index, Task userTask, string updateField) {

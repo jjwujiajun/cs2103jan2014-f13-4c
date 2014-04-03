@@ -58,6 +58,8 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "display") {
 		userTask.taskID = parsedCommandstring[1];
+	} else if(command == "done") {
+		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "search") {
 		searchItem = parsedCommandstring[1];
 	}
@@ -101,6 +103,16 @@ string Worker::actonCommand(string command)
 		bool found = userCommand.Search(searchField, searchItem);
 		if(found) {
 			successful = "These tasks found";
+		}
+		else {
+			successful = "Task not found";
+		}
+	}
+
+	else if(command == "done" ) {
+		bool found = userCommand.markDone(userTask);
+		if(found) {
+			successful = "Task marked done";
 		}
 		else {
 			successful = "Task not found";

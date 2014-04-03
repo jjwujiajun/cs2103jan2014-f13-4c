@@ -17,6 +17,7 @@ public:
 	string year;
 	bool isBold;
 	int isRed;
+	bool isDone;
 };
 
 #endif
