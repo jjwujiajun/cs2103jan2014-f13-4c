@@ -61,17 +61,13 @@ namespace GUI {
 		Color radrioDotNotSelected;
 		array<Theme^> ^theme;
 		Manager *manager;
-	private: System::Windows::Forms::RichTextBox^  radioDotAll;
-
-	private: System::Windows::Forms::RichTextBox^  radioDotSummary;
-
-			 Log *log;
+		Log *log;
 
 		// input functions
 		void receiveUserInput();
 
 		// display functions
-		void displayAllTasksListBox();
+		void displayTasksListBoxUsingList(const vector<Task>&);
 		void displaySummaryTaskListBox();
 		void displayFeedbackBox();
 		void displayInputField();
@@ -92,7 +88,7 @@ namespace GUI {
 		Interface(void);
 		~Interface(void);
 
-		void operateUserRequest();
+		void operateUserRequest(const bool& isSearchCommand);
 		void switchTaskListDisplay();
 
 		// window opening functions
@@ -116,6 +112,8 @@ namespace GUI {
 	private: System::Windows::Forms::RichTextBox^  richTaskList;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
 	private: System::Windows::Forms::TextBox^  inputField;
+	private: System::Windows::Forms::RichTextBox^  radioDotAll;
+	private: System::Windows::Forms::RichTextBox^  radioDotSummary;
 		// taskList Labels
 	private: System::Windows::Forms::Label^  IDLabel;
 	private: System::Windows::Forms::Label^  dateLabel;
@@ -647,9 +645,11 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 				 toggleHelpSection();
 				 }
 
-				 if (keyPressed->KeyCode == Keys::Enter) {
+				 if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
+					 bool isSearchCommand = inputField->Text->Contains("search");
+
 					 log->log("User: Enter is pressed, operateUserRequest()");
-					 operateUserRequest();
+					 operateUserRequest(isSearchCommand);
 				 }
 			 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {

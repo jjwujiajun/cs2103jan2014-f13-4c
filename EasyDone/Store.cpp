@@ -229,6 +229,10 @@ vector<Task> Store::getTaskList() {
 	return duplicated;
 }
 
+vector<Task> Store::getSearchedList() {
+	return searchTask;
+}
+
 bool Store::stackToList() {
 	log.log("Store: undoing the change in list");
 	bool undo = false;
