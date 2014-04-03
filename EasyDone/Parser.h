@@ -42,13 +42,15 @@ public:
 
 	// guards against wrong date and time
 	// parse to manager as a string which will bring to worker to output error
-	string parseDate(string date);
-	string parseMonth(string date);
-	string parseYear(string date);
-	string parseTime(string time);
+	string checkParseDate(string date);
+	string checkParseMonth(string date);
+	string checkParseYear(string date);
+	string checkParseTime(string time);
 
+	// convert date & time to proper format for worker to take in
 
-
+	string convertDate(string date);
+	string convertTime(string time);
 
 
 

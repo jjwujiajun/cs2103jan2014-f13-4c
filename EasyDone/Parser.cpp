@@ -134,24 +134,35 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
     Choice enumCommand;
     enumCommand = userCommand(storeUserInfo);
 
+
+	// guard variables
 	string checkDate;
 	string checkDate2;
 	string checkTime;
+	string convertedDate_Start;
+	string convertedTime_Start;
+	string convertedDate_End;
+	string convertedTime_End;
+
 
 
 	int i = 1; // note i start from 1 because command already pushed in. change to 0 if above pushing is removed in future.
 	
+	// parsed variables
 	string taskName;
 	string startDate;
 	string startTime;
 	string endDate;
 	string endTime;
-	
+
+
+	// Command "add" keywords
     const string keyWord_1 ("on");
     const string keyWord_2 ("by");
     const string keyWord_3 ("from");
 	const string keyWord_4 ("to");
 
+	// Command "edit" keywords
 	const string task ("task");
 	const string sd ("sd");
 	const string st ("st");
@@ -167,7 +178,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		while (i < (int) storeUserInfo.size()) {
 			
 				// keyword is "on"
-				// Purpose is for showcasing tasks to be done on that day
+				// Purpose is for showcasing tasks to be done on that day (startDate and/or startTime)
 				if (storeUserInfo[i] == keyWord_1) {  
 					++i;
 					if (i < (int) storeUserInfo.size() && 
@@ -176,13 +187,35 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							 storeUserInfo[i] != keyWord_4) {
 					
 					startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+
+					// Guards
+					checkParseDate(startDate);
+					checkParseMonth(startDate);
+					checkParseYear(startDate);
+
+					// Conversion of date
+					convertedDate_Start = convertDate(startDate);
+					startDate = convertedDate_Start;
 					++i;			
 				}
 
-					if(i < (int) storeUserInfo.size()) 
+					if(i < (int) storeUserInfo.size()) {
+
+
 						startTime += storeUserInfo[i];
+
+					// guards
+					checkParseTime(startTime);
+
+					// Conversion of time
+					convertedTime_Start = convertTime(startTime);
+					startTime = convertedTime_Start;
+
 					++i;
+					}
 				}	
+
+
 
 				// keyword is "by"
 				// Purpose is for deadline tasks to be done by that day & time or day/time
@@ -196,13 +229,20 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							 storeUserInfo[i] != keyWord_4) {
 					
 					endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+
+					// guards
+					checkParseDate(endDate);
+					checkParseMonth(endDate);
+					checkParseYear(endDate);
+
 					++i;
 					}
 					if(i < (int) storeUserInfo.size()) 
 						endTime += storeUserInfo[i];
+
+					// guards
+					checkParseTime(endTime);
 					++i;
-
-
 
 				}
 				
@@ -222,25 +262,48 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					if (checkDate.size() > 5) {
 
 						startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+
+						// Guards
+						checkParseDate(startDate);
+						checkParseMonth(startDate);
+						checkParseYear(startDate);
+
 						++i;
 						if(storeUserInfo[i] == keyWord_4) {
 						++i;
 				
 						endDate += storeUserInfo[i];
+
+						// guards
+						checkParseDate(endDate);
+						checkParseMonth(endDate);
+						checkParseYear(endDate);
+
 						++i;
+
 						if (i < (int) storeUserInfo.size()){
 						endTime += storeUserInfo[i];
+
+						// guards
+						checkParseTime(endTime);
 						++i;
 						}
 									
 						} else {
 							
 						startTime += storeUserInfo[i];
+
+						// guards
+						checkParseTime(startTime);
+
 						++i;
 						}
 
 					} else {
 						startTime += storeUserInfo[i];
+
+						// guards
+						checkParseTime(startTime);
 						i++;
 					}
 
@@ -265,13 +328,23 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					checkDate2 += storeUserInfo[i];
 					if ((int) checkDate2.size() > 5) {
 					endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+
+					// Guards
+					checkParseDate(endDate);
+					checkParseMonth(endDate);
+					checkParseYear(endDate);
 					++i;
+
 					//if (i < (int) storeUserInfo.size()) {
 					endTime += storeUserInfo[i];
+
+					checkParseTime(endTime);
 					++i;
 					//}
 				  } else {
 						endTime += storeUserInfo[i];
+
+						checkParseTime(endTime);
 						i++;
 					}
 						
@@ -518,29 +591,27 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 
 // *** date input format is DD/MM/YY ***
-string Parser::parseDate(string date)
+string Parser::checkParseDate(string date)
 {
     int start = 0;
     int keystroke = date.find("/", 0);
 	
     start = atoi(date.substr(0, keystroke).c_str());
-	cout << start << endl;
 
     //exception handling for the date input
     if (start < 1 || start > 31){		
-		successful =  "wrong date inputed";
-		cout << successful << endl;
-				
+		successful =  "0";
+						
     } else {
-		successful =  "date inputed";		
-		cout << successful << endl;;		
+		successful =  "1";		
+			
 	}
 
 	return successful;
      
 }
 
-string Parser::parseMonth(string date) {
+string Parser::checkParseMonth(string date) {
 	
 	// 12/12/2014
     int start = 0;
@@ -549,20 +620,19 @@ string Parser::parseMonth(string date) {
     int startOfMonth = keystroke + 1; // 2
     int startOfKeystroke = date.find("/", startOfMonth); 
     start = atoi(date.substr(startOfMonth, startOfKeystroke).c_str()); // converts string to int
-	cout << start << endl;
-
+	
     //exception handling for the month input
     if (start < 1 || start > 12)
     {
-       successful =  "wrong month inputed";
+       successful =  "0";
     } else {
-	   successful =  "month inputed";
+	   successful =  "1";
 	}
 
 	return successful;
 }
 
-string Parser:: parseYear(string date) {
+string Parser::checkParseYear(string date) {
 	// 12/09/14
 	int start = 0;
 
@@ -572,21 +642,21 @@ string Parser:: parseYear(string date) {
 	int startOfYear = secondKeyStroke + 1;
 
 	start = atoi(date.substr(startOfYear).c_str()); // converts string to int
-	cout << start << endl;
-
+	
 	//exception handling for the Year input
 	if (start < 0 || start > 99)
     {
-       successful =  "wrong Year inputed";
+       successful =  "0";
     } else {
-	   successful =  "Year inputed";
+	   successful =  "1";
 	}
 
 	return successful;
 
 }
+
 // *** Time input format is HH:MM ***
-string Parser:: parseTime(string time) {
+string Parser::checkParseTime(string time) {
 
 	int keyStroke = time.find(".", 0);
 	int startOfMinute = keyStroke + 1;
@@ -594,18 +664,83 @@ string Parser:: parseTime(string time) {
 	int hour = atoi(time.substr(0,keyStroke).c_str());
     int min = atoi(time.substr(startOfMinute).c_str());
 
-	cout << hour << endl;
-	cout << min << endl;
 	
-	if (hour < 0 || hour > 24 || min < 0 || min > 60) {
-	   successful =  "wrong time inputed";
+	if (hour < 0 || hour > 23 || min < 0 || min > 60) {
+	   successful =  "0";
     } else {
-	   successful =  "Time inputed";
+	   successful =  "1";
 	}
 
 	return successful;
 
 }
+
+string Parser::convertDate(string date) {
+
+	// input:12/12/14
+	// output: 20141212
+	string x;
+
+	int digit = 0;
+	int month = 0;
+	int year = 0;
+	int combine;
+
+    int keystroke = date.find("/", 0);
+	
+	int startOfMonth = keystroke + 1; // 2
+    int startOfKeystroke = date.find("/", startOfMonth); 
+
+	int secondKeyStroke = date.find("/",startOfMonth); 
+	int startOfYear = secondKeyStroke + 1;
+
+
+	digit = atoi(date.substr(0, keystroke).c_str());
+    month = atoi(date.substr(startOfMonth, startOfKeystroke).c_str());
+	year =  atoi(date.substr(startOfYear).c_str());
+    
+	combine = digit + (month * 100) + ((year+2000) * 10000);
+	
+	string result;
+	ostringstream convert; // stream used for the conversion
+	convert << combine; 
+	result = convert.str();
+
+	return result;
+	
+}
+
+string Parser::convertTime(string time) {
+	
+	int keyStroke = time.find(".", 0);
+	int startOfMinute = keyStroke + 1;
+	int combine;
+
+	int hour = atoi(time.substr(0,keyStroke).c_str());
+    int min = atoi(time.substr(startOfMinute).c_str());
+
+	
+	combine = (hour * 100) + min;
+	
+
+	string result;
+	ostringstream convert; // stream used for the conversion
+	convert << combine; 
+	result = convert.str();
+
+	if (result.size() == 2) {
+		result = "00" + result;	
+	} else if (result.size() == 3) {
+		result = "0" + result;
+
+	} else {
+		return result;
+	}
+
+	return result;
+
+}
+
 
 vector<string> Parser::completeParse(string userInput) {
 	
