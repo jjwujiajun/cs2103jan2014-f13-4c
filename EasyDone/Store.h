@@ -18,6 +18,7 @@ class Store {
 	private:
 		FileHandler file;
 		vector<Task> taskList;
+		vector<Task> searchTask;
 		vector< vector<Task> > undoList;
 
 		Log log;
@@ -47,6 +48,7 @@ class Store {
 		void pushback(Task newTask);
 		Task getTask(int slot);
 		bool changeTask(int taskID, Task userTask, string updateField);
+		bool SearchItem(int Index, string searchField, string searchItem);
 		//int findSlot(string taskIndex);
 		void dueToday();
 		vector<Task> getTaskList();
