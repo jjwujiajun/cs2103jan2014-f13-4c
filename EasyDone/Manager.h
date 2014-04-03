@@ -45,6 +45,8 @@ public:
 	vector<Task> getTodayTaskList();
 	vector<Task> getTomorrowTaskList();
 	vector<Task> getDueTaskList();
+	vector<Task> getSearchedList();
+
 	vector<string> getHelpHeadings();
 	vector<string> getHelpInstructions();
 	themeColor getPresetTheme();
