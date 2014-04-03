@@ -21,11 +21,11 @@ GUI::Interface::Interface(void) {
 	manager = new Manager();
 	theme = prepareThemes();
 	
-	summaryTaskListIsShown = true;
+	summaryTaskListIsShown = false;
 	log->log("GUI: Set numRowsToDisplay to 20 lines");
 	log->log("GUI: display taskListBox, feedbackBox");
 	numRowsToDisplay = TASKLIST_RETRACT_ROW;
-	displaySummaryTaskListBox();
+	displayTasksListBoxUsingList(manager->getAllTaskList());
 	displayFeedbackBox();
 
 	log->log("GUI: get helpBox display");

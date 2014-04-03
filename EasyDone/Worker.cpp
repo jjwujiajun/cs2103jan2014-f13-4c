@@ -66,8 +66,11 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		searchItem = parsedCommandstring[2];
 	}
 
-	stringToMain.erase(stringToMain.begin(), stringToMain.end());
-	stringToMain = "\"" + stringToMain + "\" ";
+	int taskID = atoi(userTask.taskID.c_str());
+	Task task = userCommand.getTask(taskID);
+
+	stringToMain.clear();
+	stringToMain = "\"" + task.taskName + "\" ";
 	stringToMain += actonCommand(command);
 	return stringToMain;
 }

@@ -186,7 +186,7 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 
 	while(Index < getSize()) {
 		if(searchField == "task") {
-			if(taskList[Index].taskName == searchItem) {
+			if(taskList[Index].taskName.find(searchItem) != string::npos) {
 				searchTask.push_back(taskList[Index]);
 				found = true;
 			}
