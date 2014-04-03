@@ -87,6 +87,10 @@ void Command::undo() {
 	todoList.saveToFile();
 }
 
+vector<Task> Command::getSearchedList() {
+	return todoList.getSearchedList();
+}
+
 void Command::sort() {
 	
 	log.log("Command: sorting List");

@@ -64,7 +64,7 @@ GUI::Interface::~Interface() {
 	}
 }
 
-void GUI::Interface::operateUserRequest() {
+void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	if (inputField->Text == "exit") {
 		Application::Exit();
 	}
@@ -73,20 +73,25 @@ void GUI::Interface::operateUserRequest() {
 	receiveUserInput();
 
 	log->log("GUI: display taskListBox, feedbackBox, inputField");
-	if (summaryTaskListIsShown) {
-		displaySummaryTaskListBox();
+	if (isSearchCommand) {
+		displayTasksListBoxUsingList(manager->getAllTaskList());
+		feedbackBox->Text = "Searching...";
 	} else {
-		displayAllTasksListBox();
+		if (summaryTaskListIsShown) {
+			displaySummaryTaskListBox();
+		} else {
+			displayTasksListBoxUsingList(manager->getAllTaskList());
+		}
+		displayFeedbackBox();
+		displayInputField();
 	}
-	displayFeedbackBox();
-	displayInputField();
 
 	log->endLog();
 }
 
 void GUI::Interface::switchTaskListDisplay() {
 	if (summaryTaskListIsShown) {
-		displayAllTasksListBox();
+		displayTasksListBoxUsingList(manager->getAllTaskList());
 		titleName = TITLE_ALLTASKS;
 	} else {
 		displaySummaryTaskListBox();
@@ -207,7 +212,7 @@ void GUI::Interface::toggleFeedback() {
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
 	} else {
-		displayAllTasksListBox();
+		displayTasksListBoxUsingList(manager->getAllTaskList());
 	}
 }
 
@@ -286,13 +291,12 @@ void GUI::Interface::selectTheme(themeColor color) {
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
 	} else {
-		displayAllTasksListBox();
+		displayTasksListBoxUsingList(manager->getAllTaskList());
 	}
 }
 
 // display functions
-void GUI::Interface::displayAllTasksListBox() {
-	std::vector<Task> receivedTaskList = manager->getAllTaskList();
+void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTaskList) {
 	int i = 0;
 	bool isLastRow;
 
