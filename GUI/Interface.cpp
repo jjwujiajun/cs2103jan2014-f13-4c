@@ -21,10 +21,11 @@ GUI::Interface::Interface(void) {
 	manager = new Manager();
 	theme = prepareThemes();
 	
+	summaryTaskListIsShown = true;
 	log->log("GUI: Set numRowsToDisplay to 20 lines");
 	log->log("GUI: display taskListBox, feedbackBox");
 	numRowsToDisplay = TASKLIST_RETRACT_ROW;
-	displayAllTasksListBox(); //jj change
+	displaySummaryTaskListBox();
 	displayFeedbackBox();
 
 	log->log("GUI: get helpBox display");
@@ -64,15 +65,35 @@ GUI::Interface::~Interface() {
 }
 
 void GUI::Interface::operateUserRequest() {
+	if (inputField->Text == "exit") {
+		Application::Exit();
+	}
+
 	log->log("GUI: receiveUserInput");
 	receiveUserInput();
 
 	log->log("GUI: display taskListBox, feedbackBox, inputField");
-	displayAllTasksListBox(); //JJ change
+	if (summaryTaskListIsShown) {
+		displaySummaryTaskListBox();
+	} else {
+		displayAllTasksListBox();
+	}
 	displayFeedbackBox();
 	displayInputField();
 
 	log->endLog();
+}
+
+void GUI::Interface::switchTaskListDisplay() {
+	if (summaryTaskListIsShown) {
+		displayAllTasksListBox();
+		titleName = TITLE_ALLTASKS;
+	} else {
+		displaySummaryTaskListBox();
+		titleName = TITLE_SUMMARY;
+	}
+	this->title->Text = titleName;
+	summaryTaskListIsShown = !summaryTaskListIsShown;
 }
 
 // input functions
@@ -167,19 +188,27 @@ void GUI::Interface::toggleFeedback() {
 	if (feedbackIsVisible) {
 		this->feedbackBox->Hide();
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_EXTENT);
+		this->radioDotSummary->Location = System::Drawing::Point(RADIO_X_SUMMARY, RADIO_Y_EXTENT);
+		this->radioDotAll->Location = System::Drawing::Point(RADIO_X_ALL, RADIO_Y_EXTENT);
 		numRowsToDisplay = TASKLIST_EXTENT_ROW;
 		feedbackButton->Text = BUTTON_SHOW;
 		manager->saveFeedbackBoxSetting(false);
 	} else {
 		this->feedbackBox->Show();
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_RETRACT);
+		this->radioDotSummary->Location = System::Drawing::Point(RADIO_X_SUMMARY, RADIO_Y_RETRACT);
+		this->radioDotAll->Location = System::Drawing::Point(RADIO_X_ALL, RADIO_Y_RETRACT);
 		numRowsToDisplay = TASKLIST_RETRACT_ROW;
 		feedbackButton->Text = BUTTON_HIDE;
 		manager->saveFeedbackBoxSetting(true);
 	}
 	log->log("GUI: feedback is toggled");
 	log->log("GUI: taskListBox is displayed");
-	displayAllTasksListBox(); //JJ change
+	if (summaryTaskListIsShown) {
+		displaySummaryTaskListBox();
+	} else {
+		displayAllTasksListBox();
+	}
 }
 
 void GUI::Interface::toggleHelpTab() {
@@ -229,8 +258,14 @@ void GUI::Interface::selectTheme(themeColor color) {
 	this->dateLabel->ForeColor = theme[color]->label;
 	this->timeLabel->ForeColor = theme[color]->label;
 	this->taskLabel->ForeColor = theme[color]->label;
+	this->radioDotAll->BackColor = theme[color]->background;
+	this->radioDotSummary->BackColor = theme[color]->background;
 	
 	indexColor = theme[color]->index;
+	taskListHeadingsColor = theme[color]->taskListHeadings;
+	taskListInfoColor = theme[color]->words;
+	radioDotSelected = theme[color]->words;
+	radrioDotNotSelected = theme[color]->label;
 
 	if (color == WHITE) {
 		this->blueThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
@@ -248,56 +283,71 @@ void GUI::Interface::selectTheme(themeColor color) {
 		this->metalThemeButton->Text = BUTTON_THEME_SELECTED;
 		manager->saveTheme(METAL);
 	}
-
-	displayAllTasksListBox(); //JJ change
+	if (summaryTaskListIsShown) {
+		displaySummaryTaskListBox();
+	} else {
+		displayAllTasksListBox();
+	}
 }
 
 // display functions
 void GUI::Interface::displayAllTasksListBox() {
-	std::vector<Task> receivedTaskList;
+	std::vector<Task> receivedTaskList = manager->getAllTaskList();
 	int i = 0;
 	bool isLastRow;
 
-	receivedTaskList = manager->getAllTaskList();
-
 	richTaskList->Clear();
 
-	displayAllTaskLabel();
 	while (i < (int)receivedTaskList.size() && i < numRowsToDisplay) {
 		isLastRow = (i == (int) receivedTaskList.size()-1 || i == numRowsToDisplay-1);
 		displayTask(receivedTaskList[i], isLastRow);
 		i++;
 	}
+
+	radioDotAll->ForeColor = radioDotSelected;
+	radioDotSummary->ForeColor = radrioDotNotSelected;
 }
 
 void GUI::Interface::displaySummaryTaskListBox() {
-	std::vector<Task> receivedTodayTaskList;
-	std::vector<Task> receivedTomorrowTaskList;
-	std::vector<Task> receivedDueTaskList;
+	std::vector<Task> receivedTodayTaskList = manager->getDueTaskList();;
+	std::vector<Task> receivedTomorrowTaskList = manager->getTodayTaskList();
+	std::vector<Task> receivedDueTaskList = manager->getTomorrowTaskList();
+	int taskListBoxRow = 0;
 	bool isLastRow;
-
-	receivedDueTaskList = manager->getDueTaskList();
-	receivedTodayTaskList = manager->getTodayTaskList();
-	receivedTomorrowTaskList = manager->getTomorrowTaskList();
 
 	richTaskList->Clear();
 
 	for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
-		isLastRow = (i == (int) receivedDueTaskList.size()-1);
+		isLastRow = (taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
 		displayTask(receivedDueTaskList[i], isLastRow);
-		i++;
+		++taskListBoxRow;
 	}
 	displayTodayLabel();
-	for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
-		isLastRow = (i == (int) receivedTodayTaskList.size()-1);
-		displayTask(receivedTodayTaskList[i], isLastRow);
-		i++;
+	if (receivedTodayTaskList.empty()) {
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
+		richTaskList->SelectionColor = taskListInfoColor;
+		richTaskList->SelectedText = "No task today :)\n";
+	} else {
+		for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
+			isLastRow = (i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
+			displayTask(receivedTodayTaskList[i], isLastRow);
+			++taskListBoxRow;
+		}
 	}
-	for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
-		isLastRow = (i == (int) receivedTomorrowTaskList.size()-1);
-		displayTask(receivedTomorrowTaskList[i], isLastRow);
-		i++;
+	displayTomorrowLabel();
+	if (receivedTodayTaskList.empty()) {
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
+		richTaskList->SelectionColor = taskListInfoColor;
+		richTaskList->SelectedText = "No task tomorrow :)\n";
+	} else {
+		for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
+			isLastRow = (i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == 5);
+			displayTask(receivedTomorrowTaskList[i], isLastRow);
+			++taskListBoxRow;
+		}
 	}
+	radioDotSummary->ForeColor = radioDotSelected;
+	radioDotAll->ForeColor = radrioDotNotSelected;
 }
 
 void GUI::Interface::displayFeedbackBox() {
@@ -388,7 +438,7 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 	}
-	richTaskList->SelectionColor = TASKLIST_COLOR_TASKINFO();
+	richTaskList->SelectionColor = taskListInfoColor;
 
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
@@ -418,16 +468,16 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 
 void GUI::Interface::displayTodayLabel() {
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
-	richTaskList->SelectionColor = TASKLIST_COLOR_HEADING();
+	richTaskList->SelectionColor = taskListHeadingsColor;
 	richTaskList->SelectedText = TASKLIST_HEADING_TODAY;
 
 	delete richTaskList->SelectionFont;
 }
 
-void GUI::Interface::displayAllTaskLabel() {	
+void GUI::Interface::displayTomorrowLabel() {	
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
-	richTaskList->SelectionColor = TASKLIST_COLOR_HEADING();
-	richTaskList->SelectedText = TASKLIST_HEADING_ALL;
+	richTaskList->SelectionColor = taskListHeadingsColor;
+	richTaskList->SelectedText = TASKLIST_HEADING_TOMORROW;
 
 	delete richTaskList->SelectionFont;
 }
