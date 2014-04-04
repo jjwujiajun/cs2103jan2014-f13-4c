@@ -25,6 +25,7 @@ class Parser {
 	vector<string> storeUserInfo;
 	vector<string> storeOther;
 	vector<string> userInformation;
+	string output;
 	
 	string successful;
 	
@@ -40,6 +41,16 @@ public:
 
 	Choice userCommand(vector<string> storeUserInfo);
 
+	// getter functions to get date, month, year
+	int getDate(string date);
+	int getMonth(string date);
+	int getYear(string date);
+
+	// function to check if each month corresponds to the correct dates in the month
+	// including leap year guard
+	string checkDate(string date);
+
+
 	// guards against wrong date and time
 	// parse to manager as a string which will bring to worker to output error
 	string checkParseDate(string date);
@@ -52,8 +63,7 @@ public:
 	string convertDate(string date);
 	string convertTime(string time);
 
-	// Guard for Leap year
-	
+		
 
 
 	// convert function from string to int
