@@ -3,6 +3,4 @@ Example:
 • delete 10
 
 Format
-• remove <task ID>
-• delete <task ID>
-	 
+• delete <ID>

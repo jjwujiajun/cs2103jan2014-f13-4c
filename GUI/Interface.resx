@@ -117,4 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="helpIntro.Text" xml:space="preserve">
+    <value>Here are some information to help you get started. 
+• These are the task's &lt;field names&gt;keywords: 
+ - task                            - id (task id is displayed to the left)
+ - sd (for start date)     - ed (for end date)
+ - st (for start time)      - et (for end time)
+Have fun~! :)</value>
+  </data>
 </root>

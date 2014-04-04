@@ -156,6 +156,7 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Interface::typeid));
 			this->inputField = (gcnew System::Windows::Forms::TextBox());
 			this->feedbackBox = (gcnew System::Windows::Forms::TextBox());
 			this->title = (gcnew System::Windows::Forms::Label());
@@ -365,9 +366,7 @@ namespace GUI {
 			this->helpIntro->Name = L"helpIntro";
 			this->helpIntro->Size = System::Drawing::Size(278, 84);
 			this->helpIntro->TabIndex = 15;
-			this->helpIntro->Text = L"Here are some information to help you get started. Follow the examples below to t" 
-				L"ry out the various command. Have fun~! :) The task ID is displayed to the left o" 
-				L"f your tasks.";
+			this->helpIntro->Text = resources->GetString(L"helpIntro.Text");
 			this->helpIntro->Visible = false;
 			// 
 			// helpTab
@@ -618,38 +617,36 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 				 if (inputField->Text == "testmetal") {
 					 feedbackBox->Text = "metal!";
 					 selectTheme(METAL);
-				 }
-
-				 if (keyPressed->KeyCode == Keys::F6) {
+				 } else if (keyPressed->KeyCode == Keys::F6) {
 					 switchTaskListDisplay();
-				 }
+				 } else if (keyPressed->KeyCode == Keys::F2) {
+					 log->log("User: F2 is pressed, toggleSettingSection()");
+					 if (windowIsExtended) {
+						 if (helpIsShown) toggleHelpSection();
+						 else retractWindow();
+					 }
+					 else extendWindow();
 
-				 if (keyPressed->KeyCode == Keys::F2) {
-				 log->log("User: F2 is pressed, toggleSettingSection()");
-				 if (windowIsExtended) {
-					 if (helpIsShown) toggleHelpSection();
-					 else retractWindow();
-				 }
-				 else extendWindow();
-
-				 toggleSettingSection();
-				 }
-
-				 if (keyPressed->KeyCode == Keys::F1) {
-				 log->log("User: F1 is pressed, toggleHelpSetion()");
-				 if (windowIsExtended) {
-					 if (helpIsShown) retractWindow();
-				 	 else toggleSettingSection();
-				 } 
-				 else extendWindow();
-				 toggleHelpSection();
-				 }
-
-				 if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
+					 toggleSettingSection();
+				 } else if (keyPressed->KeyCode == Keys::F1) {
+					 log->log("User: F1 is pressed, toggleHelpSetion()");
+					 if (windowIsExtended) {
+						 if (helpIsShown) retractWindow();
+				 		 else toggleSettingSection();
+					 } 
+					 else extendWindow();
+					 toggleHelpSection();
+				 } else if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
 					 bool isSearchCommand = inputField->Text->Contains("search");
 
 					 log->log("User: Enter is pressed, operateUserRequest()");
 					 operateUserRequest(isSearchCommand);
+				 } else {
+					 if (summaryTaskListIsShown) {
+						 displaySummaryTaskListBox();
+					 } else {
+						 displayTasksListBoxUsingList(manager->getAllTaskList());
+					 }
 				 }
 			 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {

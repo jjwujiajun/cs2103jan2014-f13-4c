@@ -1,7 +1,6 @@
 <Help - Read> //add instructions below. This line is not displayed.
-• read "ID"
-• Please exclude the "" when typing. These are meant to differentiate the field to type. Enjoy!
+Example:
+• read 1
 
-Example: read 1
-
-The task ID is the grey number that is displayed to the left of your task.
+Format:
+• display <ID>
