@@ -1,6 +1,7 @@
 #include "Headers.h"
 #include "Parser.h"
 #include "Worker.h"
+#include "FileHandler.h"
 using namespace std;
 
 #pragma once
@@ -15,6 +16,7 @@ public:
 #endif
 	
 	// member classes
+	FileHandler fileHandler;
 	Parser parser;
 	Worker worker;
 	string userInput;
@@ -36,9 +38,22 @@ public:
 	~Manager(void);
 
 	void receiveInput(string input);
+
 	string getFeedback();
 	string getInputField();
-	vector<Task> getTaskList();
+	vector<Task> getAllTaskList();
+	vector<Task> getTodayTaskList();
+	vector<Task> getTomorrowTaskList();
+	vector<Task> getDueTaskList();
+	vector<Task> getSearchedList();
+
 	vector<string> getHelpHeadings();
 	vector<string> getHelpInstructions();
+	themeColor getPresetTheme();
+	void getPresetSettingFor(bool& feedback, bool& helpTab, bool& settingsTab);
+
+	void saveTheme(themeColor);
+	void saveFeedbackBoxSetting(bool);
+	void saveHelpTabSetting(bool);
+	void saveSettingTabSetting(bool);
 };

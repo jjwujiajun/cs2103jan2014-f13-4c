@@ -16,6 +16,10 @@ private:
 public:
 	vector<Task> getTaskList();
 	void saveTaskList(const vector<Task>&);
+	bool getPresetSetting(const string&);
+	themeColor getPresetTheme();
+	void saveSettingForFile(const bool&, const string&);
+	void saveTheme(const themeColor&);
 };
 
 #endif

@@ -1,13 +1,5 @@
 <Help - Update> //add instructions below. This line is not displayed.
-Example: 
+Example:
 • update 2 sd 20141213
-
 Format:
-• update <ID> <field to update> <updated infor>
-• <field to update> Keywords: 
- - task
- - sd (for start date)
- - st (for start time)
- - ed (for end date)
- - et (for end time)
-
+• update <ID> <field name> <updated info>
