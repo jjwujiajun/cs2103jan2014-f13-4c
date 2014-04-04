@@ -69,7 +69,7 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 		log.log("Parser: Command is SEARCH");
         return SEARCH;
     }
-    else if (storeUserInfo[0] == MESSAGE_CHECK) {
+    else if (storeUserInfo[0] == "done") {
 		log.log("Parser: Command is CHECK");
         return CHECK;
     }
@@ -390,6 +390,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					
 		}
 				
+			taskName = taskName.substr(0, taskName.size()-1);
+
 			userInformation.push_back(taskName);
 			userInformation.push_back(startDate);
 			userInformation.push_back(startTime);
@@ -400,10 +402,20 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			
         case READ:
 
-			// only detail to parse is the Index on the GUI
-			if(i < (int) storeUserInfo.size()) {
-			userInformation.push_back(storeUserInfo[1]);
+		// only detail to parse is the Index on the GUI
+			if (i < (int) storeUserInfo.size()) {
+			
+			taskName = storeUserInfo[i];
+			++i;		
+			} else {
+			taskName = "1";	
 			}
+
+			userInformation.push_back(taskName);
+			userInformation.push_back(startDate);
+			userInformation.push_back(startTime);
+			userInformation.push_back(endDate);
+			userInformation.push_back(endTime);
 
             break;
 
@@ -416,7 +428,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			// 4) ed -> endDate
 			// 5) et -> endTime
 
-			while (i < (int) storeUserInfo.size()) {
+			if (i < (int) storeUserInfo.size()) {
 				if(storeUserInfo[i] == sd ) {	
 					startDate += storeUserInfo[i];
 					++i;
@@ -497,10 +509,13 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			} else {
 					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
-					}
+				}
+			
+	} else {
+		taskName = "1";
+			}
+			startTime = startTime.substr(0, startTime.size()-1);
 
-					 
-	}
 			userInformation.push_back(taskName);
 			userInformation.push_back(startDate);
 			userInformation.push_back(startTime);
@@ -512,13 +527,20 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
         case DELETE:
 			// only detail to parse is the Index on the GUI
 
-			if(i < (int) storeUserInfo.size()) {
-			userInformation.push_back(storeUserInfo[1]);
-
-			}
+			if (i < (int) storeUserInfo.size()) {
 			
+			taskName = storeUserInfo[i];
+			++i;		
+			} else {
+			taskName = "1";	
+			}
 
-
+			userInformation.push_back(taskName);
+			userInformation.push_back(startDate);
+			userInformation.push_back(startTime);
+			userInformation.push_back(endDate);
+			userInformation.push_back(endTime);
+		
             break;
 
         case SEARCH:
@@ -592,9 +614,19 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
         case CHECK:
             
-			if(i < (int) storeUserInfo.size()) {
-			userInformation.push_back(storeUserInfo[1]);
+			if (i < (int) storeUserInfo.size()) {
+			
+			taskName = storeUserInfo[i];
+			++i;		
+			} else {
+			taskName = "1";	
 			}
+
+			userInformation.push_back(taskName);
+			userInformation.push_back(startDate);
+			userInformation.push_back(startTime);
+			userInformation.push_back(endDate);
+			userInformation.push_back(endTime);
 
             break;
 
@@ -825,7 +857,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					}
 					
 		}
-				
+			taskName = taskName.substr(0, taskName.size()-1);
+
 			userInformation.push_back(taskName);
 			userInformation.push_back(startDate);
 			userInformation.push_back(startTime);
@@ -838,28 +871,146 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	return 1;
 }
 
+// getter functions
+
+
+int Parser::getDate(string date) {
+	int start = 0;
+	int keystroke = date.find("/", 0);
+
+	start = atoi(date.substr(0, keystroke).c_str());
+
+	return start;
+}
+
+int Parser::getMonth(string date) {
+
+	int start = 0;
+	int keystroke = date.find("/", 0); // finds first /12/2014
+
+	int startOfMonth = keystroke + 1; // 2
+	int startOfKeystroke = date.find("/", startOfMonth); 
+	start = atoi(date.substr(startOfMonth, startOfKeystroke).c_str()); // converts string to int
+	
+	return start;
+
+}
+
+
+int Parser::getYear(string date) {
+
+	int start = 0;
+	int combine;
+
+	int firstKeyStroke = date.find("/", 0);
+	int startOfMonth = firstKeyStroke + 1;
+	int secondKeyStroke = date.find("/",startOfMonth); 
+	int startOfYear = secondKeyStroke + 1;
+
+	start = atoi(date.substr(startOfYear).c_str()); // converts string to int
+	
+	if (start < 100) {
+		return start = start + 2000;
+	} else {
+		return start;
+	}
+	
+}
+
+
+// function to check if each month corresponds to the correct dates in the month
+string Parser::checkDate(string date) {
+
+	int currentDate = getDate(date);
+    int currentMonth = getMonth(date);
+    int currentYear = getYear(date);
+
+	
+
+	// checks if the current year is a leap year
+    if ((currentYear % 4 == 0 && currentYear % 100 != 0) || ( currentYear % 400 == 0)) {
+		
+		// checks if  month consists of 31 days (Jan, March, May, July, August, October, December)
+        if (currentMonth == 1 || currentMonth == 3 || currentMonth == 5 || currentMonth == 7 || currentMonth == 8 || currentMonth == 10 || currentMonth == 12) {
+                //checks if the date doesn't exceed 31, if it does, the month is incremented
+                if (currentDate > 31 || currentDate < 1) {
+					output =  "0";
+                } else {
+            
+                output =  "1";
+					}  
+		 // checks if month consists of 30 days (April, June, September, November)
+		} else if (currentMonth == 4 || currentMonth == 6 || currentMonth == 9 || currentMonth == 11) {
+
+			if (currentDate > 30 || currentDate < 1) {
+				output =  "0";
+			} else {
+				output =  "1";
+			}
+		  // checks if month consits of 29 days (Feburary and leap year)
+		} else if (currentMonth == 2) {
+
+			if (currentDate >29 || currentDate < 1) {
+	
+				output = "0";
+			} else {
+				output = "1";
+			}
+		} else if (currentMonth != 1 || currentMonth != 2 || currentMonth != 3 || currentMonth != 4 || currentMonth != 5 ||			currentMonth != 6 || currentMonth != 7 || currentMonth != 8 || currentMonth != 9 || currentMonth != 10 || currentMonth != 11 || currentMonth != 12 ) {
+
+			output = "0";
+		}
+
+		//the current year is not a leap year
+
+		} else {
+
+			// checks if  month consists of 31 days (Jan, March, May, July, August, October, December)
+        if (currentMonth == 1 || currentMonth == 3 || currentMonth == 5 || currentMonth == 7 || currentMonth == 8 || currentMonth == 10 || currentMonth == 12) {
+                //checks if the date doesn't exceed 31, if it does, the month is incremented
+                if (currentDate > 31 || currentDate < 1) {
+					output =  "0";
+                } else {
+            
+                output =  "1";
+					}  
+		 // checks if month consists of 30 days (April, June, September, November)
+		} else if (currentMonth == 4 || currentMonth == 6 || currentMonth == 9 || currentMonth == 11) {
+
+			if (currentDate > 30 || currentDate < 1) {
+				output =  "0";
+			} else {
+				output =  "1";
+			}
+		  // checks if month consits of 28 days (Feburary and not leap year)
+		} else if (currentMonth == 2) {
+
+			if (currentDate > 28 || currentDate < 1) {
+				output = "0";
+			} else {
+				output = "1";
+				}
+
+		} else if (currentMonth != 1 || currentMonth != 2 || currentMonth != 3 || currentMonth != 4 || currentMonth != 5 || currentMonth != 6 || currentMonth != 7 || currentMonth != 8 || currentMonth != 9 || currentMonth != 10 || currentMonth != 11 || currentMonth != 12 ) {
+
+			output = "0";
+		}
+	}
+
+		
+		return output;
+}
+
 
 // *** date input format is DD/MM/YY ***
 string Parser::checkParseDate(string date)
 {
-    int start = 0;
-    int keystroke = date.find("/", 0);
-	
-    start = atoi(date.substr(0, keystroke).c_str());
 
-    //exception handling for the date input
-    if (start < 1 || start > 31){		
-		successful =  "0";
-						
-    } else {
-		successful =  "1";		
-			
-	}
+	string output = checkDate(date);
 
-	return successful;
-     
+	return output;
+
 }
-
 string Parser::checkParseMonth(string date) {
 	
 	// 12/12/2014
