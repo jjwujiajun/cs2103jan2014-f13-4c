@@ -286,10 +286,10 @@ namespace GUI {
 			this->helpBox->BackColor = System::Drawing::Color::White;
 			this->helpBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->helpBox->Cursor = System::Windows::Forms::Cursors::IBeam;
-			this->helpBox->Location = System::Drawing::Point(376, 105);
+			this->helpBox->Location = System::Drawing::Point(376, 143);
 			this->helpBox->Name = L"helpBox";
 			this->helpBox->ReadOnly = true;
-			this->helpBox->Size = System::Drawing::Size(293, 467);
+			this->helpBox->Size = System::Drawing::Size(293, 429);
 			this->helpBox->TabIndex = 9;
 			this->helpBox->Text = L"";
 			this->helpBox->Visible = false;
@@ -364,7 +364,7 @@ namespace GUI {
 			this->helpIntro->Location = System::Drawing::Point(376, 41);
 			this->helpIntro->Multiline = true;
 			this->helpIntro->Name = L"helpIntro";
-			this->helpIntro->Size = System::Drawing::Size(278, 84);
+			this->helpIntro->Size = System::Drawing::Size(278, 98);
 			this->helpIntro->TabIndex = 15;
 			this->helpIntro->Text = resources->GetString(L"helpIntro.Text");
 			this->helpIntro->Visible = false;

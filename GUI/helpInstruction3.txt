@@ -1,7 +1,5 @@
 <Help - Update> //add instructions below. This line is not displayed.
-Example: 
+Example:
 • update 2 sd 20141213
-
 Format:
 • update <ID> <field name> <updated info>
-
