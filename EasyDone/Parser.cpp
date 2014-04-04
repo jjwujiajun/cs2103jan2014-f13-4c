@@ -428,13 +428,17 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			// 4) ed -> endDate
 			// 5) et -> endTime
 
-			if (i < (int) storeUserInfo.size()) {
+		if (i < (int) storeUserInfo.size()) {
+			while (i < (int) storeUserInfo.size()) {
+
+
+
 				if(storeUserInfo[i] == sd ) {	
 					startDate += storeUserInfo[i];
 					++i;
 					while(i < (int) storeUserInfo.size()){
 
-					startTime += storeUserInfo[i];
+					startTime += storeUserInfo[i] + " ";
 
 					// Guards
 					verifyDate = checkParseDate(startTime);
@@ -442,11 +446,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					verifyYear = checkParseYear(startTime);
 
 					// push back guard output into vector										
-					startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
+					startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 					++i;
 					}
 					
-				} else if (storeUserInfo[i] == st) {
+				} else if (storeUserInfo[i] == "st") {
 					
 					startDate += storeUserInfo[i];
 					++i;
@@ -469,7 +473,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					++i;
 					while(i < (int) storeUserInfo.size()){
 
-					startTime += storeUserInfo[i];
+					startTime += storeUserInfo[i] + " ";
 
 					// Guards
 					verifyDate = checkParseDate(startTime);
@@ -477,7 +481,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					verifyYear = checkParseYear(startTime);
 
 					// push back guard output into vector										
-					startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
+					startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 					++i;
 					}
 
@@ -486,7 +490,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					++i;
 					while(i < (int) storeUserInfo.size()){
 
-					startTime += storeUserInfo[i];
+					startTime += storeUserInfo[i] + " ";
 
 					// Guards
 					verifyTime = checkParseTime(startTime);
@@ -505,17 +509,19 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						startTime += storeUserInfo[i] + " ";
 					++i;
 				}	
+					startTime = startTime.substr(0, startTime.size()-1);
 
 			} else {
 					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
 				}
 			
-	} else {
-		taskName = "1";
-			}
-			startTime = startTime.substr(0, startTime.size()-1);
+			} 
 
+		} else {
+			taskName = "1";
+		}
+			
 			userInformation.push_back(taskName);
 			userInformation.push_back(startDate);
 			userInformation.push_back(startTime);
@@ -545,31 +551,67 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
         case SEARCH:
             
-		while (i < (int) storeUserInfo.size()) {
-				if(storeUserInfo[i] == "sd" || storeUserInfo[i] == "st" || storeUserInfo[i] == "ed" || storeUserInfo[i] == "et" ) {		
+			if (i < (int) storeUserInfo.size()) {
+				if(storeUserInfo[i] == sd ) {	
 					taskName += storeUserInfo[i];
 					++i;
 					while(i < (int) storeUserInfo.size()){
 
-						startDate += storeUserInfo[i];
+					startDate += storeUserInfo[i] + " ";
+
 					++i;
-				}
+					}
 					
-				} else if (storeUserInfo[i] == "task") {
+				} else if (storeUserInfo[i] == st) {
+					
 					taskName += storeUserInfo[i];
+					++i;
+					while(i < (int) storeUserInfo.size()){
+
+					startDate += storeUserInfo[i] + " ";
+
+					++i;
+					}
+
+				} else if (storeUserInfo[i] == ed) {
+
+					taskName += storeUserInfo[i];
+					++i;
+					while(i < (int) storeUserInfo.size()){
+
+					startDate += storeUserInfo[i] + " ";
+
+					++i;
+					}
+
+				} else if (storeUserInfo[i] == et) {
+					taskName += storeUserInfo[i];
+					++i;
+					while(i < (int) storeUserInfo.size()){
+
+					startDate += storeUserInfo[i] + " ";
+
+					++i;
+					}
+
+				} else if (storeUserInfo[i] == task) {
+					taskName += storeUserInfo[i];
+			
 					++i;
 					while(i<storeUserInfo.size()){
 						startDate += storeUserInfo[i] + " ";
 					++i;
+					
 				}	
 
 			} else {
 					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
-					}
-
-					 
-	}
+				}
+			
+	} else {
+		taskName = "1";
+			}
 
 		startDate = startDate.substr(0, startDate.size()-1);
 
@@ -580,36 +622,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		userInformation.push_back(endTime);
 
 
-
-
-
-
-			/*
-			if(i < (int) storeUserInfo.size()) {
-			userInformation.push_back(storeUserInfo[1]);
-			}
-			*/
-
-
-
-			//stringSize = storeUserInfo[0];
-			//x = stringSize.size() + 1;
-			
-          //  newUserInput = userInput.substr (x, userInput.size());
-			/*
-            while (tEnd != string::npos) {
-                token = newUserInput.substr (tStart, tEnd - tStart);
-                userInformation.push_back (token);
-                cout << "push " << token << endl;
-                tStart = tEnd + 1;
-                tEnd = newUserInput.find_first_of (" ", tStart); // looks from tStart position
-			}
-
-                if (tStart < newUserInput.size()) {
-                    userInformation.push_back (newUserInput.substr (tStart));
-                    cout << "push " << token << endl;
-                }
-				*/
             break;
 
         case CHECK:

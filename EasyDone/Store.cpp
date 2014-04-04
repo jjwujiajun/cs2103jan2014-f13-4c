@@ -191,19 +191,19 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 				found = true;
 			}
 		} else if(searchField == "sd") {
-			if(taskList[Index].taskName == searchItem)
+			if(taskList[Index].startDate.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
 		} else if(searchField == "st") {
-			if(taskList[Index].taskName == searchItem)
+			if(taskList[Index].startTime.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
 		} else if(searchField == "ed") {
-			if(taskList[Index].taskName == searchItem)
+			if(taskList[Index].endDate.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
 		} else if(searchField == "et") {
-			if(taskList[Index].taskName == searchItem)
+			if(taskList[Index].endTime.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
 		}
@@ -217,7 +217,7 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 void Store::dueToday() {
 	log.log("Store: changing due status");
 	for(int i = 0; i < (int) taskList.size(); i++) {
-		if(taskList[i].startDate == "20140403") {
+		if(taskList[i].startDate == "20140404") {
 			taskList[i].isBold = true;
 		}
 		else {
