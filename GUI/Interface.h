@@ -8,10 +8,11 @@ const Color TAB_SELECTED_COLOUR() {return Color::Silver;}
 const Color TAB_NOT_SELECTED_COLOUR() {return Color::WhiteSmoke;}
 const Color HELP_COLOR_HEADING() {return Color::CornflowerBlue;}
 const Color HELP_COLOR_INSTRUCTION() {return Color::Black;}
-const Color TASKLIST_COLOR_TASKINFO() {return Color::Black;}
-const Color TASKLIST_COLOR_HEADING() {return Color::CornflowerBlue;}
+//const Color TASKLIST_COLOR_TASKINFO() {return Color::Black;}
+//const Color TASKLIST_COLOR_HEADING() {return Color::CornflowerBlue;}
 const FontStyle HELP_FONTSTYLE_HEADING() {return FontStyle::Bold;}
 const FontStyle HELP_FONTSTYLE_INSTRUCTION() {return FontStyle::Regular;}
+const FontStyle TASKLIST_FONTSTYLE_INDEX() {return FontStyle::Regular;}
 
 namespace GUI {
 
@@ -28,8 +29,10 @@ namespace GUI {
 	public ref class Interface : public System::Windows::Forms::Form
 	{
 	private:
+		literal String ^TITLE_ALLTASKS = "All Tasks";
+		literal String ^TITLE_SUMMARY = "At a glance...";
 		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
-		literal String ^TASKLIST_HEADING_ALL = "All Tasks \n";
+		literal String ^TASKLIST_HEADING_TOMORROW = "Tomorrow \n";
 		literal String ^BUTTON_HIDE = "Hide";
 		literal String ^BUTTON_SHOW = "Show";
 		literal String ^BUTTON_THEME_SELECTED = "Yay :)";
@@ -43,10 +46,19 @@ namespace GUI {
 		literal String ^TASKLIST_FORMATTING_INDEX = "  ";
 
 		int numRowsToDisplay;
+		bool summaryTaskListIsShown;
 		bool windowIsExtended;
 		bool helpIsShown;
 		bool settingIsShown;
+		bool feedbackIsVisible;
+		bool helpTabIsVisible;
+		bool settingsTabIsVisible;
+		String ^titleName;
 		Color indexColor;
+		Color taskListHeadingsColor;
+		Color taskListInfoColor;
+		Color radioDotSelected;
+		Color radrioDotNotSelected;
 		array<Theme^> ^theme;
 		Manager *manager;
 		Log *log;
@@ -54,18 +66,25 @@ namespace GUI {
 		// input functions
 		void receiveUserInput();
 
+		// window level display funcitons
+		void extendWindow();
+		void retractWindow();
+		void toggleHelpSection();
+		void toggleSettingSection();
+
 		// display functions
-		void displayTasksListBox();
+		void displayTasksListBoxUsingList(const vector<Task>&);
+		void displaySummaryTaskListBox();
 		void displayFeedbackBox();
 		void displayInputField();
 		void getHelpBoxDisplay();
 
 		// taskList display functions
 		void displayTodayLabel();
-		void displayAllTaskLabel();
-		void displayTask(const Task&);
+		void displayTomorrowLabel();
+		void displayTask(const Task&, const bool&);
 		void displayTaskIndex(const Task&);
-		void displayTaskInformation(const Task&);
+		void displayTaskInformation(const Task&, const bool&);
 
 		// string conversion functions
 		void convertSysToStdString(String ^, string &);
@@ -75,11 +94,14 @@ namespace GUI {
 		Interface(void);
 		~Interface(void);
 
-		void operateUserRequest();
-		void extendWindow();
-		void retractWindow();
-		void toggleHelpSection();
-		void toggleSettingSection();
+		void operateUserRequest(const bool& isSearchCommand);
+		void switchTaskListDisplay();
+
+		// window opening functions
+		void activateHelpPage();
+		void activateSettingsPage();
+
+		// setting selection functions
 		void toggleFeedback();
 		void toggleHelpTab();
 		void toggleSettingsTab();
@@ -94,6 +116,8 @@ namespace GUI {
 	private: System::Windows::Forms::RichTextBox^  richTaskList;
 	private: System::Windows::Forms::TextBox^  feedbackBox;
 	private: System::Windows::Forms::TextBox^  inputField;
+	private: System::Windows::Forms::RichTextBox^  radioDotAll;
+	private: System::Windows::Forms::RichTextBox^  radioDotSummary;
 		// taskList Labels
 	private: System::Windows::Forms::Label^  IDLabel;
 	private: System::Windows::Forms::Label^  dateLabel;
@@ -118,8 +142,10 @@ namespace GUI {
 	private: System::Windows::Forms::Label^  themeSettingLabel;
 	private: System::Windows::Forms::Label^  whiteThemeLabel;
 	private: System::Windows::Forms::Label^  blueThemeLabel;
+	private: System::Windows::Forms::Label^  metalThemeLabel;
 	private: System::Windows::Forms::Button^  whiteThemeButton;
 	private: System::Windows::Forms::Button^  blueThemeButton;
+	private: System::Windows::Forms::Button^  metalThemeButton;
 
 	private:
 		/// <summary>
@@ -134,6 +160,7 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Interface::typeid));
 			this->inputField = (gcnew System::Windows::Forms::TextBox());
 			this->feedbackBox = (gcnew System::Windows::Forms::TextBox());
 			this->title = (gcnew System::Windows::Forms::Label());
@@ -160,6 +187,10 @@ namespace GUI {
 			this->blueThemeLabel = (gcnew System::Windows::Forms::Label());
 			this->whiteThemeButton = (gcnew System::Windows::Forms::Button());
 			this->blueThemeButton = (gcnew System::Windows::Forms::Button());
+			this->metalThemeLabel = (gcnew System::Windows::Forms::Label());
+			this->metalThemeButton = (gcnew System::Windows::Forms::Button());
+			this->radioDotAll = (gcnew System::Windows::Forms::RichTextBox());
+			this->radioDotSummary = (gcnew System::Windows::Forms::RichTextBox());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -192,11 +223,11 @@ namespace GUI {
 			this->title->Font = (gcnew System::Drawing::Font(L"Buxton Sketch", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->title->ForeColor = System::Drawing::Color::CornflowerBlue;
-			this->title->Location = System::Drawing::Point(134, 7);
+			this->title->Location = System::Drawing::Point(116, 3);
 			this->title->Name = L"title";
-			this->title->Size = System::Drawing::Size(129, 39);
+			this->title->Size = System::Drawing::Size(158, 39);
 			this->title->TabIndex = 3;
-			this->title->Text = L"EasyDone";
+			this->title->Text = L"At a glance...";
 			this->title->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// richTaskList
@@ -259,10 +290,10 @@ namespace GUI {
 			this->helpBox->BackColor = System::Drawing::Color::White;
 			this->helpBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->helpBox->Cursor = System::Windows::Forms::Cursors::IBeam;
-			this->helpBox->Location = System::Drawing::Point(376, 105);
+			this->helpBox->Location = System::Drawing::Point(376, 143);
 			this->helpBox->Name = L"helpBox";
 			this->helpBox->ReadOnly = true;
-			this->helpBox->Size = System::Drawing::Size(293, 467);
+			this->helpBox->Size = System::Drawing::Size(293, 429);
 			this->helpBox->TabIndex = 9;
 			this->helpBox->Text = L"";
 			this->helpBox->Visible = false;
@@ -299,7 +330,7 @@ namespace GUI {
 			this->feedbackSetting->Name = L"feedbackSetting";
 			this->feedbackSetting->Size = System::Drawing::Size(104, 20);
 			this->feedbackSetting->TabIndex = 12;
-			this->feedbackSetting->Text = L"Feedback Box";
+			this->feedbackSetting->Text = L"Feedback Box [F7]";
 			this->feedbackSetting->Visible = false;
 			// 
 			// feedbackButton
@@ -337,11 +368,9 @@ namespace GUI {
 			this->helpIntro->Location = System::Drawing::Point(376, 41);
 			this->helpIntro->Multiline = true;
 			this->helpIntro->Name = L"helpIntro";
-			this->helpIntro->Size = System::Drawing::Size(278, 84);
+			this->helpIntro->Size = System::Drawing::Size(278, 98);
 			this->helpIntro->TabIndex = 15;
-			this->helpIntro->Text = L"Here are some information to help you get started. Follow the examples below to t" 
-				L"ry out the various command. Have fun~! :) The task ID is displayed to the left o" 
-				L"f your tasks.";
+			this->helpIntro->Text = resources->GetString(L"helpIntro.Text");
 			this->helpIntro->Visible = false;
 			// 
 			// helpTab
@@ -380,7 +409,7 @@ namespace GUI {
 			this->helpTabSetting->Name = L"helpTabSetting";
 			this->helpTabSetting->Size = System::Drawing::Size(74, 21);
 			this->helpTabSetting->TabIndex = 18;
-			this->helpTabSetting->Text = L"Help Tab";
+			this->helpTabSetting->Text = L"Help Tab [F8]";
 			this->helpTabSetting->Visible = false;
 			// 
 			// settingTabSetting
@@ -393,7 +422,7 @@ namespace GUI {
 			this->settingTabSetting->Name = L"settingTabSetting";
 			this->settingTabSetting->Size = System::Drawing::Size(99, 21);
 			this->settingTabSetting->TabIndex = 19;
-			this->settingTabSetting->Text = L"Settings Tab";
+			this->settingTabSetting->Text = L"Settings Tab [F9]";
 			this->settingTabSetting->Visible = false;
 			// 
 			// helpTabSettingButton
@@ -444,7 +473,7 @@ namespace GUI {
 			this->whiteThemeLabel->Name = L"whiteThemeLabel";
 			this->whiteThemeLabel->Size = System::Drawing::Size(44, 17);
 			this->whiteThemeLabel->TabIndex = 23;
-			this->whiteThemeLabel->Text = L"White";
+			this->whiteThemeLabel->Text = L"White [F10]";
 			this->whiteThemeLabel->Visible = false;
 			// 
 			// blueThemeLabel
@@ -456,7 +485,7 @@ namespace GUI {
 			this->blueThemeLabel->Name = L"blueThemeLabel";
 			this->blueThemeLabel->Size = System::Drawing::Size(34, 17);
 			this->blueThemeLabel->TabIndex = 24;
-			this->blueThemeLabel->Text = L"Blue";
+			this->blueThemeLabel->Text = L"Blue [F11]";
 			this->blueThemeLabel->Visible = false;
 			// 
 			// whiteThemeButton
@@ -487,6 +516,58 @@ namespace GUI {
 			this->blueThemeButton->Visible = false;
 			this->blueThemeButton->Click += gcnew System::EventHandler(this, &Interface::blueThemeClicked);
 			// 
+			// metalThemeLabel
+			// 
+			this->metalThemeLabel->AutoSize = true;
+			this->metalThemeLabel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->metalThemeLabel->Location = System::Drawing::Point(422, 383);
+			this->metalThemeLabel->Name = L"metalThemeLabel";
+			this->metalThemeLabel->Size = System::Drawing::Size(74, 17);
+			this->metalThemeLabel->TabIndex = 23;
+			this->metalThemeLabel->Text = L"Metal Gray [F12]";
+			this->metalThemeLabel->Visible = false;
+			// 
+			// metalThemeButton
+			// 
+			this->metalThemeButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->metalThemeButton->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->metalThemeButton->Location = System::Drawing::Point(531, 383);
+			this->metalThemeButton->Name = L"metalThemeButton";
+			this->metalThemeButton->Size = System::Drawing::Size(99, 23);
+			this->metalThemeButton->TabIndex = 26;
+			this->metalThemeButton->Text = L"Choose me!";
+			this->metalThemeButton->UseVisualStyleBackColor = true;
+			this->metalThemeButton->Visible = false;
+			this->metalThemeButton->Click += gcnew System::EventHandler(this, &Interface::metalThemeClicked);
+			// 
+			// radioDotAll
+			// 
+			this->radioDotAll->BackColor = System::Drawing::Color::White;
+			this->radioDotAll->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->radioDotAll->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->radioDotAll->Location = System::Drawing::Point(180, 433);
+			this->radioDotAll->Name = L"radioDotAll";
+			this->radioDotAll->ReadOnly = true;
+			this->radioDotAll->Size = System::Drawing::Size(10, 15);
+			this->radioDotAll->TabIndex = 28;
+			this->radioDotAll->Text = L"•";
+			// 
+			// radioDotSummary
+			// 
+			this->radioDotSummary->BackColor = System::Drawing::Color::White;
+			this->radioDotSummary->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->radioDotSummary->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->radioDotSummary->Location = System::Drawing::Point(165, 433);
+			this->radioDotSummary->Name = L"radioDotSummary";
+			this->radioDotSummary->ReadOnly = true;
+			this->radioDotSummary->Size = System::Drawing::Size(10, 15);
+			this->radioDotSummary->TabIndex = 29;
+			this->radioDotSummary->Text = L"•";
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -494,6 +575,10 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->radioDotSummary);
+			this->Controls->Add(this->radioDotAll);
+			this->Controls->Add(this->metalThemeButton);
+			this->Controls->Add(this->metalThemeLabel);
 			this->Controls->Add(this->blueThemeButton);
 			this->Controls->Add(this->whiteThemeButton);
 			this->Controls->Add(this->blueThemeLabel);
@@ -533,39 +618,39 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-				 if (inputField->Text == "live search") {
-					 feedbackBox->Text = "live search!";
-				 }
-
-				 if (keyPressed->KeyCode == Keys::F4) {
-					 Application::Exit();
-				 }
-
-				 if (keyPressed->KeyCode == Keys::F2) {
-				 log->log("User: F2 is pressed, toggleSettingSection()");
-				 if (windowIsExtended) {
-					 if (helpIsShown) toggleHelpSection();
-					 else retractWindow();
-				 }
-				 else extendWindow();
-
-				 toggleSettingSection();
-				 }
-
 				 if (keyPressed->KeyCode == Keys::F1) {
-				 log->log("User: F1 is pressed, toggleHelpSetion()");
-				 if (windowIsExtended) {
-					 if (helpIsShown) retractWindow();
-				 	 else toggleSettingSection();
-				 } 
-				 else extendWindow();
+					 activateHelpPage();
+				 } else if (keyPressed->KeyCode == Keys::F2) {
+					 activateSettingsPage();
+				 } else if (keyPressed->KeyCode == Keys::F6) {
+					 switchTaskListDisplay();
+				 } else if (keyPressed->KeyCode == Keys::F7) {
+					 toggleFeedback();
+				 } else if (keyPressed->KeyCode == Keys::F8) {
+					 toggleHelpTab();
+				 } else if (keyPressed->KeyCode == Keys::F9) {
+					 toggleSettingsTab();
+				 } else if (keyPressed->KeyCode == Keys::F10) {
+					 selectTheme(WHITE);
+				 } else if (keyPressed->KeyCode == Keys::F11) {
+					 selectTheme(BLUE);
+				 } else if (keyPressed->KeyCode == Keys::F12) {
+					 selectTheme(METAL);
+				 } else if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
+					 bool isSearchCommand = inputField->Text->Contains("search");
 
-				 toggleHelpSection();
-				 }
-
-				 if (keyPressed->KeyCode == Keys::Enter) {
 					 log->log("User: Enter is pressed, operateUserRequest()");
-					 operateUserRequest();
+					 operateUserRequest(isSearchCommand);
+				 } else {
+					 if (summaryTaskListIsShown) {
+						 displaySummaryTaskListBox();
+					 } else {
+						 displayTasksListBoxUsingList(manager->getAllTaskList());
+					 }
+					 String ^convertedFeedback;
+					 string feedback = manager->getFeedback();
+					 convertStdToSysString(feedback, convertedFeedback);
+					 feedbackBox->Text = convertedFeedback;
 				 }
 			 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
@@ -588,6 +673,9 @@ private: System::Void whiteThemeClicked(System::Object^  sender, System::EventAr
 		 }
 private: System::Void blueThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
 			 selectTheme(BLUE);
+		 }
+private: System::Void metalThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
+			 selectTheme(METAL);
 		 }
 };
 }

@@ -3,3 +3,4 @@ delete
 update
 read
 undo
+search
