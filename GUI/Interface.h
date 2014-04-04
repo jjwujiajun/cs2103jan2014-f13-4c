@@ -647,6 +647,10 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 					 } else {
 						 displayTasksListBoxUsingList(manager->getAllTaskList());
 					 }
+					 String ^convertedFeedback;
+					 string feedback = manager->getFeedback();
+					 convertStdToSysString(feedback, convertedFeedback);
+					 feedbackBox->Text = convertedFeedback;
 				 }
 			 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
