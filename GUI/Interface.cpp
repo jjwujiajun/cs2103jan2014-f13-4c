@@ -253,6 +253,8 @@ void GUI::Interface::selectTheme(themeColor color) {
 	this->richTaskList->BackColor = theme[color]->background;
 	this->helpTitle->BackColor = theme[color]->background;
 	this->helpTitle->ForeColor = theme[color]->label;
+	this->helpIntro->BackColor = theme[color]->background;
+	this->helpBox->BackColor = theme[color]->background;
 	this->settingsTitle->BackColor = theme[color]->background;
 	this->settingsTitle->ForeColor = theme[color]->label;
 	this->feedbackSetting->ForeColor = theme[color]->label;
@@ -293,6 +295,29 @@ void GUI::Interface::selectTheme(themeColor color) {
 	} else {
 		displayTasksListBoxUsingList(manager->getAllTaskList());
 	}
+}
+
+// window level display function
+void GUI::Interface::activateHelpPage() {
+	log->log("User: F1 is pressed, toggleHelpSetion()");
+	if (windowIsExtended) {
+		if (helpIsShown) retractWindow();
+		else toggleSettingSection();
+	} 
+	else extendWindow();
+
+	toggleHelpSection();
+}
+
+void GUI::Interface::activateSettingsPage() {
+	log->log("User: F2 is pressed, toggleSettingSection()");
+	if (windowIsExtended) {
+		if (helpIsShown) toggleHelpSection();
+		else retractWindow();
+	}
+	else extendWindow();
+
+	toggleSettingSection();
 }
 
 // display functions
