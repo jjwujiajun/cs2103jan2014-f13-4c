@@ -145,7 +145,7 @@ void Command::sort() {
 		if(countNum>0) {
 			for(int i = counter; i <= sameDate; i++) {
 				next = todoList.accessSlot(i);
-				if(!next.startDate.empty()) {
+				if(!next.startTime.empty()) {
 					Time = stoi(next.startTime);
 				} else {
 					Time = 0;
