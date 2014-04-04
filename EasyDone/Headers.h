@@ -9,6 +9,8 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
+#include <ctime>
+#include <time.h>
 #include <cctype>
 #include <iterator>
 #include "Log.h"
