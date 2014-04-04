@@ -18,6 +18,7 @@ public:
 	bool isBold;
 	int isRed;
 	bool isDone;
+	bool isTomorrow;
 };
 
 #endif

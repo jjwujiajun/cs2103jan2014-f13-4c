@@ -20,6 +20,9 @@ class Store {
 		vector<Task> taskList;
 		vector<Task> searchTask;
 		vector< vector<Task> > undoList;
+		string currentDay();
+		string currentMonth();
+		string currentYear();
 
 		Log log;
 	
@@ -34,6 +37,11 @@ class Store {
 		string getStartTime(int slotNumber);
 		string getEndDate(int slotNumber);
 		string getEndTime(int slotNumber);
+		string getDay(int slotNumber);
+		string getMonth(int slotNumber);
+		string getYear(int slotNumber);
+
+
 		int getSize();
 		Task accessSlot(int slot); 
 		string getTaskID(int slotNumber);
@@ -52,6 +60,7 @@ class Store {
 		bool SearchItem(int Index, string searchField, string searchItem);
 		//int findSlot(string taskIndex);
 		void dueToday();
+		void dueTomorrow();
 		vector<Task> getTaskList();
 		vector<Task> getSearchedList();
 		bool stackToList();

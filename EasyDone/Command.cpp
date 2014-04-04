@@ -173,3 +173,42 @@ void Command::sort() {
 	log.log("Command: List sorted");
 	
 }
+
+vector<Task> Command::getTodayTask() {
+	
+	int i;
+	todoList.dueToday();
+	vector<Task> tasksReturned;
+
+	for( i = 0; i < todoList.getSize(); i++)
+	{
+		Task task = todoList.getTask(i);
+		
+		if(task.isBold = true)
+		{
+			tasksReturned.push_back(task);
+		}
+
+	}
+
+	return tasksReturned;
+}
+
+vector<Task> Command::getTomorrowTask() {
+	
+	int i;
+	todoList.dueTomorrow();
+	vector<Task> tasksReturned;
+
+	for( i = 0 ; todoList.getSize(); i++) {
+
+		Task task = todoList.getTask(i);
+
+		if(task.isTomorrow == true)
+		{
+			tasksReturned.push_back(task);
+		}
+	}
+
+	return tasksReturned;
+}

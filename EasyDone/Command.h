@@ -27,6 +27,8 @@ public:
 	void undo();
 	void sort();
 	vector<Task> getSearchedList();
+	vector<Task> getTodayTask();
+	vector<Task> getTomorrowTask();
 };
 
 #endif
