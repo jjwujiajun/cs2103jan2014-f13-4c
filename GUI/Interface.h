@@ -66,6 +66,12 @@ namespace GUI {
 		// input functions
 		void receiveUserInput();
 
+		// window level display funcitons
+		void extendWindow();
+		void retractWindow();
+		void toggleHelpSection();
+		void toggleSettingSection();
+
 		// display functions
 		void displayTasksListBoxUsingList(const vector<Task>&);
 		void displaySummaryTaskListBox();
@@ -92,10 +98,8 @@ namespace GUI {
 		void switchTaskListDisplay();
 
 		// window opening functions
-		void extendWindow();
-		void retractWindow();
-		void toggleHelpSection();
-		void toggleSettingSection();
+		void activateHelpPage();
+		void activateSettingsPage();
 
 		// setting selection functions
 		void toggleFeedback();
@@ -326,7 +330,7 @@ namespace GUI {
 			this->feedbackSetting->Name = L"feedbackSetting";
 			this->feedbackSetting->Size = System::Drawing::Size(104, 20);
 			this->feedbackSetting->TabIndex = 12;
-			this->feedbackSetting->Text = L"Feedback Box";
+			this->feedbackSetting->Text = L"Feedback Box [F7]";
 			this->feedbackSetting->Visible = false;
 			// 
 			// feedbackButton
@@ -405,7 +409,7 @@ namespace GUI {
 			this->helpTabSetting->Name = L"helpTabSetting";
 			this->helpTabSetting->Size = System::Drawing::Size(74, 21);
 			this->helpTabSetting->TabIndex = 18;
-			this->helpTabSetting->Text = L"Help Tab";
+			this->helpTabSetting->Text = L"Help Tab [F8]";
 			this->helpTabSetting->Visible = false;
 			// 
 			// settingTabSetting
@@ -418,7 +422,7 @@ namespace GUI {
 			this->settingTabSetting->Name = L"settingTabSetting";
 			this->settingTabSetting->Size = System::Drawing::Size(99, 21);
 			this->settingTabSetting->TabIndex = 19;
-			this->settingTabSetting->Text = L"Settings Tab";
+			this->settingTabSetting->Text = L"Settings Tab [F9]";
 			this->settingTabSetting->Visible = false;
 			// 
 			// helpTabSettingButton
@@ -469,7 +473,7 @@ namespace GUI {
 			this->whiteThemeLabel->Name = L"whiteThemeLabel";
 			this->whiteThemeLabel->Size = System::Drawing::Size(44, 17);
 			this->whiteThemeLabel->TabIndex = 23;
-			this->whiteThemeLabel->Text = L"White";
+			this->whiteThemeLabel->Text = L"White [F10]";
 			this->whiteThemeLabel->Visible = false;
 			// 
 			// blueThemeLabel
@@ -481,7 +485,7 @@ namespace GUI {
 			this->blueThemeLabel->Name = L"blueThemeLabel";
 			this->blueThemeLabel->Size = System::Drawing::Size(34, 17);
 			this->blueThemeLabel->TabIndex = 24;
-			this->blueThemeLabel->Text = L"Blue";
+			this->blueThemeLabel->Text = L"Blue [F11]";
 			this->blueThemeLabel->Visible = false;
 			// 
 			// whiteThemeButton
@@ -521,7 +525,7 @@ namespace GUI {
 			this->metalThemeLabel->Name = L"metalThemeLabel";
 			this->metalThemeLabel->Size = System::Drawing::Size(74, 17);
 			this->metalThemeLabel->TabIndex = 23;
-			this->metalThemeLabel->Text = L"Metal Gray";
+			this->metalThemeLabel->Text = L"Metal Gray [F12]";
 			this->metalThemeLabel->Visible = false;
 			// 
 			// metalThemeButton
@@ -614,28 +618,24 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-				 if (inputField->Text == "testmetal") {
-					 feedbackBox->Text = "metal!";
-					 selectTheme(METAL);
+				 if (keyPressed->KeyCode == Keys::F1) {
+					 activateHelpPage();
+				 } else if (keyPressed->KeyCode == Keys::F2) {
+					 activateSettingsPage();
 				 } else if (keyPressed->KeyCode == Keys::F6) {
 					 switchTaskListDisplay();
-				 } else if (keyPressed->KeyCode == Keys::F2) {
-					 log->log("User: F2 is pressed, toggleSettingSection()");
-					 if (windowIsExtended) {
-						 if (helpIsShown) toggleHelpSection();
-						 else retractWindow();
-					 }
-					 else extendWindow();
-
-					 toggleSettingSection();
-				 } else if (keyPressed->KeyCode == Keys::F1) {
-					 log->log("User: F1 is pressed, toggleHelpSetion()");
-					 if (windowIsExtended) {
-						 if (helpIsShown) retractWindow();
-				 		 else toggleSettingSection();
-					 } 
-					 else extendWindow();
-					 toggleHelpSection();
+				 } else if (keyPressed->KeyCode == Keys::F7) {
+					 toggleFeedback();
+				 } else if (keyPressed->KeyCode == Keys::F8) {
+					 toggleHelpTab();
+				 } else if (keyPressed->KeyCode == Keys::F9) {
+					 toggleSettingsTab();
+				 } else if (keyPressed->KeyCode == Keys::F10) {
+					 selectTheme(WHITE);
+				 } else if (keyPressed->KeyCode == Keys::F11) {
+					 selectTheme(BLUE);
+				 } else if (keyPressed->KeyCode == Keys::F12) {
+					 selectTheme(METAL);
 				 } else if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
 					 bool isSearchCommand = inputField->Text->Contains("search");
 
