@@ -1,0 +1,5 @@
+<Help - Search> //add instructions below. This line is not displayed.
+Example:
+• search task party
+Format:
+• search <field name> <query>

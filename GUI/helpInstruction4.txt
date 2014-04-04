@@ -1,6 +1,2 @@
 <Help - Read> //add instructions below. This line is not displayed.
-Example:
-• read 1
-
-Format:
-• display <ID>
+Example: • read 1           Format:• display <ID>
