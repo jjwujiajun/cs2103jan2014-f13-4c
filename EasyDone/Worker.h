@@ -15,7 +15,7 @@ class Worker {
 	string command;
 	string updateField;
 
-	void convertTaskDataToDisplayFormat(vector<Task> &);
+	void convertTaskDataToDisplayFormat(vector<Task> &); //, const bool& isExpanded);
 	 
 	
 

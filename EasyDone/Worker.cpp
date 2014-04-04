@@ -160,17 +160,19 @@ vector<Task> Worker::getSearchedList() {
 	return displayedTaskList;
 }
 
-void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
+void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const bool& isExpanded) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
 		string taskName = taskList[i].taskName;
 
-		//limit taskName length for display
-		if (taskName.size() > TASKLIST_NAME_LENGTH) {
-			taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
-			taskName += "...";
-			taskList[i].taskName = taskName;
-		}
+		//if (!isExpanded) {
+			//limit taskName length for display
+			if (taskName.size() > TASKLIST_NAME_LENGTH) {
+				taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
+				taskName += "...";
+				taskList[i].taskName = taskName;
+			}
+		//}
 
 		// 4 digit index display
 		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
@@ -181,6 +183,10 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) {
 		// Worded date/time display
 		taskList[i].startDate = formatDate(taskList[i].startDate);
 		taskList[i].startTime = formatTime(taskList[i].startTime);
+		//if (isExpanded) {
+			taskList[i].endDate = formatDate(taskList[i].endDate);
+			taskList[i].endTime = formatTime(taskList[i].endTime);
+		//}
 	}
 }
 
