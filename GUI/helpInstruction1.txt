@@ -4,6 +4,7 @@ Examples:
 • new Birthday party on 12/12/14 12.00
 Format:
 • add <task> on <sd> <st>
+• add <task> by <ed> <et>
 • add <task> from <sd> <st> to <ed> <et>
 
 Explaination:
