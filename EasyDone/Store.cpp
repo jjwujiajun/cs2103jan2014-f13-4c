@@ -403,20 +403,20 @@ void Store::dueToday() {
 
 	for(int i = 0; i <  taskList.size(); i++) {
 
-		/*if(getDay(i) == todayDay && getMonth(i) == todayMonth && getYear(i) == todayYear) {
+		if(getDay(i) == todayDay && getMonth(i) == todayMonth && getYear(i) == todayYear) {
 			taskList[i].isBold = true;
 		}
 		else {
 			taskList[i].isBold = false;
-		}*/
+		}
 
-		if(taskList[i].startDate == "20140405")
+		/*if(taskList[i].startDate == "20140405")
 		{
 			taskList[i].isBold = true;
 		}
 
 		else 
-			taskList[i].isBold = false;
+			taskList[i].isBold = false;*/
 
 	}
 }
