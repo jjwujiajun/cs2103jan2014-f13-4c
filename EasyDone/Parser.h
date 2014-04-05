@@ -41,6 +41,9 @@ public:
 
 	Choice userCommand(vector<string> storeUserInfo);
 
+	 // guard for keywords
+	 string checkKeyWord (string word);
+
 	// getter functions to get date, month, year
 	int getDate(string date);
 	int getMonth(string date);
