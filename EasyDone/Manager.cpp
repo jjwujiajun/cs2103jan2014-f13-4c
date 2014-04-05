@@ -33,29 +33,12 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
-vector<Task> Manager::getAllTaskList() {
+vector<Task> Manager::getTaskList() {
 	log.log("Manager: getTaskList from worker");
 	GUITaskList = worker.getTaskList();
 
 	log.endLog();
 	return GUITaskList;
-}
-
-vector<Task> Manager::getDueTaskList() {
-	vector<Task> temp;
-	return temp;
-}
-vector<Task> Manager::getTodayTaskList() {
-	vector<Task> temp;
-	return temp;
-}
-vector<Task> Manager::getTomorrowTaskList() {
-	vector<Task> temp;
-	return temp;
-}
-
-vector<Task> Manager::getSearchedList() {
-	return worker.getSearchedList();
 }
 
 string Manager::getFeedback() {
@@ -93,7 +76,8 @@ void Manager::init() {
 	GUIfeedbackBox += FEEDBACK_PROMPT_OTHERS;
 
 	log.log("Manager: Format GUIInputField to be displayed in GUI");
-	GUIInputField = NULL_STRING;
+	//GUIInputField = NULL_STRING;
+	GUIInputField = "";
 
 	log.endLog();
 	
@@ -136,29 +120,4 @@ void Manager::loadHelpPage() {
 		log.log("Manager: Close file");
 		file.close();
 	}
-}
-
-themeColor Manager::getPresetTheme(){
-	return fileHandler.getPresetTheme();
-}
-
-void Manager::getPresetSettingFor(bool &feedback, bool &helpTab, bool &settingsTab) {
-	feedback = fileHandler.getPresetSetting(FILE_SETTING_FEEDBACK);
-	helpTab = fileHandler.getPresetSetting(FILE_SETTING_HELPTAB);
-	settingsTab = fileHandler.getPresetSetting(FILE_SETTING_SETTINGSTAB);
-}
-
-void Manager::saveTheme(themeColor theme) {
-	fileHandler.saveTheme(theme);
-}
-
-void Manager::saveFeedbackBoxSetting(bool isOn) {
-	fileHandler.saveSettingForFile(isOn, FILE_SETTING_FEEDBACK);
-}
-
-void Manager::saveHelpTabSetting(bool isOn) {
-	fileHandler.saveSettingForFile(isOn, FILE_SETTING_HELPTAB);
-}
-void Manager::saveSettingTabSetting(bool isOn) {
-	fileHandler.saveSettingForFile(isOn, FILE_SETTING_SETTINGSTAB);
 }
