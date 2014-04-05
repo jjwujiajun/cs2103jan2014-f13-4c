@@ -29,6 +29,7 @@ namespace GUI {
 	public ref class Interface : public System::Windows::Forms::Form
 	{
 	private:
+		// ***MAGIC STRINGS***
 		literal String ^TITLE_ALLTASKS = "All Tasks";
 		literal String ^TITLE_SUMMARY = "At a glance...";
 		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
@@ -45,7 +46,13 @@ namespace GUI {
 		literal String ^TABL = "\t";
 		literal String ^TASKLIST_FORMATTING_INDEX = "  ";
 
-		int numRowsToDisplay;
+		// ***ATTRIBUTES***
+		// Interface's esternal libraries
+		Manager *manager;
+		Log *log;
+		array<Theme^> ^theme;
+
+		// state of the window's attributes
 		bool summaryTaskListIsShown;
 		bool windowIsExtended;
 		bool helpIsShown;
@@ -53,33 +60,30 @@ namespace GUI {
 		bool feedbackIsVisible;
 		bool helpTabIsVisible;
 		bool settingsTabIsVisible;
+		themeColor color;
+		
+		// variable display values in interface.
 		String ^titleName;
-		Color indexColor;
-		Color taskListHeadingsColor;
-		Color taskListInfoColor;
-		Color radioDotSelected;
-		Color radrioDotNotSelected;
-		array<Theme^> ^theme;
-		Manager *manager;
-		Log *log;
+		int numRowsToDisplay;
 
+		// ***FUNCTIONS***
 		// input functions
-		void receiveUserInput();
-
-		// window level display funcitons
+		void receiveUserInput(); // sub-function of public: operateUserRequest()
+		
+		// display funcitons - window's aspect
 		void extendWindow();
 		void retractWindow();
 		void toggleHelpSection();
 		void toggleSettingSection();
 
-		// display functions
+		// display functions - content aspect
 		void displayTasksListBoxUsingList(const vector<Task>&);
 		void displaySummaryTaskListBox();
 		void displayFeedbackBox();
 		void displayInputField();
 		void getHelpBoxDisplay();
 
-		// taskList display functions
+		// display functions - content aspect (taskList specific)
 		void displayTodayLabel();
 		void displayTomorrowLabel();
 		void displayTask(const Task&, const bool&);
@@ -94,14 +98,17 @@ namespace GUI {
 		Interface(void);
 		~Interface(void);
 
+		// userInput function
 		void operateUserRequest(const bool& isSearchCommand);
+		
+		// pane switching function
 		void switchTaskListDisplay();
 
-		// window opening functions
+		// windowSize changing functions
 		void activateHelpPage();
 		void activateSettingsPage();
 
-		// setting selection functions
+		// settings functions
 		void toggleFeedback();
 		void toggleHelpTab();
 		void toggleSettingsTab();
@@ -330,7 +337,7 @@ namespace GUI {
 			this->feedbackSetting->Name = L"feedbackSetting";
 			this->feedbackSetting->Size = System::Drawing::Size(104, 20);
 			this->feedbackSetting->TabIndex = 12;
-			this->feedbackSetting->Text = L"Feedback Box [F7]";
+			this->feedbackSetting->Text = L"Feedback Box [F9]";
 			this->feedbackSetting->Visible = false;
 			// 
 			// feedbackButton
@@ -409,7 +416,7 @@ namespace GUI {
 			this->helpTabSetting->Name = L"helpTabSetting";
 			this->helpTabSetting->Size = System::Drawing::Size(74, 21);
 			this->helpTabSetting->TabIndex = 18;
-			this->helpTabSetting->Text = L"Help Tab [F8]";
+			this->helpTabSetting->Text = L"Help Tab [F10]";
 			this->helpTabSetting->Visible = false;
 			// 
 			// settingTabSetting
@@ -422,7 +429,7 @@ namespace GUI {
 			this->settingTabSetting->Name = L"settingTabSetting";
 			this->settingTabSetting->Size = System::Drawing::Size(99, 21);
 			this->settingTabSetting->TabIndex = 19;
-			this->settingTabSetting->Text = L"Settings Tab [F9]";
+			this->settingTabSetting->Text = L"Settings Tab [F11]";
 			this->settingTabSetting->Visible = false;
 			// 
 			// helpTabSettingButton
@@ -461,7 +468,7 @@ namespace GUI {
 			this->themeSettingLabel->Name = L"themeSettingLabel";
 			this->themeSettingLabel->Size = System::Drawing::Size(60, 21);
 			this->themeSettingLabel->TabIndex = 22;
-			this->themeSettingLabel->Text = L"Theme";
+			this->themeSettingLabel->Text = L"Theme [F12]";
 			this->themeSettingLabel->Visible = false;
 			// 
 			// whiteThemeLabel
@@ -473,7 +480,7 @@ namespace GUI {
 			this->whiteThemeLabel->Name = L"whiteThemeLabel";
 			this->whiteThemeLabel->Size = System::Drawing::Size(44, 17);
 			this->whiteThemeLabel->TabIndex = 23;
-			this->whiteThemeLabel->Text = L"White [F10]";
+			this->whiteThemeLabel->Text = L"White";
 			this->whiteThemeLabel->Visible = false;
 			// 
 			// blueThemeLabel
@@ -485,7 +492,7 @@ namespace GUI {
 			this->blueThemeLabel->Name = L"blueThemeLabel";
 			this->blueThemeLabel->Size = System::Drawing::Size(34, 17);
 			this->blueThemeLabel->TabIndex = 24;
-			this->blueThemeLabel->Text = L"Blue [F11]";
+			this->blueThemeLabel->Text = L"Blue";
 			this->blueThemeLabel->Visible = false;
 			// 
 			// whiteThemeButton
@@ -525,7 +532,7 @@ namespace GUI {
 			this->metalThemeLabel->Name = L"metalThemeLabel";
 			this->metalThemeLabel->Size = System::Drawing::Size(74, 17);
 			this->metalThemeLabel->TabIndex = 23;
-			this->metalThemeLabel->Text = L"Metal Gray [F12]";
+			this->metalThemeLabel->Text = L"Metal Gray";
 			this->metalThemeLabel->Visible = false;
 			// 
 			// metalThemeButton
@@ -624,24 +631,25 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 					 activateSettingsPage();
 				 } else if (keyPressed->KeyCode == Keys::F6) {
 					 switchTaskListDisplay();
-				 } else if (keyPressed->KeyCode == Keys::F7) {
-					 toggleFeedback();
-				 } else if (keyPressed->KeyCode == Keys::F8) {
-					 toggleHelpTab();
 				 } else if (keyPressed->KeyCode == Keys::F9) {
-					 toggleSettingsTab();
+					 toggleFeedback();
 				 } else if (keyPressed->KeyCode == Keys::F10) {
-					 selectTheme(WHITE);
+					 toggleHelpTab();
 				 } else if (keyPressed->KeyCode == Keys::F11) {
-					 selectTheme(BLUE);
+					 toggleSettingsTab();
 				 } else if (keyPressed->KeyCode == Keys::F12) {
-					 selectTheme(METAL);
+					 if (this->BackColor == theme[WHITE]->background) {
+						 selectTheme(BLUE);
+					 } else if (this->BackColor == theme[BLUE]->background) {
+						 selectTheme(METAL);
+					 } else if (this->BackColor == theme[METAL]->background) {
+						 selectTheme(WHITE);
+					 }
 				 } else if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
-					 bool isSearchCommand = inputField->Text->Contains("search");
-
 					 log->log("User: Enter is pressed, operateUserRequest()");
-					 operateUserRequest(isSearchCommand);
+					 operateUserRequest(inputField->Text->Contains("search"));
 				 } else {
+					 log->log("User: Not searching, show normal texts");
 					 if (summaryTaskListIsShown) {
 						 displaySummaryTaskListBox();
 					 } else {

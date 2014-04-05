@@ -19,6 +19,7 @@ GUI::Interface::Interface(void) {
 
 	log->log("GUI: Instatiate new manager");
 	manager = new Manager();
+	log->log("GUI: Load in all the preset theme colors");
 	theme = prepareThemes();
 	
 	summaryTaskListIsShown = false;
@@ -27,9 +28,6 @@ GUI::Interface::Interface(void) {
 	numRowsToDisplay = TASKLIST_RETRACT_ROW;
 	displayTasksListBoxUsingList(manager->getAllTaskList());
 	displayFeedbackBox();
-
-	log->log("GUI: get helpBox display");
-	getHelpBoxDisplay();
 
 	log->log("GUI: Hide windowIsExtend, helpIsShow, settingIsShown");
 	windowIsExtended = false;
@@ -40,17 +38,20 @@ GUI::Interface::Interface(void) {
 	bool helpTabSetting;
 	bool settingTabSetting;
 
-	themeColor presetTheme = manager->getPresetTheme();
+	color = manager->getPresetTheme();
 	manager->getPresetSettingFor(feedbackSetting, helpTabSetting, settingTabSetting);
 
 	feedbackIsVisible = feedbackSetting;
 	helpTabIsVisible = helpTabSetting;
 	settingsTabIsVisible = settingTabSetting;
 
-	selectTheme(presetTheme);
+	selectTheme(color);
 	if (!feedbackIsVisible) toggleFeedback();
 	if (!helpTabIsVisible) toggleHelpTab();
 	if (!settingsTabIsVisible) toggleSettingsTab();
+
+	log->log("GUI: get helpBox display");
+	getHelpBoxDisplay(); // comes at the end because it depends on selected theme.
 
 	log->endLog();
 }
@@ -267,12 +268,7 @@ void GUI::Interface::selectTheme(themeColor color) {
 	this->taskLabel->ForeColor = theme[color]->label;
 	this->radioDotAll->BackColor = theme[color]->background;
 	this->radioDotSummary->BackColor = theme[color]->background;
-	
-	indexColor = theme[color]->index;
-	taskListHeadingsColor = theme[color]->taskListHeadings;
-	taskListInfoColor = theme[color]->words;
-	radioDotSelected = theme[color]->words;
-	radrioDotNotSelected = theme[color]->label;
+	this->color = color;
 
 	if (color == WHITE) {
 		this->blueThemeButton->Text = BUTTON_THEME_NOT_SELECTED;
@@ -295,6 +291,7 @@ void GUI::Interface::selectTheme(themeColor color) {
 	} else {
 		displayTasksListBoxUsingList(manager->getAllTaskList());
 	}
+	getHelpBoxDisplay();
 }
 
 // window level display function
@@ -333,8 +330,8 @@ void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTa
 		i++;
 	}
 
-	radioDotAll->ForeColor = radioDotSelected;
-	radioDotSummary->ForeColor = radrioDotNotSelected;
+	radioDotAll->ForeColor = theme[color]->words;
+	radioDotSummary->ForeColor = theme[color]->label;
 }
 
 void GUI::Interface::displaySummaryTaskListBox() {
@@ -354,7 +351,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	displayTodayLabel();
 	if (receivedTodayTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
-		richTaskList->SelectionColor = taskListInfoColor;
+		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task today :)\n";
 	} else {
 		for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
@@ -366,7 +363,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	displayTomorrowLabel();
 	if (receivedTodayTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
-		richTaskList->SelectionColor = taskListInfoColor;
+		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task tomorrow :)\n";
 	} else {
 		for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
@@ -375,8 +372,8 @@ void GUI::Interface::displaySummaryTaskListBox() {
 			++taskListBoxRow;
 		}
 	}
-	radioDotSummary->ForeColor = radioDotSelected;
-	radioDotAll->ForeColor = radrioDotNotSelected;
+	radioDotSummary->ForeColor = theme[color]->words;
+	radioDotAll->ForeColor = theme[color]->label;
 }
 
 void GUI::Interface::displayFeedbackBox() {
@@ -404,6 +401,7 @@ void GUI::Interface::displayInputField() {
 void GUI::Interface::getHelpBoxDisplay() {
 	vector<string> helpHeadings = manager->getHelpHeadings();
 	vector<string> helpInstructions = manager->getHelpInstructions();
+	helpBox->Clear();
 	
 	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
 		String ^heading;
@@ -412,7 +410,7 @@ void GUI::Interface::getHelpBoxDisplay() {
 		convertStdToSysString(helpInstructions[i], instruction);
 
 		helpBox->SelectionFont = gcnew System::Drawing::Font(HELP_FONT_HEADING, HELP_SIZE_HEADING, HELP_FONTSTYLE_HEADING());
-		helpBox->SelectionColor = HELP_COLOR_HEADING();
+		helpBox->SelectionColor = theme[color]->label;
 
 		helpBox->SelectedText = heading;
 		helpBox->SelectedText = ENDL;
@@ -451,7 +449,7 @@ void GUI::Interface::displayTask(const Task &task, const bool &isLastRow) {
 
 void GUI::Interface::displayTaskIndex(const Task &task) {
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_INDEX, TASKLIST_FONTSTYLE_INDEX());
-	richTaskList->SelectionColor = indexColor;
+	richTaskList->SelectionColor = theme[color]->index;
 			
 	String ^index = gcnew String(task.taskID.c_str());
 	richTaskList->SelectedText = TASKLIST_FORMATTING_INDEX;
@@ -467,7 +465,7 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 	}
-	richTaskList->SelectionColor = taskListInfoColor;
+	richTaskList->SelectionColor = theme[color]->words;
 
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
@@ -497,7 +495,7 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 
 void GUI::Interface::displayTodayLabel() {
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
-	richTaskList->SelectionColor = taskListHeadingsColor;
+	richTaskList->SelectionColor = theme[color]->taskListHeadings;
 	richTaskList->SelectedText = TASKLIST_HEADING_TODAY;
 
 	delete richTaskList->SelectionFont;
@@ -505,7 +503,7 @@ void GUI::Interface::displayTodayLabel() {
 
 void GUI::Interface::displayTomorrowLabel() {	
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
-	richTaskList->SelectionColor = taskListHeadingsColor;
+	richTaskList->SelectionColor = theme[color]->taskListHeadings;
 	richTaskList->SelectedText = TASKLIST_HEADING_TOMORROW;
 
 	delete richTaskList->SelectionFont;

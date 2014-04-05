@@ -421,8 +421,8 @@ void Store::dueToday() {
 	}
 }
 
-/*void Store::dueTomorrow() { //implemented for non-leap years
-
+void Store::dueTomorrow() { //implemented for non-leap years
+/*
 	string todayDay = currentDay();
 	string todayMonth = currentMonth();
 	string todayYear = currentYear();
@@ -471,6 +471,6 @@ void Store::dueToday() {
 			taskList[i].isTomorrow = false;
 
 	}
-
-} */
+	*/
+} 
 
