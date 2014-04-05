@@ -23,6 +23,9 @@ class Store {
 		string currentDay();
 		string currentMonth();
 		string currentYear();
+		string tomorrowDay;
+		string tomorrowMonth;
+		string tomorrowYear;
 
 		Log log;
 	
@@ -45,6 +48,7 @@ class Store {
 		int getSize();
 		Task accessSlot(int slot); 
 		string getTaskID(int slotNumber);
+		void getDateTomorrow();
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		void saveToFile();

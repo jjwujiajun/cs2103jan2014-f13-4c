@@ -421,8 +421,8 @@ void Store::dueToday() {
 	}
 }
 
-void Store::dueTomorrow() { //implemented for non-leap years
-/*
+void Store::getDateTomorrow() {
+
 	string todayDay = currentDay();
 	string todayMonth = currentMonth();
 	string todayYear = currentYear();
@@ -435,13 +435,13 @@ void Store::dueTomorrow() { //implemented for non-leap years
 
 	valueDay++;
 
-	if ( valueDay > days[valueMonth - 1]){
+	if ( valueDay > days[valueMonth-1]){
 		
-		valueDay = 01;
+		valueDay = 1;
 		valueMonth++;
 
 		if ( valueMonth > 12 ) {
-			{ valueYear++; todayMonth=01; }
+			{ valueYear++; valueMonth=1; }
 		}
 	 }
 
@@ -450,27 +450,37 @@ void Store::dueTomorrow() { //implemented for non-leap years
 
 	convert << valueDay;
 
-	string tmrwDaystr = convert.str();
+	string tomorrowDay = convert.str();
+
+	if(tomorrowDay.length() == 1)
+		tomorrowDay.insert(0, "0");
 
 	convert << valueMonth;
 
-	string tmrwMonthstr = convert.str();
+	string tomorrowMonth = convert.str();
+
+	if (tomorrowMonth.length() == 1)
+        tomorrowMonth.insert(0, "0");
 
 	convert << valueYear;
 
-	string tmrwYearstr = convert.str();
+	string tomorrowYear = convert.str();
+}
 
+void Store::dueTomorrow() { //implemented for non-leap years
 
+	
 	for(int i =0; i < taskList.size(); i++) {
 
-		if(getDay(i) ==  tmrwDaystr && getMonth(i) == tmrwMonthstr && getYear(i) == tmrwYearstr) {
+		if(getDay(i) ==  tomorrowDay && getMonth(i) == tomorrowMonth && getYear(i) == tomorrowYear) {
 
 			taskList[i].isTomorrow = true;
 		}
 		else
 			taskList[i].isTomorrow = false;
 
+
 	}
-	*/
+	
 } 
 
