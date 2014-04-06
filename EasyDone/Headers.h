@@ -33,6 +33,7 @@ const int TASKLIST_Y_RETRACT = 386;
 const int TASKLIST_Y_EXTENT = 492;
 const int RADIO_X_SUMMARY = 165;
 const int RADIO_X_ALL = 180;
+const int RADIO_X_DONE = 194;
 const int RADIO_Y_RETRACT = 433;
 const int RADIO_Y_EXTENT = 537;
 const int FORM_X_RETRACT = 375;
