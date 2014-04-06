@@ -145,7 +145,7 @@ void Store::pushback(Task newTask) {
 
 Task Store::getTask(int slot) {
 
-	return taskList[slot];
+	return taskList.at(slot);
 }
 
 bool Store::MarkDone(Task task) {
@@ -309,6 +309,7 @@ string Store::currentMonth() {
 	localtime_s(&now, &rawtime);
 
 	int nowMonth = (&now)->tm_mon; 
+	nowMonth =  nowMonth + 1;
 	
 	ostringstream convert;   // stream used for the conversion
 
@@ -334,7 +335,7 @@ string Store::currentYear() {
 	
 	ostringstream convert;   // stream used for the conversion
 
-	convert << nowYear; 
+	convert << "2014"; 
 
 	string nowYearstr = convert.str();
 
@@ -403,14 +404,14 @@ void Store::dueToday() {
 
 	for(int i = 0; i <  taskList.size(); i++) {
 
-		if(getDay(i) == todayDay && getMonth(i) == todayMonth && getYear(i) == todayYear) {
+		if(getDay(i) == todayDay  && getMonth(i) == todayMonth && getYear(i) == todayYear) {
 			taskList[i].isBold = true;
 		}
 		else {
 			taskList[i].isBold = false;
 		}
 
-		/*if(taskList[i].startDate == "20140405")
+		/*if(taskList[i].startDate == "20140407")
 		{
 			taskList[i].isBold = true;
 		}
@@ -474,10 +475,10 @@ void Store::dueTomorrow() { //implemented for non-leap years
 
 		if(getDay(i) ==  tomorrowDay && getMonth(i) == tomorrowMonth && getYear(i) == tomorrowYear) {
 
-			taskList[i].isTomorrow = true;
+			taskList.at(i).isTomorrow = true;
 		}
 		else
-			taskList[i].isTomorrow = false;
+			taskList.at(i).isTomorrow = false;
 
 
 	}

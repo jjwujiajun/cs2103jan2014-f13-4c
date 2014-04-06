@@ -160,6 +160,24 @@ vector<Task> Worker::getSearchedList() {
 	return displayedTaskList;
 }
 
+vector<Task> Worker::getTasksDueTodayList() {
+
+	vector<Task> displayedTaskList =  userCommand.getTodayTask();
+	
+	convertTaskDataToDisplayFormat(displayedTaskList);
+
+	return displayedTaskList;
+}
+
+vector<Task> Worker::getTasksDueTomorrowList() {
+
+	vector<Task> displayedTaskList = userCommand.getTomorrowTask();
+
+	convertTaskDataToDisplayFormat(displayedTaskList);
+
+	return displayedTaskList;
+}
+
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const bool& isExpanded) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;

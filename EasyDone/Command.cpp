@@ -178,13 +178,14 @@ vector<Task> Command::getTodayTask() {
 	
 	int i;
 	todoList.dueToday();
+	int sizeofList = todoList.getSize();
 	vector<Task> tasksReturned;
 
 	for( i = 0; i < todoList.getSize(); i++)
 	{
 		Task task = todoList.getTask(i);
 		
-		if(task.isBold = true)
+		if(task.isBold = true && tasksReturned.size() < sizeofList )
 		{
 			tasksReturned.push_back(task);
 		}
