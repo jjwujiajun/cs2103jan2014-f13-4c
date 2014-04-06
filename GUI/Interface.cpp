@@ -22,12 +22,14 @@ GUI::Interface::Interface(void) {
 	log->log("GUI: Load in all the preset theme colors");
 	theme = prepareThemes();
 	
-	summaryTaskListIsShown = false;
 	log->log("GUI: Set numRowsToDisplay to 20 lines");
 	log->log("GUI: display taskListBox, feedbackBox");
 	numRowsToDisplay = TASKLIST_RETRACT_ROW;
-	displayTasksListBoxUsingList(manager->getAllTaskList());
+	displaySummaryTaskListBox();
 	displayFeedbackBox();
+	summaryTaskListIsShown = true;
+	allTaskListIsShown = false;
+	doneTaskListIsShown = false;
 
 	log->log("GUI: Hide windowIsExtend, helpIsShow, settingIsShown");
 	windowIsExtended = false;
@@ -80,8 +82,10 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	} else {
 		if (summaryTaskListIsShown) {
 			displaySummaryTaskListBox();
-		} else {
+		} else if (allTaskListIsShown) {
 			displayTasksListBoxUsingList(manager->getAllTaskList());
+		} else if (doneTaskListIsShown) {
+			displayTasksListBoxUsingList(manager->getAllTaskList()); // done task change this
 		}
 		displayFeedbackBox();
 		displayInputField();
@@ -90,16 +94,46 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	log->endLog();
 }
 
-void GUI::Interface::switchTaskListDisplay() {
-	if (summaryTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getAllTaskList());
-		titleName = TITLE_ALLTASKS;
-	} else {
-		displaySummaryTaskListBox();
-		titleName = TITLE_SUMMARY;
-	}
-	this->title->Text = titleName;
-	summaryTaskListIsShown = !summaryTaskListIsShown;
+void GUI::Interface::switchToSummaryTaskListDisplay() {
+	displaySummaryTaskListBox();
+
+	this->title->Text = TITLE_SUMMARY;
+
+	summaryTaskListIsShown = true;
+	allTaskListIsShown = false;
+	doneTaskListIsShown = false;
+
+	this->radioDotSummary->ForeColor = theme[color]->label;
+	this->radioDotAll->ForeColor = theme[color]->words;
+	this->radioDotDone->ForeColor = theme[color]->words;
+}
+
+void GUI::Interface::switchToAllTaskListDisplay() {
+	displayTasksListBoxUsingList(manager->getAllTaskList());
+	
+	this->title->Text = TITLE_ALLTASKS;
+
+	summaryTaskListIsShown = false;
+	allTaskListIsShown = true;
+	doneTaskListIsShown = false;
+
+	this->radioDotSummary->ForeColor = theme[color]->words;
+	this->radioDotAll->ForeColor = theme[color]->label;
+	this->radioDotDone->ForeColor = theme[color]->words;
+}
+
+void GUI::Interface::switchToDoneTaskListDisplay() {
+	displayTasksListBoxUsingList(manager->getAllTaskList());
+	
+	this->title->Text = TITLE_DONETASKS;
+
+	summaryTaskListIsShown = false;
+	allTaskListIsShown = false;
+	doneTaskListIsShown = true;
+
+	this->radioDotSummary->ForeColor = theme[color]->words;
+	this->radioDotAll->ForeColor = theme[color]->words;
+	this->radioDotDone->ForeColor = theme[color]->label;
 }
 
 // input functions
@@ -196,6 +230,7 @@ void GUI::Interface::toggleFeedback() {
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_EXTENT);
 		this->radioDotSummary->Location = System::Drawing::Point(RADIO_X_SUMMARY, RADIO_Y_EXTENT);
 		this->radioDotAll->Location = System::Drawing::Point(RADIO_X_ALL, RADIO_Y_EXTENT);
+		this->radioDotDone->Location = System::Drawing::Point(RADIO_X_DONE, RADIO_Y_EXTENT);
 		numRowsToDisplay = TASKLIST_EXTENT_ROW;
 		feedbackButton->Text = BUTTON_SHOW;
 		manager->saveFeedbackBoxSetting(false);
@@ -204,6 +239,7 @@ void GUI::Interface::toggleFeedback() {
 		this->richTaskList->Size = System::Drawing::Size(TASKLIST_X, TASKLIST_Y_RETRACT);
 		this->radioDotSummary->Location = System::Drawing::Point(RADIO_X_SUMMARY, RADIO_Y_RETRACT);
 		this->radioDotAll->Location = System::Drawing::Point(RADIO_X_ALL, RADIO_Y_RETRACT);
+		this->radioDotDone->Location = System::Drawing::Point(RADIO_X_DONE, RADIO_Y_RETRACT);
 		numRowsToDisplay = TASKLIST_RETRACT_ROW;
 		feedbackButton->Text = BUTTON_HIDE;
 		manager->saveFeedbackBoxSetting(true);
@@ -212,8 +248,10 @@ void GUI::Interface::toggleFeedback() {
 	log->log("GUI: taskListBox is displayed");
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
-	} else {
+	} else if (allTaskListIsShown) {
 		displayTasksListBoxUsingList(manager->getAllTaskList());
+	} else if (doneTaskListIsShown) {
+		displayTasksListBoxUsingList(manager->getAllTaskList()); //change to done task
 	}
 }
 
@@ -268,6 +306,7 @@ void GUI::Interface::selectTheme(themeColor color) {
 	this->taskLabel->ForeColor = theme[color]->label;
 	this->radioDotAll->BackColor = theme[color]->background;
 	this->radioDotSummary->BackColor = theme[color]->background;
+	this->radioDotDone->BackColor = theme[color]->background;
 	this->color = color;
 
 	if (color == WHITE) {
@@ -288,8 +327,19 @@ void GUI::Interface::selectTheme(themeColor color) {
 	}
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
-	} else {
+		radioDotAll->ForeColor = theme[color]->words;
+		radioDotSummary->ForeColor = theme[color]->label;
+		radioDotDone->ForeColor = theme[color]->words;
+	} else if (allTaskListIsShown) {
 		displayTasksListBoxUsingList(manager->getAllTaskList());
+		radioDotAll->ForeColor = theme[color]->label;
+		radioDotSummary->ForeColor = theme[color]->words;
+		radioDotDone->ForeColor = theme[color]->words;
+	} else if (doneTaskListIsShown) {
+		displayTasksListBoxUsingList(manager->getAllTaskList()); // done task change this
+		radioDotAll->ForeColor = theme[color]->words;
+		radioDotSummary->ForeColor = theme[color]->words;
+		radioDotDone->ForeColor = theme[color]->label;
 	}
 	getHelpBoxDisplay();
 }
@@ -329,9 +379,6 @@ void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTa
 		displayTask(receivedTaskList[i], isLastRow);
 		i++;
 	}
-
-	radioDotAll->ForeColor = theme[color]->words;
-	radioDotSummary->ForeColor = theme[color]->label;
 }
 
 void GUI::Interface::displaySummaryTaskListBox() {
@@ -372,8 +419,6 @@ void GUI::Interface::displaySummaryTaskListBox() {
 			++taskListBoxRow;
 		}
 	}
-	radioDotSummary->ForeColor = theme[color]->words;
-	radioDotAll->ForeColor = theme[color]->label;
 }
 
 void GUI::Interface::displayFeedbackBox() {

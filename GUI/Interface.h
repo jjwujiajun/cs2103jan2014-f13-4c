@@ -31,7 +31,8 @@ namespace GUI {
 	private:
 		// ***MAGIC STRINGS***
 		literal String ^TITLE_ALLTASKS = "All Tasks";
-		literal String ^TITLE_SUMMARY = "At a glance...";
+		literal String ^TITLE_SUMMARY = "Summary";
+		literal String ^TITLE_DONETASKS = "Archive";
 		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
 		literal String ^TASKLIST_HEADING_TOMORROW = "Tomorrow \n";
 		literal String ^BUTTON_HIDE = "Hide";
@@ -54,6 +55,8 @@ namespace GUI {
 
 		// state of the window's attributes
 		bool summaryTaskListIsShown;
+		bool allTaskListIsShown;
+		bool doneTaskListIsShown;
 		bool windowIsExtended;
 		bool helpIsShown;
 		bool settingIsShown;
@@ -63,6 +66,7 @@ namespace GUI {
 		themeColor color;
 		
 		// variable display values in interface.
+		// delete this
 		String ^titleName;
 		int numRowsToDisplay;
 
@@ -102,7 +106,9 @@ namespace GUI {
 		void operateUserRequest(const bool& isSearchCommand);
 		
 		// pane switching function
-		void switchTaskListDisplay();
+		void switchToSummaryTaskListDisplay();
+		void switchToAllTaskListDisplay();
+		void switchToDoneTaskListDisplay();
 
 		// windowSize changing functions
 		void activateHelpPage();
@@ -125,6 +131,7 @@ namespace GUI {
 	private: System::Windows::Forms::TextBox^  inputField;
 	private: System::Windows::Forms::RichTextBox^  radioDotAll;
 	private: System::Windows::Forms::RichTextBox^  radioDotSummary;
+	private: System::Windows::Forms::RichTextBox^  radioDotDone;
 		// taskList Labels
 	private: System::Windows::Forms::Label^  IDLabel;
 	private: System::Windows::Forms::Label^  dateLabel;
@@ -198,6 +205,7 @@ namespace GUI {
 			this->metalThemeButton = (gcnew System::Windows::Forms::Button());
 			this->radioDotAll = (gcnew System::Windows::Forms::RichTextBox());
 			this->radioDotSummary = (gcnew System::Windows::Forms::RichTextBox());
+			this->radioDotDone = (gcnew System::Windows::Forms::RichTextBox());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -335,7 +343,7 @@ namespace GUI {
 			this->feedbackSetting->ForeColor = System::Drawing::Color::RoyalBlue;
 			this->feedbackSetting->Location = System::Drawing::Point(379, 61);
 			this->feedbackSetting->Name = L"feedbackSetting";
-			this->feedbackSetting->Size = System::Drawing::Size(104, 20);
+			this->feedbackSetting->Size = System::Drawing::Size(134, 20);
 			this->feedbackSetting->TabIndex = 12;
 			this->feedbackSetting->Text = L"Feedback Box [F9]";
 			this->feedbackSetting->Visible = false;
@@ -414,7 +422,7 @@ namespace GUI {
 			this->helpTabSetting->ForeColor = System::Drawing::Color::RoyalBlue;
 			this->helpTabSetting->Location = System::Drawing::Point(379, 116);
 			this->helpTabSetting->Name = L"helpTabSetting";
-			this->helpTabSetting->Size = System::Drawing::Size(74, 21);
+			this->helpTabSetting->Size = System::Drawing::Size(111, 21);
 			this->helpTabSetting->TabIndex = 18;
 			this->helpTabSetting->Text = L"Help Tab [F10]";
 			this->helpTabSetting->Visible = false;
@@ -427,7 +435,7 @@ namespace GUI {
 			this->settingTabSetting->ForeColor = System::Drawing::Color::RoyalBlue;
 			this->settingTabSetting->Location = System::Drawing::Point(379, 171);
 			this->settingTabSetting->Name = L"settingTabSetting";
-			this->settingTabSetting->Size = System::Drawing::Size(99, 21);
+			this->settingTabSetting->Size = System::Drawing::Size(133, 21);
 			this->settingTabSetting->TabIndex = 19;
 			this->settingTabSetting->Text = L"Settings Tab [F11]";
 			this->settingTabSetting->Visible = false;
@@ -466,7 +474,7 @@ namespace GUI {
 			this->themeSettingLabel->ForeColor = System::Drawing::Color::RoyalBlue;
 			this->themeSettingLabel->Location = System::Drawing::Point(379, 223);
 			this->themeSettingLabel->Name = L"themeSettingLabel";
-			this->themeSettingLabel->Size = System::Drawing::Size(60, 21);
+			this->themeSettingLabel->Size = System::Drawing::Size(97, 21);
 			this->themeSettingLabel->TabIndex = 22;
 			this->themeSettingLabel->Text = L"Theme [F12]";
 			this->themeSettingLabel->Visible = false;
@@ -575,6 +583,19 @@ namespace GUI {
 			this->radioDotSummary->TabIndex = 29;
 			this->radioDotSummary->Text = L"•";
 			// 
+			// radioDotDone
+			// 
+			this->radioDotDone->BackColor = System::Drawing::Color::White;
+			this->radioDotDone->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->radioDotDone->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->radioDotDone->Location = System::Drawing::Point(194, 433);
+			this->radioDotDone->Name = L"radioDotDone";
+			this->radioDotDone->ReadOnly = true;
+			this->radioDotDone->Size = System::Drawing::Size(10, 15);
+			this->radioDotDone->TabIndex = 30;
+			this->radioDotDone->Text = L"•";
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -582,6 +603,7 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->radioDotDone);
 			this->Controls->Add(this->radioDotSummary);
 			this->Controls->Add(this->radioDotAll);
 			this->Controls->Add(this->metalThemeButton);
@@ -629,8 +651,22 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 					 activateHelpPage();
 				 } else if (keyPressed->KeyCode == Keys::F2) {
 					 activateSettingsPage();
+				 } else if (keyPressed->KeyCode == Keys::F5) {
+					 if (summaryTaskListIsShown) {
+						 switchToDoneTaskListDisplay();
+					 } else if (allTaskListIsShown) {
+						 switchToSummaryTaskListDisplay();
+					 } else if (doneTaskListIsShown) {
+						 switchToAllTaskListDisplay();
+					 }
 				 } else if (keyPressed->KeyCode == Keys::F6) {
-					 switchTaskListDisplay();
+					 if (summaryTaskListIsShown) {
+						 switchToAllTaskListDisplay();
+					 } else if (allTaskListIsShown) {
+						 switchToDoneTaskListDisplay();
+					 } else if (doneTaskListIsShown) {
+						 switchToSummaryTaskListDisplay();
+					 }
 				 } else if (keyPressed->KeyCode == Keys::F9) {
 					 toggleFeedback();
 				 } else if (keyPressed->KeyCode == Keys::F10) {
