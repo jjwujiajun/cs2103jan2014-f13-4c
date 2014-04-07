@@ -80,16 +80,40 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 string Worker::actonCommand(string command)
 {
+	string startDate = userTask.startDate;
+	string endDate = userTask.endDate;
+	string startTime = userTask.startTime;
+	string endTime = userTask.endTime;
+
 	if(command == "add" || command == "new" || command == "create") {
-		if(userCommand.Add(userTask)) {
+		if(userCommand.Add(userTask) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
 			successful = "has been added successfully! :) \r\n";
-		} else{
-			successful = "has not been added successfully! ): \r\n";
-		}
+		
+	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
+		//	successful = "Invalid Time and date!!! Task has not been added successfully! ): Type Carefully! \r\n";
+		
+		} else if (startDate == "1" || endDate == "1" ) {
+			successful = "Invalid date!!!! Task has not been added successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+
+		} else if (startDate == "3" || endDate == "3") {
+			successful = "Invalid Year!!! Task has not been added successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
+		
+		} else if (startDate == "12" || endDate == "12") {
+			successful = "Invalid date & Month!!! Task has not been added successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+
+		} else if (startDate == "13" || endDate == "13") {
+			successful = "Invalid date & Year!!! Task has not been added successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+
+		} else if (startDate == "123" || endDate == "123") {
+			successful = "Invalid Date & Month & Year!!! Task has not been added successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
+
+		} else if (startTime == "0" || endTime == "0") {
+			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+		} 
 	}
 
-	else if(command == "delete" ) {
-		if(userCommand.Delete(userTask)) {
+	else if(command == "delete" || command == "remove") {
+		if(userCommand.Delete(userTask) ) {
 			successful = "has been deleted successfully! :) \r\n";
 		}
 		else {
@@ -98,13 +122,29 @@ string Worker::actonCommand(string command)
 	}
 
 
-	else if(command == "update" ) {
-		if(userCommand.Update(userTask, updateField)) {
+	else if(command == "update" || command == "edit" || command == "change" ) {
+		if(userCommand.Update(userTask, updateField) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
 			successful = "has been updated successfully! :)\r\n";
-		}
-		else {
-			successful = "Please enter a valid index!\r\n";
-		}
+		
+		} else if (startDate == "1" || endDate == "1" ) {
+			successful = "Invalid date!!!! Task has not been edited successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+
+		} else if (startDate == "3" || endDate == "3") {
+			successful = "Invalid Year!!! Task has not been edited successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
+		
+		} else if (startDate == "12" || endDate == "12") {
+			successful = "Invalid date & Month!!! Task has not been edited successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+
+		} else if (startDate == "13" || endDate == "13") {
+			successful = "Invalid date & Year!!! Task has not been edited successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+
+		} else if (startDate == "123" || endDate == "123") {
+			successful = "Invalid Date & Month & Year!!! Task has not been edited successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
+
+		} else if (startTime == "0" || endTime == "0") {
+			successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+		} 
+		
 	}
 
 	else if(command == "search" ) {
