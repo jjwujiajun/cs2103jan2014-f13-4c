@@ -218,6 +218,17 @@ vector<Task> Worker::getTasksDueTomorrowList() {
 	return displayedTaskList;
 }
 
+vector<Task> Worker::getTasksOverdueList() {
+
+	vector<Task> displayedTaskList =  userCommand.getOverdueTask();
+
+	convertTaskDataToDisplayFormat(displayedTaskList);
+
+	return displayedTaskList;
+
+}
+
+
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const bool& isExpanded) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
