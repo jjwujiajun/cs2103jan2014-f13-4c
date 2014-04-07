@@ -26,11 +26,11 @@ const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
 
 // GUI
-const int TASKLIST_RETRACT_ROW = 20;
-const int TASKLIST_EXTENT_ROW = 25;
+const int TASKLIST_RETRACT_ROW = 29;
+const int TASKLIST_EXTENT_ROW = 24;
 const int TASKLIST_X = 351;
-const int TASKLIST_Y_RETRACT = 386;
-const int TASKLIST_Y_EXTENT = 492;
+const int TASKLIST_Y_RETRACT = 376;
+const int TASKLIST_Y_EXTENT = 482;
 const int RADIO_X_SUMMARY = 165;
 const int RADIO_X_ALL = 180;
 const int RADIO_X_DONE = 194;
@@ -54,8 +54,8 @@ enum themeColor {WHITE, BLUE, METAL};
 
 
 // MGR
-const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n";
-const string FEEDBACK_PROMPT_START = "What would you like to do today?\r\n";
+const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
+const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n• add \r\t• update \r\n• display \r\t• search \r\n• delete";
 const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n";
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";

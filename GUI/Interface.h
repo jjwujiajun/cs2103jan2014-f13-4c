@@ -69,6 +69,7 @@ namespace GUI {
 		// delete this
 		String ^titleName;
 		int numRowsToDisplay;
+		String ^feedbackToDisplay;
 
 		// ***FUNCTIONS***
 		// input functions
@@ -240,9 +241,9 @@ namespace GUI {
 			this->title->ForeColor = System::Drawing::Color::CornflowerBlue;
 			this->title->Location = System::Drawing::Point(116, 3);
 			this->title->Name = L"title";
-			this->title->Size = System::Drawing::Size(158, 39);
+			this->title->Size = System::Drawing::Size(122, 39);
 			this->title->TabIndex = 3;
-			this->title->Text = L"At a glance...";
+			this->title->Text = L"Summary";
 			this->title->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// richTaskList
@@ -255,7 +256,7 @@ namespace GUI {
 			this->richTaskList->ForeColor = System::Drawing::SystemColors::InactiveCaption;
 			this->richTaskList->Location = System::Drawing::Point(12, 61);
 			this->richTaskList->Name = L"richTaskList";
-			this->richTaskList->Size = System::Drawing::Size(351, 386);
+			this->richTaskList->Size = System::Drawing::Size(351, 376);
 			this->richTaskList->TabIndex = 4;
 			this->richTaskList->Text = L"";
 			// 
@@ -681,10 +682,28 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 					 } else if (this->BackColor == theme[METAL]->background) {
 						 selectTheme(WHITE);
 					 }
-				 } else if (keyPressed->KeyCode == Keys::Enter || inputField->Text->Contains("search")) {
+				 } else if (keyPressed->KeyCode == Keys::Enter) {
 					 log->log("User: Enter is pressed, operateUserRequest()");
 					 operateUserRequest(inputField->Text->Contains("search"));
-				 } else {
+				 } else if (inputField->Text->Contains("add")) {
+					 feedbackToDisplay = "You're adding a task... \r\n";
+					 if (inputField->Text->Contains("on")) {
+						 feedbackToDisplay += "\r\nRight, now put in the date DD/MM/YY\r\n";
+						 feedbackToDisplay += "Press enter to finish! :D\r\n";
+					 } else {
+						 feedbackToDisplay += "\r\nFormat: add <task name> on <date>";
+					 }
+					 feedbackBox->Text = feedbackToDisplay;
+				 } else if (inputField->Text->Contains("delete")) {
+					 feedbackToDisplay = "You're deleting a task \r\n";
+					 feedbackToDisplay += "\r\nRight, now type in the ID that's on the left of the task name\r\n";
+					 feedbackToDisplay += "Press enter to finish! :D\r\n";
+					 feedbackBox->Text = feedbackToDisplay;
+				 } else if (inputField->Text->Contains("search")) {
+					 feedbackToDisplay = "You are searching...";
+					 feedbackBox->Text = feedbackToDisplay;
+					 operateUserRequest(true);
+				 } else{
 					 log->log("User: Not searching, show normal texts");
 					 if (summaryTaskListIsShown) {
 						 displaySummaryTaskListBox();
