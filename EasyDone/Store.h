@@ -23,6 +23,7 @@ class Store {
 		string currentDay();
 		string currentMonth();
 		string currentYear();
+		void getDateTomorrow();
 		string tomorrowDay;
 		string tomorrowMonth;
 		string tomorrowYear;
@@ -43,17 +44,19 @@ class Store {
 		string getDay(int slotNumber);
 		string getMonth(int slotNumber);
 		string getYear(int slotNumber);
-
-
+		vector<Task> getTaskList();
+		vector<Task> getSearchedList();
 		int getSize();
-		Task accessSlot(int slot); 
 		string getTaskID(int slotNumber);
-		void getDateTomorrow();
+
+
+		
+		Task accessSlot(int slot); 
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		void saveToFile();
 
-		bool MarkDone(Task taskID);
+		bool MarkDone(Task taskID);  //arun pls make all helper functions private, only public functions are included in API!
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);
@@ -63,12 +66,11 @@ class Store {
 		bool changeTask(int taskID, Task userTask, string updateField);
 		bool SearchItem(int Index, string searchField, string searchItem);
 		//int findSlot(string taskIndex);
-		void dueToday();
-		void dueTomorrow();
-		vector<Task> getTaskList();
-		vector<Task> getSearchedList();
+		void markTasksOverdue(); //bring this down!
 		bool stackToList();
 		void listToStack();
 		void updateTaskID();
+		void markTasksDueToday();
+		void markTasksDueTomorrow();
 	
 };

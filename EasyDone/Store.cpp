@@ -214,7 +214,7 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 	return found;
 }
 
-/*void Store::dueToday() {
+/*void Store::markTasksDueToday() {
 	log.log("Store: changing due status");
 	for(int i = 0; i < (int) taskList.size(); i++) {
 		if(taskList[i].startDate == "20140404") {
@@ -394,7 +394,7 @@ string Store::getYear(int index) {
 	else return "0";
 }
 
-void Store::dueToday() {
+void Store::markTasksDueToday() {
 	log.log("Store: changing due status");
 
 	string todayDay = currentDay();
@@ -468,7 +468,7 @@ void Store::getDateTomorrow() {
 	string tomorrowYear = convert.str();
 }
 
-void Store::dueTomorrow() { //implemented for non-leap years
+void Store::markTasksDueTomorrow() { //implemented for non-leap years
 
 	
 	for(int i =0; i < taskList.size(); i++) {
@@ -485,3 +485,59 @@ void Store::dueTomorrow() { //implemented for non-leap years
 	
 } 
 
+void Store::markTasksOverdue() {
+
+	string todayDay = currentDay();
+	string todayMonth = currentMonth();
+	string todayYear = currentYear();
+
+
+	for(int i = 0;i < taskList.size(); i++)
+	{
+		Task task = taskList[i];
+
+		//task.isRed = false;
+
+		string taskDay =  getDay(i);
+		string taskMonth = getMonth(i);
+		string taskYear = getYear(i);
+
+		if(todayYear > taskYear) {
+
+			task.isRed = true;
+		}
+
+		else if (todayYear == taskYear) {
+
+			if(todayMonth > taskMonth) {
+
+				task.isRed = true;
+			}
+
+		}
+
+		else if (todayYear == taskYear) { 
+
+			if(todayMonth ==  taskMonth) {
+				 
+				if(todayDay > taskDay) {
+
+					task.isRed = true;
+				}
+			}
+		}
+
+		else if (todayYear == taskYear) { 
+
+			if(todayMonth ==  taskMonth) {
+				 
+				if(todayDay == taskDay) {
+
+					task.isRed = false;
+				}
+			}
+		}
+
+	}
+
+}
