@@ -248,29 +248,33 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							++i;
 						} else {
 
-							endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+							startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
 							// Guards
-							verifyDate = checkParseDate(endDate);
-							verifyMonth = checkParseMonth(endDate);
-							verifyYear = checkParseYear(endDate);
+							verifyDate = checkParseDate(startDate);
+							verifyMonth = checkParseMonth(startDate);
+							verifyYear = checkParseYear(startDate);
 
-							endDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, endDate);
+							startDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
+
+							endDate = startDate;
 							++i;
 
 
 							if(i < (int) storeUserInfo.size()) {
 
-								endTime += storeUserInfo[i];
+								startTime += storeUserInfo[i];
 								// guards
-								verifyTime = checkParseTime(endTime);
+								verifyTime = checkParseTime(startTime);
 
 								// push back guard output into vector										
-								endTime = guardConvertParserTime(verifyTime, endTime);
+								startTime = guardConvertParserTime(verifyTime, startTime);
+								endTime = startTime;
 								++i;
 							}
 						}
 				}
+
 			}
 
 			// keyword is "from"
@@ -782,29 +786,32 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							++i;
 						} else {
 
-							endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+							startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
 							// Guards
-							verifyDate = checkParseDate(endDate);
-							verifyMonth = checkParseMonth(endDate);
-							verifyYear = checkParseYear(endDate);
+							verifyDate = checkParseDate(startDate);
+							verifyMonth = checkParseMonth(startDate);
+							verifyYear = checkParseYear(startDate);
 
-							endDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, endDate);
+							startDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
+							endDate = startDate;
 							++i;
 
 
 							if(i < (int) storeUserInfo.size()) {
 
-								endTime += storeUserInfo[i];
+								startTime += storeUserInfo[i];
 								// guards
-								verifyTime = checkParseTime(endTime);
+								verifyTime = checkParseTime(startTime);
 
 								// push back guard output into vector										
-								endTime = guardConvertParserTime(verifyTime, endTime);
+								startTime = guardConvertParserTime(verifyTime, startTime);
+								endTime = startTime;
 								++i;
 							}
 						}
 				}
+		
 			}		
 			// keyword is "from"
 			// Works in tandem with keyword "to"
@@ -843,6 +850,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								startDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
 
 								++i;
+
+								storeUserInfo.push_back("");
 
 								if(storeUserInfo[i] == keyWord_4) {
 									++i;
@@ -935,7 +944,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							endDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, endDate);
 							++i;
 
-							//if (i < (int) storeUserInfo.size()) {
+							storeUserInfo.push_back("");
+		
 							endTime += storeUserInfo[i];
 
 							// Guards
@@ -945,7 +955,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							endTime = guardConvertParserTime(verifyTime, endTime);
 
 							++i;
-							//}
+							
 						} else {
 							endTime += storeUserInfo[i];
 
@@ -989,7 +999,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 		// Searches the string for the first character that does not match any of the characters (0123456789 ) specified in its arguments.
 		
-		if (startDate.find_first_not_of(check) && startDate.size() > 6) { // detects "/"
+		if (startDate.find_first_not_of(check) && startDate.size() > 5) { // detects "/"
 			found = startDate;
 
 		} else {
