@@ -29,7 +29,8 @@ public:
 	vector<Task> getSearchedList();
 	vector<Task> getTodayTask();
 	vector<Task> getTomorrowTask();
-	vector<Task> getOverdueTask();
+	vector<Task> getOverdueTasks();
+	vector<Task> getMarkedTasks();
 };
 
 #endif

@@ -220,12 +220,21 @@ vector<Task> Worker::getTasksDueTomorrowList() {
 
 vector<Task> Worker::getTasksOverdueList() {
 
-	vector<Task> displayedTaskList =  userCommand.getOverdueTask();
+	vector<Task> displayedTaskList =  userCommand.getOverdueTasks();
 
 	convertTaskDataToDisplayFormat(displayedTaskList);
 
 	return displayedTaskList;
 
+}
+
+vector<Task> Worker::getTasksDoneList() {
+
+	vector<Task> displayedTaskList =  userCommand.getMarkedTasks();
+
+	convertTaskDataToDisplayFormat(displayedTaskList);
+
+	return displayedTaskList;
 }
 
 
