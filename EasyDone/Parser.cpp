@@ -311,8 +311,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 								++i;
 
+								storeUserInfo.push_back("");
+
 								if(storeUserInfo[i] == keyWord_4) {
 									++i;
+
+									storeUserInfo.erase(storeUserInfo.end()-1);
 
 									endDate += storeUserInfo[i];
 
@@ -404,8 +408,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								endDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, endDate);
 								++i;
 
+								storeUserInfo.push_back("");
+
 								//if (i < (int) storeUserInfo.size()) {
 								endTime += storeUserInfo[i];
+
+								storeUserInfo.erase(storeUserInfo.end()-1);
 
 								// Guards
 								verifyTime = checkParseTime(endTime);
@@ -979,7 +987,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		string found;
 		string check = "0123456789 ";
 
-		if (startDate.find_first_not_of(check)) { // detects "/"
+		// Searches the string for the first character that does not match any of the characters (0123456789 ) specified in its arguments.
+		
+		if (startDate.find_first_not_of(check) && startDate.size() > 6) { // detects "/"
 			found = startDate;
 
 		} else {
