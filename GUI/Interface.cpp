@@ -78,7 +78,6 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	log->log("GUI: display taskListBox, feedbackBox, inputField");
 	if (isSearchCommand) {
 		displayTasksListBoxUsingList(manager->getSearchedList());
-		feedbackBox->Text = "Searching...";
 	} else {
 		if (summaryTaskListIsShown) {
 			displaySummaryTaskListBox();
