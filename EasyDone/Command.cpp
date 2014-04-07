@@ -75,9 +75,9 @@ int Command::issueNewTaskID(){
 
 	return newIndex;
 }
-
-vector<Task> Command::getTaskList() {
-	todoList.dueToday();
+ 
+vector<Task> Command::getTaskList() { //must change this!!!!!!!
+	todoList.markTasksDueToday();
 	return todoList.getTaskList();
 }
 
@@ -177,7 +177,7 @@ void Command::sort() {
 vector<Task> Command::getTodayTask() {
 	
 	int i;
-	todoList.dueToday();
+	todoList.markTasksDueToday();
 	int sizeofList = todoList.getSize();
 	vector<Task> tasksReturned;
 
@@ -198,7 +198,7 @@ vector<Task> Command::getTodayTask() {
 vector<Task> Command::getTomorrowTask() {
 	
 	int i;
-	todoList.dueTomorrow();
+	todoList.markTasksDueTomorrow();
 	vector<Task> tasksReturned;
 
 	for( i = 0 ; i < todoList.getSize(); i++) {

@@ -16,7 +16,7 @@ public:
 	string month;
 	string year;
 	bool isBold;
-	int isRed;
+	bool isRed;
 	bool isDone;
 	bool isTomorrow;
 };
