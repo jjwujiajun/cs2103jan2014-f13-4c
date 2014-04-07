@@ -46,12 +46,10 @@ vector<Task> Manager::getDueTaskList() {
 	return temp;
 }
 vector<Task> Manager::getTodayTaskList() {
-	vector<Task> temp;
-	return temp;
+	return worker.getTasksDueTodayList();
 }
 vector<Task> Manager::getTomorrowTaskList() {
-	vector<Task> temp;
-	return temp;
+	return worker.getTasksDueTomorrowList();
 }
 
 vector<Task> Manager::getSearchedList() {
