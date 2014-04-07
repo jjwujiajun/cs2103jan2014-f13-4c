@@ -29,6 +29,7 @@ public:
 	vector<Task> getSearchedList();
 	vector<Task> getTodayTask();
 	vector<Task> getTomorrowTask();
+	vector<Task> getOverdueTask();
 };
 
 #endif

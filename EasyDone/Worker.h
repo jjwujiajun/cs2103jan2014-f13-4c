@@ -55,6 +55,8 @@ public:
 	vector<Task> getSearchedList();
 	vector<Task> getTasksDueTodayList();
 	vector<Task> getTasksDueTomorrowList();
+	vector<Task> getTasksOverdueList();
+
 
 	// formatting functions
 	string formatDate(string);

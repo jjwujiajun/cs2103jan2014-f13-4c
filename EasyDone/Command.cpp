@@ -213,3 +213,22 @@ vector<Task> Command::getTomorrowTask() {
 
 	return tasksReturned;
 }
+
+vector<Task> Command::getOverdueTask() {
+	
+	int i;
+	todoList.markTasksOverdue();
+	vector<Task> tasksReturned;
+
+	for( i = 0 ; i < todoList.getSize(); i++) {
+
+		Task task = todoList.getTask(i);
+
+		if(task.isRed == true)
+		{
+			tasksReturned.push_back(task);
+		}
+	}
+
+	return tasksReturned;
+}
