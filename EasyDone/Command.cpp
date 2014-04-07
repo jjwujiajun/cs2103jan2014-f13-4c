@@ -185,7 +185,7 @@ vector<Task> Command::getTodayTask() {
 	{
 		Task task = todoList.getTask(i);
 		
-		if(task.isBold = true && tasksReturned.size() < sizeofList )
+		if(task.isBold == true && tasksReturned.size() < sizeofList )
 		{
 			tasksReturned.push_back(task);
 		}
@@ -201,7 +201,7 @@ vector<Task> Command::getTomorrowTask() {
 	todoList.dueTomorrow();
 	vector<Task> tasksReturned;
 
-	for( i = 0 ; todoList.getSize(); i++) {
+	for( i = 0 ; i < todoList.getSize(); i++) {
 
 		Task task = todoList.getTask(i);
 

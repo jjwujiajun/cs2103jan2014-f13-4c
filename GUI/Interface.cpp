@@ -382,16 +382,16 @@ void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTa
 }
 
 void GUI::Interface::displaySummaryTaskListBox() {
-	std::vector<Task> receivedTodayTaskList = manager->getDueTaskList();;
-	std::vector<Task> receivedTomorrowTaskList = manager->getTodayTaskList();
-	std::vector<Task> receivedDueTaskList = manager->getTomorrowTaskList();
+	std::vector<Task> receivedDueTaskList = manager->getDueTaskList();;
+	std::vector<Task> receivedTodayTaskList = manager->getTodayTaskList();
+	std::vector<Task> receivedTomorrowTaskList = manager->getTomorrowTaskList();
 	int taskListBoxRow = 0;
 	bool isLastRow;
 
 	richTaskList->Clear();
 
 	for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
-		isLastRow = (taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
+		isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
 		displayTask(receivedDueTaskList[i], isLastRow);
 		++taskListBoxRow;
 	}
@@ -402,19 +402,21 @@ void GUI::Interface::displaySummaryTaskListBox() {
 		richTaskList->SelectedText = "No task today :)\n";
 	} else {
 		for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
-			isLastRow = (i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
+			isLastRow = false; //(i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
 			displayTask(receivedTodayTaskList[i], isLastRow);
 			++taskListBoxRow;
 		}
 	}
 	displayTomorrowLabel();
-	if (receivedTodayTaskList.empty()) {
+	if (receivedTomorrowTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task tomorrow :)\n";
 	} else {
+		int  size = receivedTomorrowTaskList.size();
+		int rowsToDisplay = numRowsToDisplay/3;
 		for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
-			isLastRow = (i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == 5);
+			isLastRow = (i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == numRowsToDisplay/3);
 			displayTask(receivedTomorrowTaskList[i], isLastRow);
 			++taskListBoxRow;
 		}
