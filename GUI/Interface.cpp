@@ -93,6 +93,26 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	log->endLog();
 }
 
+void GUI::Interface::togglePaneLeft() {
+	if (summaryTaskListIsShown) {
+		switchToDoneTaskListDisplay();
+	} else if (allTaskListIsShown) {
+		switchToSummaryTaskListDisplay();
+	} else if (doneTaskListIsShown) {
+		switchToAllTaskListDisplay();
+	}
+}
+
+void GUI::Interface::togglePaneRight() {
+	if (summaryTaskListIsShown) {
+		switchToAllTaskListDisplay();
+	} else if (allTaskListIsShown) {
+		switchToDoneTaskListDisplay();
+	} else if (doneTaskListIsShown) {
+		switchToSummaryTaskListDisplay();
+	}
+}
+
 void GUI::Interface::switchToSummaryTaskListDisplay() {
 	displaySummaryTaskListBox();
 
@@ -284,6 +304,16 @@ void GUI::Interface::toggleSettingsTab() {
 	log->log("GUI: settingsTab is toggled");
 }
 
+void GUI::Interface::toggleTheme() {
+	if (this->BackColor == theme[WHITE]->background) {
+		selectTheme(BLUE);
+	} else if (this->BackColor == theme[BLUE]->background) {
+		selectTheme(METAL);
+	} else if (this->BackColor == theme[METAL]->background) {
+		selectTheme(WHITE);
+	}
+}
+
 void GUI::Interface::selectTheme(themeColor color) {
 	this->BackColor = theme[color]->background;
 	this->title->BackColor = theme[color]->background;
@@ -367,6 +397,19 @@ void GUI::Interface::activateSettingsPage() {
 }
 
 // display functions
+void GUI::Interface::displayNormalInterfaceState() {
+	log->log("User: No input, show normal texts");
+	if (summaryTaskListIsShown) {
+		displaySummaryTaskListBox();
+	} else {
+		displayTasksListBoxUsingList(manager->getAllTaskList());
+	}
+	String ^convertedFeedback;
+	string feedback = manager->getFeedback();
+	convertStdToSysString(feedback, convertedFeedback);
+	feedbackBox->Text = convertedFeedback;
+}
+
 void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTaskList) {
 	int i = 0;
 	bool isLastRow;
