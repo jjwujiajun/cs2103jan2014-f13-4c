@@ -43,28 +43,6 @@ namespace GUI {
 		literal String ^HELP_FONT_HEADING = "Calibri";
 		literal String ^HELP_FONT_INSTRUCTION = "Calibri";
 		literal String ^TASKLIST_FONT_HEADING = "Broadway";
-		literal String ^LIVE_FEEDBACK_ADD = "You're adding a task... \r\n\r\n";
-		literal String ^LIVE_FEEDBACK_ADD_HINTDATE = "Right, now put in the date DD/MM/YY \r\n\r\n";
-		literal String ^LIVE_FEEDBACK_ADD_FORMAT = "Format: add <task name> on <date>";
-		literal String ^LIVE_FEEDBACK_DELETE = "You're deleting a task \r\n\r\nNow type in the ID that's on the left of the task name\r\n";
-		literal String ^LIVE_FEEDBACK_DISPLAY = "You're displaying a task \r\n\r\nRight, now type in the ID that's on the left of the task name\r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE = "You're updating a task \r\n\r\nWhich field do you want to update \r\n task • sd • st • ed • et \r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE_TASK = "Now type in your query \r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
-		literal String ^LIVE_FEEDBACK_SEARCH = "You are searching...";
-		literal String ^LIVE_SEARCH_ENTER = "Press Enter when you're done";
-		literal String ^KEYWORD_ADD = "add";
-		literal String ^KEYWORD_DELETE = "delete";
-		literal String ^KEYWORD_DISPLAY = "display";
-		literal String ^KEYWORD_UPDATE = "update";
-		literal String ^KEYWORD_SEARCH = "search";
-		literal String ^KEYWORD_TASK = "task";
-		literal String ^KEYWORD_STARTDATE = "sd";
-		literal String ^KEYWORD_STARTTIME = "st";
-		literal String ^KEYWORD_ENDDATE = "ed";
-		literal String ^KEYWORD_ENDTIME = "et";
-		literal String ^KEYWORD_ON = "on";
 		literal String ^ENDL = "\n";
 		literal String ^TABL = "\t";
 		literal String ^TASKLIST_FORMATTING_INDEX = "  ";
@@ -674,7 +652,20 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-				 if (keyPressed->KeyCode == Keys::F1) {
+				 string liveInputFieldText;
+				 convertSysToStdString(inputField->Text, liveInputFieldText);
+
+				 if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
+					 if (manager->inputIsSearchQuery) {
+						 operateUserRequest(true);
+					 }
+					 string receivedFeedbackToDisplay;
+					 String ^feedbackToDisplay;
+
+					 receivedFeedbackToDisplay = manager->getFeedback();
+					 convertStdToSysString(receivedFeedbackToDisplay, feedbackToDisplay);
+					 feedbackBox->Text = feedbackToDisplay;
+				 } else if (keyPressed->KeyCode == Keys::F1) {
 					 activateHelpPage();
 				 } else if (keyPressed->KeyCode == Keys::F2) {
 					 activateSettingsPage();
@@ -692,44 +683,7 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 					 toggleTheme();
 				 } else if (keyPressed->KeyCode == Keys::Enter) {
 					 log->log("User: Enter is pressed, operateUserRequest()");
-					 operateUserRequest(inputField->Text->Contains(KEYWORD_SEARCH));
-				 } else if (inputField->Text->Contains(KEYWORD_ADD)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_ADD;
-					 if (inputField->Text->Contains(KEYWORD_ON)) {
-						 feedbackToDisplay += LIVE_FEEDBACK_ADD_HINTDATE;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 } else {
-						 feedbackToDisplay += LIVE_FEEDBACK_ADD_FORMAT;
-					 }
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_DELETE)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_DELETE;
-					 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_DISPLAY)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_DISPLAY;
-					 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_DISPLAY)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_UPDATE;
-					 if (inputField->Text->Contains(KEYWORD_TASK)) {
-						 feedbackToDisplay += LIVE_FEEDBACK_UPDATE_TASK;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 }
-					 if (inputField->Text->Contains(KEYWORD_STARTDATE) ||
-						 inputField->Text->Contains(KEYWORD_ENDDATE) ) {
-						 feedbackToDisplay += LIVE_FEEDBACK_UPDATE_DATE;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 }
-					 if (inputField->Text->Contains(KEYWORD_STARTTIME) ||
-						 inputField->Text->Contains(KEYWORD_ENDTIME) ) {
-						 feedbackToDisplay += LIVE_FEEDBACK_UPDATE_TIME;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 }
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_SEARCH)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_SEARCH;
-					 operateUserRequest(true);
+					 operateUserRequest(inputField->Text->Contains("search"));
 				 } else{
 					 displayNormalInterfaceState();
 				 }
