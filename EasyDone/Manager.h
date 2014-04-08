@@ -46,6 +46,7 @@ public:
 	vector<Task> getTomorrowTaskList();
 	vector<Task> getDueTaskList();
 	vector<Task> getSearchedList();
+	vector<Task> getDoneTaskList();
 
 	vector<string> getHelpHeadings();
 	vector<string> getHelpInstructions();

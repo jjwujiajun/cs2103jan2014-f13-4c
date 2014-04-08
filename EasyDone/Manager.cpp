@@ -42,14 +42,17 @@ vector<Task> Manager::getAllTaskList() {
 }
 
 vector<Task> Manager::getDueTaskList() {
-	vector<Task> temp;
-	return temp;
+	return worker.getTasksOverdueList();
 }
 vector<Task> Manager::getTodayTaskList() {
 	return worker.getTasksDueTodayList();
 }
 vector<Task> Manager::getTomorrowTaskList() {
 	return worker.getTasksDueTomorrowList();
+}
+
+vector<Task> Manager::getDoneTaskList() {
+	return worker.getTasksDoneList();
 }
 
 vector<Task> Manager::getSearchedList() {
