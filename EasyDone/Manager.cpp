@@ -80,6 +80,10 @@ bool Manager::hasFeedbackForGivenInput(const string& input) {
 	return false;
 }
 
+bool Manager::checkInputIsSearchQuery() {
+	return inputIsSearchQuery;
+}
+
 string Manager::getFeedback() {
 	return GUIfeedbackBox;
 }

@@ -100,6 +100,9 @@ const string KEYWORD_ENDDATE = "ed";
 const string KEYWORD_ENDTIME = "et";
 const string KEYWORD_ON = "on";
 
+// File Handler
+const string FILE_TASKLIST = "taskList.txt";
+
 #pragma once
 
 class Headers

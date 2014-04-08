@@ -5,8 +5,6 @@
 
 using namespace std;
 
-const string FILE_TASKLIST = "taskList.txt";
-
 class FileHandler {
 
 private:
