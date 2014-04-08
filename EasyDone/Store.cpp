@@ -147,18 +147,6 @@ Task Store::getTask(int slot) {
 
 	return taskList.at(slot);
 }
-
-bool Store::MarkDone(Task task) {
-	bool done = false;
-	int counter = 0;
-	while(counter <getSize()) {
-		if(taskList[counter].taskID == task.taskID) {
-			taskList[counter].isDone = true;
-			done = true;
-		}
-	}
-	return done;
-}
 	
 bool Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");

@@ -56,7 +56,7 @@ class Store {
 		vector<Task>::iterator getIteratorEnd();
 		void saveToFile();
 
-		bool MarkDone(Task taskID);  //arun pls make all helper functions private, only public functions are included in API!
+		 //arun pls make all helper functions private, only public functions are included in API!
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);

@@ -82,8 +82,18 @@ vector<Task> Command::getTaskList() { //must change this!!!!!!!
 }
 
 bool Command::markDone(Task task) {
+	log.log("Command: task is being marked done");
 	bool done = false;
-	done = todoList.MarkDone(task);
+	Task temp;
+	int counter = 0;
+	while(counter < todoList.getSize()) {
+		temp = todoList.getTask(counter);
+		if(temp.taskID == task.taskID) {
+			temp.isDone = true;
+			todoList.changeTask(stoi(temp.taskID),temp);
+			done = true;
+		}
+	}
 	return done;
 }
 
