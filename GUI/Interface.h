@@ -8,8 +8,6 @@ const Color TAB_SELECTED_COLOUR() {return Color::Silver;}
 const Color TAB_NOT_SELECTED_COLOUR() {return Color::WhiteSmoke;}
 const Color HELP_COLOR_HEADING() {return Color::CornflowerBlue;}
 const Color HELP_COLOR_INSTRUCTION() {return Color::Black;}
-//const Color TASKLIST_COLOR_TASKINFO() {return Color::Black;}
-//const Color TASKLIST_COLOR_HEADING() {return Color::CornflowerBlue;}
 const FontStyle HELP_FONTSTYLE_HEADING() {return FontStyle::Bold;}
 const FontStyle HELP_FONTSTYLE_INSTRUCTION() {return FontStyle::Regular;}
 const FontStyle TASKLIST_FONTSTYLE_INDEX() {return FontStyle::Regular;}
@@ -106,6 +104,7 @@ namespace GUI {
 
 		// userInput function
 		void operateUserRequest(const bool& isSearchCommand);
+		void showLiveFeedback();
 		
 		// pane switching function
 		void togglePaneLeft();
@@ -652,42 +651,34 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-				 string liveInputFieldText;
-				 convertSysToStdString(inputField->Text, liveInputFieldText);
+			string liveInputFieldText;
+			convertSysToStdString(inputField->Text, liveInputFieldText);
 
-				 if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
-					 if (manager->inputIsSearchQuery) {
-						 operateUserRequest(true);
-					 }
-					 string receivedFeedbackToDisplay;
-					 String ^feedbackToDisplay;
-
-					 receivedFeedbackToDisplay = manager->getFeedback();
-					 convertStdToSysString(receivedFeedbackToDisplay, feedbackToDisplay);
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (keyPressed->KeyCode == Keys::F1) {
-					 activateHelpPage();
-				 } else if (keyPressed->KeyCode == Keys::F2) {
-					 activateSettingsPage();
-				 } else if (keyPressed->KeyCode == Keys::F5) {
-					 togglePaneLeft();
-				 } else if (keyPressed->KeyCode == Keys::F6) {
-					 togglePaneRight();
-				 } else if (keyPressed->KeyCode == Keys::F9) {
-					 toggleFeedback();
-				 } else if (keyPressed->KeyCode == Keys::F10) {
-					 toggleHelpTab();
-				 } else if (keyPressed->KeyCode == Keys::F11) {
-					 toggleSettingsTab();
-				 } else if (keyPressed->KeyCode == Keys::F12) {
-					 toggleTheme();
-				 } else if (keyPressed->KeyCode == Keys::Enter) {
-					 log->log("User: Enter is pressed, operateUserRequest()");
-					 operateUserRequest(inputField->Text->Contains("search"));
-				 } else{
-					 displayNormalInterfaceState();
-				 }
-			 }
+			if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
+				showLiveFeedback();
+			} else if (keyPressed->KeyCode == Keys::F1) {
+				activateHelpPage();
+			} else if (keyPressed->KeyCode == Keys::F2) {
+				activateSettingsPage();
+			} else if (keyPressed->KeyCode == Keys::F5) {
+				togglePaneLeft();
+			} else if (keyPressed->KeyCode == Keys::F6) {
+				togglePaneRight();
+			} else if (keyPressed->KeyCode == Keys::F9) {
+				toggleFeedback();
+			} else if (keyPressed->KeyCode == Keys::F10) {
+				toggleHelpTab();
+			} else if (keyPressed->KeyCode == Keys::F11) {
+				toggleSettingsTab();
+			} else if (keyPressed->KeyCode == Keys::F12) {
+				toggleTheme();
+			} else if (keyPressed->KeyCode == Keys::Enter) {
+				log->log("User: Enter is pressed, operateUserRequest()");
+				operateUserRequest(inputField->Text->Contains("search"));
+			} else{
+				displayNormalInterfaceState();
+			}
+		 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
 			 log->log("User: Settings toggled feedback show/hide");
 			 toggleFeedback();

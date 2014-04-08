@@ -93,6 +93,18 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	log->endLog();
 }
 
+void GUI::Interface::showLiveFeedback() {
+	if (manager->checkInputIsSearchQuery()) {
+		operateUserRequest(true);
+	}
+	string receivedFeedbackToDisplay;
+	String ^feedbackToDisplay;
+
+	receivedFeedbackToDisplay = manager->getFeedback();
+	convertStdToSysString(receivedFeedbackToDisplay, feedbackToDisplay);
+	feedbackBox->Text = feedbackToDisplay;
+}
+
 void GUI::Interface::togglePaneLeft() {
 	if (summaryTaskListIsShown) {
 		switchToDoneTaskListDisplay();
