@@ -33,6 +33,62 @@ void Manager::receiveInput(string input) {
 	init();
 }
 
+// display
+bool Manager::hasFeedbackForGivenInput(const string& input) {
+	inputIsSearchQuery = false;
+	string text = input.substr(0, 6);
+
+	if(text.find(KEYWORD_ADD) != string::npos) {
+		GUIfeedbackBox = LIVE_FEEDBACK_ADD;
+		if (input.find(KEYWORD_ON) != string::npos) {
+			GUIfeedbackBox += LIVE_FEEDBACK_ADD_HINTDATE;
+			GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		} else {
+			GUIfeedbackBox += LIVE_FEEDBACK_ADD_FORMAT;
+		}
+		return true;
+	} else if (text.find(KEYWORD_DELETE) != string::npos) {
+		GUIfeedbackBox = LIVE_FEEDBACK_DELETE;
+		GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		return true;
+	} else if (text.find(KEYWORD_DISPLAY) != string::npos) {
+		GUIfeedbackBox = LIVE_FEEDBACK_DISPLAY;
+		GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		return true;
+	} else if (text.find(KEYWORD_DISPLAY) != string::npos) {
+		GUIfeedbackBox = LIVE_FEEDBACK_UPDATE;
+		if (input.find(KEYWORD_TASK) != string::npos) {
+			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_TASK;
+			GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		}
+		if (input.find(KEYWORD_STARTDATE) != string::npos ||
+			input.find(KEYWORD_ENDDATE) != string::npos ) {
+			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_DATE;
+			GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		}
+		if (input.find(KEYWORD_STARTTIME) != string::npos ||
+			input.find(KEYWORD_ENDTIME) != string::npos ) {
+			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_TIME;
+			GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		}
+		return true;
+	} else if (text.find(KEYWORD_SEARCH) != string::npos) {
+		GUIfeedbackBox = LIVE_FEEDBACK_SEARCH;
+		inputIsSearchQuery = true;
+		return true;
+	}
+	return false;
+}
+
+string Manager::getFeedback() {
+	return GUIfeedbackBox;
+}
+
+string Manager::getInputField() {
+	return GUIInputField;
+}
+
+// task list functions
 vector<Task> Manager::getAllTaskList() {
 	log.log("Manager: getTaskList from worker");
 	GUITaskList = worker.getTaskList();
@@ -59,14 +115,7 @@ vector<Task> Manager::getSearchedList() {
 	return worker.getSearchedList();
 }
 
-string Manager::getFeedback() {
-	return GUIfeedbackBox;
-}
-
-string Manager::getInputField() {
-	return GUIInputField;
-}
-
+// start up
 vector<string> Manager::getHelpHeadings() {
 	return GUIHelpHeadings;
 }
