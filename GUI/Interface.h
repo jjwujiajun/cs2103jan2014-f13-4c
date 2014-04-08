@@ -8,8 +8,6 @@ const Color TAB_SELECTED_COLOUR() {return Color::Silver;}
 const Color TAB_NOT_SELECTED_COLOUR() {return Color::WhiteSmoke;}
 const Color HELP_COLOR_HEADING() {return Color::CornflowerBlue;}
 const Color HELP_COLOR_INSTRUCTION() {return Color::Black;}
-//const Color TASKLIST_COLOR_TASKINFO() {return Color::Black;}
-//const Color TASKLIST_COLOR_HEADING() {return Color::CornflowerBlue;}
 const FontStyle HELP_FONTSTYLE_HEADING() {return FontStyle::Bold;}
 const FontStyle HELP_FONTSTYLE_INSTRUCTION() {return FontStyle::Regular;}
 const FontStyle TASKLIST_FONTSTYLE_INDEX() {return FontStyle::Regular;}
@@ -43,28 +41,6 @@ namespace GUI {
 		literal String ^HELP_FONT_HEADING = "Calibri";
 		literal String ^HELP_FONT_INSTRUCTION = "Calibri";
 		literal String ^TASKLIST_FONT_HEADING = "Broadway";
-		literal String ^LIVE_FEEDBACK_ADD = "You're adding a task... \r\n\r\n";
-		literal String ^LIVE_FEEDBACK_ADD_HINTDATE = "Right, now put in the date DD/MM/YY \r\n\r\n";
-		literal String ^LIVE_FEEDBACK_ADD_FORMAT = "Format: add <task name> on <date>";
-		literal String ^LIVE_FEEDBACK_DELETE = "You're deleting a task \r\n\r\nNow type in the ID that's on the left of the task name\r\n";
-		literal String ^LIVE_FEEDBACK_DISPLAY = "You're displaying a task \r\n\r\nRight, now type in the ID that's on the left of the task name\r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE = "You're updating a task \r\n\r\nWhich field do you want to update \r\n task • sd • st • ed • et \r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE_TASK = "Now type in your query \r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
-		literal String ^LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
-		literal String ^LIVE_FEEDBACK_SEARCH = "You are searching...";
-		literal String ^LIVE_SEARCH_ENTER = "Press Enter when you're done";
-		literal String ^KEYWORD_ADD = "add";
-		literal String ^KEYWORD_DELETE = "delete";
-		literal String ^KEYWORD_DISPLAY = "display";
-		literal String ^KEYWORD_UPDATE = "update";
-		literal String ^KEYWORD_SEARCH = "search";
-		literal String ^KEYWORD_TASK = "task";
-		literal String ^KEYWORD_STARTDATE = "sd";
-		literal String ^KEYWORD_STARTTIME = "st";
-		literal String ^KEYWORD_ENDDATE = "ed";
-		literal String ^KEYWORD_ENDTIME = "et";
-		literal String ^KEYWORD_ON = "on";
 		literal String ^ENDL = "\n";
 		literal String ^TABL = "\t";
 		literal String ^TASKLIST_FORMATTING_INDEX = "  ";
@@ -128,6 +104,7 @@ namespace GUI {
 
 		// userInput function
 		void operateUserRequest(const bool& isSearchCommand);
+		void showLiveFeedback();
 		
 		// pane switching function
 		void togglePaneLeft();
@@ -674,66 +651,34 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-				 if (keyPressed->KeyCode == Keys::F1) {
-					 activateHelpPage();
-				 } else if (keyPressed->KeyCode == Keys::F2) {
-					 activateSettingsPage();
-				 } else if (keyPressed->KeyCode == Keys::F5) {
-					 togglePaneLeft();
-				 } else if (keyPressed->KeyCode == Keys::F6) {
-					 togglePaneRight();
-				 } else if (keyPressed->KeyCode == Keys::F9) {
-					 toggleFeedback();
-				 } else if (keyPressed->KeyCode == Keys::F10) {
-					 toggleHelpTab();
-				 } else if (keyPressed->KeyCode == Keys::F11) {
-					 toggleSettingsTab();
-				 } else if (keyPressed->KeyCode == Keys::F12) {
-					 toggleTheme();
-				 } else if (keyPressed->KeyCode == Keys::Enter) {
-					 log->log("User: Enter is pressed, operateUserRequest()");
-					 operateUserRequest(inputField->Text->Contains(KEYWORD_SEARCH));
-				 } else if (inputField->Text->Contains(KEYWORD_ADD)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_ADD;
-					 if (inputField->Text->Contains(KEYWORD_ON)) {
-						 feedbackToDisplay += LIVE_FEEDBACK_ADD_HINTDATE;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 } else {
-						 feedbackToDisplay += LIVE_FEEDBACK_ADD_FORMAT;
-					 }
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_DELETE)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_DELETE;
-					 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_DISPLAY)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_DISPLAY;
-					 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_DISPLAY)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_UPDATE;
-					 if (inputField->Text->Contains(KEYWORD_TASK)) {
-						 feedbackToDisplay += LIVE_FEEDBACK_UPDATE_TASK;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 }
-					 if (inputField->Text->Contains(KEYWORD_STARTDATE) ||
-						 inputField->Text->Contains(KEYWORD_ENDDATE) ) {
-						 feedbackToDisplay += LIVE_FEEDBACK_UPDATE_DATE;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 }
-					 if (inputField->Text->Contains(KEYWORD_STARTTIME) ||
-						 inputField->Text->Contains(KEYWORD_ENDTIME) ) {
-						 feedbackToDisplay += LIVE_FEEDBACK_UPDATE_TIME;
-						 feedbackToDisplay += LIVE_SEARCH_ENTER;
-					 }
-					 feedbackBox->Text = feedbackToDisplay;
-				 } else if (inputField->Text->Contains(KEYWORD_SEARCH)) {
-					 feedbackToDisplay = LIVE_FEEDBACK_SEARCH;
-					 operateUserRequest(true);
-				 } else{
-					 displayNormalInterfaceState();
-				 }
-			 }
+			string liveInputFieldText;
+			convertSysToStdString(inputField->Text, liveInputFieldText);
+
+			if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
+				showLiveFeedback();
+			} else if (keyPressed->KeyCode == Keys::F1) {
+				activateHelpPage();
+			} else if (keyPressed->KeyCode == Keys::F2) {
+				activateSettingsPage();
+			} else if (keyPressed->KeyCode == Keys::F5) {
+				togglePaneLeft();
+			} else if (keyPressed->KeyCode == Keys::F6) {
+				togglePaneRight();
+			} else if (keyPressed->KeyCode == Keys::F9) {
+				toggleFeedback();
+			} else if (keyPressed->KeyCode == Keys::F10) {
+				toggleHelpTab();
+			} else if (keyPressed->KeyCode == Keys::F11) {
+				toggleSettingsTab();
+			} else if (keyPressed->KeyCode == Keys::F12) {
+				toggleTheme();
+			} else if (keyPressed->KeyCode == Keys::Enter) {
+				log->log("User: Enter is pressed, operateUserRequest()");
+				operateUserRequest(inputField->Text->Contains("search"));
+			} else{
+				displayNormalInterfaceState();
+			}
+		 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
 			 log->log("User: Settings toggled feedback show/hide");
 			 toggleFeedback();

@@ -56,7 +56,7 @@ enum themeColor {WHITE, BLUE, METAL};
 // MGR
 const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
 const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n add • update • display • search • delete";
-const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n";
+const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n add • update • display • search • delete";
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
@@ -77,6 +77,31 @@ const string FILE_STRING_METALTHEME = "metal";
 // WKR
 const int TASKLIST_INDEX_LENGTH = 2;
 const int TASKLIST_NAME_LENGTH = 25;
+const string LIVE_FEEDBACK_ADD = "You're adding a task... \r\n\r\n";
+const string LIVE_FEEDBACK_ADD_HINTDATE = "Right, now put in the date DD/MM/YY \r\n\r\n";
+const string LIVE_FEEDBACK_ADD_FORMAT = "Format: add <task name> on <date>";
+const string LIVE_FEEDBACK_DELETE = "You're deleting a task \r\n\r\nNow type in the ID that's on the left of the task name\r\n";
+const string LIVE_FEEDBACK_DISPLAY = "You're displaying a task \r\n\r\nRight, now type in the ID that's on the left of the task name\r\n";
+const string LIVE_FEEDBACK_UPDATE = "You're updating a task \r\n\r\nWhich field do you want to update \r\n task • sd • st • ed • et \r\n";
+const string LIVE_FEEDBACK_UPDATE_TASK = "Now type in your query \r\n";
+const string LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
+const string LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
+const string LIVE_FEEDBACK_SEARCH = "You are searching... \r\n\r\nTell me the field name before you search the query\r\n task • sd • st • ed • et ";
+const string LIVE_SEARCH_ENTER = "Press Enter when you're done";
+const string KEYWORD_ADD = "add";
+const string KEYWORD_DELETE = "delete";
+const string KEYWORD_DISPLAY = "display";
+const string KEYWORD_UPDATE = "update";
+const string KEYWORD_SEARCH = "search";
+const string KEYWORD_TASK = "task";
+const string KEYWORD_STARTDATE = "sd";
+const string KEYWORD_STARTTIME = "st";
+const string KEYWORD_ENDDATE = "ed";
+const string KEYWORD_ENDTIME = "et";
+const string KEYWORD_ON = "on";
+
+// File Handler
+const string FILE_TASKLIST = "taskList.txt";
 
 #pragma once
 

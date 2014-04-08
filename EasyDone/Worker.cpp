@@ -153,7 +153,7 @@ string Worker::actonCommand(string command)
 			successful = "These tasks found";
 		}
 		else {
-			successful = "Task not found";
+			successful = "Task not found\r\n";
 		}
 	}
 
@@ -163,7 +163,7 @@ string Worker::actonCommand(string command)
 			successful = "Task marked done";
 		}
 		else {
-			successful = "Task not found";
+			successful = "Task not found\r\n";
 		}
 	}
 
