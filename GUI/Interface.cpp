@@ -84,7 +84,7 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 		} else if (allTaskListIsShown) {
 			displayTasksListBoxUsingList(manager->getAllTaskList());
 		} else if (doneTaskListIsShown) {
-			displayTasksListBoxUsingList(manager->getAllTaskList()); // done task change this
+			displayTasksListBoxUsingList(manager->getDoneTaskList()); // done task change this
 		}
 		displayFeedbackBox();
 		displayInputField();
@@ -270,7 +270,7 @@ void GUI::Interface::toggleFeedback() {
 	} else if (allTaskListIsShown) {
 		displayTasksListBoxUsingList(manager->getAllTaskList());
 	} else if (doneTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getAllTaskList()); //change to done task
+		displayTasksListBoxUsingList(manager->getDoneTaskList()); //change to done task
 	}
 }
 
@@ -365,7 +365,7 @@ void GUI::Interface::selectTheme(themeColor color) {
 		radioDotSummary->ForeColor = theme[color]->words;
 		radioDotDone->ForeColor = theme[color]->words;
 	} else if (doneTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getAllTaskList()); // done task change this
+		displayTasksListBoxUsingList(manager->getDoneTaskList()); // done task change this
 		radioDotAll->ForeColor = theme[color]->words;
 		radioDotSummary->ForeColor = theme[color]->words;
 		radioDotDone->ForeColor = theme[color]->label;
