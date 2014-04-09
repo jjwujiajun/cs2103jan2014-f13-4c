@@ -17,7 +17,12 @@ class Worker {
 
 	void convertTaskDataToDisplayFormat(vector<Task> &); //, const bool& isExpanded);
 	 
-	
+	// combine date variables
+	string date;
+	string month;
+	string year;
+	string store;
+	string combine;
 
 	string successful;
 	string returnStringtomain;

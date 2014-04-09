@@ -32,14 +32,65 @@ Worker::~Worker() {
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
+	
+
+
 	continueNext = true;
 	command =  parsedCommandstring[0];
 	if(command == "add" || command == "new" || command == "create" ){
+
+		if (parsedCommandstring[2] == "today") {
+
+			date = userCommand.getTodayDay();
+			month = userCommand.getTodayMonth();
+			year = userCommand.getTodayYear();
+			combine = year + month + date;
+			parsedCommandstring[2] = combine;
+
+			userTask.taskName = parsedCommandstring[1];
+			userTask.startDate = parsedCommandstring[2];
+			userTask.startTime = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[4];
+			userTask.endTime = parsedCommandstring[5];
+
+		} else if (parsedCommandstring[2] == "tmr" || parsedCommandstring[3] == "tmo") {
+
+			store = userCommand.getTodayDay(); // change to int then change to string???
+			
+			// convert to integer first
+			int integerDate = atoi(store.c_str());
+
+			// interger + 1 day to account for tmo
+			int update = integerDate + 1;
+
+			// convert back to string again
+			
+			stringstream ss;
+			ss << update;
+
+			date = ss.str();
+			month = userCommand.getTodayMonth();
+			year = userCommand.getTodayYear();
+			combine = year + month + date;
+			parsedCommandstring[2] = combine;
+
+			userTask.taskName = parsedCommandstring[1];
+			userTask.startDate = parsedCommandstring[2];
+			userTask.startTime = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[4];
+			userTask.endTime = parsedCommandstring[5];
+
+
+		} else {
 		userTask.taskName = parsedCommandstring[1];
 		userTask.startDate = parsedCommandstring[2];
 		userTask.startTime = parsedCommandstring[3];
 		userTask.endDate = parsedCommandstring[4];
 		userTask.endTime = parsedCommandstring[5];
+
+		}
+
+
 	} else if(command == "update" || command == "edit" || command == "change"){
 		if(userCommand.getSize() > parsedCommandstring[1]) {
 			userTask.taskID = parsedCommandstring[1];
@@ -83,7 +134,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	if (!userTask.taskID.empty()) {
 		int taskID = atoi(userTask.taskID.c_str()) - 1;
-		Task task = userCommand.getTask(taskID); // 
+		Task task = userCommand.getTask(taskID); 
 		stringToMain = "\"" + task.taskName + "\" \r\n";
 	}
 
@@ -99,7 +150,7 @@ string Worker::actonCommand(string command)
 	string endTime = userTask.endTime;
 
 	if(command == "add" || command == "new" || command == "create") {
-		if(userCommand.Add(userTask) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
+		if(userCommand.Add(userTask) && continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" )  {
 			successful = "has been added successfully! :) \r\n";
 		
 	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
@@ -122,7 +173,6 @@ string Worker::actonCommand(string command)
 
 		} else if (startTime == "0" || endTime == "0") {
 			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
-
 		} 
 	}
 
