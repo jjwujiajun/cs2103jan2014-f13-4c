@@ -122,19 +122,22 @@ void Command::sort() {
 			Date = 0;
 		}
 		j = i-1;
+		
 		if(!todoList.accessSlot(j).startDate.empty()) {
 			nextDate = stoi(todoList.accessSlot(j).startDate);
 		} else {
 			nextDate = 0;
 		}
-
+		
 		while(j >= 0 && nextDate > Date) {
 			todoList.changeTask(j+1, todoList.accessSlot(j));
 			j--;
-			if(!todoList.accessSlot(j).startDate.empty()) {
-				nextDate = stoi(todoList.accessSlot(j).startDate);
-			} else {
-				nextDate = 0;
+			if(j>=0) {
+				if(!todoList.accessSlot(j).startDate.empty()) {
+					nextDate = stoi(todoList.accessSlot(j).startDate);
+				} else {
+					nextDate = 0;
+				}
 			}
 		}
 		todoList.changeTask(j+1, next);
