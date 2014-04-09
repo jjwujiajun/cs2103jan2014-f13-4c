@@ -84,6 +84,7 @@ vector<Task> Command::getTaskList() { //must change this!!!!!!!
 bool Command::markDone(Task task) {
 	bool done = false;
 	done = todoList.MarkDone(task);
+		counter++;
 	return done;
 }
 
