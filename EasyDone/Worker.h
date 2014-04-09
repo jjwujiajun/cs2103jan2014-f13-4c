@@ -24,6 +24,8 @@ class Worker {
 	string stringToMain;
 	string searchField;
 	string searchItem;
+
+	bool continueNext;
 		
 
 	static const string MESSAGE_ADDED_SUCCESSFULLY;

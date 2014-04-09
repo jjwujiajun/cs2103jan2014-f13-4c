@@ -32,6 +32,7 @@ Worker::~Worker() {
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
+	continueNext = true;
 	command =  parsedCommandstring[0];
 	if(command == "add" || command == "new" || command == "create" ){
 		userTask.taskName = parsedCommandstring[1];
@@ -53,6 +54,8 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.endDate = parsedCommandstring[3];
 		} else if(updateField == "et") {
 			userTask.endTime = parsedCommandstring[3];
+		} else {
+			continueNext = false;
 		}
 	} else if(command == "delete" || command == "remove") {
 		userTask.taskID = parsedCommandstring[1];
@@ -124,7 +127,7 @@ string Worker::actonCommand(string command)
 
 
 	else if(command == "update" || command == "edit" || command == "change" ) {
-		if(userCommand.Update(userTask, updateField) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
+		if(userCommand.Update(userTask, updateField) && continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
 			successful = "has been updated successfully! :)\r\n";
 		
 		} else if (startDate == "1" || endDate == "1" ) {
@@ -144,7 +147,9 @@ string Worker::actonCommand(string command)
 
 		} else if (startTime == "0" || endTime == "0") {
 			successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
-		} 
+		} else if(continueNext == false) {
+			successful = "Invalid field name added!\r\n";
+		}
 		
 	}
 
