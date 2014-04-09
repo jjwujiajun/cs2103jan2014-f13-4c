@@ -14,23 +14,23 @@ vector<Task> FileHandler::getTaskList() {
 		task.taskID = line;
 		
 		isReadable = getline(readFile, line);
-		assert(isReadable == true);
+		assert(isReadable);
 		task.taskName = line;
 		
 		isReadable = getline(readFile, line);
-		assert(isReadable == true);
+		assert(isReadable);
 		task.startDate = line;
 		
 		isReadable = getline(readFile, line);
-		assert(isReadable == true);
+		assert(isReadable);
 		task.startTime = line;
 		
 		isReadable = getline(readFile, line);
-		assert(isReadable == true);
+		assert(isReadable);
 		task.endDate = line;
 		
 		isReadable = getline(readFile, line);
-		assert(isReadable == true);
+		assert(isReadable);
 		task.endTime = line;
 
 		taskList.push_back(task);

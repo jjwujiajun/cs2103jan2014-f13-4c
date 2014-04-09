@@ -291,10 +291,14 @@ void GUI::Interface::toggleHelpTab() {
 	
 	if (helpTabIsVisible) {
 		this->helpTab->Hide();
+		this->toggleLeftPaneLabel->Hide();
+		this->toggleRightPaneLabel->Hide();
 		helpTabSettingButton->Text = BUTTON_SHOW;
 		manager->saveHelpTabSetting(false);
 	} else {
 		this->helpTab->Show();
+		this->toggleLeftPaneLabel->Show();
+		this->toggleRightPaneLabel->Show();
 		helpTabSettingButton->Text = BUTTON_HIDE;
 		manager->saveHelpTabSetting(true);
 	}
