@@ -55,8 +55,8 @@ enum themeColor {WHITE, BLUE, METAL};
 
 // MGR
 const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
-const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n add • update • display • search • delete";
-const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n add • update • display • search • delete";
+const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n add • update • display • search • delete • done";
+const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n add • update • display • search • delete • done";
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
@@ -88,12 +88,14 @@ const string LIVE_FEEDBACK_UPDATE_TASK = "Now type in your new task name \r\n";
 const string LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
 const string LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
 const string LIVE_FEEDBACK_SEARCH = "You are searching... \r\n\r\nTell me the field name before you search the query\r\n task • sd • st • ed • et ";
+const string LIVE_FEEDBACK_DONE = "You're marking a task as done \r\n\r\nType in the ID that's on the left of the task name\r\n";
 const string LIVE_SEARCH_ENTER = "Press Enter when you're done";
 const string KEYWORD_ADD = "add";
 const string KEYWORD_DELETE = "delete";
 const string KEYWORD_DISPLAY = "display";
 const string KEYWORD_UPDATE = "update";
 const string KEYWORD_SEARCH = "search";
+const string KEYWORD_DONE = "done";
 const string KEYWORD_TASK = "task";
 const string KEYWORD_STARTDATE = "sd";
 const string KEYWORD_STARTTIME = "st";
