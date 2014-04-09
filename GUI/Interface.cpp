@@ -87,7 +87,6 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 			displayTasksListBoxUsingList(manager->getDoneTaskList()); // done task change this
 		}
 		displayFeedbackBox();
-		displayInputField();
 	}
 
 	log->endLog();
