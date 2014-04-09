@@ -155,6 +155,7 @@ bool Store::MarkDone(Task task) {
 		if(taskList[counter].taskID == task.taskID) {
 			taskList[counter].isDone = true;
 			done = true;
+			counter++;
 		}
 	}
 	return done;
@@ -492,7 +493,7 @@ void Store::markTasksOverdue() {
 	string todayYear = currentYear();
 
 
-	for(int i = 0;i < taskList.size(); i++)
+	/*for(int i = 0;i < taskList.size(); i++)
 	{
 		Task task = taskList[i];
 
@@ -538,6 +539,9 @@ void Store::markTasksOverdue() {
 			}
 		}
 
-	}
+	}*/
+
+	Task task = taskList[1];
+	task.isRed = true;
 
 }

@@ -12,6 +12,8 @@ private:
 	Store todoList;
 	Log log;
 
+	
+
 public:
 	Command();
 	~Command();
@@ -31,6 +33,9 @@ public:
 	vector<Task> getTomorrowTask();
 	vector<Task> getOverdueTasks();
 	vector<Task> getMarkedTasks();
+	string getTodayDay();
+	string getTodayMonth();
+	string getTodayYear();
 };
 
 #endif

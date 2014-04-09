@@ -219,12 +219,13 @@ vector<Task> Command::getOverdueTasks() {
 	int i;
 	todoList.markTasksOverdue();
 	vector<Task> tasksReturned;
+	int sizeofList = todoList.getSize(); 
 
 	for( i = 0 ; i < todoList.getSize(); i++) {
 
 		Task task = todoList.getTask(i);
 
-		if(task.isRed == true)
+		if(task.isRed == true && tasksReturned.size() < sizeofList)
 		{
 			tasksReturned.push_back(task);
 		}
@@ -248,4 +249,27 @@ vector<Task> Command::getMarkedTasks() {
 	}
 
 	return tasksReturned;
+
 }
+
+string Command::getTodayDay() {
+
+	string toReturn =  todoList.currentDay();
+
+	return toReturn;
+}
+
+string Command::getTodayMonth() {
+
+	string toReturn =  todoList.currentMonth();
+
+	return toReturn;
+}
+
+string Command::getTodayYear() {
+
+	string toReturn =  todoList.currentYear();
+
+	return toReturn;
+}
+
