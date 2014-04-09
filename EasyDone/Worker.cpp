@@ -39,7 +39,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.startTime = parsedCommandstring[3];
 		userTask.endDate = parsedCommandstring[4];
 		userTask.endTime = parsedCommandstring[5];
-	} else if(command == "update"){
+	} else if(command == "update" || command == "edit" || command == "change"){
 		userTask.taskID = parsedCommandstring[1];
 		updateField = parsedCommandstring[2];
 
@@ -54,9 +54,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		} else if(updateField == "et") {
 			userTask.endTime = parsedCommandstring[3];
 		}
-	} else if(command == "delete") {
+	} else if(command == "delete" || command == "remove") {
 		userTask.taskID = parsedCommandstring[1];
-	} else if(command == "display") {
+	} else if(command == "update" || command == "edit" || command == "change") {
 		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "done") {
 		userTask.taskID = parsedCommandstring[1];
@@ -70,7 +70,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	if (!userTask.taskID.empty()) {
 		int taskID = atoi(userTask.taskID.c_str()) - 1;
-		Task task = userCommand.getTask(taskID);
+		Task task = userCommand.getTask(taskID); // 
 		stringToMain = "\"" + task.taskName + "\" \r\n";
 	}
 
@@ -109,6 +109,7 @@ string Worker::actonCommand(string command)
 
 		} else if (startTime == "0" || endTime == "0") {
 			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+
 		} 
 	}
 
@@ -160,7 +161,7 @@ string Worker::actonCommand(string command)
 	else if(command == "done" ) {
 		bool found = userCommand.markDone(userTask);
 		if(found) {
-			successful = "Task marked done";
+			successful = "Task marked done\r\n";
 		}
 		else {
 			successful = "Task not found\r\n";

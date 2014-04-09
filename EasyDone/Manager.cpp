@@ -25,7 +25,7 @@ Manager::~Manager(void) {
 }
 
 void Manager::receiveInput(string input) {
-	assert(input.size() > 0);
+	//assert(input.size() > 0);
 	log.log(LOG_STRING_USERINPUT + input);
 	userInput = input;
 
