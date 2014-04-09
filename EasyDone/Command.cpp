@@ -267,3 +267,8 @@ vector<Task> Command::getMarkedTasks() {
 
 	return tasksReturned;
 }
+
+string Command::getSize() {
+	string size = to_string(todoList.getSize());
+	return size;
+}

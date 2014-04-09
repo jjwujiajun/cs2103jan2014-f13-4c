@@ -33,6 +33,7 @@ public:
 	vector<Task> getTomorrowTask();
 	vector<Task> getOverdueTasks();
 	vector<Task> getMarkedTasks();
+	string getSize();
 	string getTodayDay();
 	string getTodayMonth();
 	string getTodayYear();

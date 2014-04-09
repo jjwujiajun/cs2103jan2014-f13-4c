@@ -41,7 +41,11 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.endDate = parsedCommandstring[4];
 		userTask.endTime = parsedCommandstring[5];
 	} else if(command == "update" || command == "edit" || command == "change"){
-		userTask.taskID = parsedCommandstring[1];
+		if(userCommand.getSize() > parsedCommandstring[1]) {
+			userTask.taskID = parsedCommandstring[1];
+		} else {
+			continueNext = false;
+		}
 		updateField = parsedCommandstring[2];
 
 		if(updateField == "task") {
@@ -58,9 +62,17 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			continueNext = false;
 		}
 	} else if(command == "delete" || command == "remove") {
-		userTask.taskID = parsedCommandstring[1];
+		if(userCommand.getSize() > parsedCommandstring[1]) {
+			userTask.taskID = parsedCommandstring[1];
+		} else {
+			continueNext = false;
+		}
 	} else if(command == "done" || command == "display") {
-		userTask.taskID = parsedCommandstring[1];
+		if(userCommand.getSize() > parsedCommandstring[1]) {
+			userTask.taskID = parsedCommandstring[1];
+		} else {
+			continueNext = false;
+		}
 	} else if(command == "search") {
 		
 		searchField = parsedCommandstring[1];
@@ -115,38 +127,44 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command == "delete" || command == "remove") {
-		if(userCommand.Delete(userTask) ) {
-			successful = "has been deleted successfully! :) \r\n";
-		}
-		else {
-			successful = "Please enter a valid index!\r\n";
+		if(continueNext == true) {
+			if(userCommand.Delete(userTask) ) {
+				successful = "has been deleted successfully! :) \r\n";
+			}
+			else {
+				successful = "Please enter a valid index!\r\n";
+			}
+		} else {
+			successful = "TaskID is out of range. Please check again.\r\n";
 		}
 	}
 
 
 	else if(command == "update" || command == "edit" || command == "change" ) {
-		if(userCommand.Update(userTask, updateField) && continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
-			successful = "has been updated successfully! :)\r\n";
+		if(continueNext == true) {
+			if(userCommand.Update(userTask, updateField) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
+				successful = "has been updated successfully! :)\r\n";
 		
-		} else if (startDate == "1" || endDate == "1" ) {
-			successful = "Invalid date!!!! Task has not been edited successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+			} else if (startDate == "1" || endDate == "1" ) {
+				successful = "Invalid date!!!! Task has not been edited successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
 
-		} else if (startDate == "3" || endDate == "3") {
-			successful = "Invalid Year!!! Task has not been edited successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
+			} else if (startDate == "3" || endDate == "3") {
+				successful = "Invalid Year!!! Task has not been edited successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
 		
-		} else if (startDate == "12" || endDate == "12") {
-			successful = "Invalid date & Month!!! Task has not been edited successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+			} else if (startDate == "12" || endDate == "12") {
+				successful = "Invalid date & Month!!! Task has not been edited successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
 
-		} else if (startDate == "13" || endDate == "13") {
-			successful = "Invalid date & Year!!! Task has not been edited successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+			} else if (startDate == "13" || endDate == "13") {
+				successful = "Invalid date & Year!!! Task has not been edited successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
 
-		} else if (startDate == "123" || endDate == "123") {
-			successful = "Invalid Date & Month & Year!!! Task has not been edited successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
+			} else if (startDate == "123" || endDate == "123") {
+				successful = "Invalid Date & Month & Year!!! Task has not been edited successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
 
-		} else if (startTime == "0" || endTime == "0") {
-			successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
-		} else if(continueNext == false) {
-			successful = "Invalid field name added!\r\n";
+			} else if (startTime == "0" || endTime == "0") {
+				successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+			} 
+		} else {
+			successful = "Either invalid field name added or taskID is out of range! Please check again.\r\n";
 		}
 		
 	}
@@ -162,23 +180,32 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command == "done" ) {
-		bool found = userCommand.markDone(userTask);
-		if(found) {
-			successful = "Task marked done\r\n";
-		}
-		else {
-			successful = "Task not found\r\n";
+		if(continueNext == true) {
+			bool found = userCommand.markDone(userTask);
+			if(found) {
+				successful = "Task marked done\r\n";
+			}
+			else {
+				successful = "Task not found\r\n";
+			}
+		} else {
+			successful = "TaskID is out of range. Please check again.\r\n";
 		}
 	}
 
 	else if(command == "display") {
-		vector<Task> taskList = userCommand.getTaskList();
-		int intID = stoi(userTask.taskID) - 1;
-		Task task = taskList.at(intID);
+		if(continueNext == true) {
+			vector<Task> taskList = userCommand.getTaskList();
+			int intID = stoi(userTask.taskID) - 1;
+			Task task = taskList.at(intID);
 
-		successful = "Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
-					 "Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
+			successful = "Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
+						 "Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
+		} else {
+			successful = "TaskID is out of range. Please check again.\r\n";
+		}
 	}
+
 	else if(command ==  "undo") {
 		userCommand.undo();
 	}
