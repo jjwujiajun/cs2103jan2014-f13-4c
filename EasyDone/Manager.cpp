@@ -36,7 +36,7 @@ void Manager::receiveInput(string input) {
 // display
 bool Manager::hasFeedbackForGivenInput(const string& input) {
 	inputIsSearchQuery = false;
-	string text = input.substr(0, 6);
+	string text = input.substr(0, 7);
 
 	if(text.find(KEYWORD_ADD) != string::npos) {
 		GUIfeedbackBox = LIVE_FEEDBACK_ADD;
@@ -55,28 +55,31 @@ bool Manager::hasFeedbackForGivenInput(const string& input) {
 		GUIfeedbackBox = LIVE_FEEDBACK_DISPLAY;
 		GUIfeedbackBox += LIVE_SEARCH_ENTER;
 		return true;
-	} else if (text.find(KEYWORD_DISPLAY) != string::npos) {
+	} else if (text.find(KEYWORD_UPDATE) != string::npos) {
 		GUIfeedbackBox = LIVE_FEEDBACK_UPDATE;
 		if (input.find(KEYWORD_TASK) != string::npos) {
 			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_TASK;
 			GUIfeedbackBox += LIVE_SEARCH_ENTER;
-		}
-		if (input.find(KEYWORD_STARTDATE) != string::npos ||
+		} else if (input.find(KEYWORD_STARTDATE) != string::npos ||
 			input.find(KEYWORD_ENDDATE) != string::npos ) {
 			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_DATE;
 			GUIfeedbackBox += LIVE_SEARCH_ENTER;
-		}
-		if (input.find(KEYWORD_STARTTIME) != string::npos ||
+		} else if (input.find(KEYWORD_STARTTIME) != string::npos ||
 			input.find(KEYWORD_ENDTIME) != string::npos ) {
 			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_TIME;
 			GUIfeedbackBox += LIVE_SEARCH_ENTER;
+		} else {
+			GUIfeedbackBox += LIVE_FEEDBACK_UPDATE_FIELD;
 		}
 		return true;
 	} else if (text.find(KEYWORD_SEARCH) != string::npos) {
 		GUIfeedbackBox = LIVE_FEEDBACK_SEARCH;
-		inputIsSearchQuery = true;
+		if (input.size() > 9) {
+			inputIsSearchQuery = true;
+		}
 		return true;
 	}
+	GUIfeedbackBox = FEEDBACK_PROMPT_OTHERS;
 	return false;
 }
 

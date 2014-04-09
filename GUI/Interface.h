@@ -678,6 +678,9 @@ namespace GUI {
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 
+			string liveInputFieldText;
+			convertSysToStdString(inputField->Text, liveInputFieldText);
+
 			if (keyPressed->KeyCode == Keys::F1) {
 				activateHelpPage();
 			} else if (keyPressed->KeyCode == Keys::F2) {
@@ -697,15 +700,10 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 			} else if (keyPressed->KeyCode == Keys::Enter) {
 				log->log("User: Enter is pressed, operateUserRequest()");
 				operateUserRequest(inputField->Text->Contains("search"));
+			} else if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
+				showLiveFeedback();
 			} else {
-				string liveInputFieldText;
-				convertSysToStdString(inputField->Text, liveInputFieldText);
-
-				if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
-					showLiveFeedback();
-				} else {
-					displayNormalInterfaceState();
-				}
+				displayNormalInterfaceState();
 			}
 		 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
