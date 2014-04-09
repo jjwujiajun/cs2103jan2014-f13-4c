@@ -92,6 +92,7 @@ bool Command::markDone(Task task) {
 			temp.isDone = true;
 			todoList.changeTask(stoi(temp.taskID),temp);
 			done = true;
+			break;
 		}
 	}
 	return done;
@@ -111,22 +112,24 @@ void Command::sort() {
 	
 	log.log("Command: sorting List");
 	Task next;
-	int Date, nextDate;
-	for(int i = 1; i < todoList.getSize(); i++) {
+	int Date, nextDate, j, i = 1;
+	while(i < todoList.getSize()) {
 		next = todoList.accessSlot(i);
 		if(!next.startDate.empty()) {
 			Date = stoi(next.startDate);
 		} else {
 			Date = 0;
 		}
-		int j = i-1;
+		j = i-1;
 		if(!todoList.accessSlot(j).startDate.empty()) {
 			nextDate = stoi(todoList.accessSlot(j).startDate);
 		} else {
 			nextDate = 0;
 		}
-		for(j = i-1; j >= 0 && nextDate > Date; --j) {
+
+		while(j >= 0 && nextDate > Date) {
 			todoList.changeTask(j+1, todoList.accessSlot(j));
+			j--;
 			if(!todoList.accessSlot(j).startDate.empty()) {
 				nextDate = stoi(todoList.accessSlot(j).startDate);
 			} else {
@@ -134,10 +137,11 @@ void Command::sort() {
 			}
 		}
 		todoList.changeTask(j+1, next);
+		i++;
 	}
 	
 	int Time, nextTime, prevsameDate, sameDate = 0, counter = 1, countNum;
-	
+	/*
 	while(sameDate < todoList.getSize()) {
 		prevsameDate = sameDate;
 		next = todoList.getTask(sameDate);
@@ -178,7 +182,7 @@ void Command::sort() {
 			}
 		}
 		sameDate++;
-	}
+	} */
 	todoList.updateTaskID();
 	log.log("Command: List sorted");
 	
