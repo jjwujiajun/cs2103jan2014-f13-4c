@@ -142,7 +142,7 @@ void Command::sort() {
 	}
 	
 	int Time, nextTime, prevsameDate, sameDate = 0, counter = 1, countNum;
-	/*
+	
 	while(sameDate < todoList.getSize()) {
 		prevsameDate = sameDate;
 		next = todoList.getTask(sameDate);
@@ -183,7 +183,7 @@ void Command::sort() {
 			}
 		}
 		sameDate++;
-	} */
+	} 
 	todoList.updateTaskID();
 	log.log("Command: List sorted");
 	
