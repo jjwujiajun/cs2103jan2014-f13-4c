@@ -43,7 +43,7 @@ namespace GUI {
 		literal String ^TASKLIST_FONT_HEADING = "Broadway";
 		literal String ^ENDL = "\n";
 		literal String ^TABL = "\t";
-		literal String ^TASKLIST_FORMATTING_INDEX = "  ";
+		literal String ^TASKLIST_FORMATTING_INDEX = "        ";
 
 		// ***ATTRIBUTES***
 		// Interface's esternal libraries

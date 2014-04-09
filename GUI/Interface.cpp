@@ -557,8 +557,7 @@ void GUI::Interface::displayTaskIndex(const Task &task) {
 	richTaskList->SelectionColor = theme[color]->index;
 			
 	String ^index = gcnew String(task.taskID.c_str());
-	richTaskList->SelectedText = TASKLIST_FORMATTING_INDEX;
-	richTaskList->SelectedText = index;
+	richTaskList->SelectedText = TASKLIST_FORMATTING_INDEX + index;
 
 	delete richTaskList->SelectionFont;
 	delete index;
