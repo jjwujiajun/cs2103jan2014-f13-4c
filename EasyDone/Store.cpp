@@ -147,6 +147,19 @@ Task Store::getTask(int slot) {
 
 	return taskList.at(slot);
 }
+
+bool Store::MarkDone(Task task) {
+	bool done = false;
+	int counter = 0;
+	while(counter <getSize()) {
+		if(taskList[counter].taskID == task.taskID) {
+			taskList[counter].isDone = true;
+			done = true;
+			counter++;
+		}
+	}
+	return done;
+}
 	
 bool Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
@@ -480,7 +493,7 @@ void Store::markTasksOverdue() {
 	string todayYear = currentYear();
 
 
-	for(int i = 0;i < taskList.size(); i++)
+	/*for(int i = 0;i < taskList.size(); i++)
 	{
 		Task task = taskList[i];
 
@@ -526,6 +539,9 @@ void Store::markTasksOverdue() {
 			}
 		}
 
-	}
+	}*/
+
+	Task task = taskList[1];
+	task.isRed = true;
 
 }
