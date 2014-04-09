@@ -541,7 +541,7 @@ void Store::markTasksOverdue() {
 
 	}*/
 
-	Task task = taskList[1];
-	task.isRed = true;
+//	Task task = taskList[1];
+//	task.isRed = true;
 
 }
