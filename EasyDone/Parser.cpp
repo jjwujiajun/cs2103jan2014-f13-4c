@@ -12,12 +12,14 @@ Parser::~Parser() {
 
 }
 
+
+
 // breaks up the userUnput via spaces and stores them into a vector string
 vector<string> Parser::storeInformation(string userInput) {
 
 	// find_first_of -> will treat the string as a set of characters served as delimters
 	// it will also find the first occurrence of a member of string within the string to which it is applied
-
+	if (userInput.size() != 0) {
 
 	unsigned int tStart = 0, tEnd = 0;
 	string token;
@@ -36,13 +38,15 @@ vector<string> Parser::storeInformation(string userInput) {
 	if (tStart < userInput.size()) {
 		token = userInput.substr (tStart); // print the last token
 		storeUserInfo.push_back (token);
+		}
 
+	} else {
+		storeUserInfo.push_back ("");
 	}
 
 	return storeUserInfo;
+
 }
-
-
 
 
 Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
@@ -51,32 +55,32 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 		log.log("Parser: Command is ADD");
 		return ADD;
 	}
-	else if (storeUserInfo[0] == "display") {
+	else if (storeUserInfo[0] == MESSAGE_DISPLAY) {
 		log.log("Parser: Command is READ");
 		return READ;
 	}
-	else if (storeUserInfo[0] == "update" || storeUserInfo[0] == "change" || storeUserInfo[0] == "edit") {
+	else if (storeUserInfo[0] == MESSAGE_UPDATE|| storeUserInfo[0] == MESSAGE_CHANGE || storeUserInfo[0] == MESSAGE_EDIT) {
 		log.log("Parser: Command is UPDATE");
 		return UPDATE;
 	}
-	else if (storeUserInfo[0] == "delete" || storeUserInfo[0] == "remove") {
+	else if (storeUserInfo[0] == MESSAGE_DELETE|| storeUserInfo[0] == MESSAGE_REMOVE) {
 		log.log("Parser: Command is DELETE");
 		return DELETE;
 	}
-	else if (storeUserInfo[0] == "search") {
+	else if (storeUserInfo[0] == MESSAGE_SEARCH) {
 		log.log("Parser: Command is SEARCH");
 		return SEARCH;
 	}
-	else if (storeUserInfo[0] == "done") {
+	else if (storeUserInfo[0] == MESSAGE_DONE) {
 		log.log("Parser: Command is CHECK");
 		return CHECK;
 	}
-	else if (storeUserInfo[0] == "undo") {
+	else if (storeUserInfo[0] == MESSAGE_UNDO) {
 		log.log("Parser: Command is UNDO");
 		return UNDO;
 	}
 	else { 
-		storeOther.push_back("add");
+		storeOther.push_back(MESSAGE_ADD);
 		return OTHER;
 	}
 }
@@ -118,8 +122,6 @@ vector<string> Parser::parseCommand (vector<string> storeUserInfo) {
 	}
 	return userInformation;
 }
-
-
 
 bool Parser::parseDetails (vector<string> storeUserInfo) {
 
@@ -223,7 +225,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								startTime = guardConvertParserTime(verifyTime, startTime);
 								++i;
 							}
-						}
+					}
 				}	
 			}			
 
@@ -468,6 +470,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			taskName = "1";	
 		}
 
+		
 		userInformation.push_back(taskName);
 		userInformation.push_back(startDate);
 		userInformation.push_back(startTime);
@@ -507,7 +510,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						++i;
 					}
 
-				} else if (storeUserInfo[i] == "st") {
+				} else if (storeUserInfo[i] == st) {
 
 					startDate += storeUserInfo[i];
 					++i;
@@ -569,8 +572,10 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					startTime = startTime.substr(0, startTime.size()-1);
 
 				} else {
+
 					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 					++i;
+					
 				}
 
 			} 
@@ -995,7 +1000,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	string Parser:: checkKeyWord(string startDate) {
 
 		string found;
-		string check = "0123456789 ";
+		string check = CHECK_DATE;
 
 		// Searches the string for the first character that does not match any of the characters (0123456789 ) specified in its arguments.
 		
@@ -1004,9 +1009,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 		} else {
 
-			found = startDate + "01234567890123456789";
+			found = startDate + GUARD_DATE;
 		}
-		cout << "date " << found << endl;
+		
 		return found;
 
 	}
@@ -1364,7 +1369,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	}
 
 
-	vector<string> Parser::completeParse(string userInput) {
+vector<string> Parser::completeParse(string userInput) {
 
 		parserEmpty();
 
@@ -1382,11 +1387,70 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 
 		return userInformation; //returns details of task inputted by user in the form of a vector<string>
+}
+
+string Parser:: naturalParseInput (string date, string month, string year) {
+
+	int intDate = atoi(date.c_str());
+
+	string intMonth;
+	string combine;
+	string final;
+
+
+	if (month == "jan" || month == "JAN" || month == "Jan") {
+		intMonth = "1";
+
+	} else if (month == "feb" || month == "FEB" || month == "feb") {
+		intMonth = "2";
+
+	} else if (month == "mar" || month == "MAR" || month == "Mar") {
+		intMonth = "3";
+
+	} else if (month == "apr" || month == "APR" || month == "Apr") {
+		intMonth = "4";
+
+	} else if (month == "may" || month == "MAY" || month == "May") {
+		intMonth = "5";
+
+	} else if (month == "jun" || month == "JUN" || month == "Jun") {
+		intMonth = "6";
+
+	} else if (month == "jul" || month == "JUL" || month == "Jul") {
+		intMonth = "7";
+
+	} else if (month == "aug" || month == "AUG" || month == "aug") {
+		intMonth = "8";
+
+	} else if (month == "sep" || month == "SEP" || month == "Sep") {
+		intMonth = "9";
+
+	} else if (month == "oct" || month == "OCT" || month == "Oct") {
+		intMonth = "10";
+
+	} else if (month == "nov" || month == "NOV" || month == "Nov") {
+		intMonth = "11";
+
+	} else if (month == "dec" || month == "DEC" || month == "Dec") {
+		intMonth = "12";
+
+	} else {
+		intMonth = "0";
 	}
 
-	void Parser::parserEmpty() {
+	combine = date + "/" + intMonth + "/" + year;
+
+	final = checkDate(combine);
+
+
+	return final;	 
+}
+
+
+
+void Parser::parserEmpty() {
 		storeUserInfo.clear();
 		userInformation.clear();
 
-	}
+}
 
