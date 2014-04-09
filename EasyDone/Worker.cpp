@@ -54,9 +54,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		} else if(updateField == "et") {
 			userTask.endTime = parsedCommandstring[3];
 		}
-	} else if(command == "delete") {
+	} else if(command == "delete" || command == "remove") {
 		userTask.taskID = parsedCommandstring[1];
-	} else if(command == "display") {
+	} else if(command == "update" || command == "edit" || command == "change") {
 		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "done") {
 		userTask.taskID = parsedCommandstring[1];

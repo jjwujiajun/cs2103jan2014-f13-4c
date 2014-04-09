@@ -94,6 +94,7 @@ bool Command::markDone(Task task) {
 			done = true;
 			break;
 		}
+		counter++;
 	}
 	return done;
 }
