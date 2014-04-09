@@ -67,7 +67,10 @@ namespace GUI {
 		// delete this
 		String ^titleName;
 		int numRowsToDisplay;
-		String ^feedbackToDisplay;
+	private: System::Windows::Forms::Label^  toggleLeftPaneLabel;
+	private: System::Windows::Forms::Label^  toggleRightPaneLabel;
+
+			 String ^feedbackToDisplay;
 
 		// ***FUNCTIONS***
 		// input functions
@@ -210,6 +213,8 @@ namespace GUI {
 			this->radioDotAll = (gcnew System::Windows::Forms::RichTextBox());
 			this->radioDotSummary = (gcnew System::Windows::Forms::RichTextBox());
 			this->radioDotDone = (gcnew System::Windows::Forms::RichTextBox());
+			this->toggleLeftPaneLabel = (gcnew System::Windows::Forms::Label());
+			this->toggleRightPaneLabel = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// inputField
@@ -259,6 +264,7 @@ namespace GUI {
 			this->richTaskList->ForeColor = System::Drawing::SystemColors::InactiveCaption;
 			this->richTaskList->Location = System::Drawing::Point(12, 61);
 			this->richTaskList->Name = L"richTaskList";
+			this->richTaskList->ReadOnly = true;
 			this->richTaskList->Size = System::Drawing::Size(351, 376);
 			this->richTaskList->TabIndex = 4;
 			this->richTaskList->Text = L"";
@@ -600,6 +606,24 @@ namespace GUI {
 			this->radioDotDone->TabIndex = 30;
 			this->radioDotDone->Text = L"•";
 			// 
+			// toggleLeftPaneLabel
+			// 
+			this->toggleLeftPaneLabel->AutoSize = true;
+			this->toggleLeftPaneLabel->Location = System::Drawing::Point(134, 437);
+			this->toggleLeftPaneLabel->Name = L"toggleLeftPaneLabel";
+			this->toggleLeftPaneLabel->Size = System::Drawing::Size(34, 13);
+			this->toggleLeftPaneLabel->TabIndex = 31;
+			this->toggleLeftPaneLabel->Text = L"[F5] <";
+			// 
+			// toggleRightPaneLabel
+			// 
+			this->toggleRightPaneLabel->AutoSize = true;
+			this->toggleRightPaneLabel->Location = System::Drawing::Point(207, 437);
+			this->toggleRightPaneLabel->Name = L"toggleRightPaneLabel";
+			this->toggleRightPaneLabel->Size = System::Drawing::Size(34, 13);
+			this->toggleRightPaneLabel->TabIndex = 32;
+			this->toggleRightPaneLabel->Text = L"> [F6]";
+			// 
 			// Interface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -607,6 +631,8 @@ namespace GUI {
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(375, 587);
 			this->ControlBox = false;
+			this->Controls->Add(this->toggleRightPaneLabel);
+			this->Controls->Add(this->toggleLeftPaneLabel);
 			this->Controls->Add(this->radioDotDone);
 			this->Controls->Add(this->radioDotSummary);
 			this->Controls->Add(this->radioDotAll);
@@ -651,8 +677,6 @@ namespace GUI {
 		// function: press enter to take in string
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
-			string liveInputFieldText;
-			convertSysToStdString(inputField->Text, liveInputFieldText);
 
 			if (keyPressed->KeyCode == Keys::F1) {
 				activateHelpPage();
@@ -673,10 +697,15 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 			} else if (keyPressed->KeyCode == Keys::Enter) {
 				log->log("User: Enter is pressed, operateUserRequest()");
 				operateUserRequest(inputField->Text->Contains("search"));
-			} else if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
-				showLiveFeedback();
-			} else{
-				displayNormalInterfaceState();
+			} else {
+				string liveInputFieldText;
+				convertSysToStdString(inputField->Text, liveInputFieldText);
+
+				if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
+					showLiveFeedback();
+				} else {
+					displayNormalInterfaceState();
+				}
 			}
 		 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
