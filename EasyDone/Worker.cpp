@@ -161,7 +161,7 @@ string Worker::actonCommand(string command)
 	else if(command == "done" ) {
 		bool found = userCommand.markDone(userTask);
 		if(found) {
-			successful = "Task marked done";
+			successful = "Task marked done\r\n";
 		}
 		else {
 			successful = "Task not found\r\n";
