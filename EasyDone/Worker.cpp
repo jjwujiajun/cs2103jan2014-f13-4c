@@ -59,9 +59,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 	} else if(command == "delete" || command == "remove") {
 		userTask.taskID = parsedCommandstring[1];
-	} else if(command == "update" || command == "edit" || command == "change") {
-		userTask.taskID = parsedCommandstring[1];
-	} else if(command == "done") {
+	} else if(command == "done" || command == "display") {
 		userTask.taskID = parsedCommandstring[1];
 	} else if(command == "search") {
 		
