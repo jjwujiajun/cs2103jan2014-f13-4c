@@ -20,9 +20,6 @@ class Store {
 		vector<Task> taskList;
 		vector<Task> searchTask;
 		vector< vector<Task> > undoList;
-		string currentDay();
-		string currentMonth();
-		string currentYear();
 		void getDateTomorrow();
 		string tomorrowDay;
 		string tomorrowMonth;
@@ -72,5 +69,8 @@ class Store {
 		void updateTaskID();
 		void markTasksDueToday();
 		void markTasksDueTomorrow();
+		string currentDay();
+		string currentMonth();
+		string currentYear();
 	
 };

@@ -8,14 +8,17 @@ using namespace std;
 const string MESSAGE_ADD = "add";
 const string MESSAGE_NEW = "new";
 const string MESSAGE_CREATE = "create";
-const string MESSAGE_READ = "display";
+const string MESSAGE_DISPLAY = "display";
 const string MESSAGE_UPDATE = "update";
 const string MESSAGE_EDIT = "edit";
 const string MESSAGE_CHANGE = "change";
 const string MESSAGE_DELETE = "delete";
 const string MESSAGE_REMOVE = "remove";
 const string MESSAGE_SEARCH = "search";
-const string MESSAGE_CHECK = "check";
+const string MESSAGE_DONE = "done";
+const string MESSAGE_UNDO = "undo";
+const string CHECK_DATE = "0123456789 ";
+const string GUARD_DATE = "01234567890123456789";
 const string MESSAGE_INVALID  = "Wrong command! Please enter command again ";
 const string MESSAGE_SUCCESSFUL = "Details successfully Parsed";
 const string MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
@@ -40,6 +43,9 @@ public:
 	};
 
 	Choice userCommand(vector<string> storeUserInfo);
+
+	// take in more natural inputs. Eg.) 14 jan 2014
+	string naturalParseInput (string date, string month, string year);
 
 	 // guard for keywords
 	 string checkKeyWord (string word);
