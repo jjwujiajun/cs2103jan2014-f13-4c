@@ -78,6 +78,9 @@ bool Manager::hasFeedbackForGivenInput(const string& input) {
 			inputIsSearchQuery = true;
 		}
 		return true;
+	} else if (text.find(KEYWORD_DONE) != string::npos) {
+		GUIfeedbackBox = LIVE_FEEDBACK_DONE;
+		return true;
 	}
 	GUIfeedbackBox = FEEDBACK_PROMPT_OTHERS;
 	return false;
