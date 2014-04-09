@@ -700,6 +700,7 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 			} else if (keyPressed->KeyCode == Keys::Enter) {
 				log->log("User: Enter is pressed, operateUserRequest()");
 				operateUserRequest(inputField->Text->Contains("search"));
+				displayInputField();
 			} else if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
 				showLiveFeedback();
 			} else {
