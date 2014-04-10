@@ -107,7 +107,7 @@ bool Command::markDone(Task task) {
 		temp = todoList.getTask(counter);
 		if(temp.taskID == task.taskID) {
 			temp.isDone = true;
-			todoList.changeTask(stoi(temp.taskID),temp);
+			todoList.changeTask(counter,temp);
 			done = true;
 			break;
 		}
