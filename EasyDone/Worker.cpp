@@ -53,7 +53,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.endDate = parsedCommandstring[4];
 			userTask.endTime = parsedCommandstring[5];
 
-		} else if (parsedCommandstring[2] == "tmr" || parsedCommandstring[3] == "tmo") {
+		} else if (parsedCommandstring[2] == "tmr" || parsedCommandstring[2] == "tmo" || parsedCommandstring[4] == "tmr" || parsedCommandstring[4] == "tmo") {
 
 			store = userCommand.getTodayDay(); // change to int then change to string???
 			
@@ -73,6 +73,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			year = userCommand.getTodayYear();
 			combine = year + month + date;
 			parsedCommandstring[2] = combine;
+			parsedCommandstring[4] = combine;
 
 			userTask.taskName = parsedCommandstring[1];
 			userTask.startDate = parsedCommandstring[2];
