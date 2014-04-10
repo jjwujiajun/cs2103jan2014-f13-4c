@@ -93,7 +93,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 
 	} else if(command == "update" || command == "edit" || command == "change"){
-		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -114,13 +114,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			continueNext = false;
 		}
 	} else if(command == "delete" || command == "remove") {
-		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display") {
-		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
