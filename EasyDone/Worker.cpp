@@ -41,7 +41,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		userTask.endDate = parsedCommandstring[4];
 		userTask.endTime = parsedCommandstring[5];
 	} else if(command == "update" || command == "edit" || command == "change"){
-		if(userCommand.getSize() > parsedCommandstring[1]) {
+		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -62,13 +62,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			continueNext = false;
 		}
 	} else if(command == "delete" || command == "remove") {
-		if(userCommand.getSize() > parsedCommandstring[1]) {
+		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display") {
-		if(userCommand.getSize() > parsedCommandstring[1]) {
+		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
