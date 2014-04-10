@@ -66,7 +66,7 @@ public:
 	vector<Task> getTasksDoneList();
 
 	// formatting functions
-	string formatDate(string);
+	string formatDate(string, bool isDisplayCommand);
 	string formatTime(string);
 };
 
