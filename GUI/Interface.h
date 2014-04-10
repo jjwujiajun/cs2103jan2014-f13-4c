@@ -40,7 +40,7 @@ namespace GUI {
 		literal String ^BUTTON_THEME_SELECTED = "Yay :)";
 		literal String ^BUTTON_THEME_NOT_SELECTED = "Choose me!";
 		literal String ^TASKLIST_FONT_TASK = "Calibri";
-		literal String ^TASKLIST_FONT_HEADING = "Elephant";//"Broadway";
+		literal String ^TASKLIST_FONT_HEADING = "Segoe UI";//"Elephant";//"Broadway";
 		literal String ^HELP_FONT_HEADING = "Calibri";
 		literal String ^HELP_FONT_INSTRUCTION = "Calibri";
 		literal String ^ENDL = "\n";
@@ -320,10 +320,10 @@ namespace GUI {
 			this->helpBox->BackColor = System::Drawing::Color::White;
 			this->helpBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->helpBox->Cursor = System::Windows::Forms::Cursors::IBeam;
-			this->helpBox->Location = System::Drawing::Point(376, 143);
+			this->helpBox->Location = System::Drawing::Point(376, 134);
 			this->helpBox->Name = L"helpBox";
 			this->helpBox->ReadOnly = true;
-			this->helpBox->Size = System::Drawing::Size(293, 429);
+			this->helpBox->Size = System::Drawing::Size(293, 438);
 			this->helpBox->TabIndex = 9;
 			this->helpBox->Text = L"";
 			this->helpBox->Visible = false;
@@ -398,7 +398,7 @@ namespace GUI {
 			this->helpIntro->Location = System::Drawing::Point(376, 41);
 			this->helpIntro->Multiline = true;
 			this->helpIntro->Name = L"helpIntro";
-			this->helpIntro->Size = System::Drawing::Size(278, 98);
+			this->helpIntro->Size = System::Drawing::Size(278, 102);
 			this->helpIntro->TabIndex = 15;
 			this->helpIntro->Text = resources->GetString(L"helpIntro.Text");
 			this->helpIntro->Visible = false;
