@@ -29,9 +29,9 @@ namespace GUI {
 	{
 	private:
 		// ***MAGIC STRINGS***
-		literal String ^TITLE_ALLTASKS = "All Tasks";
-		literal String ^TITLE_SUMMARY = "Summary";
-		literal String ^TITLE_DONETASKS = "Archive";
+		literal String ^TITLE_ALLTASKS = "EasyList";
+		literal String ^TITLE_SUMMARY = "EasyView";
+		literal String ^TITLE_DONETASKS = "EasyDone";
 		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
 		literal String ^TASKLIST_HEADING_TOMORROW = "Tomorrow \n";
 		literal String ^TASKLIST_HEADING_DUE = "Overdue Tasks \n";
@@ -40,9 +40,9 @@ namespace GUI {
 		literal String ^BUTTON_THEME_SELECTED = "Yay :)";
 		literal String ^BUTTON_THEME_NOT_SELECTED = "Choose me!";
 		literal String ^TASKLIST_FONT_TASK = "Calibri";
+		literal String ^TASKLIST_FONT_HEADING = "Elephant";//"Broadway";
 		literal String ^HELP_FONT_HEADING = "Calibri";
 		literal String ^HELP_FONT_INSTRUCTION = "Calibri";
-		literal String ^TASKLIST_FONT_HEADING = "Broadway";
 		literal String ^ENDL = "\n";
 		literal String ^TABL = "\t";
 		literal String ^TASKLIST_FORMATTING_INDEX = "        ";
@@ -69,10 +69,7 @@ namespace GUI {
 		// delete this
 		String ^titleName;
 		int numRowsToDisplay;
-	private: System::Windows::Forms::Label^  toggleLeftPaneLabel;
-	private: System::Windows::Forms::Label^  toggleRightPaneLabel;
-
-			 String ^feedbackToDisplay;
+	 	String ^feedbackToDisplay;
 
 		// ***FUNCTIONS***
 		// input functions
@@ -143,6 +140,9 @@ namespace GUI {
 	private: System::Windows::Forms::RichTextBox^  radioDotAll;
 	private: System::Windows::Forms::RichTextBox^  radioDotSummary;
 	private: System::Windows::Forms::RichTextBox^  radioDotDone;
+	private: System::Windows::Forms::Label^  toggleLeftPaneLabel;
+	private: System::Windows::Forms::Label^  toggleRightPaneLabel;
+
 		// taskList Labels
 	private: System::Windows::Forms::Label^  IDLabel;
 	private: System::Windows::Forms::Label^  dateLabel;
@@ -255,13 +255,14 @@ namespace GUI {
 			this->title->Name = L"title";
 			this->title->Size = System::Drawing::Size(122, 39);
 			this->title->TabIndex = 3;
-			this->title->Text = L"Summary";
+			this->title->Text = L"EasyView";
 			this->title->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// richTaskList
 			// 
 			this->richTaskList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->richTaskList->BackColor = System::Drawing::Color::White;
 			this->richTaskList->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->richTaskList->Font = (gcnew System::Drawing::Font(L"Broadway", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));

@@ -455,7 +455,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 		displayDueLabel();
 		for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
 			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
-			displayTask(receivedDueTaskList[i], isLastRow, isSummaryDisplay);
+			displayTask(receivedDueTaskList[i], isLastRow, !isSummaryDisplay);
 			++taskListBoxRow;
 		}
 	}
@@ -555,9 +555,11 @@ void GUI::Interface::convertStdToSysString(string &os, String^ &s) {
 // taskList display functions
 void GUI::Interface::displayTask(const Task &task, const bool &isLastRow, const bool& isSummaryPane) {
 	displayTaskIndex(task);
-	displayTaskInformation(task, isLastRow);
 	if (isSummaryPane) {
+		displayTaskInformation(task, false);
 		displayTaskExtraInformation(task, isLastRow);
+	} else {
+		displayTaskInformation(task, isLastRow);
 	}
 }
 
