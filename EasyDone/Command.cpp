@@ -272,3 +272,25 @@ string Command::getSize() {
 	string size = to_string(todoList.getSize());
 	return size;
 }
+
+string Command::getTodayDay() {
+
+	string toReturn =  todoList.currentDay();
+
+	return toReturn;
+}
+
+string Command::getTodayMonth() {
+
+	string toReturn =  todoList.currentMonth();
+
+	return toReturn;
+}
+
+string Command::getTodayYear() {
+
+	string toReturn =  todoList.currentYear();
+
+	return toReturn;
+}
+
