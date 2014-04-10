@@ -34,6 +34,7 @@ namespace GUI {
 		literal String ^TITLE_DONETASKS = "Archive";
 		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
 		literal String ^TASKLIST_HEADING_TOMORROW = "Tomorrow \n";
+		literal String ^TASKLIST_HEADING_DUE = "Overdue Tasks \n";
 		literal String ^BUTTON_HIDE = "Hide";
 		literal String ^BUTTON_SHOW = "Show";
 		literal String ^BUTTON_THEME_SELECTED = "Yay :)";
@@ -94,6 +95,7 @@ namespace GUI {
 		// display functions - content aspect (taskList specific)
 		void displayTodayLabel();
 		void displayTomorrowLabel();
+		void displayDueLabel();
 		void displayTask(const Task&, const bool&, const bool&);
 		void displayTaskIndex(const Task&);
 		void displayTaskInformation(const Task&, const bool&);
