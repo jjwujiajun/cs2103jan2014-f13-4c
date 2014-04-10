@@ -110,17 +110,17 @@ const string KEYWORD_ON = "on";
 // File Handler
 const string FILE_TASKLIST = "taskList.txt";
 const string HELP_ADD_HEADING = "EasyAdd";
-const string HELP_ADD = "Examples: \r\n• add Project meeting from 05/07/14 13.30 to 05/07/14 15.30\r\n• new Birthday party on 12/12/14 12.00\r\nFormat:\r\n• add <task> on <sd> <st>\r\n• add <task> by <ed> <et>\r\n• add <task> from <sd> <st> to <ed> <et>\r\nExplaination:\r\n• Keywords for time: on/from/to\r\n• Date Format: DD/MM/YY\r\n• Time Format: HH.MM\r\n";
+const string HELP_ADD = "Examples: \r\n• new Birthday party on 12/12/14 12.00\r\nFormat:\r\n• add <task> on <sd> <st>\r\n• add <task> by <ed> <et>\r\n• add <task> from <sd> <st> to <ed> <et>\r\n   Date Format: DD/MM/YY\r\n   Time Format: HH.MM\r\n";
 const string HELP_DELETE_HEADING = "EasyDelete";
 const string HELP_DELETE = "Example: • delete 10      Format: • delete <ID>\r\n";
 const string HELP_UPDATE_HEADING = "EasyUpdate";
-const string HELP_UPDATE = "Example:\r\n• update 2 sd 20141213\r\nFormat:\r\n• update <ID> <field name> <updated info>\r\n";
+const string HELP_UPDATE = "Example: • update 2 sd 20141213\r\nFormat:\r\n• update <ID> <field name> <updated info>\r\n";
 const string HELP_DISPLAY_HEADING = "EasyDisplay";
 const string HELP_DISPLAY = "Example: • display 1           Format:• display <ID>\r\n";
 const string HELP_UNDO_HEADING = "EasyUndo";
 const string HELP_UNDO = "Format: • undo                 That's it.\r\n";
 const string HELP_SEARCH_HEADING = "EasySearch";
-const string HELP_SEARCH  = "Example:\r\n• search task party\r\nFormat:\r\n• search <field name> <query>\r\n";
+const string HELP_SEARCH  = "Example: • search task party\r\nFormat: • search <field name> <query>";
 
 #pragma once
 

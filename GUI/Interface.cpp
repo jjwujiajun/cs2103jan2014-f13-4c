@@ -531,7 +531,9 @@ void GUI::Interface::getHelpBoxDisplay() {
 		helpBox->SelectionColor = HELP_COLOR_INSTRUCTION();
 
 		helpBox->SelectedText = instruction;
-		helpBox->SelectedText = ENDL;
+		if (i != HELP_NUMBER_OF_SECTIONS-1) {
+			helpBox->SelectedText = ENDL;
+		}
 		delete helpBox->SelectionFont;
 
 		delete heading;
