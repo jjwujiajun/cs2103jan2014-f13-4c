@@ -331,6 +331,16 @@ vector<Task> Worker::getTasksDoneList() {
 	return displayedTaskList;
 }
 
+vector<Task> Worker::getTasksUndoneList() {
+
+	vector<Task> displayedTaskList =  userCommand.getMarkedTasks();
+
+	bool shouldShowEndTime = false;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+
+	return displayedTaskList;
+}
+
 
 void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList, bool shouldBeDetailed) { //, const bool& isExpanded) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
