@@ -153,7 +153,7 @@ void GUI::Interface::switchToAllTaskListDisplay() {
 }
 
 void GUI::Interface::switchToDoneTaskListDisplay() {
-	displayTasksListBoxUsingList(manager->getAllTaskList());
+	displayTasksListBoxUsingList(manager->getDoneTaskList());
 	
 	this->title->Text = TITLE_DONETASKS;
 
@@ -420,8 +420,10 @@ void GUI::Interface::displayNormalInterfaceState() {
 	log->log("User: No input, show normal texts");
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
-	} else {
+	} else if (allTaskListIsShown) {
 		displayTasksListBoxUsingList(manager->getAllTaskList());
+	} else if (doneTaskListIsShown) {
+		displayTasksListBoxUsingList(manager->getDoneTaskList());
 	}
 	String ^convertedFeedback;
 	string feedback = manager->getFeedback();

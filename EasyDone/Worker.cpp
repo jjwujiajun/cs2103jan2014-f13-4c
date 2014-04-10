@@ -249,8 +249,8 @@ string Worker::actonCommand(string command)
 			int intID = stoi(userTask.taskID) - 1;
 			Task task = taskList.at(intID);
 
-			successful = "Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
-						 "Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
+			successful = "Starts: " + formatDate(task.startDate, true) + " " + formatTime(task.startTime) + "\r\n" +
+						 "Ends: " + formatDate(task.endDate, true) + " " + formatTime(task.endTime) + "\r\n";
 		} else {
 			successful = "TaskID is out of range. Please check again.\r\n";
 		}
@@ -324,14 +324,12 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const 
 		string taskIndex = taskList[i].taskID;
 		string taskName = taskList[i].taskName;
 
-		//if (!isExpanded) {
-			//limit taskName length for display
-			if (taskName.size() > TASKLIST_NAME_LENGTH) {
-				taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
-				taskName += "...";
-				taskList[i].taskName = taskName;
-			}
-		//}
+		//limit taskName length for display
+		if (taskName.size() > TASKLIST_NAME_LENGTH) {
+			taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
+			taskName += "...";
+			taskList[i].taskName = taskName;
+		}
 
 		// 4 digit index display
 		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
@@ -340,29 +338,33 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const 
 		taskList[i].taskID = taskIndex;
 		
 		// Worded date/time display
-		taskList[i].startDate = formatDate(taskList[i].startDate);
+		taskList[i].startDate = formatDate(taskList[i].startDate, false);
 		taskList[i].startTime = formatTime(taskList[i].startTime);
-		//if (isExpanded) {
-			taskList[i].endDate = formatDate(taskList[i].endDate);
-			taskList[i].endTime = formatTime(taskList[i].endTime);
-		//}
+		taskList[i].endDate = formatDate(taskList[i].endDate, false);
+		taskList[i].endTime = formatTime(taskList[i].endTime);
 	}
 }
 
-string Worker::formatDate(string dataDate) {
+string Worker::formatDate(string dataDate, bool isDisplayCommand) {
 	string sDate = dataDate;
+	string sYear;
 	string sMonth;
 	string sDay;
 	string resultDate;
 	int date;
+	int year;
 	int month;
 	int day;
 	bool isKnownDateFormat = true;
 
 	if (!sDate.empty() && sDate != "0") {
 			date = stoi(sDate);
-			date %= 10000;
+			
+			year = date/10000;
+			year %= 100;
+			sYear = " " + to_string(year);
 
+			date %= 10000;
 			month = date/100;
 			//assert(1 <= month && month <= 12);
 			switch (month) {
@@ -417,6 +419,9 @@ string Worker::formatDate(string dataDate) {
 
 			if (isKnownDateFormat) {
 				resultDate = sDay + sMonth;
+				if (isDisplayCommand) {
+					resultDate += sYear;
+				}
 			} else {
 				resultDate = "";
 			}
