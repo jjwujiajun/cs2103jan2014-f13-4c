@@ -451,11 +451,13 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	bool isSummaryDisplay = summaryTaskListIsShown;
 
 	richTaskList->Clear();
-
-	for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
-		isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
-		displayTask(receivedDueTaskList[i], isLastRow, isSummaryDisplay);
-		++taskListBoxRow;
+	if (!receivedDueTaskList.empty()) {
+		displayDueLabel();
+		for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
+			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
+			displayTask(receivedDueTaskList[i], isLastRow, isSummaryDisplay);
+			++taskListBoxRow;
+		}
 	}
 	displayTodayLabel();
 	if (receivedTodayTaskList.empty()) {
@@ -651,6 +653,14 @@ void GUI::Interface::displayTomorrowLabel() {
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
 	richTaskList->SelectionColor = theme[color]->taskListHeadings;
 	richTaskList->SelectedText = TASKLIST_HEADING_TOMORROW;
+
+	delete richTaskList->SelectionFont;
+}
+
+void GUI::Interface::displayDueLabel() {	
+	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
+	richTaskList->SelectionColor = theme[color]->taskListHeadings;
+	richTaskList->SelectedText = TASKLIST_HEADING_DUE;
 
 	delete richTaskList->SelectionFont;
 }
