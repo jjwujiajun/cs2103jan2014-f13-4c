@@ -773,7 +773,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 				if (i < (int) storeUserInfo.size() && 
 					storeUserInfo[i] != keyWord_2 &&
 					storeUserInfo[i] != keyWord_3 &&
-					storeUserInfo[i] != keyWord_4) {
+					storeUserInfo[i] != keyWord_4 ) {
 
 					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
@@ -1085,18 +1085,24 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		string check = CHECK_DATE;
 
 		// Searches the string for the first character that does not match any of the characters (0123456789 ) specified in its arguments.
+		if( startDate.size() < 2 ) {
 		
-		if (startDate.find_first_not_of(check) && startDate.size() > 5) { // detects "/"
+		found = startDate + GUARD_DATE;
+		
+		} else {
+			if ((startDate.find_first_not_of(check) && startDate.size() > 7) || startDate.substr(2,1) == "."  ) { // detects "/"
 			found = startDate;
 
 		} else {
 
 			found = startDate + GUARD_DATE;
 		}
-		
+			
 		return found;
 
 	}
+	return found;
+}
 
 
 	// getter functions
