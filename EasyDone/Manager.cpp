@@ -170,25 +170,6 @@ void Manager::loadHelpPage() {
 	
 	fileHandler.createHelpHeadingInVector(GUIHelpHeadings);
 	fileHandler.createHelpInstructionsInVector(GUIHelpInstructions);
-
-	/*
-	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
-		string instructionParagraph;
-		string instructionLine;
-
-		log.log("Manager: Find help instructions[i] .txt file");
-		fileName = FILE_HELP_INSTRUCTIONS + to_string(i+1) + TYPE_TEXTFILE;
-		log.log("Manager: Open file and concatonate every line into instructionParagraph");
-		file.open(fileName);
-		getline(file, instructionLine);
-		while (getline(file, instructionLine)) {
-			instructionParagraph += instructionLine + SYSTEM_ENDL;
-		}
-		log.log("Manager: push_back instructionParagraph into GUIHelpInstructions");
-		GUIHelpInstructions.push_back(instructionParagraph);
-		log.log("Manager: Close file");
-		file.close();
-	} */
 }
 
 themeColor Manager::getPresetTheme(){
