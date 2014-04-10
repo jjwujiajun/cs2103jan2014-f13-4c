@@ -68,6 +68,7 @@ class Store {
 		void updateTaskID();
 		void markTasksDueToday();
 		void markTasksDueTomorrow();
+
 		string currentDay();
 		string currentMonth();
 		string currentYear();

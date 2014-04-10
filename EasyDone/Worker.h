@@ -48,9 +48,9 @@ public:
 	~Worker();
 
 	// todoList function
-	string addTask(string taskName1, string startDate1, string startTime1, string endDate1, string endTime1);
-	string removeTaskWithIndex(string taskIndex);
-	string updateTaskWithIndex(string index, string update, string fieldUpdate);
+	//string addTask(string taskName1, string startDate1, string startTime1, string endDate1, string endTime1);
+	//string removeTaskWithIndex(string taskIndex);
+	//string updateTaskWithIndex(string index, string update, string fieldUpdate);
 	//vector<string> displayTaskWithIndex(int index);
 
 	// support functions
@@ -64,6 +64,7 @@ public:
 	vector<Task> getTasksDueTomorrowList();
 	vector<Task> getTasksOverdueList();
 	vector<Task> getTasksDoneList();
+	vector<Task> getTasksUndoneList();
 
 	// formatting functions
 	string formatDate(string, bool shouldShowYear, bool shouldBeDetailed);
