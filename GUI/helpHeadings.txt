@@ -1,0 +1,6 @@
+add
+delete
+update
+read
+undo
+search
