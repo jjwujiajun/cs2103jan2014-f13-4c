@@ -24,6 +24,8 @@ const string GUI_FONT_LABEL = "Broadway";
 // ALL
 const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
+const string FILE_STRING_TRUE = "true";
+const string FILE_STRING_FALSE = "false";
 
 // GUI
 const int TASKLIST_RETRACT_ROW = 19;
@@ -59,8 +61,8 @@ enum themeColor {WHITE, BLUE, METAL};
 
 // MGR
 const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
-const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n add • update • display • search • delete • done • undo • exit";
-const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n add • update • display • search • delete • done • undo • exit";
+const string FEEDBACK_PROMPT_START = "What would you like to do? Choose a command\r\n add • update • display • search • delete • done • undo • exit";
+const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? Choose a command\r\n add • update • display • search • delete • done • undo • exit";
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
@@ -72,8 +74,6 @@ const string FILE_SETTINGS_THEME = "theme.txt";
 const string FILE_SETTING_FEEDBACK = "feedbackSetting.txt";
 const string FILE_SETTING_HELPTAB = "helpTabSetting.txt";
 const string FILE_SETTING_SETTINGSTAB = "settingsTabSetting.txt";
-const string FILE_STRING_TRUE = "true";
-const string FILE_STRING_FALSE = "false";
 const string FILE_STRING_WHITETHEME = "white";
 const string FILE_STRING_BLUETHEME = "blue";
 const string FILE_STRING_METALTHEME = "metal";
@@ -109,6 +109,18 @@ const string KEYWORD_ON = "on";
 
 // File Handler
 const string FILE_TASKLIST = "taskList.txt";
+const string HELP_ADD_HEADING = "EasyAdd";
+const string HELP_ADD = "Examples: \r\n• add Project meeting from 05/07/14 13.30 to 05/07/14 15.30\r\n• new Birthday party on 12/12/14 12.00\r\nFormat:\r\n• add <task> on <sd> <st>\r\n• add <task> by <ed> <et>\r\n• add <task> from <sd> <st> to <ed> <et>\r\nExplaination:\r\n• Keywords for time: on/from/to\r\n• Date Format: DD/MM/YY\r\n• Time Format: HH.MM\r\n";
+const string HELP_DELETE_HEADING = "EasyDelete";
+const string HELP_DELETE = "Example: • delete 10      Format: • delete <ID>\r\n";
+const string HELP_UPDATE_HEADING = "EasyUpdate";
+const string HELP_UPDATE = "Example:\r\n• update 2 sd 20141213\r\nFormat:\r\n• update <ID> <field name> <updated info>\r\n";
+const string HELP_DISPLAY_HEADING = "EasyDisplay";
+const string HELP_DISPLAY = "Example: • display 1           Format:• display <ID>\r\n";
+const string HELP_UNDO_HEADING = "EasyUndo";
+const string HELP_UNDO = "Format: • undo                 That's it.\r\n";
+const string HELP_SEARCH_HEADING = "EasySearch";
+const string HELP_SEARCH  = "Example:\r\n• search task party\r\nFormat:\r\n• search <field name> <query>\r\n";
 
 #pragma once
 

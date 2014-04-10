@@ -12,6 +12,8 @@ private:
 	ifstream readFile;
 
 public:
+	void createHelpHeadingInVector(vector<string>&);
+	void createHelpInstructionsInVector(vector<string>&);
 	vector<Task> getTaskList();
 	void saveTaskList(const vector<Task>&);
 	bool getPresetSetting(const string&);

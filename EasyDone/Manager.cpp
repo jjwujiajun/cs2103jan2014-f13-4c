@@ -167,18 +167,11 @@ void Manager::loadHelpPage() {
 	log.log("Manager: Clear GUIHelp field");
 	GUIHelpHeadings.clear();
 	GUIHelpInstructions.clear();
+	
+	fileHandler.createHelpHeadingInVector(GUIHelpHeadings);
+	fileHandler.createHelpInstructionsInVector(GUIHelpInstructions);
 
-	log.log("Manager: Find help headings .txt file");
-	fileName = FILE_HELP_HEADINGS + TYPE_TEXTFILE;
-	log.log("Manager: Open file and push_back every line into GUIHelpHeadings");
-	file.open(fileName);
-	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
-		getline(file, heading);
-		GUIHelpHeadings.push_back(heading);
-	}
-	log.log("Manager: Close file");
-	file.close();
-
+	/*
 	for (int i = 0; i < HELP_NUMBER_OF_SECTIONS; ++i) {
 		string instructionParagraph;
 		string instructionLine;
@@ -195,7 +188,7 @@ void Manager::loadHelpPage() {
 		GUIHelpInstructions.push_back(instructionParagraph);
 		log.log("Manager: Close file");
 		file.close();
-	}
+	} */
 }
 
 themeColor Manager::getPresetTheme(){

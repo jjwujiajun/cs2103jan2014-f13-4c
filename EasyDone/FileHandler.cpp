@@ -2,6 +2,24 @@
 
 using namespace std;
 
+void FileHandler::createHelpHeadingInVector(vector<string> &GUIHelpHeadings) {
+	GUIHelpHeadings.push_back(HELP_ADD_HEADING);
+	GUIHelpHeadings.push_back(HELP_DELETE_HEADING);
+	GUIHelpHeadings.push_back(HELP_UPDATE_HEADING);
+	GUIHelpHeadings.push_back(HELP_DISPLAY_HEADING);
+	GUIHelpHeadings.push_back(HELP_UNDO_HEADING);
+	GUIHelpHeadings.push_back(HELP_SEARCH_HEADING);
+}
+
+void FileHandler::createHelpInstructionsInVector(vector<string> &GUIHelpInstructions) {
+	GUIHelpInstructions.push_back(HELP_ADD);
+	GUIHelpInstructions.push_back(HELP_DELETE);
+	GUIHelpInstructions.push_back(HELP_UPDATE);
+	GUIHelpInstructions.push_back(HELP_DISPLAY);
+	GUIHelpInstructions.push_back(HELP_UNDO);
+	GUIHelpInstructions.push_back(HELP_SEARCH);
+}
+
 vector<Task> FileHandler::getTaskList() {
 	string line;
 	bool isReadable;
