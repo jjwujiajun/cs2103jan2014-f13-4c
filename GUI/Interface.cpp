@@ -261,6 +261,8 @@ void GUI::Interface::toggleFeedback() {
 		this->radioDotSummary->Location = System::Drawing::Point(RADIO_X_SUMMARY, RADIO_Y_EXTENT);
 		this->radioDotAll->Location = System::Drawing::Point(RADIO_X_ALL, RADIO_Y_EXTENT);
 		this->radioDotDone->Location = System::Drawing::Point(RADIO_X_DONE, RADIO_Y_EXTENT);
+		this->toggleLeftPaneLabel->Location = System::Drawing::Point(HELP_TOGGLE_LEFT_LABEL_X, HELP_TOGGLE_LABEL_EXTENT_Y);
+		this->toggleRightPaneLabel->Location = System::Drawing::Point(HELP_TOGGLE_RIGHT_LABEL_X, HELP_TOGGLE_LABEL_EXTENT_Y);
 		numRowsToDisplay = TASKLIST_EXTENT_ROW;
 		feedbackButton->Text = BUTTON_SHOW;
 		manager->saveFeedbackBoxSetting(false);
@@ -270,6 +272,8 @@ void GUI::Interface::toggleFeedback() {
 		this->radioDotSummary->Location = System::Drawing::Point(RADIO_X_SUMMARY, RADIO_Y_RETRACT);
 		this->radioDotAll->Location = System::Drawing::Point(RADIO_X_ALL, RADIO_Y_RETRACT);
 		this->radioDotDone->Location = System::Drawing::Point(RADIO_X_DONE, RADIO_Y_RETRACT);
+		this->toggleLeftPaneLabel->Location = System::Drawing::Point(HELP_TOGGLE_LEFT_LABEL_X, HELP_TOGGLE_LABEL_RETRACT_Y);
+		this->toggleRightPaneLabel->Location = System::Drawing::Point(HELP_TOGGLE_RIGHT_LABEL_X, HELP_TOGGLE_LABEL_RETRACT_Y);
 		numRowsToDisplay = TASKLIST_RETRACT_ROW;
 		feedbackButton->Text = BUTTON_HIDE;
 		manager->saveFeedbackBoxSetting(true);
@@ -568,8 +572,11 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 	}
-	richTaskList->SelectionColor = theme[color]->words;
-
+	//if (task.isRed) {
+		//richTaskList->SelectionColor = TASK_OVERDUE();
+	//} else {
+		richTaskList->SelectionColor = theme[color]->words;
+	//}
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
 	// - Date
