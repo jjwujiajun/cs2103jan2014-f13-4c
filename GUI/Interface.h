@@ -94,9 +94,10 @@ namespace GUI {
 		// display functions - content aspect (taskList specific)
 		void displayTodayLabel();
 		void displayTomorrowLabel();
-		void displayTask(const Task&, const bool&);
+		void displayTask(const Task&, const bool&, const bool&);
 		void displayTaskIndex(const Task&);
 		void displayTaskInformation(const Task&, const bool&);
+		void displayTaskExtraInformation(const Task&, const bool&);
 
 		// string conversion functions
 		void convertSysToStdString(String ^, string &);
