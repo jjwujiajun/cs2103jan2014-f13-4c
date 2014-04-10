@@ -239,6 +239,10 @@ vector<Task> Store::getSearchedList() {
 	return searchTask;
 }
 
+void Store::undoUndoList() {
+	undoList.pop_back();
+}
+
 bool Store::stackToList() {
 	log.log("Store: undoing the change in list");
 	bool undo = false;

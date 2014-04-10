@@ -52,6 +52,7 @@ class Store {
 		vector<Task>::iterator getIteratorBegin();
 		vector<Task>::iterator getIteratorEnd();
 		void saveToFile();
+		void undoUndoList();
 
 		bool MarkDone(Task taskID);  //arun pls make all helper functions private, only public functions are included in API!
 		Task accesswithTaskID(int indexEntered);

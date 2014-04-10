@@ -11,16 +11,32 @@ Command::~Command() {
 bool Command::Add(Task userTask) {
 	todoList.listToStack();
 	log.log("Command: Adding new task");
-	int vectindexofNexttask = todoList.getSize();
+
+	bool added = true;
+	int counter = 0;
+	Task temp;
+
+	while(counter < todoList.getSize()) {
+		temp = todoList.accessSlot(counter);
+		if(temp.taskName == userTask.taskName) {
+			added = false;
+			break;
+		}
+		counter++;
+	}
+	if(added) {
+		int vectindexofNexttask = todoList.getSize();
 	
-	int newTaskID = issueNewTaskID();
-	userTask.taskID = to_string(newTaskID);
-	todoList.pushback(userTask);
-	
+		int newTaskID = issueNewTaskID();
+		userTask.taskID = to_string(newTaskID);
+		todoList.pushback(userTask);
+	} else {
+		todoList.undoUndoList();
+	}
 	sort();
 	todoList.saveToFile();
 	log.log("Command: New task added");
-	return true; 
+	return added; 
 }
 
 bool Command::Delete(Task userTask) {
@@ -82,6 +98,7 @@ vector<Task> Command::getTaskList() { //must change this!!!!!!!
 }
 
 bool Command::markDone(Task task) {
+	todoList.listToStack();
 	log.log("Command: task is being marked done");
 	bool done = false;
 	Task temp;
@@ -96,6 +113,8 @@ bool Command::markDone(Task task) {
 		}
 		counter++;
 	}
+	sort();
+	todoList.saveToFile();
 	return done;
 }
 

@@ -150,8 +150,12 @@ string Worker::actonCommand(string command)
 	string endTime = userTask.endTime;
 
 	if(command == "add" || command == "new" || command == "create") {
-		if(userCommand.Add(userTask) && continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" )  {
-			successful = "has been added successfully! :) \r\n";
+		if(continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" )  {
+			if(userCommand.Add(userTask)) {
+				successful = "has been added successfully! :) \r\n";
+			} else {
+				successful = "task name is already inside the list!\r\n";
+			}
 		
 	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
 		//	successful = "Invalid Time and date!!! Task has not been added successfully! ): Type Carefully! \r\n";
