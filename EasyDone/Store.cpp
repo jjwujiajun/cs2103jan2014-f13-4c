@@ -427,17 +427,27 @@ void Store::markTasksDueToday() {
 	}
 }
 
-void Store::getDateTomorrow() {
+vector<string> Store::getDateTomorrow() {
 
 	string todayDay = currentDay();
 	string todayMonth = currentMonth();
 	string todayYear = currentYear();
+
+	if (todayDay[0] == 0)
+        todayDay = todayDay[1];
+	if (todayMonth[0] == 0)
+        todayMonth = todayMonth[1];
 
 	int days[] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
 	int valueDay = atoi(todayDay.c_str());
 	int valueMonth = atoi(todayMonth.c_str());
 	int valueYear = atoi(todayYear.c_str());
+
+	
+	//int valueDay = 10;
+	//int valueMonth = 4;
+	//int valueYear = 2014;
 
 	valueDay++;
 
@@ -447,48 +457,76 @@ void Store::getDateTomorrow() {
 		valueMonth++;
 
 		if ( valueMonth > 12 ) {
-			{ valueYear++; valueMonth=1; }
+
+			valueYear++; 
+			valueMonth=1;
 		}
 	 }
 
 	
-	ostringstream convert;   // stream used for the conversion
+	ostringstream convert1;   // stream used for the conversion
 
-	convert << valueDay;
+	convert1 << valueDay;
 
-	string tomorrowDay = convert.str();
+	string tomorrowDay = convert1.str();
 
 	if(tomorrowDay.length() == 1)
 		tomorrowDay.insert(0, "0");
+	
+	ostringstream convert2;
 
-	convert << valueMonth;
+	convert2 << valueMonth;
 
-	string tomorrowMonth = convert.str();
+	string tomorrowMonth = convert2.str();
 
 	if (tomorrowMonth.length() == 1)
         tomorrowMonth.insert(0, "0");
 
-	convert << valueYear;
+	ostringstream convert3;
 
-	string tomorrowYear = convert.str();
-}
+	convert3 << valueYear;
+
+	string tomorrowYear = convert3.str();
+
+	//tomorrowDay = "11";
+	//tomorrowMonth = "04";
+	//tomorrowYear = "2014";
+
+	vector<string> returnedVector;
+
+	returnedVector.push_back(tomorrowDay);
+	returnedVector.push_back(tomorrowMonth);
+	returnedVector.push_back(tomorrowYear);
+
+	return returnedVector;
+} //returning vector successfully!
 
 void Store::markTasksDueTomorrow() { //implemented for non-leap years
 
+	vector<string> returnedVector = getDateTomorrow();
 	
+	string tomorrowDay = returnedVector[0];
+	string tomorrowMonth = returnedVector[1];
+	string tomorrowYear = returnedVector[2];
+
+
 	for(int i =0; i < taskList.size(); i++) {
+
+		//taskList.at(i).isTomorrow =  false;
 
 		if(getDay(i) ==  tomorrowDay && getMonth(i) == tomorrowMonth && getYear(i) == tomorrowYear) {
 
-			taskList.at(i).isTomorrow = true;
+			taskList[i].isTomorrow = true;
 		}
 		else
-			taskList.at(i).isTomorrow = false;
-
-
+			taskList[i].isTomorrow = false;
 	}
+		
+		//taskList[1].isTomorrow = true;
+
 	
-} 
+} //this returns the tasks marked with tomorrow! now check if tomorrow really works!
+
 
 void Store::markTasksOverdue() {
 

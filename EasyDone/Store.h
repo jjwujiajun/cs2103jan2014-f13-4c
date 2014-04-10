@@ -20,10 +20,8 @@ class Store {
 		vector<Task> taskList;
 		vector<Task> searchTask;
 		vector< vector<Task> > undoList;
-		void getDateTomorrow();
-		string tomorrowDay;
-		string tomorrowMonth;
-		string tomorrowYear;
+		vector<string> getDateTomorrow();
+		
 
 		Log log;
 	
