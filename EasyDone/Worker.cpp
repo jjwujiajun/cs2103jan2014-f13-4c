@@ -32,14 +32,65 @@ Worker::~Worker() {
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
+	
+
+
 	continueNext = true;
 	command =  parsedCommandstring[0];
 	if(command == "add" || command == "new" || command == "create" ){
+
+		if (parsedCommandstring[2] == "today") {
+
+			date = userCommand.getTodayDay();
+			month = userCommand.getTodayMonth();
+			year = userCommand.getTodayYear();
+			combine = year + month + date;
+			parsedCommandstring[2] = combine;
+
+			userTask.taskName = parsedCommandstring[1];
+			userTask.startDate = parsedCommandstring[2];
+			userTask.startTime = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[4];
+			userTask.endTime = parsedCommandstring[5];
+
+		} else if (parsedCommandstring[2] == "tmr" || parsedCommandstring[3] == "tmo") {
+
+			store = userCommand.getTodayDay(); // change to int then change to string???
+			
+			// convert to integer first
+			int integerDate = atoi(store.c_str());
+
+			// interger + 1 day to account for tmo
+			int update = integerDate + 1;
+
+			// convert back to string again
+			
+			stringstream ss;
+			ss << update;
+
+			date = ss.str();
+			month = userCommand.getTodayMonth();
+			year = userCommand.getTodayYear();
+			combine = year + month + date;
+			parsedCommandstring[2] = combine;
+
+			userTask.taskName = parsedCommandstring[1];
+			userTask.startDate = parsedCommandstring[2];
+			userTask.startTime = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[4];
+			userTask.endTime = parsedCommandstring[5];
+
+
+		} else {
 		userTask.taskName = parsedCommandstring[1];
 		userTask.startDate = parsedCommandstring[2];
 		userTask.startTime = parsedCommandstring[3];
 		userTask.endDate = parsedCommandstring[4];
 		userTask.endTime = parsedCommandstring[5];
+
+		}
+
+
 	} else if(command == "update" || command == "edit" || command == "change"){
 		if(stoi(userCommand.getSize()) > stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
@@ -83,7 +134,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	if (!userTask.taskID.empty()) {
 		int taskID = atoi(userTask.taskID.c_str()) - 1;
-		Task task = userCommand.getTask(taskID); // 
+		Task task = userCommand.getTask(taskID); 
 		stringToMain = "\"" + task.taskName + "\" \r\n";
 	}
 
@@ -99,7 +150,7 @@ string Worker::actonCommand(string command)
 	string endTime = userTask.endTime;
 
 	if(command == "add" || command == "new" || command == "create") {
-		if(userCommand.Add(userTask) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
+		if(userCommand.Add(userTask) && continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" )  {
 			successful = "has been added successfully! :) \r\n";
 		
 	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
@@ -122,7 +173,6 @@ string Worker::actonCommand(string command)
 
 		} else if (startTime == "0" || endTime == "0") {
 			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
-
 		} 
 	}
 
@@ -199,8 +249,8 @@ string Worker::actonCommand(string command)
 			int intID = stoi(userTask.taskID) - 1;
 			Task task = taskList.at(intID);
 
-			successful = "Starts: " + formatDate(task.startDate) + " " + formatTime(task.startTime) + "\r\n" +
-						 "Ends: " + formatDate(task.endDate) + " " + formatTime(task.endTime) + "\r\n";
+			successful = "Starts: " + formatDate(task.startDate, true) + " " + formatTime(task.startTime) + "\r\n" +
+						 "Ends: " + formatDate(task.endDate, true) + " " + formatTime(task.endTime) + "\r\n";
 		} else {
 			successful = "TaskID is out of range. Please check again.\r\n";
 		}
@@ -274,14 +324,12 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const 
 		string taskIndex = taskList[i].taskID;
 		string taskName = taskList[i].taskName;
 
-		//if (!isExpanded) {
-			//limit taskName length for display
-			if (taskName.size() > TASKLIST_NAME_LENGTH) {
-				taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
-				taskName += "...";
-				taskList[i].taskName = taskName;
-			}
-		//}
+		//limit taskName length for display
+		if (taskName.size() > TASKLIST_NAME_LENGTH) {
+			taskName = taskName.substr(0,TASKLIST_NAME_LENGTH-1);
+			taskName += "...";
+			taskList[i].taskName = taskName;
+		}
 
 		// 4 digit index display
 		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
@@ -290,29 +338,33 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const 
 		taskList[i].taskID = taskIndex;
 		
 		// Worded date/time display
-		taskList[i].startDate = formatDate(taskList[i].startDate);
+		taskList[i].startDate = formatDate(taskList[i].startDate, false);
 		taskList[i].startTime = formatTime(taskList[i].startTime);
-		//if (isExpanded) {
-			taskList[i].endDate = formatDate(taskList[i].endDate);
-			taskList[i].endTime = formatTime(taskList[i].endTime);
-		//}
+		taskList[i].endDate = formatDate(taskList[i].endDate, false);
+		taskList[i].endTime = formatTime(taskList[i].endTime);
 	}
 }
 
-string Worker::formatDate(string dataDate) {
+string Worker::formatDate(string dataDate, bool isDisplayCommand) {
 	string sDate = dataDate;
+	string sYear;
 	string sMonth;
 	string sDay;
 	string resultDate;
 	int date;
+	int year;
 	int month;
 	int day;
 	bool isKnownDateFormat = true;
 
 	if (!sDate.empty() && sDate != "0") {
 			date = stoi(sDate);
-			date %= 10000;
+			
+			year = date/10000;
+			year %= 100;
+			sYear = " " + to_string(year);
 
+			date %= 10000;
 			month = date/100;
 			//assert(1 <= month && month <= 12);
 			switch (month) {
@@ -367,6 +419,9 @@ string Worker::formatDate(string dataDate) {
 
 			if (isKnownDateFormat) {
 				resultDate = sDay + sMonth;
+				if (isDisplayCommand) {
+					resultDate += sYear;
+				}
 			} else {
 				resultDate = "";
 			}

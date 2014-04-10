@@ -165,6 +165,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	const string keyWord_2 ("by");
 	const string keyWord_3 ("from");
 	const string keyWord_4 ("to");
+	const string keyWord_5 ("today");
+	const string keyWord_6 ("tmo");
+	const string keyWord_7 ("tmr");
 
 	// Command "edit" keywords
 	const string task ("task");
@@ -188,12 +191,31 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					storeUserInfo[i] != keyWord_3 &&
 					storeUserInfo[i] != keyWord_4) {
 
-						store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
-						// check if keyword is repeated
+			
+								
+					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
 
-						checkWord = checkKeyWord(store);
+					startDate = storeUserInfo[i];
+				
+					++i;	
+	
+					if(i < (int) storeUserInfo.size()) { 
+					startTime = storeUserInfo[i];
 
+					//guards
+					verifyTime = checkParseTime(startTime);
+
+					// push back guard output into vector
+					startTime = guardConvertParserTime(verifyTime, startTime);
+					++i;
+					}
+
+				} else { 
+
+						checkWord = checkKeyWord(store); 
+						
 						if (checkWord.size() > 12) {
 							taskName = taskName + "on ";
 							taskName += storeUserInfo[i] + " ";
@@ -225,6 +247,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								startTime = guardConvertParserTime(verifyTime, startTime);
 								++i;
 							}
+						}
 					}
 				}	
 			}			
@@ -240,7 +263,26 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					storeUserInfo[i] != keyWord_3 &&
 					storeUserInfo[i] != keyWord_4) {
 
-						store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
+
+					startDate = storeUserInfo[i];
+				
+					++i;	
+	
+					if(i < (int) storeUserInfo.size()) { 
+					startTime = storeUserInfo[i];
+
+					//guards
+					verifyTime = checkParseTime(startTime);
+
+					// push back guard output into vector
+					startTime = guardConvertParserTime(verifyTime, startTime);
+					++i;
+					}
+
+
+				} else {
 
 						checkWord = checkKeyWord(store);
 
@@ -275,6 +317,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								++i;
 							}
 						}
+					}
 				}
 
 			}
@@ -615,53 +658,56 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 		if (i < (int) storeUserInfo.size()) {
 			if(storeUserInfo[i] == sd ) {	
-				taskName += storeUserInfo[i];
+				taskName = storeUserInfo[i];
 				++i;
 				while(i < (int) storeUserInfo.size()){
 
-					startDate += storeUserInfo[i] + " ";
+					
+					//startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"		
+
+					startDate = storeUserInfo[i] + " ";
 
 					++i;
 				}
 
 			} else if (storeUserInfo[i] == st) {
 
-				taskName += storeUserInfo[i];
+				taskName = storeUserInfo[i];
 				++i;
 				while(i < (int) storeUserInfo.size()){
 
-					startDate += storeUserInfo[i] + " ";
+					startDate = storeUserInfo[i] + " ";
 
 					++i;
 				}
 
 			} else if (storeUserInfo[i] == ed) {
 
-				taskName += storeUserInfo[i];
+				taskName = storeUserInfo[i];
 				++i;
 				while(i < (int) storeUserInfo.size()){
 
-					startDate += storeUserInfo[i] + " ";
+					startDate = storeUserInfo[i] + " ";
 
 					++i;
 				}
 
 			} else if (storeUserInfo[i] == et) {
-				taskName += storeUserInfo[i];
+				taskName = storeUserInfo[i];
 				++i;
 				while(i < (int) storeUserInfo.size()){
 
-					startDate += storeUserInfo[i] + " ";
+					startDate = storeUserInfo[i] + " ";
 
 					++i;
 				}
 
 			} else if (storeUserInfo[i] == task) {
-				taskName += storeUserInfo[i];
+				taskName = storeUserInfo[i];
 
 				++i;
-				while(i<storeUserInfo.size()){
-					startDate += storeUserInfo[i] + " ";
+				while(i < storeUserInfo.size()){
+					startDate = storeUserInfo[i] + " ";
 					++i;
 
 				}	
@@ -729,10 +775,26 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					storeUserInfo[i] != keyWord_3 &&
 					storeUserInfo[i] != keyWord_4) {
 
-						store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
+					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
+
+					startDate = storeUserInfo[i];
+				
+					++i;	
+	
+					if(i < (int) storeUserInfo.size()) { 
+					startTime = storeUserInfo[i];
+
+					//guards
+					verifyTime = checkParseTime(startTime);
+
+					// push back guard output into vector
+					startTime = guardConvertParserTime(verifyTime, startTime);
+					++i;
+					}
 						// check if keyword is repeated
-
+					} else {
 						checkWord = checkKeyWord(store);
 
 						if (checkWord.size() > 12) {
@@ -767,6 +829,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								++i;
 							}
 						}
+					}
 				}	
 			}			
 
@@ -781,8 +844,26 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					storeUserInfo[i] != keyWord_3 &&
 					storeUserInfo[i] != keyWord_4) {
 
-						store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
+					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
+
+					startDate = storeUserInfo[i];
+				
+					++i;	
+	
+					if(i < (int) storeUserInfo.size()) { 
+					startTime = storeUserInfo[i];
+
+					//guards
+					verifyTime = checkParseTime(startTime);
+
+					// push back guard output into vector
+					startTime = guardConvertParserTime(verifyTime, startTime);
+					++i;
+					}
+
+						} else {
 						checkWord = checkKeyWord(store);
 
 						if (checkWord.size() > 12) {
@@ -815,6 +896,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								++i;
 							}
 						}
+					}
 				}
 		
 			}		

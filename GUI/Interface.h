@@ -4,6 +4,7 @@
 #pragma once
 
 using namespace System::Drawing;
+const Color TASK_OVERDUE() {return Color::Red;}
 const Color TAB_SELECTED_COLOUR() {return Color::Silver;}
 const Color TAB_NOT_SELECTED_COLOUR() {return Color::WhiteSmoke;}
 const Color HELP_COLOR_HEADING() {return Color::CornflowerBlue;}
