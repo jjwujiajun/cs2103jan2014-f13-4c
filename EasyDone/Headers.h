@@ -59,8 +59,8 @@ enum themeColor {WHITE, BLUE, METAL};
 
 // MGR
 const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
-const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n add • update • display • search • delete • done • exit";
-const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n add • update • display • search • delete • done • exit";
+const string FEEDBACK_PROMPT_START = "What would you like to do?\r\n add • update • display • search • delete • done • undo • exit";
+const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\n add • update • display • search • delete • done • undo • exit";
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";

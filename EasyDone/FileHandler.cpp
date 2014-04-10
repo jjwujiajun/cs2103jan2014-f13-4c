@@ -33,6 +33,15 @@ vector<Task> FileHandler::getTaskList() {
 		assert(isReadable);
 		task.endTime = line;
 
+		isReadable = getline(readFile, line);
+		assert(isReadable);
+		if (line == FILE_STRING_TRUE) {
+			task.isDone = true;
+		} else {
+			assert(line == FILE_STRING_FALSE);
+			task.isDone = false;
+		}
+
 		taskList.push_back(task);
 		getline(readFile, line);
 	}
@@ -52,6 +61,11 @@ void FileHandler::saveTaskList(const vector<Task>& taskList) {
 		writeFile << taskList[i].startTime << endl;
 		writeFile << taskList[i].endDate << endl;
 		writeFile << taskList[i].endTime << endl;
+		if (taskList[i].isDone) {
+			writeFile << FILE_STRING_TRUE << endl;
+		} else {
+			writeFile << FILE_STRING_FALSE << endl;
+		}
 		writeFile << endl;
 	}
 

@@ -439,7 +439,7 @@ string Worker::formatDate(string dataDate, bool shouldShowYear, bool shouldBeDet
 			}
 		} else {
 			if (shouldBeDetailed) {
-				resultDate = " -- ";
+				resultDate = "   -- ";
 			}
 		}
 	return resultDate;
@@ -461,7 +461,7 @@ string Worker::formatTime(string sTime, bool shouldBeDetailed) {
 		}
 	} else {
 		if (shouldBeDetailed) {
-			resultTime = " -- ";
+			resultTime = "   -- ";
 		}
 	}
 	return resultTime;
