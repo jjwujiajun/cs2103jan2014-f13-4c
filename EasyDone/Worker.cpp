@@ -252,9 +252,11 @@ string Worker::actonCommand(string command)
 			vector<Task> taskList = userCommand.getTaskList();
 			int intID = stoi(userTask.taskID) - 1;
 			Task task = taskList.at(intID);
+			bool shouldShowYear = true;
+			bool shouldBeDetailed = false;
 
-			successful = "Starts: " + formatDate(task.startDate, true) + " " + formatTime(task.startTime) + "\r\n" +
-						 "Ends: " + formatDate(task.endDate, true) + " " + formatTime(task.endTime) + "\r\n";
+			successful = "Starts: " + formatDate(task.startDate, shouldShowYear, shouldBeDetailed) + "   " + formatTime(task.startTime, shouldBeDetailed) + "\r\n" +
+						 "Ends: " + formatDate(task.endDate, shouldShowYear, shouldBeDetailed) + "   " + formatTime(task.endTime, shouldBeDetailed) + "\r\n\r\n";
 		} else {
 			successful = "TaskID is out of range. Please check again.\r\n";
 		}
@@ -272,7 +274,8 @@ string Worker::actonCommand(string command)
 vector<Task> Worker::getTaskList() {
 	vector<Task> displayedTaskList = userCommand.getTaskList();
 
-	convertTaskDataToDisplayFormat(displayedTaskList);
+	bool shouldShowEndTime = false;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
@@ -280,7 +283,8 @@ vector<Task> Worker::getTaskList() {
 vector<Task> Worker::getSearchedList() {
 	vector<Task> displayedTaskList = userCommand.getSearchedList();
 
-	convertTaskDataToDisplayFormat(displayedTaskList);
+	bool shouldShowEndTime = false;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
@@ -289,7 +293,8 @@ vector<Task> Worker::getTasksDueTodayList() {
 
 	vector<Task> displayedTaskList =  userCommand.getTodayTask();
 	
-	convertTaskDataToDisplayFormat(displayedTaskList);
+	bool shouldShowEndTime = true;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
@@ -298,7 +303,8 @@ vector<Task> Worker::getTasksDueTomorrowList() {
 
 	vector<Task> displayedTaskList = userCommand.getTomorrowTask();
 
-	convertTaskDataToDisplayFormat(displayedTaskList);
+	bool shouldShowEndTime = true;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
@@ -307,7 +313,8 @@ vector<Task> Worker::getTasksOverdueList() {
 
 	vector<Task> displayedTaskList =  userCommand.getOverdueTasks();
 
-	convertTaskDataToDisplayFormat(displayedTaskList);
+	bool shouldShowEndTime = false;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 
@@ -317,13 +324,14 @@ vector<Task> Worker::getTasksDoneList() {
 
 	vector<Task> displayedTaskList =  userCommand.getMarkedTasks();
 
-	convertTaskDataToDisplayFormat(displayedTaskList);
+	bool shouldShowEndTime = false;
+	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
 
 
-void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const bool& isExpanded) {
+void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList, bool shouldBeDetailed) { //, const bool& isExpanded) {
 	for (int i = 0; i < (int) taskList.size(); ++i) {
 		string taskIndex = taskList[i].taskID;
 		string taskName = taskList[i].taskName;
@@ -342,14 +350,15 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList) { //, const 
 		taskList[i].taskID = taskIndex;
 		
 		// Worded date/time display
-		taskList[i].startDate = formatDate(taskList[i].startDate, false);
-		taskList[i].startTime = formatTime(taskList[i].startTime);
-		taskList[i].endDate = formatDate(taskList[i].endDate, false);
-		taskList[i].endTime = formatTime(taskList[i].endTime);
+		bool shouldShowYear = false;
+		taskList[i].startDate = formatDate(taskList[i].startDate, shouldShowYear, shouldBeDetailed);
+		taskList[i].startTime = formatTime(taskList[i].startTime, shouldBeDetailed);
+		taskList[i].endDate = formatDate(taskList[i].endDate, shouldShowYear, shouldBeDetailed);
+		taskList[i].endTime = formatTime(taskList[i].endTime, shouldBeDetailed);
 	}
 }
 
-string Worker::formatDate(string dataDate, bool isDisplayCommand) {
+string Worker::formatDate(string dataDate, bool shouldShowYear, bool shouldBeDetailed) {
 	string sDate = dataDate;
 	string sYear;
 	string sMonth;
@@ -365,7 +374,6 @@ string Worker::formatDate(string dataDate, bool isDisplayCommand) {
 			date = stoi(sDate);
 			
 			year = date/10000;
-			year %= 100;
 			sYear = " " + to_string(year);
 
 			date %= 10000;
@@ -423,19 +431,21 @@ string Worker::formatDate(string dataDate, bool isDisplayCommand) {
 
 			if (isKnownDateFormat) {
 				resultDate = sDay + sMonth;
-				if (isDisplayCommand) {
+				if (shouldShowYear) {
 					resultDate += sYear;
 				}
 			} else {
 				resultDate = "";
 			}
 		} else {
-			resultDate = "";
+			if (shouldBeDetailed) {
+				resultDate = " -- ";
+			}
 		}
 	return resultDate;
 }
 
-string Worker::formatTime(string sTime) {
+string Worker::formatTime(string sTime, bool shouldBeDetailed) {
 	string time = sTime;
 	string resultTime;
 	bool isKnownTimeFormat = time.size() == 4;
@@ -450,7 +460,9 @@ string Worker::formatTime(string sTime) {
 			resultTime = "";
 		}
 	} else {
-		resultTime = "";
+		if (shouldBeDetailed) {
+			resultTime = " -- ";
+		}
 	}
 	return resultTime;
 }

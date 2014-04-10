@@ -125,13 +125,12 @@ void GUI::Interface::togglePaneRight() {
 }
 
 void GUI::Interface::switchToSummaryTaskListDisplay() {
-	displaySummaryTaskListBox();
-
-	this->title->Text = TITLE_SUMMARY;
-
 	summaryTaskListIsShown = true;
 	allTaskListIsShown = false;
 	doneTaskListIsShown = false;
+
+	displaySummaryTaskListBox();
+	this->title->Text = TITLE_SUMMARY;
 
 	this->radioDotSummary->ForeColor = theme[color]->label;
 	this->radioDotAll->ForeColor = theme[color]->words;
@@ -139,13 +138,12 @@ void GUI::Interface::switchToSummaryTaskListDisplay() {
 }
 
 void GUI::Interface::switchToAllTaskListDisplay() {
-	displayTasksListBoxUsingList(manager->getAllTaskList());
-	
-	this->title->Text = TITLE_ALLTASKS;
-
 	summaryTaskListIsShown = false;
 	allTaskListIsShown = true;
 	doneTaskListIsShown = false;
+
+	displayTasksListBoxUsingList(manager->getAllTaskList());	
+	this->title->Text = TITLE_ALLTASKS;
 
 	this->radioDotSummary->ForeColor = theme[color]->words;
 	this->radioDotAll->ForeColor = theme[color]->label;
@@ -153,13 +151,12 @@ void GUI::Interface::switchToAllTaskListDisplay() {
 }
 
 void GUI::Interface::switchToDoneTaskListDisplay() {
-	displayTasksListBoxUsingList(manager->getDoneTaskList());
-	
-	this->title->Text = TITLE_DONETASKS;
-
 	summaryTaskListIsShown = false;
 	allTaskListIsShown = false;
 	doneTaskListIsShown = true;
+
+	displayTasksListBoxUsingList(manager->getDoneTaskList());
+	this->title->Text = TITLE_DONETASKS;
 
 	this->radioDotSummary->ForeColor = theme[color]->words;
 	this->radioDotAll->ForeColor = theme[color]->words;
@@ -434,12 +431,13 @@ void GUI::Interface::displayNormalInterfaceState() {
 void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTaskList) {
 	int i = 0;
 	bool isLastRow;
+	bool isShowingSummaryPane = summaryTaskListIsShown;
 
 	richTaskList->Clear();
 
 	while (i < (int)receivedTaskList.size() && i < numRowsToDisplay) {
 		isLastRow = (i == (int) receivedTaskList.size()-1 || i == numRowsToDisplay-1);
-		displayTask(receivedTaskList[i], isLastRow);
+		displayTask(receivedTaskList[i], isLastRow, isShowingSummaryPane);
 		i++;
 	}
 }
@@ -450,13 +448,16 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	std::vector<Task> receivedTomorrowTaskList = manager->getTomorrowTaskList();
 	int taskListBoxRow = 0;
 	bool isLastRow;
+	bool isSummaryDisplay = summaryTaskListIsShown;
 
 	richTaskList->Clear();
-
-	for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
-		isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
-		displayTask(receivedDueTaskList[i], isLastRow);
-		++taskListBoxRow;
+	if (!receivedDueTaskList.empty()) {
+		displayDueLabel();
+		for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
+			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
+			displayTask(receivedDueTaskList[i], isLastRow, isSummaryDisplay);
+			++taskListBoxRow;
+		}
 	}
 	displayTodayLabel();
 	if (receivedTodayTaskList.empty()) {
@@ -466,7 +467,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	} else {
 		for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
 			isLastRow = false; //(i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
-			displayTask(receivedTodayTaskList[i], isLastRow);
+			displayTask(receivedTodayTaskList[i], isLastRow, isSummaryDisplay);
 			++taskListBoxRow;
 		}
 	}
@@ -480,7 +481,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 		int rowsToDisplay = numRowsToDisplay/3;
 		for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
 			isLastRow = (i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == numRowsToDisplay/3);
-			displayTask(receivedTomorrowTaskList[i], isLastRow);
+			displayTask(receivedTomorrowTaskList[i], isLastRow, isSummaryDisplay);
 			++taskListBoxRow;
 		}
 	}
@@ -552,9 +553,12 @@ void GUI::Interface::convertStdToSysString(string &os, String^ &s) {
 }
 
 // taskList display functions
-void GUI::Interface::displayTask(const Task &task, const bool &isLastRow) {
+void GUI::Interface::displayTask(const Task &task, const bool &isLastRow, const bool& isSummaryPane) {
 	displayTaskIndex(task);
 	displayTaskInformation(task, isLastRow);
+	if (isSummaryPane) {
+		displayTaskExtraInformation(task, isLastRow);
+	}
 }
 
 void GUI::Interface::displayTaskIndex(const Task &task) {
@@ -605,6 +609,38 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	delete taskName;
 }
 
+void GUI::Interface::displayTaskExtraInformation(const Task& task, const bool& isLastRow) {
+	if (task.isBold) {
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Bold);
+	} else {
+		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
+	}
+	//if (task.isRed) {
+		//richTaskList->SelectionColor = TASK_OVERDUE();
+	//} else {
+		richTaskList->SelectionColor = theme[color]->words;
+	//}
+
+	// ~~Spacing~~
+	richTaskList->SelectedText = TABL;
+	// - Date
+	String ^endDate = gcnew String(task.endDate.c_str());
+	richTaskList->SelectedText = endDate;
+	// ~~Spacing~~
+	richTaskList->SelectedText = TABL;
+	// - Time
+	String ^endTime = gcnew String(task.endTime.c_str());
+	richTaskList->SelectedText = endTime;
+	// ~~NewLine~~
+	if (!isLastRow) {
+		richTaskList->SelectedText = ENDL;
+	}
+
+	delete richTaskList->SelectionFont;
+	delete endDate;
+	delete endTime;
+}
+
 void GUI::Interface::displayTodayLabel() {
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
 	richTaskList->SelectionColor = theme[color]->taskListHeadings;
@@ -617,6 +653,14 @@ void GUI::Interface::displayTomorrowLabel() {
 	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
 	richTaskList->SelectionColor = theme[color]->taskListHeadings;
 	richTaskList->SelectedText = TASKLIST_HEADING_TOMORROW;
+
+	delete richTaskList->SelectionFont;
+}
+
+void GUI::Interface::displayDueLabel() {	
+	richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_HEADING, TASKLIST_SIZE_HEADING);
+	richTaskList->SelectionColor = theme[color]->taskListHeadings;
+	richTaskList->SelectedText = TASKLIST_HEADING_DUE;
 
 	delete richTaskList->SelectionFont;
 }

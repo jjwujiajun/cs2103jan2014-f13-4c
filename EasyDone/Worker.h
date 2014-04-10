@@ -15,7 +15,7 @@ class Worker {
 	string command;
 	string updateField;
 
-	void convertTaskDataToDisplayFormat(vector<Task> &); //, const bool& isExpanded);
+	void convertTaskDataToDisplayFormat(vector<Task> &, bool shouldBeDetailed); //, const bool& isExpanded);
 	 
 	// combine date variables
 	string date;
@@ -66,8 +66,8 @@ public:
 	vector<Task> getTasksDoneList();
 
 	// formatting functions
-	string formatDate(string, bool isDisplayCommand);
-	string formatTime(string);
+	string formatDate(string, bool shouldShowYear, bool shouldBeDetailed);
+	string formatTime(string, bool shouldBeDetailed);
 };
 
 
