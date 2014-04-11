@@ -101,7 +101,7 @@ string Manager::getInputField() {
 // task list functions
 vector<Task> Manager::getAllTaskList() {
 	log.log("Manager: getTaskList from worker");
-	GUITaskList = worker.getTaskList();
+	GUITaskList = worker.getTasksUndoneList();
 
 	log.endLog();
 	return GUITaskList;
