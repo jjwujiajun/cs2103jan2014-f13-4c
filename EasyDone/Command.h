@@ -23,17 +23,20 @@ public:
 	bool Update(Task userTask, string updateField);
 	bool Search(string searchField, string searchItem);
 	bool markDone(Task task);
-	int issueNewTaskID();
-	vector<Task> getTaskList();
-	Task getTask(int Index);
 	void undo();
 	void sort();
+	
+	//GUI functions + helper functions! 
 	vector<Task> getSearchedList();
 	vector<Task> getTodayTask();
 	vector<Task> getTomorrowTask();
 	vector<Task> getOverdueTasks();
 	vector<Task> getMarkedTasks();
+	vector<Task> getUnmarkedTasks();
+	vector<Task> getTaskList();
+	Task getTask(int Index);
 	string getSize();
+	int issueNewTaskID();
 	string getTodayDay();
 	string getTodayMonth();
 	string getTodayYear();
