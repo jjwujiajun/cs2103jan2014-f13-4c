@@ -34,7 +34,7 @@ namespace GUI {
 		literal String ^TITLE_DONETASKS = "EasyDone";
 		literal String ^TASKLIST_HEADING_TODAY = "Today \n";
 		literal String ^TASKLIST_HEADING_TOMORROW = "Tomorrow \n";
-		literal String ^TASKLIST_HEADING_DUE = "Overdue Tasks \n";
+		literal String ^TASKLIST_HEADING_DUE = "Overdue \n";
 		literal String ^BUTTON_HIDE = "Hide";
 		literal String ^BUTTON_SHOW = "Show";
 		literal String ^BUTTON_THEME_SELECTED = "Yay :)";

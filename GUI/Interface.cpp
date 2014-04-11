@@ -449,40 +449,47 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	int taskListBoxRow = 0;
 	bool isLastRow;
 	bool isSummaryDisplay = summaryTaskListIsShown;
+	int i = 0;
 
 	richTaskList->Clear();
-	if (!receivedDueTaskList.empty()) {
-		displayDueLabel();
-		for (int i = 0; i < (int)receivedDueTaskList.size() && i < numRowsToDisplay/3; ++i) {
-			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
-			displayTask(receivedDueTaskList[i], isLastRow, !isSummaryDisplay);
-			++taskListBoxRow;
-		}
-	}
+
 	displayTodayLabel();
 	if (receivedTodayTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task today :)\n";
 	} else {
-		for (int i = 0; i < (int)receivedTodayTaskList.size() && i < numRowsToDisplay/3; ++i) {
+		while (i < (int)receivedTodayTaskList.size() && taskListBoxRow < numRowsToDisplay/2) {
 			isLastRow = false; //(i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
 			displayTask(receivedTodayTaskList[i], isLastRow, isSummaryDisplay);
 			++taskListBoxRow;
+			++i;
 		}
 	}
+
 	displayTomorrowLabel();
 	if (receivedTomorrowTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task tomorrow :)\n";
 	} else {
-		int  size = receivedTomorrowTaskList.size();
-		int rowsToDisplay = numRowsToDisplay/3;
-		for (int i = 0; i < (int)receivedTomorrowTaskList.size() && i < numRowsToDisplay/3; ++i) {
-			isLastRow = (i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == numRowsToDisplay/3);
+		i = 0;
+		while (i < (int)receivedTomorrowTaskList.size() && taskListBoxRow < numRowsToDisplay/2) {
+			isLastRow = false; //(i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == numRowsToDisplay/3);
 			displayTask(receivedTomorrowTaskList[i], isLastRow, isSummaryDisplay);
 			++taskListBoxRow;
+			++i;
+		}
+	}
+
+	if (!receivedDueTaskList.empty()) {
+		displayDueLabel();
+		i = 0;
+		while (i < (int)receivedDueTaskList.size() && taskListBoxRow < numRowsToDisplay/2) {
+			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
+			displayTask(receivedDueTaskList[i], isLastRow, !isSummaryDisplay);
+			++taskListBoxRow;
+			++i;
 		}
 	}
 }
