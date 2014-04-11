@@ -55,7 +55,7 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 		log.log("Parser: Command is ADD");
 		return ADD;
 	}
-	else if (storeUserInfo[0] == MESSAGE_DISPLAY) {
+	else if (storeUserInfo[0] == MESSAGE_DISPLAY || storeUserInfo[0] == MESSAGE_VIEW) {
 		log.log("Parser: Command is READ");
 		return READ;
 	}
@@ -75,12 +75,17 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 		log.log("Parser: Command is CHECK");
 		return CHECK;
 	}
+	else if (storeUserInfo[0] == MESSAGE_CLEAR) {
+		log.log("Parser: Command is CLEAR");
+		return CHECK;
+	}
 	else if (storeUserInfo[0] == MESSAGE_UNDO) {
 		log.log("Parser: Command is UNDO");
 		return UNDO;
 	}
 	else { 
 		storeOther.push_back(MESSAGE_ADD);
+		log.log("Parser: Command is ADD");
 		return OTHER;
 	}
 }
@@ -111,6 +116,9 @@ vector<string> Parser::parseCommand (vector<string> storeUserInfo) {
 		userInformation.push_back(storeUserInfo[0]);
 		break;
 	case CHECK:
+		userInformation.push_back(storeUserInfo[0]);
+		break;
+	case CLEAR:
 		userInformation.push_back(storeUserInfo[0]);
 		break;
 	case UNDO:
@@ -1123,6 +1131,15 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		userInformation.push_back(endTime);
 
 		break;
+
+	case CLEAR:
+		userInformation.push_back(taskName);
+		userInformation.push_back(startDate);
+		userInformation.push_back(startTime);
+		userInformation.push_back(endDate);
+		userInformation.push_back(endTime);
+		break;
+
 
 	case UNDO:
 
@@ -2198,12 +2215,6 @@ vector<string> Parser::completeParse(string userInput) {
 		parseCommand(storeUserInfo);
 		parseDetails(storeUserInfo);
 
-		// for(int i=0; i<9; i++) {
-		//			userInformation.push_back("0"); // initialise rest of vector
-		//	}
-
-
-
 		return userInformation; //returns details of task inputted by user in the form of a vector<string>
 }
 
@@ -2214,7 +2225,6 @@ string Parser:: naturalParseInput (string date, string month, string year) {
 	string intMonth;
 	string combine;
 	
-
 	if (month == "jan" || month == "JAN" || month == "Jan") {
 		intMonth = "1";
 
@@ -2256,17 +2266,8 @@ string Parser:: naturalParseInput (string date, string month, string year) {
 	}
 
 	combine = date + "/" + intMonth + "/" + year;
-	//string check = checkDate(combine);
 
 	return combine;
-	/*
-	if (check == "1") {
-	return combine;
-		
-	} else {
-		return check;
-	}
-	*/
 }
 
 void Parser::parserEmpty() {
