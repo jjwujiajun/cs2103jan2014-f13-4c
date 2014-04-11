@@ -172,6 +172,9 @@ namespace GUI {
 	private: System::Windows::Forms::Button^  blueThemeButton;
 	private: System::Windows::Forms::Button^  metalThemeButton;
 
+	private: bool dragging;
+	private: Point offset;
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -670,10 +673,15 @@ namespace GUI {
 			this->Controls->Add(this->title);
 			this->Controls->Add(this->feedbackBox);
 			this->Controls->Add(this->inputField);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->MaximizeBox = false;
 			this->Name = L"Interface";
 			this->ShowIcon = false;
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			this->SizeGripStyle = System::Windows::Forms::SizeGripStyle::Hide;
+			this->Load += gcnew System::EventHandler(this, &Interface::Interface_Load);
+			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Interface::Interface_MouseDown);
+			this->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Interface::Interface_MouseMove);
+			this->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Interface::Interface_MouseUp);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -736,6 +744,25 @@ private: System::Void blueThemeClicked(System::Object^  sender, System::EventArg
 		 }
 private: System::Void metalThemeClicked(System::Object^  sender, System::EventArgs^  buttonClicked) {
 			 selectTheme(METAL);
+		 }
+private: System::Void Interface_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			 this->dragging = true;
+			 this->offset = Point(e->X, e->Y);
+		 }
+private: System::Void Interface_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			 this->dragging = false;
+		 }
+
+private: System::Void Interface_Load(System::Object^  sender, System::EventArgs^  e) {
+			 this->dragging = false;
+		 }
+
+private: System::Void Interface_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			 if (this->dragging){ //Move, soldier, MOVE!
+				Point currentScreenPos = PointToScreen(e->Location);
+				Location = Point(currentScreenPos.X - this->offset.X, 
+								 currentScreenPos.Y - this->offset.Y);
+			 }
 		 }
 };
 }
