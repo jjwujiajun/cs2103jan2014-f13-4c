@@ -18,7 +18,7 @@ bool Command::Add(Task userTask) {
 
 	while(counter < todoList.getSize()) {
 		temp = todoList.accessSlot(counter);
-		if(temp.taskName == userTask.taskName) {
+		if(temp.taskName == userTask.taskName && temp.startDate == userTask.startDate && temp.startTime == userTask.startTime && temp.endDate == userTask.endDate && temp.endTime == userTask.endTime) {
 			added = false;
 			break;
 		}
@@ -63,11 +63,34 @@ bool Command::Update(Task userTask, string updateField) {
 	}
 	updated = todoList.changeTask(Index, userTask, updateField);
 	
+	bool doubleTask = true;
+	int counter = 0, sameTaskNum = 0;
+	Task temp, copyUserTask;
+	copyUserTask = todoList.getTask(Index);
+
+	while(counter < todoList.getSize()) {
+		temp = todoList.accessSlot(counter);
+		if(temp.taskName == copyUserTask.taskName && temp.startDate == copyUserTask.startDate && temp.startTime == copyUserTask.startTime && temp.endDate == copyUserTask.endDate && temp.endTime == copyUserTask.endTime) {
+			sameTaskNum++;
+		}
+		counter++;
+	}
+
+	if(sameTaskNum > 1) {
+		doubleTask = false;
+		undo();
+		Delete(todoList.getTask(Index));
+	}
+
 	sort();
 	todoList.saveToFile();
 	log.log("Command: Task updated");
 
-	return updated;
+	if(doubleTask && updated) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool Command::Search(string searchField, string searchItem) {
