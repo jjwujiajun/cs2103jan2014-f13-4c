@@ -155,7 +155,7 @@ string Worker::actonCommand(string command)
 			if(userCommand.Add(userTask)) {
 				successful = "has been added successfully! :) \r\n";
 			} else {
-				successful = "task name is already inside the list!\r\n";
+				successful = "task is already inside the list!\r\n";
 			}
 		
 	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
@@ -197,8 +197,12 @@ string Worker::actonCommand(string command)
 
 	else if(command == "update" || command == "edit" || command == "change" ) {
 		if(continueNext == true) {
-			if(userCommand.Update(userTask, updateField) && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
-				successful = "has been updated successfully! :)\r\n";
+			if(startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
+				if(userCommand.Update(userTask, updateField)) {
+					successful = "has been updated successfully! :)\r\n";
+				} else {
+					successful = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";
+				}
 		
 			} else if (startDate == "1" || endDate == "1" ) {
 				successful = "Invalid date!!!! Task has not been edited successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
