@@ -57,7 +57,7 @@ vector<Task> FileHandler::getTaskList() {
 			task.isDone = true;
 		} else {
 			assert(line == FILE_STRING_FALSE);
-			task.isDone = false;
+			task.isDone = false; // edit here
 		}
 
 		taskList.push_back(task);
