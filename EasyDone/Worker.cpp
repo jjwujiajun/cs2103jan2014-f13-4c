@@ -119,7 +119,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		} else {
 			continueNext = false;
 		}
-	} else if(command == "done" || command == "display") {
+	} else if(command == "done" || command == "display" || command == "view") {
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {

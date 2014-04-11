@@ -9,6 +9,7 @@ const string MESSAGE_ADD = "add";
 const string MESSAGE_NEW = "new";
 const string MESSAGE_CREATE = "create";
 const string MESSAGE_DISPLAY = "display";
+const string MESSAGE_VIEW = "view";
 const string MESSAGE_UPDATE = "update";
 const string MESSAGE_EDIT = "edit";
 const string MESSAGE_CHANGE = "change";
@@ -16,6 +17,7 @@ const string MESSAGE_DELETE = "delete";
 const string MESSAGE_REMOVE = "remove";
 const string MESSAGE_SEARCH = "search";
 const string MESSAGE_DONE = "done";
+const string MESSAGE_CLEAR = "clear";
 const string MESSAGE_UNDO = "undo";
 const string CHECK_DATE = "0123456789 ";
 const string GUARD_DATE = "01234567890123456789";
@@ -39,7 +41,7 @@ public:
 	~Parser(void);
 
 	enum Choice{
-		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, UNDO, OTHER
+		ADD, READ, UPDATE, DELETE, SEARCH, CHECK, CLEAR, UNDO, OTHER
 	};
 
 	Choice userCommand(vector<string> storeUserInfo);
