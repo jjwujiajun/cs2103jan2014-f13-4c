@@ -264,6 +264,7 @@ namespace GUI {
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->richTaskList->BackColor = System::Drawing::Color::White;
 			this->richTaskList->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->richTaskList->Cursor = System::Windows::Forms::Cursors::IBeam;
 			this->richTaskList->Font = (gcnew System::Drawing::Font(L"Broadway", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
 			this->richTaskList->ForeColor = System::Drawing::SystemColors::InactiveCaption;

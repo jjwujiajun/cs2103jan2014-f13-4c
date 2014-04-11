@@ -589,11 +589,11 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	} else {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 	}
-	//if (task.isRed) {
-		//richTaskList->SelectionColor = TASK_OVERDUE();
-	//} else {
+	if (task.isRed) {
+		richTaskList->SelectionColor = TASK_OVERDUE();
+	} else {
 		richTaskList->SelectionColor = theme[color]->words;
-	//}
+	}
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
 	// - Date
