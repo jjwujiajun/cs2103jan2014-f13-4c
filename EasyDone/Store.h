@@ -19,9 +19,7 @@ class Store {
 		FileHandler file;
 		vector<Task> taskList;
 		vector<Task> searchTask;
-		vector< vector<Task> > undoList;
-		vector<string> getDateTomorrow();
-		
+		vector< vector<Task> > undoList;		
 
 		Log log;
 	
@@ -56,6 +54,7 @@ class Store {
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);
+		vector<string> getDateTomorrow();
 		bool eraser(string taskIndex);
 		void pushback(Task newTask);
 		Task getTask(int slot);
