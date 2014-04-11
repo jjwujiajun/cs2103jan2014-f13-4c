@@ -40,6 +40,7 @@ public:
 	string getTodayDay();
 	string getTodayMonth();
 	string getTodayYear();
+	vector<string> getTomorrowDate();
 };
 
 #endif
