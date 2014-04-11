@@ -226,9 +226,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						
 						month = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year = storeUserInfo[i];
-						//++i;
-
+						} else {
+						year = "14";
+						storeUserInfo.push_back("");
+						}
 						final = naturalParseInput(date, month, year);
 						
 
@@ -368,8 +371,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						
 						month = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year = storeUserInfo[i];
-						//++i;
+						} else {
+						year = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date, month, year);
 						
@@ -507,8 +514,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						
 						month = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year = storeUserInfo[i];
-						//++i;
+						} else {
+						year = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date, month, year);
 						
@@ -558,8 +569,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						
 									month_2 = storeUserInfo[i];
 									++i;
+									if ( i < storeUserInfo.size() ) {
 									year_2 = storeUserInfo[i];
-									//++i;
+									}else {
+									year_2 = "14";
+									storeUserInfo.push_back("");
+									}
 
 									final = naturalParseInput(date_2, month_2, year_2);
 						
@@ -746,8 +761,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						
 						month_3 = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year_3 = storeUserInfo[i];
-						//++i;
+						} else {
+						year_3 = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date_3, month_3, year_3);
 						
@@ -916,11 +935,50 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		if (i < (int) storeUserInfo.size()) {
 			while (i < (int) storeUserInfo.size()) {
 
-
-
 				if(storeUserInfo[i] == sd ) {	
 					startDate += storeUserInfo[i];
 					++i;
+
+					if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
+
+						date = storeUserInfo[i];
+						i++;		
+			
+
+					if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
+						
+						month = storeUserInfo[i];
+						++i;
+						if ( i < storeUserInfo.size() ) {
+						year = storeUserInfo[i];
+
+						} else {
+
+						year = "14";
+						storeUserInfo.push_back("");
+						}
+
+						final = naturalParseInput(date, month, year);
+						startTime += final + " ";
+
+						// Guards
+						verifyDate = checkParseDate(startTime);
+						verifyMonth = checkParseMonth(startTime);
+						verifyYear = checkParseYear(startTime);
+
+						// push back guard output into vector										
+						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
+						++i;
+					
+
+					} else {
+						month = storeUserInfo[i];
+						++i;
+					}
+
+
+					} else {
+
 					while(i < (int) storeUserInfo.size()){
 
 						startTime += storeUserInfo[i] + " ";
@@ -933,6 +991,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						// push back guard output into vector										
 						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 						++i;
+						}
 					}
 
 				} else if (storeUserInfo[i] == st) {
@@ -956,6 +1015,47 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 					startDate += storeUserInfo[i];
 					++i;
+
+					if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
+
+						date = storeUserInfo[i];
+						i++;		
+			
+
+					if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
+						
+						month = storeUserInfo[i];
+						++i;
+						if ( i < storeUserInfo.size() ) {
+						year = storeUserInfo[i];
+
+						} else {
+
+						year = "14";
+						storeUserInfo.push_back("");
+						}
+
+						final = naturalParseInput(date, month, year);
+						startTime += final + " ";
+
+						// Guards
+						verifyDate = checkParseDate(startTime);
+						verifyMonth = checkParseMonth(startTime);
+						verifyYear = checkParseYear(startTime);
+
+						// push back guard output into vector										
+						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
+						++i;
+					
+
+					} else {
+						month = storeUserInfo[i];
+						++i;
+					}
+
+
+					} else {
+
 					while(i < (int) storeUserInfo.size()){
 
 						startTime += storeUserInfo[i] + " ";
@@ -968,6 +1068,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						// push back guard output into vector										
 						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 						++i;
+						}
 					}
 
 				} else if (storeUserInfo[i] == et) {
@@ -1042,6 +1143,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			if(storeUserInfo[i] == sd ) {	
 				taskName = storeUserInfo[i];
 				++i;
+
 				while(i < (int) storeUserInfo.size()){
 
 					
@@ -1051,6 +1153,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 					++i;
 				}
+				
 
 			} else if (storeUserInfo[i] == st) {
 
@@ -1176,8 +1279,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 						
 						month = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year = storeUserInfo[i];
-						//++i;
+
+						} else {
+
+						year = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date, month, year);
 						
@@ -1312,8 +1421,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 						
 						month = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year = storeUserInfo[i];
-						//++i;
+
+						} else {
+
+						year = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date, month, year);
 						
@@ -1448,8 +1563,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 						
 						month = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year = storeUserInfo[i];
-						//++i;
+
+						} else {
+
+						year = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date, month, year);
 						
@@ -1498,9 +1619,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 									if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
 						
 									month_2 = storeUserInfo[i];
-									++i;
+									if ( i < storeUserInfo.size() ) {
 									year_2 = storeUserInfo[i];
-									//++i;
+
+									} else {
+
+									year_2 = "14";
+									storeUserInfo.push_back("");
+									}
 
 									final = naturalParseInput(date_2, month_2, year_2);
 						
@@ -1685,8 +1811,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 						
 						month_3 = storeUserInfo[i];
 						++i;
+						if ( i < storeUserInfo.size() ) {
 						year_3 = storeUserInfo[i];
-						//++i;
+
+						} else {
+
+						year_3 = "14";
+						storeUserInfo.push_back("");
+						}
 
 						final = naturalParseInput(date_3, month_3, year_3);
 						
