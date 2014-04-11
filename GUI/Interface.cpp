@@ -70,6 +70,7 @@ GUI::Interface::~Interface() {
 void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	if (inputField->Text == "exit") {
 		Application::Exit();
+		return;
 	}
 
 	log->log("GUI: receiveUserInput");
