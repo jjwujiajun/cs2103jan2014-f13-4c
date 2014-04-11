@@ -287,6 +287,24 @@ vector<Task> Command::getMarkedTasks() {
 	return tasksReturned;
 }
 
+vector<Task> Command::getUnmarkedTasks() { 
+
+	vector<Task> tasksReturned;
+
+	for(int i = 0; i < todoList.getSize(); i++)
+	{
+		Task task = todoList.getTask(i);
+		
+		if(task.isDone == false) {
+
+			tasksReturned.push_back(task);
+		}
+	}
+
+	return tasksReturned;
+
+}
+
 string Command::getSize() {
 	string size = to_string(todoList.getSize());
 	return size;
