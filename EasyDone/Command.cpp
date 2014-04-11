@@ -354,3 +354,9 @@ string Command::getTodayYear() {
 	return toReturn;
 }
 
+vector<string> Command::getTomorrowDate() {
+
+	vector<string> toReturn  = todoList.getDateTomorrow();
+
+	return toReturn;
+}
