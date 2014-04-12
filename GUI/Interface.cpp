@@ -24,6 +24,7 @@ GUI::Interface::Interface(void) {
 	
 	log->log("GUI: Set numRowsToDisplay to 20 lines");
 	log->log("GUI: display taskListBox, feedbackBox");
+	pageNumber = 0;
 	numRowsToDisplay = TASKLIST_RETRACT_ROW;
 	displaySummaryTaskListBox();
 	displayFeedbackBox();
@@ -83,9 +84,11 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 		if (summaryTaskListIsShown) {
 			displaySummaryTaskListBox();
 		} else if (allTaskListIsShown) {
-			displayTasksListBoxUsingList(manager->getAllTaskList());
+			vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
+			displayTasksListBoxUsingList(listToBeDisplayed);
 		} else if (doneTaskListIsShown) {
-			displayTasksListBoxUsingList(manager->getDoneTaskList()); // done task change this
+			vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
+			displayTasksListBoxUsingList(listToBeDisplayed);
 		}
 		displayFeedbackBox();
 	}
@@ -106,6 +109,7 @@ void GUI::Interface::showLiveFeedback() {
 }
 
 void GUI::Interface::togglePaneLeft() {
+	pageNumber = 0;
 	if (summaryTaskListIsShown) {
 		switchToDoneTaskListDisplay();
 	} else if (allTaskListIsShown) {
@@ -116,6 +120,7 @@ void GUI::Interface::togglePaneLeft() {
 }
 
 void GUI::Interface::togglePaneRight() {
+	pageNumber = 0;
 	if (summaryTaskListIsShown) {
 		switchToAllTaskListDisplay();
 	} else if (allTaskListIsShown) {
@@ -143,7 +148,8 @@ void GUI::Interface::switchToAllTaskListDisplay() {
 	allTaskListIsShown = true;
 	doneTaskListIsShown = false;
 
-	displayTasksListBoxUsingList(manager->getAllTaskList());	
+	vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
+	displayTasksListBoxUsingList(listToBeDisplayed);	
 	this->title->Text = TITLE_ALLTASKS;
 
 	this->radioDotSummary->ForeColor = theme[color]->words;
@@ -156,7 +162,8 @@ void GUI::Interface::switchToDoneTaskListDisplay() {
 	allTaskListIsShown = false;
 	doneTaskListIsShown = true;
 
-	displayTasksListBoxUsingList(manager->getDoneTaskList());
+	vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
+	displayTasksListBoxUsingList(listToBeDisplayed);
 	this->title->Text = TITLE_DONETASKS;
 
 	this->radioDotSummary->ForeColor = theme[color]->words;
@@ -281,9 +288,11 @@ void GUI::Interface::toggleFeedback() {
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
 	} else if (allTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getAllTaskList());
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 	} else if (doneTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getDoneTaskList()); //change to done task
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 	}
 }
 
@@ -377,12 +386,14 @@ void GUI::Interface::selectTheme(themeColor color) {
 		radioDotSummary->ForeColor = theme[color]->label;
 		radioDotDone->ForeColor = theme[color]->words;
 	} else if (allTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getAllTaskList());
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 		radioDotAll->ForeColor = theme[color]->label;
 		radioDotSummary->ForeColor = theme[color]->words;
 		radioDotDone->ForeColor = theme[color]->words;
 	} else if (doneTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getDoneTaskList()); // done task change this
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 		radioDotAll->ForeColor = theme[color]->words;
 		radioDotSummary->ForeColor = theme[color]->words;
 		radioDotDone->ForeColor = theme[color]->label;
@@ -414,14 +425,35 @@ void GUI::Interface::activateSettingsPage() {
 }
 
 // display functions
+vector<Task> GUI::Interface::showSelectedPageOfTasklist(vector<Task> tasklist) {
+	vector<vector<Task>> arrayOfPages;
+	vector<Task> page;
+	int taskIndex = 0;
+
+	while (taskIndex < tasklist.size()) {
+		page.clear();
+		for (int i = 0; i < numRowsToDisplay && taskIndex < tasklist.size(); ++i) {
+			page.push_back(tasklist[taskIndex]);
+			++taskIndex;
+		}
+		arrayOfPages.push_back(page);
+	}
+	if (pageNumber >= arrayOfPages.size()) {
+		pageNumber = arrayOfPages.size() - 1;
+	}
+	return arrayOfPages[pageNumber];
+}
+
 void GUI::Interface::displayNormalInterfaceState() {
 	log->log("User: No input, show normal texts");
 	if (summaryTaskListIsShown) {
 		displaySummaryTaskListBox();
 	} else if (allTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getAllTaskList());
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 	} else if (doneTaskListIsShown) {
-		displayTasksListBoxUsingList(manager->getDoneTaskList());
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 	}
 	String ^convertedFeedback;
 	string feedback = manager->getFeedback();
@@ -448,6 +480,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	std::vector<Task> receivedTodayTaskList = manager->getTodayTaskList();
 	std::vector<Task> receivedTomorrowTaskList = manager->getTomorrowTaskList();
 	int taskListBoxRow = 0;
+	int numRowsToDisplayForSummary = numRowsToDisplay;
 	bool isLastRow;
 	bool isSummaryDisplay = summaryTaskListIsShown;
 	int i = 0;
@@ -455,38 +488,43 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	richTaskList->Clear();
 
 	displayTodayLabel();
+	++taskListBoxRow;
 	if (receivedTodayTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task today :)\n";
+		++taskListBoxRow;
 	} else {
-		while (i < (int)receivedTodayTaskList.size() && taskListBoxRow < numRowsToDisplay/2) {
+		while (i < (int)receivedTodayTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
 			isLastRow = false; //(i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
 			displayTask(receivedTodayTaskList[i], isLastRow, isSummaryDisplay);
-			++taskListBoxRow;
+			taskListBoxRow += 2;
 			++i;
 		}
 	}
-
-	displayTomorrowLabel();
-	if (receivedTomorrowTaskList.empty()) {
+	if (taskListBoxRow < numRowsToDisplayForSummary) {
+		displayTomorrowLabel();
+		++taskListBoxRow;
+	}
+	if (receivedTomorrowTaskList.empty() && taskListBoxRow < numRowsToDisplayForSummary) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
 		richTaskList->SelectedText = "No task tomorrow :)\n";
+		++taskListBoxRow;
 	} else {
 		i = 0;
-		while (i < (int)receivedTomorrowTaskList.size() && taskListBoxRow < numRowsToDisplay/2) {
+		while (i < (int)receivedTomorrowTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
 			isLastRow = false; //(i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == numRowsToDisplay/3);
 			displayTask(receivedTomorrowTaskList[i], isLastRow, isSummaryDisplay);
-			++taskListBoxRow;
+			taskListBoxRow += 2;
 			++i;
 		}
 	}
 
-	if (!receivedDueTaskList.empty()) {
+	if (!receivedDueTaskList.empty() && taskListBoxRow < numRowsToDisplayForSummary) {
 		displayDueLabel();
 		i = 0;
-		while (i < (int)receivedDueTaskList.size() && taskListBoxRow < numRowsToDisplay/2) {
+		while (i < (int)receivedDueTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
 			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
 			displayTask(receivedDueTaskList[i], isLastRow, !isSummaryDisplay);
 			++taskListBoxRow;

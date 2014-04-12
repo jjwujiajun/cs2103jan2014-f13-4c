@@ -69,6 +69,7 @@ namespace GUI {
 		// delete this
 		String ^titleName;
 		int numRowsToDisplay;
+		int pageNumber;
 	 	String ^feedbackToDisplay;
 
 		// ***FUNCTIONS***
@@ -90,6 +91,7 @@ namespace GUI {
 		void getHelpBoxDisplay();
 
 		// display functions - content aspect (taskList specific)
+		vector<Task> showSelectedPageOfTasklist(vector<Task> tasklist);
 		void displayTodayLabel();
 		void displayTomorrowLabel();
 		void displayDueLabel();
@@ -711,6 +713,26 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 				toggleSettingsTab();
 			} else if (keyPressed->KeyCode == Keys::F12) {
 				toggleTheme();
+			} else if (keyPressed->KeyCode == Keys::Down) {
+				++pageNumber;
+				if (summaryTaskListIsShown) {
+					switchToSummaryTaskListDisplay();
+				} else if (allTaskListIsShown) {
+					switchToAllTaskListDisplay();
+				} else if (doneTaskListIsShown) {
+					switchToDoneTaskListDisplay();
+				}
+			} else if (keyPressed->KeyCode == Keys::Up) {
+				if (pageNumber > 0) {
+					--pageNumber;
+				}
+				if (summaryTaskListIsShown) {
+					switchToSummaryTaskListDisplay();
+				} else if (allTaskListIsShown) {
+					switchToAllTaskListDisplay();
+				} else if (doneTaskListIsShown) {
+					switchToDoneTaskListDisplay();
+				}
 			} else if (keyPressed->KeyCode == Keys::Enter) {
 				log->log("User: Enter is pressed, operateUserRequest()");
 				operateUserRequest(inputField->Text->Contains("search"));
