@@ -464,13 +464,16 @@ void GUI::Interface::displayNormalInterfaceState() {
 void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTaskList) {
 	int i = 0;
 	bool isLastRow;
-	bool isShowingSummaryPane = summaryTaskListIsShown;
+	bool isShowingEndTime = summaryTaskListIsShown;
+	if (isSearching) {
+		isShowingEndTime = false;
+	}
 
 	richTaskList->Clear();
 
 	while (i < (int)receivedTaskList.size() && i < numRowsToDisplay) {
 		isLastRow = (i == (int) receivedTaskList.size()-1 || i == numRowsToDisplay-1);
-		displayTask(receivedTaskList[i], isLastRow, isShowingSummaryPane);
+		displayTask(receivedTaskList[i], isLastRow, isShowingEndTime);
 		i++;
 	}
 }
@@ -496,7 +499,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 		++taskListBoxRow;
 	} else {
 		while (i < (int)receivedTodayTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
-			isLastRow = false; //(i == (int) receivedTodayTaskList.size()-1 || taskListBoxRow == 10);
+			isLastRow = taskListBoxRow == numRowsToDisplayForSummary-1;
 			displayTask(receivedTodayTaskList[i], isLastRow, isSummaryDisplay);
 			taskListBoxRow += 2;
 			++i;
@@ -514,7 +517,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	} else {
 		i = 0;
 		while (i < (int)receivedTomorrowTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
-			isLastRow = false; //(i == (int) receivedTomorrowTaskList.size()-1 || taskListBoxRow == numRowsToDisplay/3);
+			isLastRow = taskListBoxRow == numRowsToDisplayForSummary-1;
 			displayTask(receivedTomorrowTaskList[i], isLastRow, isSummaryDisplay);
 			taskListBoxRow += 2;
 			++i;
@@ -525,7 +528,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 		displayDueLabel();
 		i = 0;
 		while (i < (int)receivedDueTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
-			isLastRow = false; //(taskListBoxRow == (int) receivedDueTaskList.size()-1 || taskListBoxRow == 5);
+			isLastRow = taskListBoxRow == numRowsToDisplayForSummary-1;
 			displayTask(receivedDueTaskList[i], isLastRow, !isSummaryDisplay);
 			++taskListBoxRow;
 			++i;
@@ -636,13 +639,23 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
 	// - Date
+	String ^endDate = gcnew String(task.endDate.c_str());
 	String ^startDate = gcnew String(task.startDate.c_str());
-	richTaskList->SelectedText = startDate;
+	if (isSearchingEndTime) {
+		richTaskList->SelectedText = endDate;
+	} else {
+		richTaskList->SelectedText = startDate;
+	}
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
 	// - Time
+	String ^endTime = gcnew String(task.endTime.c_str());
 	String ^startTime = gcnew String(task.startTime.c_str());
-	richTaskList->SelectedText = startTime;
+	if (isSearchingEndTime) {
+		richTaskList->SelectedText = endTime;
+	} else {
+		richTaskList->SelectedText = startTime;
+	}
 	// ~~Spacing~~
 	richTaskList->SelectedText = TABL;
 	// - Description
@@ -656,6 +669,8 @@ void GUI::Interface::displayTaskInformation(const Task &task, const bool &isLast
 	delete richTaskList->SelectionFont;
 	delete startDate;
 	delete startTime;
+	delete endTime;
+	delete endDate;
 	delete taskName;
 }
 
