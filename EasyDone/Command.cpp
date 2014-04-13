@@ -69,7 +69,7 @@ string Command::Update(Task userTask, string updateField) {
 
 	todoList.listToStack();
 	log.log("Command: Updating task");
-	string updated = "false";
+	string updated = STRING_FALSE;
 	int Index = 0;
 	while(userTask.taskID != todoList.getTask(Index).taskID) {
 		Index++;
@@ -81,7 +81,7 @@ string Command::Update(Task userTask, string updateField) {
 	copyUserTask = todoList.getTask(Index);
 
 	// Exeption Handling for updating to same task. Throws exception if task is updated to a task inside the list.
-	if(updated == "true") {
+	if(updated == STRING_TRUE) {
 		while(counter < todoList.getSize()) {
 			temp = todoList.accessSlot(counter);
 			if(temp.taskName == copyUserTask.taskName && temp.startDate == copyUserTask.startDate && temp.startTime == copyUserTask.startTime && temp.endDate == copyUserTask.endDate && temp.endTime == copyUserTask.endTime) {
@@ -91,7 +91,7 @@ string Command::Update(Task userTask, string updateField) {
 		}
 
 		if(sameTaskNum > 1) {
-			updated = "false";
+			updated = STRING_FALSE;
 			undo();
 			Delete(todoList.getTask(Index));
 		}
