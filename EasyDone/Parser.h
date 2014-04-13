@@ -46,6 +46,9 @@ public:
 
 	Choice userCommand(vector<string> storeUserInfo);
 
+	// convert an index string format 0000001 to 1 in string format
+	string convert_From_String_To_String (string index);
+
 	// take in more natural inputs. Eg.) 14 jan 2014
 	string naturalParseInput (string date, string month, string year);
 

@@ -337,7 +337,7 @@ vector<Task> Worker::getTasksDoneList() {
 
 vector<Task> Worker::getTasksUndoneList() {
 
-	vector<Task> displayedTaskList =  userCommand.getMarkedTasks();
+	vector<Task> displayedTaskList =  userCommand.getUnmarkedTasks();
 
 	bool shouldShowEndTime = false;
 	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
