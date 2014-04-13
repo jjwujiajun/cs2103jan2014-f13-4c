@@ -271,10 +271,17 @@ string Worker::actonCommand(string command)
 	else if(command == "update" || command == "edit" || command == "change" ) {
 		if(continueNext == true) {
 			if(startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
-				if(userCommand.Update(userTask, updateField)) {
+				string updated = userCommand.Update(userTask, updateField);
+				if(updated == "true") {
 					successful = "has been updated successfully! :)\r\n";
 				} else {
-					successful = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";
+					if(updated == "false") {
+						successful = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";
+					} else if(updated == "startDate") {
+						successful = "End date cannot be before the start date. Please check again.\r\n";
+					} else if(updated == "startTime") {
+						successful = "End time cannot be before start Time if the task starts and ends on the same day. Please check again.\r\n";
+					}
 				}
 		
 			} else if (startDate == "1" || endDate == "1" ) {
