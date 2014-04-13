@@ -73,8 +73,8 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		if(!userTask.startDate.empty() && !userTask.endDate.empty()) {
 			if(stoi(userTask.startDate) > stoi(userTask.endDate)) {
 				continueNext = false;
-			} else if(!userTask.startTime.empty() && !userTask.endTime.empty()) {
-				if(stoi(userTask.startTime) > stoi(userTask.endTime)) {
+			} else if(stoi(userTask.startDate) == stoi(userTask.endDate)) {
+				if(!userTask.startTime.empty() && !userTask.endTime.empty() && stoi(userTask.startTime) > stoi(userTask.endTime)) {
 					continueNext = false;
 				}
 			}
