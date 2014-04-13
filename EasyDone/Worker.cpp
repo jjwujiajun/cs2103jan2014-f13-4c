@@ -77,11 +77,22 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		}
 
+		//Exception handler for start date and end date. Throws exception if end date is before the start date.
+		if(!userTask.startDate.empty() && !userTask.endDate.empty()) {
+			if(userTask.startDate > userTask.endDate) {
+				continueNext = false;
+			}
+		}
+
 
 	} else if(command == "update" || command == "edit" || command == "change"){
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
-			userTask.taskID = parsedCommandstring[1];
+		if(!parsedCommandstring[1].empty()) {
+			if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
+				userTask.taskID = parsedCommandstring[1];
+			} else {
+				continueNext = false;
+			}
 		} else {
 			continueNext = false;
 		}
@@ -120,7 +131,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		} else {
 		
-		userTask.startDate = parsedCommandstring[3];
+			userTask.startDate = parsedCommandstring[3];
 	
 			}
 		} else if(updateField == "st") {
@@ -135,7 +146,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			combine = year + month + date;
 			parsedCommandstring[3] = combine;
 
-			userTask.startDate = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[3];
 			
 
 		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
@@ -148,13 +159,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			}
 
 			parsedCommandstring[3] = combine;
-			userTask.startTime = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[3];
 			
 
 
 		} else {
 		
-		userTask.startDate = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[3];
 	
 			}
 
@@ -165,14 +176,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 	} else if(command == "delete" || command == "remove") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display" || command == "view") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -187,10 +198,12 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	if(command == "add") {
 		stringToMain = "\"" + userTask.taskName + "\" \r\n";
-	} else if (!userTask.taskID.empty() && command != "undo") {
-		int taskID = atoi(userTask.taskID.c_str()) - 1;
-		Task task = userCommand.getTask(taskID); 
-		stringToMain = "\"" + task.taskName + "\" \r\n";
+	} else if(continueNext) {
+		if (!userTask.taskID.empty() && command != "undo") {
+			int taskID = atoi(userTask.taskID.c_str()) - 1;
+			Task task = userCommand.getTask(taskID); 
+			stringToMain = "\"" + task.taskName + "\" \r\n";
+		}
 	}
 
 	stringToMain += actonCommand(command);
@@ -232,7 +245,9 @@ string Worker::actonCommand(string command)
 
 		} else if (startTime == "0" || endTime == "0") {
 			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
-		} 
+		} else {
+			successful = "Start date cannot be after end date.\r\n";
+		}
 	}
 
 	else if(command == "delete" || command == "remove") {
@@ -277,7 +292,7 @@ string Worker::actonCommand(string command)
 				successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
 			} 
 		} else {
-			successful = "Either invalid field name added or taskID is out of range! Please check again.\r\n";
+			successful = "Either invalid field input or taskID is out of range! Please check again.\r\n";
 		}
 		
 	}
@@ -417,7 +432,7 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList, bool shouldB
 		}
 
 		// 4 digit index display
-		while (taskIndex.size() < taskList[taskList.size()-1].taskID.size()) {
+		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
 			taskIndex = "0" + taskIndex;
 		}
 		taskList[i].taskID = taskIndex;
