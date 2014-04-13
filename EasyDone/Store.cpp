@@ -236,6 +236,8 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 		if(!taskList[Index].startDate.empty()) {
 			if(stoi(taskList[Index].startDate) > stoi(userTask.endDate)) {
 				return WORD_STARTDATE;
+			} else {
+				taskList[Index].endDate = userTask.endDate;
 			}
 		} else {
 			taskList[Index].endDate = userTask.endDate;
