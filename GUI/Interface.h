@@ -63,6 +63,8 @@ namespace GUI {
 		bool feedbackIsVisible;
 		bool helpTabIsVisible;
 		bool settingsTabIsVisible;
+		bool isSearching;
+		bool isSearchingEndTime;
 		themeColor color;
 		
 		// variable display values in interface.
@@ -694,9 +696,6 @@ namespace GUI {
 		//
 private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 
-			string liveInputFieldText;
-			convertSysToStdString(inputField->Text, liveInputFieldText);
-
 			if (keyPressed->KeyCode == Keys::F1) {
 				activateHelpPage();
 			} else if (keyPressed->KeyCode == Keys::F2) {
@@ -737,10 +736,19 @@ private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms
 				log->log("User: Enter is pressed, operateUserRequest()");
 				operateUserRequest(inputField->Text->Contains("search"));
 				displayInputField();
-			} else if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
-				showLiveFeedback();
 			} else {
-				displayNormalInterfaceState();
+				string liveInputFieldText;
+				convertSysToStdString(inputField->Text, liveInputFieldText);
+				isSearching = false;
+
+				if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
+					isSearching = inputField->Text->Contains("search");
+					isSearchingEndTime = isSearching && 
+						(inputField->Text->Contains("ed") || inputField->Text->Contains("et"));
+					showLiveFeedback();
+				} else {
+					displayNormalInterfaceState();
+				}
 			}
 		 }
 private: System::Void feedbackToggle(System::Object^  sender, System::EventArgs^  feedbackToggled) {
