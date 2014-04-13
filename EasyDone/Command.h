@@ -29,7 +29,7 @@ public:
 	string Update(Task userTask, string updateField);
 	
 	//GUI functions + helper functions! 
-	vector<Task> getSearchedList();
+	vector<Task>* getSearchedList();
 	vector<Task>* getTodayTask();
 	vector<Task>* getTomorrowTask();
 	vector<Task>* getOverdueTasks();

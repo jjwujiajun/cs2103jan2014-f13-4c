@@ -187,23 +187,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	string endDate;
 	string endTime;
 
-
-	// Command "add" keywords
-	const string keyWord_1 ("on");
-	const string keyWord_2 ("by");
-	const string keyWord_3 ("from");
-	const string keyWord_4 ("to");
-	const string keyWord_5 ("today");
-	const string keyWord_6 ("tmo");
-	const string keyWord_7 ("tmr");
-
-	// Command "edit" keywords
-	const string task ("task");
-	const string sd ("sd");
-	const string st ("st");
-	const string ed ("ed");
-	const string et ("et");
-
 	switch (enumCommand) {
 
 	case ADD:
