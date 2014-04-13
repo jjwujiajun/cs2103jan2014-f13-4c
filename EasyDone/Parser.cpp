@@ -26,8 +26,7 @@ vector<string> Parser::storeInformation(string userInput) {
 	tEnd = userInput.find_first_of(" ");
 
 	while (tEnd != string::npos) {
-		//if (newUserInput.find (keyWord_1)) {
-		//tEnd = userInput.find (keyWord_1); // pos not provided. Default value of 0 is used 
+		// pos not provided. Default value of 0 is used 
 		token = userInput.substr (tStart, tEnd - tStart);
 		storeUserInfo.push_back(token);
 
@@ -51,6 +50,7 @@ vector<string> Parser::storeInformation(string userInput) {
 
 Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 
+	//Exception handler for user command. Throws "add" command if no command word identified.
 	if (storeUserInfo[0] == MESSAGE_ADD || storeUserInfo[0] == MESSAGE_CREATE || storeUserInfo[0] == MESSAGE_NEW  ) {
 		log.log("Parser: Command is ADD");
 		return ADD;
@@ -95,6 +95,9 @@ Parser::Choice Parser::userCommand (vector<string>storeUserInfo) {
 // it will return a vector string storing all the commands
 
 vector<string> Parser::parseCommand (vector<string> storeUserInfo) {
+
+	//Asserts that a command word is available to be inserted in userInformation vector.
+	assert(!storeUserInfo.empty() || !storeOther.empty());
 
 	Choice enumCommand;
 	enumCommand = userCommand(storeUserInfo);
@@ -2052,6 +2055,7 @@ string Parser:: convert_From_String_To_String (string index) {
 
 }
 
+//Exception handler for startdate. Throws exception is startdate is out of range.
 // guard against keyWord (startdate will get date)
 string Parser:: checkKeyWord(string startDate) {
 
@@ -2082,6 +2086,7 @@ string Parser:: checkKeyWord(string startDate) {
 // getter functions
 
 int Parser::getDate(string date) {
+
 		int start = 0;
 		int keystroke = date.find("/", 0);
 
@@ -2133,7 +2138,7 @@ string Parser::checkDate(string date) {
 		int currentYear = getYear(date);
 
 
-
+		//Exception Handler for the leap year and correct month. Throws exception is wrong input is provided.
 		// checks if the current year is a leap year
 		if ((currentYear % 4 == 0 && currentYear % 100 != 0) || ( currentYear % 400 == 0)) {
 
@@ -2272,7 +2277,7 @@ string Parser::checkParseTime(string time) {
 		int hour = atoi(time.substr(0,keyStroke).c_str());
 		int min = atoi(time.substr(startOfMinute).c_str());
 
-
+		//Exception handler for time format. Throws exception if invalid time is added.
 		if (hour < 0 || hour > 23 || min < 0 || min > 60) {
 			successful =  "0";
 		} else {

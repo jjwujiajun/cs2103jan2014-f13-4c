@@ -79,8 +79,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 
 	} else if(command == "update" || command == "edit" || command == "change"){
+
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -90,89 +91,78 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		//Exception handler for updateField. Throws exception if the field provided is unidentified.
 		if(updateField == "task") {
 			userTask.taskName = parsedCommandstring[3];
-
 		} else if(updateField == "sd") {
 
 			if (parsedCommandstring[3] == "today") {
+				date = userCommand.getTodayDay();
+				month = userCommand.getTodayMonth();
+				year = userCommand.getTodayYear();
+				combine = year + month + date;
+				parsedCommandstring[3] = combine;
 
-			date = userCommand.getTodayDay();
-			month = userCommand.getTodayMonth();
-			year = userCommand.getTodayYear();
-			combine = year + month + date;
-			parsedCommandstring[3] = combine;
+				userTask.startDate = parsedCommandstring[3];
 
-			userTask.startDate = parsedCommandstring[3];
-			
+			} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+				tomorrowDate = userCommand.getTomorrowDate();
 
-		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+				for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
+					combine += tomorrowDate[i];
+				}
 
-			tomorrowDate = userCommand.getTomorrowDate();
+				parsedCommandstring[3] = combine;
+				userTask.startDate = parsedCommandstring[3];
 
-			for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
-				combine += tomorrowDate[i];
-
+			} else {
+				userTask.startDate = parsedCommandstring[3];
 			}
 
-			parsedCommandstring[3] = combine;
-			userTask.startDate = parsedCommandstring[3];
-			
-
-
-		} else {
-		
-		userTask.startDate = parsedCommandstring[3];
-	
-			}
 		} else if(updateField == "st") {
 			userTask.startTime = parsedCommandstring[3];
 		} else if(updateField == "ed") {
-
 			if (parsedCommandstring[3] == "today") {
 
-			date = userCommand.getTodayDay();
-			month = userCommand.getTodayMonth();
-			year = userCommand.getTodayYear();
-			combine = year + month + date;
-			parsedCommandstring[3] = combine;
+				date = userCommand.getTodayDay();
+				month = userCommand.getTodayMonth();
+				year = userCommand.getTodayYear();
+				combine = year + month + date;
+				parsedCommandstring[3] = combine;
 
-			userTask.startDate = parsedCommandstring[3];
-			
+				userTask.startDate = parsedCommandstring[3];
 
-		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+			} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
 
-			tomorrowDate = userCommand.getTomorrowDate();
+					tomorrowDate = userCommand.getTomorrowDate();
 
-			for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
-				combine += tomorrowDate[i];
+					for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
+						combine += tomorrowDate[i];
+					}
 
+					parsedCommandstring[3] = combine;
+					userTask.startTime = parsedCommandstring[3];
+
+				} else {
+					userTask.startDate = parsedCommandstring[3];
+				}
+
+			} else if(updateField == "et") {
+
+				userTask.endTime = parsedCommandstring[3];
+
+			} else {
+
+				continueNext = false;
 			}
 
-			parsedCommandstring[3] = combine;
-			userTask.startTime = parsedCommandstring[3];
-			
-
-
-		} else {
-		
-		userTask.startDate = parsedCommandstring[3];
-	
-			}
-
-		} else if(updateField == "et") {
-			userTask.endTime = parsedCommandstring[3];
-		} else {
-			continueNext = false;
-		}
 	} else if(command == "delete" || command == "remove") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display" || command == "view") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
