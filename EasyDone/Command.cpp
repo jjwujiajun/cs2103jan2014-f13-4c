@@ -61,7 +61,7 @@ bool Command::Delete(Task userTask) {
 	
 }
 
-bool Command::Update(Task userTask, string updateField) {
+string Command::Update(Task userTask, string updateField) {
 
 	int size = todoList.getSize();
 	// Asserts that the task ID is within the task list range.
@@ -69,42 +69,39 @@ bool Command::Update(Task userTask, string updateField) {
 
 	todoList.listToStack();
 	log.log("Command: Updating task");
-	bool updated = false;
+	string updated = "false";
 	int Index = 0;
 	while(userTask.taskID != todoList.getTask(Index).taskID) {
 		Index++;
 	}
 	updated = todoList.changeTask(Index, userTask, updateField);
 	
-	bool doubleTask = true;
 	int counter = 0, sameTaskNum = 0;
 	Task temp, copyUserTask;
 	copyUserTask = todoList.getTask(Index);
 
 	// Exeption Handling for updating to same task. Throws exception if task is updated to a task inside the list.
-	while(counter < todoList.getSize()) {
-		temp = todoList.accessSlot(counter);
-		if(temp.taskName == copyUserTask.taskName && temp.startDate == copyUserTask.startDate && temp.startTime == copyUserTask.startTime && temp.endDate == copyUserTask.endDate && temp.endTime == copyUserTask.endTime) {
-			sameTaskNum++;
+	if(updated == "true") {
+		while(counter < todoList.getSize()) {
+			temp = todoList.accessSlot(counter);
+			if(temp.taskName == copyUserTask.taskName && temp.startDate == copyUserTask.startDate && temp.startTime == copyUserTask.startTime && temp.endDate == copyUserTask.endDate && temp.endTime == copyUserTask.endTime) {
+				sameTaskNum++;
+			}
+			counter++;
 		}
-		counter++;
-	}
 
-	if(sameTaskNum > 1) {
-		doubleTask = false;
-		undo();
-		Delete(todoList.getTask(Index));
+		if(sameTaskNum > 1) {
+			updated = "false";
+			undo();
+			Delete(todoList.getTask(Index));
+		}
 	}
 
 	sort();
 	todoList.saveToFile();
 	log.log("Command: Task updated");
 
-	if(doubleTask && updated) {
-		return true;
-	} else {
-		return false;
-	}
+	return updated;
 }
 
 bool Command::Search(string searchField, string searchItem) {
