@@ -114,7 +114,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			}
 
 			parsedCommandstring[3] = combine;
-			userTask.startDate = parsedCommandstring[3];
+			userTask.startTime = parsedCommandstring[3];
 			
 
 
@@ -135,7 +135,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			combine = year + month + date;
 			parsedCommandstring[3] = combine;
 
-			userTask.startDate = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[3];
 			
 
 		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
@@ -148,13 +148,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			}
 
 			parsedCommandstring[3] = combine;
-			userTask.startTime = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[3];
 			
 
 
 		} else {
 		
-		userTask.startDate = parsedCommandstring[3];
+		userTask.endDate = parsedCommandstring[3];
 	
 			}
 
