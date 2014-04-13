@@ -28,12 +28,12 @@ public:
 	
 	//GUI functions + helper functions! 
 	vector<Task> getSearchedList();
-	vector<Task> getTodayTask();
-	vector<Task> getTomorrowTask();
-	vector<Task> getOverdueTasks();
-	vector<Task> getMarkedTasks();
-	vector<Task> getUnmarkedTasks();
-	vector<Task> getTaskList();
+	vector<Task>* getTodayTask();
+	vector<Task>* getTomorrowTask();
+	vector<Task>* getOverdueTasks();
+	vector<Task>* getMarkedTasks();
+	vector<Task>* getUnmarkedTasks();
+	vector<Task>* getTaskList();
 	Task getTask(int Index);
 	string getSize();
 	int issueNewTaskID();

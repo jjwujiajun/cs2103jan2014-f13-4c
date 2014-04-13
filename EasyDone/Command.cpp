@@ -134,9 +134,11 @@ int Command::issueNewTaskID(){
 	return newIndex;
 }
  
-vector<Task> Command::getTaskList() { 
+vector<Task>* Command::getTaskList() { 
 	todoList.markTasksDueToday();
-	return todoList.getTaskList();
+	vector<Task>* list = new vector<Task>;
+	*list = todoList.getTaskList();
+	return list;
 }
 
 bool Command::markDone(Task task) {
@@ -263,20 +265,20 @@ void Command::sort() {
 	
 }
 
-vector<Task> Command::getTodayTask() {
+vector<Task>* Command::getTodayTask() {
 	
 	int i;
 	todoList.markTasksDueToday();
 	int sizeofList = todoList.getSize();
-	vector<Task> tasksReturned;
+	vector<Task>* tasksReturned = new vector<Task>;
 
 	for( i = 0; i < todoList.getSize(); i++)
 	{
 		Task task = todoList.getTask(i);
 		
-		if(task.isBold == true && tasksReturned.size() < sizeofList )
+		if(task.isBold == true && tasksReturned->size() < sizeofList )
 		{
-			tasksReturned.push_back(task);
+			tasksReturned->push_back(task);
 		}
 
 	}
@@ -284,11 +286,11 @@ vector<Task> Command::getTodayTask() {
 	return tasksReturned;
 }
 
-vector<Task> Command::getTomorrowTask() {
+vector<Task>* Command::getTomorrowTask() {
 	
 	int i;
 	todoList.markTasksDueTomorrow();
-	vector<Task> tasksReturned;
+	vector<Task>* tasksReturned = new vector<Task>;
 
 	for( i = 0 ; i < todoList.getSize(); i++) {
 
@@ -296,18 +298,18 @@ vector<Task> Command::getTomorrowTask() {
 
 		if(task.isTomorrow == true)
 		{
-			tasksReturned.push_back(task);
+			tasksReturned->push_back(task);
 		}
 	}
 
 	return tasksReturned;
 }
 
-vector<Task> Command::getOverdueTasks() {
+vector<Task>* Command::getOverdueTasks() {
 	
 	int i;
 	todoList.markTasksOverdue();
-	vector<Task> tasksReturned;
+	vector<Task>* tasksReturned = new vector<Task>;
 
 	for( i = 0 ; i < todoList.getSize(); i++) {
 
@@ -315,16 +317,16 @@ vector<Task> Command::getOverdueTasks() {
 
 		if(task.isRed == true)
 		{
-			tasksReturned.push_back(task);
+			tasksReturned->push_back(task);
 		}
 	}
 
 	return tasksReturned;
 }
 
-vector<Task> Command::getMarkedTasks() {
+vector<Task>* Command::getMarkedTasks() {
 
-	vector<Task> tasksReturned;
+	vector<Task>* tasksReturned = new vector<Task>;
 
 	for(int i = 0; i < todoList.getSize(); i++)
 	{
@@ -332,16 +334,16 @@ vector<Task> Command::getMarkedTasks() {
 		
 		if(task.isDone ==  true) {
 
-			tasksReturned.push_back(task);
+			tasksReturned->push_back(task);
 		}
 	}
 
 	return tasksReturned;
 }
 
-vector<Task> Command::getUnmarkedTasks() { 
+vector<Task>* Command::getUnmarkedTasks() { 
 
-	vector<Task> tasksReturned;
+	vector<Task>* tasksReturned = new vector<Task>;
 
 	for(int i = 0; i < todoList.getSize(); i++)
 	{
@@ -349,7 +351,7 @@ vector<Task> Command::getUnmarkedTasks() {
 		
 		if(task.isDone == false) {
 
-			tasksReturned.push_back(task);
+			tasksReturned->push_back(task);
 		}
 	}
 

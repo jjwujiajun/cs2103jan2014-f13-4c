@@ -327,14 +327,16 @@ string Worker::actonCommand(string command)
 
 	else if(command == "display") {
 		if(continueNext == true) {
-			vector<Task> taskList = userCommand.getTaskList();
+			vector<Task>* taskList = new vector<Task>;
+			taskList = userCommand.getTaskList();
 			int intID = stoi(userTask.taskID) - 1;
-			Task task = taskList.at(intID);
+			Task task = taskList->at(intID);
 			bool shouldShowYear = true;
 			bool shouldBeDetailed = false;
 
 			successful = "Starts: " + formatDate(task.startDate, shouldShowYear, shouldBeDetailed) + "   " + formatTime(task.startTime, shouldBeDetailed) + "\r\n" +
 						 "Ends: " + formatDate(task.endDate, shouldShowYear, shouldBeDetailed) + "   " + formatTime(task.endTime, shouldBeDetailed) + "\r\n\r\n";
+			delete taskList;
 		} else {
 			successful = "TaskID is out of range. Please check again.\r\n";
 		}
@@ -353,11 +355,11 @@ string Worker::actonCommand(string command)
 
 }
 
-vector<Task> Worker::getTaskList() {
-	vector<Task> displayedTaskList = userCommand.getTaskList();
+vector<Task>* Worker::getTaskList() {
+	vector<Task>* displayedTaskList = userCommand.getTaskList();
 
 	bool shouldShowEndTime = false;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
@@ -371,53 +373,53 @@ vector<Task> Worker::getSearchedList() {
 	return displayedTaskList;
 }
 
-vector<Task> Worker::getTasksDueTodayList() {
+vector<Task>* Worker::getTasksDueTodayList() {
 
-	vector<Task> displayedTaskList =  userCommand.getTodayTask();
+	vector<Task>* displayedTaskList =  userCommand.getTodayTask();
 	
 	bool shouldShowEndTime = true;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
 
-vector<Task> Worker::getTasksDueTomorrowList() {
+vector<Task>* Worker::getTasksDueTomorrowList() {
 
-	vector<Task> displayedTaskList = userCommand.getTomorrowTask();
+	vector<Task>* displayedTaskList = userCommand.getTomorrowTask();
 
 	bool shouldShowEndTime = true;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
 
-vector<Task> Worker::getTasksOverdueList() {
+vector<Task>* Worker::getTasksOverdueList() {
 
-	vector<Task> displayedTaskList =  userCommand.getOverdueTasks();
+	vector<Task>* displayedTaskList =  userCommand.getOverdueTasks();
 
 	bool shouldShowEndTime = false;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 
 }
 
-vector<Task> Worker::getTasksDoneList() {
+vector<Task>* Worker::getTasksDoneList() {
 
-	vector<Task> displayedTaskList =  userCommand.getMarkedTasks();
+	vector<Task>* displayedTaskList =  userCommand.getMarkedTasks();
 
 	bool shouldShowEndTime = false;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
 
-vector<Task> Worker::getTasksUndoneList() {
+vector<Task>* Worker::getTasksUndoneList() {
 
-	vector<Task> displayedTaskList =  userCommand.getUnmarkedTasks();
+	vector<Task>* displayedTaskList =  userCommand.getUnmarkedTasks();
 
 	bool shouldShowEndTime = false;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }

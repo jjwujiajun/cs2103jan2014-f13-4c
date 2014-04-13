@@ -1,3 +1,4 @@
+//@author A0100705Y
 // Manager.h
 /* The manager is the facade of the whole Logic unit.
  * It links the GUI seamlessly with all the logic components.
@@ -33,7 +34,7 @@ public:
 	Log log;
 
 	// GUI displays
-	vector<Task> GUITaskList;
+	vector<Task>* GUITaskList;
 	string GUIfeedbackBox;
 	string GUIInputField;
 	vector<string> GUIHelpHeadings;

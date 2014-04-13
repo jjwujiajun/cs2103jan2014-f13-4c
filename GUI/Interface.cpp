@@ -1,3 +1,5 @@
+//@author A0100705Y
+//Interface.cpp
 #include "Interface.h"
 
 using namespace System; 
@@ -103,6 +105,7 @@ void GUI::Interface::operateUserSearchRequest() {
 
 void GUI::Interface::showLiveFeedback() {
 	if (isSearching) {
+		pageNumber = 0;
 		operateUserSearchRequest();
 		displayFeedbackBox();
 	}

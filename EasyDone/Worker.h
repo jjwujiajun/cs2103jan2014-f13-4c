@@ -60,13 +60,13 @@ public:
 	string actonCommand(string command);
 	//string display();
 
-	vector<Task> getTaskList();
+	vector<Task>* getTaskList();
 	vector<Task> getSearchedList();
-	vector<Task> getTasksDueTodayList();
-	vector<Task> getTasksDueTomorrowList();
-	vector<Task> getTasksOverdueList();
-	vector<Task> getTasksDoneList();
-	vector<Task> getTasksUndoneList();
+	vector<Task>* getTasksDueTodayList();
+	vector<Task>* getTasksDueTomorrowList();
+	vector<Task>* getTasksOverdueList();
+	vector<Task>* getTasksDoneList();
+	vector<Task>* getTasksUndoneList();
 
 	// formatting functions
 	string formatDate(string, bool shouldShowYear, bool shouldBeDetailed);

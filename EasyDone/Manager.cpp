@@ -1,3 +1,5 @@
+//@author A0100705Y
+//Manager.cpp
 #include "Manager.h"
 
 using namespace std;
@@ -22,6 +24,7 @@ Manager::Manager(void) {
 
 
 Manager::~Manager(void) {
+	delete GUITaskList;
 }
 
 void Manager::receiveInput(string input) {
@@ -102,24 +105,33 @@ string Manager::getInputField() {
 // task list functions
 vector<Task> Manager::getAllTaskList() {
 	log.log("Manager: getTaskList from worker");
+	delete GUITaskList;
 	GUITaskList = worker.getTasksUndoneList();
 
 	log.endLog();
-	return GUITaskList;
+	return *GUITaskList;
 }
 
 vector<Task> Manager::getDueTaskList() {
-	return worker.getTasksOverdueList();
+	delete GUITaskList;
+	GUITaskList = worker.getTasksOverdueList();
+	return *GUITaskList;
 }
 vector<Task> Manager::getTodayTaskList() {
-	return worker.getTasksDueTodayList();
+	delete GUITaskList;
+	GUITaskList = worker.getTasksDueTodayList();
+	return *GUITaskList;
 }
 vector<Task> Manager::getTomorrowTaskList() {
-	return worker.getTasksDueTomorrowList();
+	delete GUITaskList;
+	GUITaskList = worker.getTasksDueTomorrowList();	
+	return *GUITaskList;
 }
 
 vector<Task> Manager::getDoneTaskList() {
-	return worker.getTasksDoneList();
+	delete GUITaskList;
+	GUITaskList = worker.getTasksDoneList();
+	return *GUITaskList;
 }
 
 vector<Task> Manager::getSearchedList() {
