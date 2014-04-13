@@ -114,7 +114,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			}
 
 			parsedCommandstring[3] = combine;
-			userTask.startTime = parsedCommandstring[3];
+			userTask.startDate = parsedCommandstring[3];
 			
 
 
