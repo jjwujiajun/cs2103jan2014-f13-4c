@@ -20,11 +20,11 @@ public:
 	
 	bool Add(Task userTask);
 	bool Delete(Task userTask);
-	bool Update(Task userTask, string updateField);
 	bool Search(string searchField, string searchItem);
 	bool markDone(Task task);
 	bool undo();
 	void sort();
+	string Update(Task userTask, string updateField);
 	
 	//GUI functions + helper functions! 
 	vector<Task>* getSearchedList();
