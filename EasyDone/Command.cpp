@@ -9,6 +9,7 @@ Command::~Command() {
 }
 
 bool Command::Add(Task userTask) {
+
 	todoList.listToStack();
 	log.log("Command: Adding new task");
 
@@ -18,6 +19,7 @@ bool Command::Add(Task userTask) {
 
 	while(counter < todoList.getSize()) {
 		temp = todoList.accessSlot(counter);
+
 		// Exception handling for same task. Throws exception if task already exists.
 		if(temp.taskName == userTask.taskName && temp.startDate == userTask.startDate && temp.startTime == userTask.startTime && temp.endDate == userTask.endDate && temp.endTime == userTask.endTime) {
 			added = false;
@@ -41,6 +43,11 @@ bool Command::Add(Task userTask) {
 }
 
 bool Command::Delete(Task userTask) {
+
+	int size = todoList.getSize();
+	// Asserts that the task ID is within the task list range.
+	assert(stoi(userTask.taskID) <= size);
+
 	todoList.listToStack();
 	log.log("Command: Deleting task");
 	
@@ -55,6 +62,11 @@ bool Command::Delete(Task userTask) {
 }
 
 bool Command::Update(Task userTask, string updateField) {
+
+	int size = todoList.getSize();
+	// Asserts that the task ID is within the task list range.
+	assert(stoi(userTask.taskID) <= size);
+
 	todoList.listToStack();
 	log.log("Command: Updating task");
 	bool updated = false;
@@ -106,8 +118,9 @@ bool Command::Search(string searchField, string searchItem) {
 }
 
 Task Command::getTask(int Index) {
+
 	int size = todoList.getSize();
-	
+	// Asserts that the Index is within the task list range.
 	assert(Index < size);
 
 	return todoList.getTask(Index);
@@ -121,13 +134,19 @@ int Command::issueNewTaskID(){
 	return newIndex;
 }
  
-vector<Task> Command::getTaskList() { //must change this!!!!!!!
+vector<Task> Command::getTaskList() { 
 	todoList.markTasksDueToday();
 	return todoList.getTaskList();
 }
 
 bool Command::markDone(Task task) {
+	
+	int size = todoList.getSize();
+	// Asserts that the task ID is within the task list range.
+	assert(stoi(task.taskID) <= size);
+	
 	todoList.listToStack();
+
 	log.log("Command: task is being marked done");
 	bool done = false;
 	Task temp;
@@ -147,10 +166,14 @@ bool Command::markDone(Task task) {
 	return done;
 }
 
-void Command::undo() {
+bool Command::undo() {
+
 	log.log("Command: undo");
+
+	bool undone = true;
 	todoList.stackToList();
 	todoList.saveToFile();
+	return undone;
 }
 
 vector<Task> Command::getSearchedList() {

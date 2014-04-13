@@ -23,7 +23,7 @@ public:
 	bool Update(Task userTask, string updateField);
 	bool Search(string searchField, string searchItem);
 	bool markDone(Task task);
-	void undo();
+	bool undo();
 	void sort();
 	
 	//GUI functions + helper functions! 
