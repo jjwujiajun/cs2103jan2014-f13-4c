@@ -24,6 +24,8 @@ public:
 	bool markDone(Task task);
 	bool undo();
 	void sort();
+	void sortDateandTime(int start, int end);
+	void sortdone();
 	string Update(Task userTask, string updateField);
 	
 	//GUI functions + helper functions! 

@@ -50,13 +50,14 @@ class Store {
 		void saveToFile();
 		void undoUndoList();
 
-		bool MarkDone(Task taskID);  //arun pls make all helper functions private, only public functions are included in API!
+		  //arun pls make all helper functions private, only public functions are included in API!
 		Task accesswithTaskID(int indexEntered);
 		void switchTask(int slot1, int slot2);
 		void changeTask(int slot, Task slotTask);
 		vector<string> getDateTomorrow();
 		bool eraser(string taskIndex);
 		void pushback(Task newTask);
+		void pushbackDoneTask(Task newTask);
 		Task getTask(int slot);
 		string changeTask(int taskID, Task userTask, string updateField);
 		bool SearchItem(int Index, string searchField, string searchItem);

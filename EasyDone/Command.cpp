@@ -180,11 +180,24 @@ vector<Task> Command::getSearchedList() {
 }
 
 void Command::sort() {
+	sortdone();
+	int counter = 0;
+	while(!todoList.accessSlot(counter).isDone) {
+		counter++;
+	}
+	sortDateandTime(0, counter);
+	sortDateandTime(counter+1, todoList.getSize());
+
+	todoList.updateTaskID();
+
+}
+
+void Command::sortDateandTime(int start, int end) {
 	
 	log.log("Command: sorting List");
 	Task next;
-	int Date, nextDate, j, i = 1;
-	while(i < todoList.getSize()) {
+	int Date, nextDate, j, i = start+1;
+	while(i < end) {
 		next = todoList.accessSlot(i);
 		if(!next.startDate.empty()) {
 			Date = stoi(next.startDate);
@@ -199,7 +212,7 @@ void Command::sort() {
 			nextDate = 0;
 		}
 		
-		while(j >= 0 && nextDate > Date) {
+		while(j >= start && nextDate > Date) {
 			todoList.changeTask(j+1, todoList.accessSlot(j));
 			j--;
 			if(j>=0) {
@@ -214,13 +227,13 @@ void Command::sort() {
 		i++;
 	}
 	
-	int Time, nextTime, prevsameDate, sameDate = 0, counter = 1, countNum;
+	int Time, nextTime, prevsameDate, sameDate = 0, counter = start, countNum;
 	
-	while(sameDate < todoList.getSize()) {
+	while(sameDate < end) {
 		prevsameDate = sameDate;
 		next = todoList.getTask(sameDate);
 
-		while((sameDate+1)<todoList.getSize()) {
+		while((sameDate+1)<end) {
 			if(next.startDate == todoList.getTask(sameDate+1).startDate)
 				sameDate++;
 			else
@@ -257,9 +270,31 @@ void Command::sort() {
 		}
 		sameDate++;
 	} 
-	todoList.updateTaskID();
 	log.log("Command: List sorted");
-	
+}
+
+void Command::sortdone() {
+	int counter = 0;
+	Task temp;
+	stack<Task> doneTasks;
+	vector<int> doneTasksIndex;
+
+	while(counter < todoList.getSize()) {
+		temp = todoList.accessSlot(counter);
+		if(temp.isDone) {
+			doneTasks.push(temp);
+			doneTasksIndex.push_back(counter);
+		}
+		counter++;
+	}
+	while(!doneTasksIndex.empty()) {
+		todoList.eraser(to_string(doneTasksIndex.back() + 1));
+		doneTasksIndex.pop_back();
+	}
+	while(!doneTasks.empty()) {
+		todoList.pushbackDoneTask(doneTasks.top());
+		doneTasks.pop();
+	}
 }
 
 vector<Task>* Command::getTodayTask() {

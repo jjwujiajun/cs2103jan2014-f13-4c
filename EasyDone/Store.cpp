@@ -200,30 +200,21 @@ void Store::pushback(Task newTask) {
 
 }
 
+void Store::pushbackDoneTask(Task newTask) {
+
+	//int size = taskList.size() + 1;
+	// Asserts that the task ID is within the task list range.
+	//assert(stoi(newTask.taskID) <= size);
+
+	taskList.push_back(newTask);
+}
+
 Task Store::getTask(int slot) {
 
 	// Asserts that the slot is within the task list range.
 	assert(slot < taskList.size());
 
 	return taskList.at(slot);
-}
-
-bool Store::MarkDone(Task task) {
-
-	int size = taskList.size();
-	// Asserts that the task ID is within the task list range.
-	assert(stoi(task.taskID) <= size);
-
-	bool done = false;
-	int counter = 0;
-	while(counter <getSize()) {
-		if(taskList[counter].taskID == task.taskID) {
-			taskList[counter].isDone = true;
-			done = true;
-			counter++;
-		}
-	}
-	return done;
 }
 	
 string Store::changeTask(int Index, Task userTask, string updateField) {
