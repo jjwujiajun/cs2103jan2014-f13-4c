@@ -18,6 +18,7 @@ bool Command::Add(Task userTask) {
 
 	while(counter < todoList.getSize()) {
 		temp = todoList.accessSlot(counter);
+		// Exception handling for same task. Throws exception if task already exists.
 		if(temp.taskName == userTask.taskName && temp.startDate == userTask.startDate && temp.startTime == userTask.startTime && temp.endDate == userTask.endDate && temp.endTime == userTask.endTime) {
 			added = false;
 			break;
@@ -68,6 +69,7 @@ bool Command::Update(Task userTask, string updateField) {
 	Task temp, copyUserTask;
 	copyUserTask = todoList.getTask(Index);
 
+	// Exeption Handling for updating to same task. Throws exception if task is updated to a task inside the list.
 	while(counter < todoList.getSize()) {
 		temp = todoList.accessSlot(counter);
 		if(temp.taskName == copyUserTask.taskName && temp.startDate == copyUserTask.startDate && temp.startTime == copyUserTask.startTime && temp.endDate == copyUserTask.endDate && temp.endTime == copyUserTask.endTime) {
@@ -104,6 +106,10 @@ bool Command::Search(string searchField, string searchItem) {
 }
 
 Task Command::getTask(int Index) {
+	int size = todoList.getSize();
+	
+	assert(Index < size);
+
 	return todoList.getTask(Index);
 }
 
