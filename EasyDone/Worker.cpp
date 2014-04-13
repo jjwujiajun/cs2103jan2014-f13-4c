@@ -120,7 +120,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		} else {
 		
-		userTask.startDate = parsedCommandstring[3];
+			userTask.startDate = parsedCommandstring[3];
 	
 			}
 		} else if(updateField == "st") {
@@ -154,7 +154,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		} else {
 		
-		userTask.endDate = parsedCommandstring[3];
+			userTask.endDate = parsedCommandstring[3];
 	
 			}
 
