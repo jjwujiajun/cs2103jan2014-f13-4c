@@ -58,7 +58,7 @@ class Store {
 		bool eraser(string taskIndex);
 		void pushback(Task newTask);
 		Task getTask(int slot);
-		bool changeTask(int taskID, Task userTask, string updateField);
+		string changeTask(int taskID, Task userTask, string updateField);
 		bool SearchItem(int Index, string searchField, string searchItem);
 		//int findSlot(string taskIndex);
 		void markTasksOverdue(); //bring this down!
