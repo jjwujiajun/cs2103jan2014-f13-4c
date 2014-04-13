@@ -80,7 +80,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	} else if(command == "update" || command == "edit" || command == "change"){
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -165,14 +165,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 	} else if(command == "delete" || command == "remove") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display" || command == "view") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
