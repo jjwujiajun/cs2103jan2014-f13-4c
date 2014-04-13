@@ -34,7 +34,7 @@ class Parser {
 	string intCheck;
 	string successful;
 	
-	Log log;
+	Log log;																
 	
 public:
 	Parser(void);
