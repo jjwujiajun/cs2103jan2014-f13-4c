@@ -55,10 +55,10 @@ vector<Task> FileHandler::getTaskList() {
 
 		isReadable = getline(readFile, line);
 		assert(isReadable);
-		if (line == FILE_STRING_TRUE) {
+		if (line == STRING_TRUE) {
 			task.isDone = true;
 		} else {
-			assert(line == FILE_STRING_FALSE);
+			assert(line == STRING_FALSE);
 			task.isDone = false; // edit here
 		}
 
@@ -82,9 +82,9 @@ void FileHandler::saveTaskList(const vector<Task>& taskList) {
 		writeFile << taskList[i].endDate << endl;
 		writeFile << taskList[i].endTime << endl;
 		if (taskList[i].isDone) {
-			writeFile << FILE_STRING_TRUE << endl;
+			writeFile << STRING_TRUE << endl;
 		} else {
-			writeFile << FILE_STRING_FALSE << endl;
+			writeFile << STRING_FALSE << endl;
 		}
 		writeFile << endl;
 	}
@@ -99,7 +99,7 @@ bool FileHandler::getPresetSetting(const string& fileName) {
 
 	file.open(fileName);
 	if (getline(file, fileStoredSetting)) {
-		setting = fileStoredSetting == FILE_STRING_TRUE;
+		setting = fileStoredSetting == STRING_TRUE;
 		return setting;
 	}
 	return true;
@@ -129,9 +129,9 @@ void FileHandler::saveSettingForFile(const bool& isOn, const string& fileName) {
 	
 	presetFile.open(fileName, ios::trunc);
 	if (isOn) {
-		presetFile << FILE_STRING_TRUE;
+		presetFile << STRING_TRUE;
 	} else {
-		presetFile << FILE_STRING_FALSE;
+		presetFile << STRING_FALSE;
 	}
 }
 

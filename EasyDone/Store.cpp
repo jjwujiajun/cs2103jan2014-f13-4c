@@ -225,27 +225,27 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 	assert(stoi(userTask.taskID) <= size);
 	assert(Index <= size);
 
-	if(updateField == "task") {
+	if(updateField == KEYWORD_TASK) {
 		taskList[Index].taskName = userTask.taskName;
-	} else if(updateField == "sd") {
+	} else if(updateField == KEYWORD_STARTDATE) {
 		taskList[Index].startDate = userTask.startDate;
-	} else if(updateField == "st") {
+	} else if(updateField == KEYWORD_STARTTIME) {
 		taskList[Index].startTime = userTask.startTime;
-	} else if(updateField == "ed") {
+	} else if(updateField == KEYWORD_ENDDATE) {
 		//Exception handler for start date and end date. Throws exception if start date comes after end date.
 		if(!taskList[Index].startDate.empty()) {
 			if(stoi(taskList[Index].startDate) > stoi(userTask.endDate)) {
-				return "startDate";
+				return WORD_STARTDATE;
 			}
 		} else {
 			taskList[Index].endDate = userTask.endDate;
 		}
-	} else if(updateField == "et") {
+	} else if(updateField == KEYWORD_ENDTIME) {
 		//Exception handler for start time and end time. Throws exception
 		if(!taskList[Index].startDate.empty() && !taskList[Index].endDate.empty()) {
 			if(taskList[Index].startDate == taskList[Index].endDate) {
 				if(taskList[Index].startTime > userTask.endTime) {
-					return "startTime";
+					return WORD_STARTTIME;
 				} else {
 					taskList[Index].endTime = userTask.endTime;
 				}
@@ -255,7 +255,7 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 		}
 	}
 	log.log("Store: field updated");
-	return "true";
+	return STRING_TRUE;
 }
 
 bool Store::SearchItem(int Index, string searchField, string searchItem) {
@@ -270,24 +270,24 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 	searchTask.clear();
 
 	while(Index < getSize()) {
-		if(searchField == "task") {
+		if(searchField == KEYWORD_TASK) {
 			if(taskList[Index].taskName.find(searchItem) != string::npos) {
 				searchTask.push_back(taskList[Index]);
 				found = true;
 			}
-		} else if(searchField == "sd") {
+		} else if(searchField == KEYWORD_STARTDATE) {
 			if(taskList[Index].startDate.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
-		} else if(searchField == "st") {
+		} else if(searchField == KEYWORD_STARTTIME) {
 			if(taskList[Index].startTime.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
-		} else if(searchField == "ed") {
+		} else if(searchField == KEYWORD_ENDDATE) {
 			if(taskList[Index].endDate.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
-		} else if(searchField == "et") {
+		} else if(searchField == KEYWORD_ENDTIME) {
 			if(taskList[Index].endTime.find(searchItem) != string::npos)
 				searchTask.push_back(taskList[Index]);
 				found = true;
