@@ -31,7 +31,7 @@ class Parser {
 	vector<string> storeOther;
 	vector<string> userInformation;
 	string output;
-	
+	string intCheck;
 	string successful;
 	
 	Log log;
