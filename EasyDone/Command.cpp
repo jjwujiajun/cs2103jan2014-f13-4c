@@ -16,16 +16,17 @@ bool Command::Add(Task userTask) {
 	bool added = true;
 	int counter = 0;
 	Task temp;
+	if(todoList.getSize() != 0) {
+		while(counter < todoList.getSize()) {
+			temp = todoList.accessSlot(counter);
 
-	while(counter < todoList.getSize()) {
-		temp = todoList.accessSlot(counter);
-
-		// Exception handling for same task. Throws exception if task already exists.
-		if(temp.taskName == userTask.taskName && temp.startDate == userTask.startDate && temp.startTime == userTask.startTime && temp.endDate == userTask.endDate && temp.endTime == userTask.endTime) {
-			added = false;
-			break;
+			// Exception handling for same task. Throws exception if task already exists.
+			if(temp.taskName == userTask.taskName && temp.startDate == userTask.startDate && temp.startTime == userTask.startTime && temp.endDate == userTask.endDate && temp.endTime == userTask.endTime) {
+				added = false;
+				break;
+			}
+			counter++;
 		}
-		counter++;
 	}
 	if(added) {
 		int vectindexofNexttask = todoList.getSize();
@@ -184,13 +185,20 @@ vector<Task>* Command::getSearchedList() {
 void Command::sort() {
 	sortdone();
 	int counter = 0;
-	while(!todoList.accessSlot(counter).isDone) {
-		counter++;
-	}
-	sortDateandTime(0, counter);
-	sortDateandTime(counter+1, todoList.getSize());
+	int size = todoList.getSize();
+	if(size > 1) {
+		while(counter < size) {
+			if(!todoList.accessSlot(counter).isDone) {
+				counter++;
+			} else {
+				break;
+			}
+		}
+		sortDateandTime(0, counter);
+		sortDateandTime(counter, todoList.getSize());
 
-	todoList.updateTaskID();
+		todoList.updateTaskID();
+	}
 
 }
 

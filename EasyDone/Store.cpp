@@ -89,7 +89,7 @@ Task Store::accessSlot(int slot) {
 
 	int size = taskList.size();
 	// Asserts that the slot is within the task list range.
-	assert(slot <= size);
+	assert(slot < size);
 
 	Task toReturn = taskList[slot];
 	return toReturn;
