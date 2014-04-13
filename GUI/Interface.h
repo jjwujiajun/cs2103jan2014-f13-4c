@@ -237,7 +237,7 @@ namespace GUI {
 			this->inputField->Name = L"inputField";
 			this->inputField->Size = System::Drawing::Size(351, 20);
 			this->inputField->TabIndex = 0;
-			this->inputField->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Interface::keyPressed);
+			this->inputField->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Interface::keyUp);
 			// 
 			// feedbackBox
 			// 
@@ -694,8 +694,9 @@ namespace GUI {
 		//
 		// function: press enter to take in string
 		//
-private: System::Void keyPressed(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
 
+private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  keyPressed) {
+		 
 			if (keyPressed->KeyCode == Keys::F1) {
 				activateHelpPage();
 			} else if (keyPressed->KeyCode == Keys::F2) {

@@ -80,7 +80,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	} else if(command == "update" || command == "edit" || command == "change"){
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -120,7 +120,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		} else {
 		
-			userTask.startDate = parsedCommandstring[3];
+		userTask.startDate = parsedCommandstring[3];
 	
 			}
 		} else if(updateField == "st") {
@@ -135,7 +135,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			combine = year + month + date;
 			parsedCommandstring[3] = combine;
 
-			userTask.endDate = parsedCommandstring[3];
+			userTask.startDate = parsedCommandstring[3];
 			
 
 		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
@@ -148,13 +148,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			}
 
 			parsedCommandstring[3] = combine;
-			userTask.endDate = parsedCommandstring[3];
+			userTask.startTime = parsedCommandstring[3];
 			
 
 
 		} else {
 		
-			userTask.endDate = parsedCommandstring[3];
+		userTask.startDate = parsedCommandstring[3];
 	
 			}
 
@@ -165,14 +165,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 	} else if(command == "delete" || command == "remove") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display" || command == "view") {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
-		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
+		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
@@ -417,7 +417,7 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList, bool shouldB
 		}
 
 		// 4 digit index display
-		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
+		while (taskIndex.size() < taskList[taskList.size()-1].taskID.size()) {
 			taskIndex = "0" + taskIndex;
 		}
 		taskList[i].taskID = taskIndex;
