@@ -79,10 +79,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		//Exception handler for start date and end date. Throws exception if end date is before the start date.
 		if(!userTask.startDate.empty() && !userTask.endDate.empty()) {
-			if(userTask.startDate > userTask.endDate) {
+			if(stoi(userTask.startDate) > stoi(userTask.endDate)) {
 				continueNext = false;
+			} else if(!userTask.startTime.empty() && !userTask.endTime.empty()) {
+				if(stoi(userTask.startTime) > stoi(userTask.endTime)) {
+					continueNext = false;
+				}
 			}
-		}
+		} 
 
 
 	} else if(command == "update" || command == "edit" || command == "change"){
@@ -246,7 +250,7 @@ string Worker::actonCommand(string command)
 		} else if (startTime == "0" || endTime == "0") {
 			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
 		} else {
-			successful = "Start date cannot be after end date.\r\n";
+			successful = "Start date cannot be after end date. Similarly if the start date and end date are same, start time cannot be after end time.\r\n";
 		}
 	}
 
