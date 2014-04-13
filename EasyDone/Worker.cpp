@@ -371,11 +371,11 @@ vector<Task>* Worker::getTaskList() {
 	return displayedTaskList;
 }
 
-vector<Task> Worker::getSearchedList() {
-	vector<Task> displayedTaskList = userCommand.getSearchedList();
+vector<Task>* Worker::getSearchedList() {
+	vector<Task>* displayedTaskList = userCommand.getSearchedList();
 
 	bool shouldShowEndTime = false;
-	convertTaskDataToDisplayFormat(displayedTaskList, shouldShowEndTime);
+	convertTaskDataToDisplayFormat(*displayedTaskList, shouldShowEndTime);
 
 	return displayedTaskList;
 }
