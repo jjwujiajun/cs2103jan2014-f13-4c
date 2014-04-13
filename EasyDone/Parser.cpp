@@ -2044,14 +2044,15 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 // convert from string to string
 string Parser:: convert_From_String_To_String (string index) {
 
-		string taskName;
-		// stoi converts a string to an int
-		int convert = stoi(index);
-		// to_string: returns a string with the representation of a numerical value
-		string newIndex = to_string(convert);
-		taskName = newIndex;
-
-		return taskName;
+	    intCheck = index[0];
+		//Exception handler for non-integer inputs.
+		if(intCheck == "0" || intCheck == "1" || intCheck == "2" || intCheck == "3" || intCheck == "4" || intCheck == "5" || intCheck == "6" || intCheck == "7" || intCheck == "8" || intCheck == "9") {
+			intCheck = index;
+		} else {
+			intCheck = "0";
+		}
+		
+		return intCheck;
 
 }
 
@@ -2278,7 +2279,7 @@ string Parser::checkParseTime(string time) {
 		int min = atoi(time.substr(startOfMinute).c_str());
 
 		//Exception handler for time format. Throws exception if invalid time is added.
-		if (hour < 0 || hour > 23 || min < 0 || min > 60) {
+		if (hour < 0 || hour > 23 || min < 0 || min > 59) {
 			successful =  "0";
 		} else {
 			successful =  "1";
