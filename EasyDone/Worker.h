@@ -24,6 +24,8 @@ class Worker {
 	string store;
 	string combine;
 
+	vector<string> tomorrowDate;
+
 	string successful;
 	string returnStringtomain;
 	string stringToMain;

@@ -55,23 +55,13 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		} else if (parsedCommandstring[2] == "tmr" || parsedCommandstring[2] == "tmo" || parsedCommandstring[4] == "tmr" || parsedCommandstring[4] == "tmo") {
 
-			store = userCommand.getTodayDay(); // change to int then change to string???
-			
-			// convert to integer first
-			int integerDate = atoi(store.c_str());
+			tomorrowDate = userCommand.getTomorrowDate();
 
-			// interger + 1 day to account for tmo
-			int update = integerDate + 1;
+			for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
+				combine += tomorrowDate[i];
 
-			// convert back to string again
-			
-			stringstream ss;
-			ss << update;
+			}
 
-			date = ss.str();
-			month = userCommand.getTodayMonth();
-			year = userCommand.getTodayYear();
-			combine = year + month + date;
 			parsedCommandstring[2] = combine;
 			parsedCommandstring[4] = combine;
 
@@ -80,7 +70,6 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.startTime = parsedCommandstring[3];
 			userTask.endDate = parsedCommandstring[4];
 			userTask.endTime = parsedCommandstring[5];
-
 
 		} else {
 		userTask.taskName = parsedCommandstring[1];
@@ -102,12 +91,74 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 		if(updateField == "task") {
 			userTask.taskName = parsedCommandstring[3];
+
 		} else if(updateField == "sd") {
+
+			if (parsedCommandstring[3] == "today") {
+
+			date = userCommand.getTodayDay();
+			month = userCommand.getTodayMonth();
+			year = userCommand.getTodayYear();
+			combine = year + month + date;
+			parsedCommandstring[3] = combine;
+
 			userTask.startDate = parsedCommandstring[3];
+			
+
+		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+
+			tomorrowDate = userCommand.getTomorrowDate();
+
+			for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
+				combine += tomorrowDate[i];
+
+			}
+
+			parsedCommandstring[3] = combine;
+			userTask.startDate = parsedCommandstring[3];
+			
+
+
+		} else {
+		
+		userTask.startDate = parsedCommandstring[3];
+	
+			}
 		} else if(updateField == "st") {
 			userTask.startTime = parsedCommandstring[3];
 		} else if(updateField == "ed") {
-			userTask.endDate = parsedCommandstring[3];
+
+			if (parsedCommandstring[3] == "today") {
+
+			date = userCommand.getTodayDay();
+			month = userCommand.getTodayMonth();
+			year = userCommand.getTodayYear();
+			combine = year + month + date;
+			parsedCommandstring[3] = combine;
+
+			userTask.startDate = parsedCommandstring[3];
+			
+
+		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+
+			tomorrowDate = userCommand.getTomorrowDate();
+
+			for (int i = tomorrowDate.size()-1; i >= 0 ; --i) {
+				combine += tomorrowDate[i];
+
+			}
+
+			parsedCommandstring[3] = combine;
+			userTask.startTime = parsedCommandstring[3];
+			
+
+
+		} else {
+		
+		userTask.startDate = parsedCommandstring[3];
+	
+			}
+
 		} else if(updateField == "et") {
 			userTask.endTime = parsedCommandstring[3];
 		} else {
