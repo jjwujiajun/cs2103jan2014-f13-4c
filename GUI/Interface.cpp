@@ -68,7 +68,7 @@ GUI::Interface::~Interface() {
 	}
 }
 
-void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
+void GUI::Interface::operateUserRequest() {
 	if (inputField->Text == "exit") {
 		Application::Exit();
 		return;
@@ -78,27 +78,33 @@ void GUI::Interface::operateUserRequest(const bool& isSearchCommand) {
 	receiveUserInput();
 
 	log->log("GUI: display taskListBox, feedbackBox, inputField");
-	if (isSearchCommand) {
-		displayTasksListBoxUsingList(manager->getSearchedList());
-	} else {
-		if (summaryTaskListIsShown) {
-			displaySummaryTaskListBox();
-		} else if (allTaskListIsShown) {
-			vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
-			displayTasksListBoxUsingList(listToBeDisplayed);
-		} else if (doneTaskListIsShown) {
-			vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
-			displayTasksListBoxUsingList(listToBeDisplayed);
-		}
-		displayFeedbackBox();
+	if (summaryTaskListIsShown) {
+		displaySummaryTaskListBox();
+	} else if (allTaskListIsShown) {
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getAllTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
+	} else if (doneTaskListIsShown) {
+		vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getDoneTaskList());
+		displayTasksListBoxUsingList(listToBeDisplayed);
 	}
+	displayFeedbackBox();
 
 	log->endLog();
 }
 
+void GUI::Interface::operateUserSearchRequest() {
+	log->log("GUI: receiveUserInput");
+	receiveUserInput();
+
+	log->log("GUI: display taskListBox, feedbackBox, inputField");
+	vector<Task> listToBeDisplayed = showSelectedPageOfTasklist(manager->getSearchedList());
+	displayTasksListBoxUsingList(listToBeDisplayed); 
+}
+
 void GUI::Interface::showLiveFeedback() {
-	if (manager->checkInputIsSearchQuery()) {
-		operateUserRequest(true);
+	if (isSearching) {
+		operateUserSearchRequest();
+		displayFeedbackBox();
 	}
 	string receivedFeedbackToDisplay;
 	String ^feedbackToDisplay;
@@ -429,10 +435,17 @@ vector<Task> GUI::Interface::showSelectedPageOfTasklist(vector<Task> tasklist) {
 	vector<vector<Task>> arrayOfPages;
 	vector<Task> page;
 	int taskIndex = 0;
+	int numRowsToDisplayHere;
+
+	if(isSearching) {
+		numRowsToDisplayHere = numRowsToDisplay/2;
+	} else {
+		numRowsToDisplayHere = numRowsToDisplay;
+	}
 
 	while (taskIndex < tasklist.size()) {
 		page.clear();
-		for (int i = 0; i < numRowsToDisplay && taskIndex < tasklist.size(); ++i) {
+		for (int i = 0; i < numRowsToDisplayHere && taskIndex < tasklist.size(); ++i) {
 			page.push_back(tasklist[taskIndex]);
 			++taskIndex;
 		}
@@ -441,7 +454,11 @@ vector<Task> GUI::Interface::showSelectedPageOfTasklist(vector<Task> tasklist) {
 	if (pageNumber >= arrayOfPages.size()) {
 		pageNumber = arrayOfPages.size() - 1;
 	}
-	return arrayOfPages[pageNumber];
+
+	if (pageNumber >= 0) {
+		return arrayOfPages[pageNumber];
+	}
+	return tasklist;
 }
 
 void GUI::Interface::displayNormalInterfaceState() {
@@ -464,9 +481,15 @@ void GUI::Interface::displayNormalInterfaceState() {
 void GUI::Interface::displayTasksListBoxUsingList(const vector<Task>& receivedTaskList) {
 	int i = 0;
 	bool isLastRow;
-	bool isShowingEndTime = summaryTaskListIsShown;
+	bool isShowingEndTime;
 	if (isSearching) {
-		isShowingEndTime = false;
+		isShowingEndTime = true;
+	} else {
+		if (summaryTaskListIsShown) {
+			isShowingEndTime = true;
+		} else {
+			isShowingEndTime = false;
+		}
 	}
 
 	richTaskList->Clear();

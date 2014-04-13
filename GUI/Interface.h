@@ -111,7 +111,8 @@ namespace GUI {
 		~Interface(void);
 
 		// userInput function
-		void operateUserRequest(const bool& isSearchCommand);
+		void operateUserRequest();
+		void operateUserSearchRequest();
 		void showLiveFeedback();
 		
 		// pane switching function
@@ -715,7 +716,9 @@ private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::Key
 				toggleTheme();
 			} else if (keyPressed->KeyCode == Keys::Down) {
 				++pageNumber;
-				if (summaryTaskListIsShown) {
+				if (isSearching) {
+					operateUserSearchRequest();
+				} else if (summaryTaskListIsShown) {
 					switchToSummaryTaskListDisplay();
 				} else if (allTaskListIsShown) {
 					switchToAllTaskListDisplay();
@@ -726,7 +729,9 @@ private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::Key
 				if (pageNumber > 0) {
 					--pageNumber;
 				}
-				if (summaryTaskListIsShown) {
+				if (isSearching) {
+					operateUserSearchRequest();
+				} else if (summaryTaskListIsShown) {
 					switchToSummaryTaskListDisplay();
 				} else if (allTaskListIsShown) {
 					switchToAllTaskListDisplay();
@@ -735,7 +740,11 @@ private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::Key
 				}
 			} else if (keyPressed->KeyCode == Keys::Enter) {
 				log->log("User: Enter is pressed, operateUserRequest()");
-				operateUserRequest(inputField->Text->Contains("search"));
+				if (inputField->Text->Contains("search")) {
+					operateUserSearchRequest();
+				} else {
+					operateUserRequest();
+				}
 				displayInputField();
 			} else {
 				string liveInputFieldText;
@@ -743,9 +752,9 @@ private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::Key
 				isSearching = false;
 
 				if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
-					isSearching = inputField->Text->Contains("search");
-					isSearchingEndTime = isSearching && 
-						(inputField->Text->Contains("ed") || inputField->Text->Contains("et"));
+					isSearching = manager->inputIsSearchQuery;
+					//isSearchingEndTime = isSearching && 
+					//	(inputField->Text->Contains("ed") || inputField->Text->Contains("et"));
 					showLiveFeedback();
 				} else {
 					displayNormalInterfaceState();
