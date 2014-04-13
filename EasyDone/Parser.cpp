@@ -2089,21 +2089,31 @@ string Parser:: checkKeyWord(string startDate) {
 int Parser::getDate(string date) {
 
 		int start = 0;
-		int keystroke = date.find("/", 0);
+		//Exception handler for the date format. Throws exception is format is wrong.
+		if(date.find("/") != string::npos) {
+			int keystroke = date.find("/", 0);
 
-		start = atoi(date.substr(0, keystroke).c_str());
+			start = atoi(date.substr(0, keystroke).c_str());
+		} else {
+			start = 0;
+		}
 
 		return start;
 	}
 
 int Parser::getMonth(string date) {
+		
+		int start;
+		if(date.find("/") != string::npos) {
+			start = 0;
+			int keystroke = date.find("/", 0); // finds first /12/2014
 
-		int start = 0;
-		int keystroke = date.find("/", 0); // finds first /12/2014
-
-		int startOfMonth = keystroke + 1; // 2
-		int startOfKeystroke = date.find("/", startOfMonth); 
-		start = atoi(date.substr(startOfMonth, startOfKeystroke).c_str()); // converts string to int
+			int startOfMonth = keystroke + 1; // 2
+			int startOfKeystroke = date.find("/", startOfMonth); 
+			start = atoi(date.substr(startOfMonth, startOfKeystroke).c_str()); // converts string to int
+		} else {
+			start = 0;
+		}
 
 		return start;
 
