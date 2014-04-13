@@ -6,19 +6,11 @@ out the desired operation.
 
 */
 #include "Worker.h"
-
-const string Worker::NULL_STRING = "";
-const string Worker::MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
-const string Worker::MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
-const string Worker::MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n"; 
-const string Worker::MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
-const string Worker::MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
-const string Worker:: MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
 //const int NULL_DATE = -1;
 
 
 
-// const string Parser::MESSAGE_DELETE = "delete";
+// const string Parser::MESSAGE_DELETE = KEYWORD_DELETE;
 
 Worker::Worker() {
 
@@ -34,9 +26,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	continueNext = true;
 	command =  parsedCommandstring[0];
-	if(command == "add" || command == "new" || command == "create" ){
+	if(command == KEYWORD_ADD || command == KEYWORD_NEW || command == KEYWORD_CREATE ){
 
-		if (parsedCommandstring[2] == "today") {
+		if (parsedCommandstring[2] == KEYWORD_TODAY) {
 
 			date = userCommand.getTodayDay();
 			month = userCommand.getTodayMonth();
@@ -50,7 +42,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.endDate = parsedCommandstring[4];
 			userTask.endTime = parsedCommandstring[5];
 
-		} else if (parsedCommandstring[2] == "tmr" || parsedCommandstring[2] == "tmo" || parsedCommandstring[4] == "tmr" || parsedCommandstring[4] == "tmo") {
+		} else if (parsedCommandstring[2] == KEYWORD_TOMORROW_1 || parsedCommandstring[2] == KEYWORD_TOMORROW_2 || parsedCommandstring[4] == KEYWORD_TOMORROW_1 || parsedCommandstring[4] == KEYWORD_TOMORROW_2) {
 
 			tomorrowDate = userCommand.getTomorrowDate();
 
@@ -89,7 +81,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		} 
 
 
-	} else if(command == "update" || command == "edit" || command == "change"){
+	} else if(command == KEYWORD_UPDATE || command == KEYWORD_EDIT || command == KEYWORD_CHANGE){
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(!parsedCommandstring[1].empty()) {
 			if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
@@ -103,12 +95,12 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		updateField = parsedCommandstring[2];
 
 		//Exception handler for updateField. Throws exception if the field provided is unidentified.
-		if(updateField == "task") {
+		if(updateField == KEYWORD_TASK) {
 			userTask.taskName = parsedCommandstring[3];
 
-		} else if(updateField == "sd") {
+		} else if(updateField == KEYWORD_STARTDATE) {
 
-			if (parsedCommandstring[3] == "today") {
+			if (parsedCommandstring[3] == KEYWORD_TODAY) {
 
 			date = userCommand.getTodayDay();
 			month = userCommand.getTodayMonth();
@@ -119,7 +111,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.startDate = parsedCommandstring[3];
 			
 
-		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+		} else if (parsedCommandstring[3] == KEYWORD_TOMORROW_1 || parsedCommandstring[3] == KEYWORD_TOMORROW_2) {
 
 			tomorrowDate = userCommand.getTomorrowDate();
 
@@ -138,11 +130,11 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.startDate = parsedCommandstring[3];
 	
 			}
-		} else if(updateField == "st") {
+		} else if(updateField == KEYWORD_STARTTIME) {
 			userTask.startTime = parsedCommandstring[3];
-		} else if(updateField == "ed") {
+		} else if(updateField == KEYWORD_ENDDATE) {
 
-			if (parsedCommandstring[3] == "today") {
+			if (parsedCommandstring[3] == KEYWORD_TODAY) {
 
 			date = userCommand.getTodayDay();
 			month = userCommand.getTodayMonth();
@@ -153,7 +145,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			userTask.endDate = parsedCommandstring[3];
 			
 
-		} else if (parsedCommandstring[3] == "tmr" || parsedCommandstring[3] == "tmo") {
+		} else if (parsedCommandstring[3] == KEYWORD_TOMORROW_1 || parsedCommandstring[3] == KEYWORD_TOMORROW_2) {
 
 			tomorrowDate = userCommand.getTomorrowDate();
 
@@ -173,12 +165,12 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	
 			}
 
-		} else if(updateField == "et") {
+		} else if(updateField == KEYWORD_ENDTIME) {
 			userTask.endTime = parsedCommandstring[3];
 		} else {
 			continueNext = false;
 		}
-	} else if(command == "delete" || command == "remove") {
+	} else if(command == KEYWORD_DELETE || command == KEYWORD_DELETE) {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
@@ -200,7 +192,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	stringToMain.clear();
 
-	if(command == "add") {
+	if(command == KEYWORD_ADD) {
 		stringToMain = "\"" + userTask.taskName + "\" \r\n";
 	} else if(continueNext) {
 		if (!userTask.taskID.empty() && command != "undo") {
@@ -221,12 +213,12 @@ string Worker::actonCommand(string command)
 	string startTime = userTask.startTime;
 	string endTime = userTask.endTime;
 
-	if(command == "add" || command == "new" || command == "create") {
+	if(command == KEYWORD_ADD || command == KEYWORD_NEW || command == KEYWORD_CREATE) {
 		if(continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" )  {
 			if(userCommand.Add(userTask)) {
-				successful = "has been added successfully! :) \r\n";
+				successful = MESSAGE_ADDED_SUCCESSFULLY;
 			} else {
-				successful = "task is already inside the list!\r\n";
+				successful = MESSAGE_ADDED_FAILED;
 			}
 		
 	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
@@ -254,10 +246,10 @@ string Worker::actonCommand(string command)
 		}
 	}
 
-	else if(command == "delete" || command == "remove") {
+	else if(command == KEYWORD_DELETE || command == KEYWORD_DELETE) {
 		if(continueNext == true) {
 			if(userCommand.Delete(userTask) ) {
-				successful = "has been deleted successfully! :) \r\n";
+				successful = MESSAGE_DELETED_SUCCESSFULLY;
 			}
 			else {
 				successful = "Please enter a valid index!\r\n";
@@ -268,12 +260,12 @@ string Worker::actonCommand(string command)
 	}
 
 
-	else if(command == "update" || command == "edit" || command == "change" ) {
+	else if(command == KEYWORD_UPDATE || command == KEYWORD_EDIT|| command == KEYWORD_CHANGE ) {
 		if(continueNext == true) {
 			if(startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
 				string updated = userCommand.Update(userTask, updateField);
 				if(updated == "true") {
-					successful = "has been updated successfully! :)\r\n";
+					successful = MESSAGE_UPDATED_SUCCESSFULLY;
 				} else {
 					if(updated == "false") {
 						successful = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";

@@ -33,15 +33,6 @@ class Worker {
 	string searchItem;
 
 	bool continueNext;
-		
-
-	static const string MESSAGE_ADDED_SUCCESSFULLY;
-	static const string MESSAGE_DELETED_SUCCESSFULLY;
-	static const string MESSAGE_UPDATED_SUCCESSFULLY;
-	static const string MESSAGE_CHECKED_SUCCESSFULLY;
-	static const string MESSAGE_WRONG_INDEX;
-	static const string MESSAGE_ENTER_VALID_COMMAND;
-	static const string NULL_STRING;
 
 
 public:

@@ -28,6 +28,26 @@ const string NULL_STRING = "";
 const string STRING_SPACE = " ";
 const string STRING_TRUE = "true";
 const string STRING_FALSE = "false";
+const string KEYWORD_ADD = "add";
+const string KEYWORD_NEW = "new";
+const string KEYWORD_CREATE = "create";
+const string KEYWORD_DELETE = "delete";
+const string KEYWORD_REMOVE = "remove";
+const string KEYWORD_DISPLAY = "display";
+const string KEYWORD_UPDATE = "update";
+const string KEYWORD_EDIT = "edit";
+const string KEYWORD_CHANGE = "change";
+const string KEYWORD_SEARCH = "search";
+const string KEYWORD_DONE = "done";
+const string KEYWORD_TASK = "task";
+const string KEYWORD_STARTDATE = "sd";
+const string KEYWORD_STARTTIME = "st";
+const string KEYWORD_ENDDATE = "ed";
+const string KEYWORD_ENDTIME = "et";
+const string KEYWORD_ON = "on";
+const string KEYWORD_TODAY = "today";
+const string KEYWORD_TOMORROW_1 = "tmr";
+const string KEYWORD_TOMORROW_2 = "tmo";
 
 // GUI
 const int TASKLIST_RETRACT_ROW = 19;
@@ -65,6 +85,19 @@ enum themeColor {WHITE, BLUE, METAL};
 const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
 const string FEEDBACK_PROMPT_START = "What would you like to do? \r\nChoose a command\r\n add • update • display • search • delete • done • undo • exit";
 const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\nChoose a command\r\n add • update • display • search • delete • done • undo • exit";
+const string LIVE_FEEDBACK_ADD = "You're adding a task... \r\n\r\n";
+const string LIVE_FEEDBACK_ADD_HINTDATE = "Now put in the date DD/MM/YY \r\n\r\n";
+const string LIVE_FEEDBACK_ADD_FORMAT = "Format: add <task name> on <date>";
+const string LIVE_FEEDBACK_DELETE = "You're deleting a task \r\n\r\nType in the ID that's on the left of the task name\r\n";
+const string LIVE_FEEDBACK_DISPLAY = "You're displaying a task \r\n\r\nType in the ID that's on the left of the task name\r\n";
+const string LIVE_FEEDBACK_UPDATE = "You're updating a task \r\n\r\nFormat: update <ID> <field> <new info> \r\n\r\n";
+const string LIVE_FEEDBACK_UPDATE_FIELD = "The ID is on the left of the task name\r\nFields: task • sd • st • ed • et \r\n\r\n";
+const string LIVE_FEEDBACK_UPDATE_TASK = "Now type in your new task name \r\n";
+const string LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
+const string LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
+const string LIVE_FEEDBACK_SEARCH = "You are searching... \r\n\r\nTell me the field name before you search the query\r\n task • sd • st • ed • et ";
+const string LIVE_FEEDBACK_DONE = "You're marking a task as done \r\n\r\nType in the ID that's on the left of the task name\r\n";
+const string LIVE_SEARCH_ENTER = "Press Enter when you're done";
 const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
 const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
 const string LOG_STRING_USERINPUT = "User input: ";
@@ -79,6 +112,8 @@ const string FILE_SETTING_SETTINGSTAB = "settingsTabSetting.txt";
 const string FILE_STRING_WHITETHEME = "white";
 const string FILE_STRING_BLUETHEME = "blue";
 const string FILE_STRING_METALTHEME = "metal";
+const int TASKLIST_INDEX_LENGTH = 2;
+const int TASKLIST_NAME_LENGTH = 25;
 
 // PSR
 // Command "add" keywords
@@ -147,33 +182,13 @@ const string DAY_30 ("30");
 const string DAY_31 ("31");
 
 // WKR
-const int TASKLIST_INDEX_LENGTH = 2;
-const int TASKLIST_NAME_LENGTH = 25;
-const string LIVE_FEEDBACK_ADD = "You're adding a task... \r\n\r\n";
-const string LIVE_FEEDBACK_ADD_HINTDATE = "Now put in the date DD/MM/YY \r\n\r\n";
-const string LIVE_FEEDBACK_ADD_FORMAT = "Format: add <task name> on <date>";
-const string LIVE_FEEDBACK_DELETE = "You're deleting a task \r\n\r\nType in the ID that's on the left of the task name\r\n";
-const string LIVE_FEEDBACK_DISPLAY = "You're displaying a task \r\n\r\nType in the ID that's on the left of the task name\r\n";
-const string LIVE_FEEDBACK_UPDATE = "You're updating a task \r\n\r\nFormat: update <ID> <field> <new info> \r\n\r\n";
-const string LIVE_FEEDBACK_UPDATE_FIELD = "The ID is on the left of the task name\r\nFields: task • sd • st • ed • et \r\n\r\n";
-const string LIVE_FEEDBACK_UPDATE_TASK = "Now type in your new task name \r\n";
-const string LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
-const string LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
-const string LIVE_FEEDBACK_SEARCH = "You are searching... \r\n\r\nTell me the field name before you search the query\r\n task • sd • st • ed • et ";
-const string LIVE_FEEDBACK_DONE = "You're marking a task as done \r\n\r\nType in the ID that's on the left of the task name\r\n";
-const string LIVE_SEARCH_ENTER = "Press Enter when you're done";
-const string KEYWORD_ADD = "add";
-const string KEYWORD_DELETE = "delete";
-const string KEYWORD_DISPLAY = "display";
-const string KEYWORD_UPDATE = "update";
-const string KEYWORD_SEARCH = "search";
-const string KEYWORD_DONE = "done";
-const string KEYWORD_TASK = "task";
-const string KEYWORD_STARTDATE = "sd";
-const string KEYWORD_STARTTIME = "st";
-const string KEYWORD_ENDDATE = "ed";
-const string KEYWORD_ENDTIME = "et";
-const string KEYWORD_ON = "on";
+const string MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
+const string MESSAGE_ADDED_FAILED = "task is already inside the list!\r\n";
+const string MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
+const string MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n"; 
+const string MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
+const string MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
+const string MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
 
 // Store
 const string WORD_STARTDATE = "startDate";
