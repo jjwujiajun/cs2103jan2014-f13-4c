@@ -1007,6 +1007,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 
 					} else {
+						if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
+
+						startTime = storeUserInfo[i];
+				
+						++i;
+						} else {
 
 					while(i < (int) storeUserInfo.size()){
 
@@ -1020,6 +1026,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						// push back guard output into vector										
 						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 						++i;
+							}
 						}
 					}
 
@@ -1084,6 +1091,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 
 					} else {
+						if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
+
+						startTime = storeUserInfo[i];
+				
+						++i;
+						} else {
 
 					while(i < (int) storeUserInfo.size()){
 
@@ -1097,6 +1110,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						// push back guard output into vector										
 						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 						++i;
+							}
 						}
 					}
 
