@@ -13,6 +13,10 @@ Store::~Store() {
 }
 
 string Store::getTaskName(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
 	
 	string taskName1 = taskList[index-1].taskName;
 
@@ -20,24 +24,43 @@ string Store::getTaskName(int index) {
 }
 
 string Store::getStartTime(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+
 	string startTime1=  taskList[index-1].startTime;
 	
 	return startTime1;
 }
 
 string Store::getEndTime(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+
 	string endTime1=  taskList[index-1].startTime;
 	
 	return endTime1;
 }
 
 string Store::getStartDate(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+
 	string startDate1 = taskList[index-1].startDate;
 	
 	return startDate1;
 }
 
 string Store::getEndDate(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
 
 	string getEndDate1 = taskList[index-1].endDate;
 	
@@ -53,12 +76,20 @@ int Store::getSize() {
 
 string Store::getTaskID(int slotNumber) {
 
+	int size = taskList.size();
+	// Asserts that the slotNumber is within the task list range.
+	assert(slotNumber <= size);
+
 	string taskID = taskList[slotNumber].taskID;
 
 	return taskID;
 }
 
 Task Store::accessSlot(int slot) {
+
+	int size = taskList.size();
+	// Asserts that the slot is within the task list range.
+	assert(slot <= size);
 
 	Task toReturn = taskList[slot];
 	return toReturn;
@@ -87,6 +118,12 @@ void Store::saveToFile() {
 }
 
 void Store::switchTask(int slot1, int slot2) {
+
+	int size = taskList.size();
+	// Asserts that slot1 and slot2 are within the task list range.
+	assert(slot1 < size);
+	assert(slot2 < size);
+
 	log.log("Store: switching task");
 	Task tempTask = taskList[slot1];
 	taskList[slot1] = taskList[slot2];
@@ -94,11 +131,22 @@ void Store::switchTask(int slot1, int slot2) {
 }
 
 void Store::changeTask(int slot, Task slotTask) {
+	
+	int size = taskList.size();
+	// Asserts that slot and slotTask's task ID are within the task list range.
+	assert(slot < size);
+	assert(stoi(slotTask.taskID) <= size);
+
 	log.log("Store: changing task");
 	taskList[slot] = slotTask;
 }
 
 bool Store::eraser(string taskIndex) {
+
+	int size = taskList.size();
+	// Asserts that the taskIndex is within the task list range.
+	assert(stoi(taskIndex) <= size);
+
 	log.log("Store: erasing task");
 	bool erased = false;
 	int slot=0;
@@ -122,6 +170,10 @@ bool Store::eraser(string taskIndex) {
 
 Task Store::accesswithTaskID(int indexEntered) {
 	
+	int size = taskList.size();
+	// Asserts that the indexEntered is within the task list range.
+	assert(indexEntered <= size);
+
 	string convertedIndex = to_string(indexEntered);
 
 	for(int i=0; i < (int) taskList.size(); i++) {
@@ -138,6 +190,11 @@ Task Store::accesswithTaskID(int indexEntered) {
 }
 
 void Store::pushback(Task newTask) {
+
+	int size = taskList.size() + 1;
+	// Asserts that the task ID is within the task list range.
+	assert(stoi(newTask.taskID) <= size);
+
 	newTask.isDone = false;
 	taskList.push_back(newTask);
 
@@ -145,10 +202,18 @@ void Store::pushback(Task newTask) {
 
 Task Store::getTask(int slot) {
 
+	// Asserts that the slot is within the task list range.
+	assert(slot < taskList.size());
+
 	return taskList.at(slot);
 }
 
 bool Store::MarkDone(Task task) {
+
+	int size = taskList.size();
+	// Asserts that the task ID is within the task list range.
+	assert(stoi(task.taskID) <= size);
+
 	bool done = false;
 	int counter = 0;
 	while(counter <getSize()) {
@@ -163,6 +228,12 @@ bool Store::MarkDone(Task task) {
 	
 bool Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
+
+	int size = taskList.size();
+	// Asserts that the Index and userTask's task ID are within the task list range.
+	assert(stoi(userTask.taskID) <= size);
+	assert(Index <= size);
+
 	if(updateField == "task") {
 		taskList[Index].taskName = userTask.taskName;
 	} else if(updateField == "sd") {
@@ -179,10 +250,14 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 }
 
 bool Store::SearchItem(int Index, string searchField, string searchItem) {
+
+	int size = taskList.size();
+	// Asserts that the Index is within the task list range.
+	assert(Index <= size);
+
 	log.log("Store: searching the task");
 	bool found = false;
 	
-	//JJ add
 	searchTask.clear();
 
 	while(Index < getSize()) {
@@ -214,18 +289,6 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 	
 	return found;
 }
-
-/*void Store::markTasksDueToday() {
-	log.log("Store: changing due status");
-	for(int i = 0; i < (int) taskList.size(); i++) {
-		if(taskList[i].startDate == "20140404") {
-			taskList[i].isBold = true;
-		}
-		else {
-			taskList[i].isBold = false;
-		}
-	}
-}*/
 
 vector<Task> Store::getTaskList() {
 
@@ -349,12 +412,17 @@ string Store::currentYear() {
 }
 
 string Store::getDay(int index) {   
-	//only works for startDate
+	//only meant for startDate
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
 
 	string dateSize = taskList[index].startDate;
 
 	int lenDate = (dateSize).size();
 
+	//Exception handling for empty start date. Throws "0" when no start date is available for the task.
 	if(lenDate == 8) {
 	string date = taskList[index].startDate;
 	string day = date.substr(6,2);
@@ -367,11 +435,16 @@ string Store::getDay(int index) {
 }
 
 string Store::getMonth(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
 	
 	string dateSize = taskList[index].startDate;
 
 	int lenDate = (dateSize).size();
 
+	//Exception handling for empty start date. Throws "0" when no start date is available for the task.
 	if(lenDate == 8) {
 	string date = taskList[index].startDate;
 	string month = date.substr(4,2);
@@ -385,10 +458,15 @@ string Store::getMonth(int index) {
 
 string Store::getYear(int index) {
 
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+
 	string dateSize = taskList[index].startDate;
 
 	int lenDate = (dateSize).size();
 
+	//Exception handling for empty start date. Throws "0" when no start date is available for the task.
 	if(lenDate == 8) {
 	string date = taskList[index].startDate;
 	string year =  date.substr(0,4);
@@ -415,15 +493,6 @@ void Store::markTasksDueToday() {
 		else {
 			taskList[i].isBold = false;
 		}
-
-		/*if(taskList[i].startDate == "20140407")
-		{
-			taskList[i].isBold = true;
-		}
-
-		else 
-			taskList[i].isBold = false;*/
-
 	}
 }
 
@@ -444,11 +513,6 @@ vector<string> Store::getDateTomorrow() {
 	int valueMonth = atoi(todayMonth.c_str());
 	int valueYear = atoi(todayYear.c_str());
 
-	
-	//int valueDay = 10;
-	//int valueMonth = 4;
-	//int valueYear = 2014;
-
 	valueDay++;
 
 	if ( valueDay > days[valueMonth-1]){
@@ -463,8 +527,8 @@ vector<string> Store::getDateTomorrow() {
 		}
 	 }
 
-	
-	ostringstream convert1;   // stream used for the conversion
+	// stream used for the conversion
+	ostringstream convert1;   
 
 	convert1 << valueDay;
 
@@ -488,10 +552,6 @@ vector<string> Store::getDateTomorrow() {
 
 	string tomorrowYear = convert3.str();
 
-	//tomorrowDay = "11";
-	//tomorrowMonth = "04";
-	//tomorrowYear = "2014";
-
 	vector<string> returnedVector;
 
 	returnedVector.push_back(tomorrowDay);
@@ -499,9 +559,10 @@ vector<string> Store::getDateTomorrow() {
 	returnedVector.push_back(tomorrowYear);
 
 	return returnedVector;
-} //returning vector successfully!
+} 
 
-void Store::markTasksDueTomorrow() { //implemented for non-leap years
+//implemented for non-leap years
+void Store::markTasksDueTomorrow() { 
 
 	vector<string> returnedVector = getDateTomorrow();
 	
@@ -511,8 +572,6 @@ void Store::markTasksDueTomorrow() { //implemented for non-leap years
 
 
 	for(int i =0; i < taskList.size(); i++) {
-
-		//taskList.at(i).isTomorrow =  false;
 
 		if(getDay(i) ==  tomorrowDay && getMonth(i) == tomorrowMonth && getYear(i) == tomorrowYear) {
 
