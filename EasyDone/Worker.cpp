@@ -32,9 +32,6 @@ Worker::~Worker() {
 
 string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
-	
-
-
 	continueNext = true;
 	command =  parsedCommandstring[0];
 	if(command == "add" || command == "new" || command == "create" ){
@@ -93,6 +90,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 
 	} else if(command == "update" || command == "edit" || command == "change"){
+		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
@@ -100,6 +98,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 		updateField = parsedCommandstring[2];
 
+		//Exception handler for updateField. Throws exception if the field provided is unidentified.
 		if(updateField == "task") {
 			userTask.taskName = parsedCommandstring[3];
 		} else if(updateField == "sd") {
@@ -114,12 +113,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			continueNext = false;
 		}
 	} else if(command == "delete" || command == "remove") {
+		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
 	} else if(command == "done" || command == "display" || command == "view") {
+		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1])) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
@@ -133,7 +134,9 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 
 	stringToMain.clear();
 
-	if (!userTask.taskID.empty()) {
+	if(command == "add") {
+		stringToMain = "\"" + userTask.taskName + "\" \r\n";
+	} else if (!userTask.taskID.empty() && command != "undo") {
 		int taskID = atoi(userTask.taskID.c_str()) - 1;
 		Task task = userCommand.getTask(taskID); 
 		stringToMain = "\"" + task.taskName + "\" \r\n";
@@ -231,10 +234,10 @@ string Worker::actonCommand(string command)
 	else if(command == "search" ) {
 		bool found = userCommand.Search(searchField, searchItem);
 		if(found) {
-			successful = "These tasks found";
+			successful = "These tasks found.";
 		}
 		else {
-			successful = "Task not found\r\n";
+			successful = "Task not found.\r\n";
 		}
 	}
 
@@ -242,10 +245,10 @@ string Worker::actonCommand(string command)
 		if(continueNext == true) {
 			bool found = userCommand.markDone(userTask);
 			if(found) {
-				successful = "Task marked done\r\n";
+				successful = "Task marked done.\r\n";
 			}
 			else {
-				successful = "Task not found\r\n";
+				successful = "Task not found.\r\n";
 			}
 		} else {
 			successful = "TaskID is out of range. Please check again.\r\n";
@@ -268,7 +271,11 @@ string Worker::actonCommand(string command)
 	}
 
 	else if(command ==  "undo") {
-		userCommand.undo();
+		if(userCommand.undo()) {
+			successful = "The most recent change has been removed.\r\n";
+		} else {
+			successful = "Nothing is undo.\r\n";
+		}
 	}
 		
 
