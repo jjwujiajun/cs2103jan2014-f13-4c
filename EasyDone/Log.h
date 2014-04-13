@@ -2,6 +2,8 @@
 #include <string>
 using namespace std;
 #pragma once
+const string LOG_FILE = "log.txt";
+const string LOG_SEQUENCE_START = "Log sequence: \n";
 
 class Log
 {

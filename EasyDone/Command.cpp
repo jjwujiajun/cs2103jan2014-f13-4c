@@ -178,8 +178,10 @@ bool Command::undo() {
 	return undone;
 }
 
-vector<Task> Command::getSearchedList() {
-	return todoList.getSearchedList();
+vector<Task>* Command::getSearchedList() {
+	vector<Task>* list = new vector<Task>;
+	*list = todoList.getSearchedList();
+	return list;
 }
 
 void Command::sort() {

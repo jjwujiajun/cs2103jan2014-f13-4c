@@ -78,6 +78,23 @@ const string FILE_STRING_WHITETHEME = "white";
 const string FILE_STRING_BLUETHEME = "blue";
 const string FILE_STRING_METALTHEME = "metal";
 
+// PSR
+// Command "add" keywords
+const string keyWord_1 ("on");
+const string keyWord_2 ("by");
+const string keyWord_3 ("from");
+const string keyWord_4 ("to");
+const string keyWord_5 ("today");
+const string keyWord_6 ("tmo");
+const string keyWord_7 ("tmr");
+
+// Command "edit" keywords
+const string task ("task");
+const string sd ("sd");
+const string st ("st");
+const string ed ("ed");
+const string et ("et");
+
 // WKR
 const int TASKLIST_INDEX_LENGTH = 2;
 const int TASKLIST_NAME_LENGTH = 25;

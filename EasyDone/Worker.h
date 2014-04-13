@@ -61,7 +61,7 @@ public:
 	//string display();
 
 	vector<Task>* getTaskList();
-	vector<Task> getSearchedList();
+	vector<Task>* getSearchedList();
 	vector<Task>* getTasksDueTodayList();
 	vector<Task>* getTasksDueTomorrowList();
 	vector<Task>* getTasksOverdueList();

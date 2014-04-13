@@ -135,7 +135,9 @@ vector<Task> Manager::getDoneTaskList() {
 }
 
 vector<Task> Manager::getSearchedList() {
-	return worker.getSearchedList();
+	delete GUITaskList;
+	GUITaskList = worker.getSearchedList();
+	return *GUITaskList;
 }
 
 // start up
