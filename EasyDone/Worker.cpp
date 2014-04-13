@@ -417,7 +417,7 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList, bool shouldB
 		}
 
 		// 4 digit index display
-		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
+		while (taskIndex.size() < taskList[taskList.size()-1].taskID.size()) {
 			taskIndex = "0" + taskIndex;
 		}
 		taskList[i].taskID = taskIndex;
