@@ -24,8 +24,9 @@ const string GUI_FONT_LABEL = "Broadway";
 // ALL
 const string SYSTEM_ENDL = "\r\n";
 const string NULL_STRING = "";
-const string FILE_STRING_TRUE = "true";
-const string FILE_STRING_FALSE = "false";
+const string STRING_SPACE = " ";
+const string STRING_TRUE = "true";
+const string STRING_FALSE = "false";
 
 // GUI
 const int TASKLIST_RETRACT_ROW = 19;
@@ -81,19 +82,68 @@ const string FILE_STRING_METALTHEME = "metal";
 // PSR
 // Command "add" keywords
 const string keyWord_1 ("on");
+const string keyWord_ON_ ("on ");
 const string keyWord_2 ("by");
+const string keyWord_BY_ ("by ");
 const string keyWord_3 ("from");
+const string keyWord_FROM_ ("from ");
 const string keyWord_4 ("to");
 const string keyWord_5 ("today");
 const string keyWord_6 ("tmo");
 const string keyWord_7 ("tmr");
-
 // Command "edit" keywords
 const string task ("task");
 const string sd ("sd");
 const string st ("st");
 const string ed ("ed");
 const string et ("et");
+// Year
+const string YEAR_14 ("14");
+// Months
+const string MONTH_1 ("jan");
+const string MONTH_2 ("feb");
+const string MONTH_3 ("mar");
+const string MONTH_4 ("apr");
+const string MONTH_5 ("may");
+const string MONTH_6 ("jun");
+const string MONTH_7 ("jul");
+const string MONTH_8 ("aug");
+const string MONTH_9 ("sep");
+const string MONTH_10 ("oct");
+const string MONTH_11 ("nov");
+const string MONTH_12 ("dec");
+// Day
+const string DAY_1 ("1");
+const string DAY_2 ("2");
+const string DAY_3 ("3");
+const string DAY_4 ("4");
+const string DAY_5 ("5");
+const string DAY_6 ("6");
+const string DAY_7 ("7");
+const string DAY_8 ("8");
+const string DAY_9 ("9");
+const string DAY_10 ("10");
+const string DAY_11 ("11");
+const string DAY_12 ("12");
+const string DAY_13 ("13");
+const string DAY_14 ("14");
+const string DAY_15 ("15");
+const string DAY_16 ("16");
+const string DAY_17 ("17");
+const string DAY_18 ("18");
+const string DAY_19 ("19");
+const string DAY_20 ("20");
+const string DAY_21 ("21");
+const string DAY_22 ("22");
+const string DAY_23 ("23");
+const string DAY_24 ("24");
+const string DAY_25 ("25");
+const string DAY_26 ("26");
+const string DAY_27 ("27");
+const string DAY_28 ("28");
+const string DAY_29 ("29");
+const string DAY_30 ("30");
+const string DAY_31 ("31");
 
 // WKR
 const int TASKLIST_INDEX_LENGTH = 2;
@@ -123,6 +173,10 @@ const string KEYWORD_STARTTIME = "st";
 const string KEYWORD_ENDDATE = "ed";
 const string KEYWORD_ENDTIME = "et";
 const string KEYWORD_ON = "on";
+
+// Store
+const string WORD_STARTDATE = "startDate";
+const string WORD_STARTTIME = "startTime";
 
 // File Handler
 const string FILE_TASKLIST = "taskList.txt";
