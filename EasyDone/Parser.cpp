@@ -676,10 +676,36 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 								if(storeUserInfo[i] == keyWord_4) { // bug
 									++i;
-									
-									//storeUserInfo.erase(storeUserInfo.end()-1);
 
-									endDate += storeUserInfo[i];
+									if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
+
+									date_2 = storeUserInfo[i];
+									i++;		
+			
+
+									if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
+						
+									month_2 = storeUserInfo[i];
+									++i;
+									if ( i < storeUserInfo.size() ) {
+									year_2 = storeUserInfo[i];
+									}else {
+									year_2 = "14";
+									storeUserInfo.push_back("");
+									}
+
+									final = naturalParseInput(date_2, month_2, year_2);
+						
+
+									//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+									store = final;
+
+									//storeUserInfo.erase(storeUserInfo.end()-1);
+										}
+
+									}
+
+									endDate = store;
 
 									// guards
 									verifyDate = checkParseDate(endDate);
@@ -704,7 +730,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 
 										++i;
-									}
+										}
+									
 
 								} else {
 
@@ -909,6 +936,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		if (i < (int) storeUserInfo.size()) {
 
 			taskName = storeUserInfo[i];
+			string index = convert_From_String_To_String(taskName);
+			taskName = index;
 			++i;		
 		} else {
 			taskName = "1";	
@@ -1099,7 +1128,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 				} else {
 
-					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"				
+					string index = convert_From_String_To_String(taskName);
+					taskName = index;
 					++i;
 					
 				}
@@ -1124,6 +1155,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		if (i < (int) storeUserInfo.size()) {
 
 			taskName = storeUserInfo[i];
+			string index = convert_From_String_To_String(taskName);
+			taskName = index;
 			++i;		
 		} else {
 			taskName = "1";	
@@ -1222,6 +1255,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		if (i < (int) storeUserInfo.size()) {
 
 			taskName = storeUserInfo[i];
+			string index = convert_From_String_To_String(taskName);
+			taskName = index;
+			
+
+
 			++i;		
 		} else {
 			taskName = "1";	
@@ -1728,11 +1766,37 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 								if(storeUserInfo[i] == keyWord_4) { // bug
 									++i;
-									
+
+																		if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
+
+									date_2 = storeUserInfo[i];
+									i++;		
+			
+
+									if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
+						
+									month_2 = storeUserInfo[i];
+									++i;
+									if ( i < storeUserInfo.size() ) {
+									year_2 = storeUserInfo[i];
+									}else {
+									year_2 = "14";
+									storeUserInfo.push_back("");
+									}
+
+									final = naturalParseInput(date_2, month_2, year_2);
+						
+
+									//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+									store = final;
+
 									//storeUserInfo.erase(storeUserInfo.end()-1);
+										}
 
-									endDate += storeUserInfo[i];
+									}
 
+									endDate = store;
+									
 									// guards
 									verifyDate = checkParseDate(endDate);
 									
@@ -1958,6 +2022,20 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 	}
 
 	return 1;
+}
+
+// convert from string to string
+string Parser:: convert_From_String_To_String (string index) {
+
+		string taskName;
+		// stoi converts a string to an int
+		int convert = stoi(index);
+		// to_string: returns a string with the representation of a numerical value
+		string newIndex = to_string(convert);
+		taskName = newIndex;
+
+		return taskName;
+
 }
 
 // guard against keyWord (startdate will get date)

@@ -538,7 +538,7 @@ void Store::markTasksOverdue() {
 	for(int i = 0; i < taskList.size(); i++) {
 
 		string conjoint = todayYear + todayMonth + todayDay; 
-		string taskDate = taskList[i].startDate;
+		string taskDate = taskList[i].endDate;
 
 		if(taskDate.size() == 8 && taskDate < conjoint && taskList[i].isDone ==  false) {
 			taskList[i].isRed = true; 
