@@ -226,7 +226,7 @@ bool Store::MarkDone(Task task) {
 	return done;
 }
 	
-bool Store::changeTask(int Index, Task userTask, string updateField) {
+string Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
 	int size = taskList.size();
@@ -241,12 +241,30 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 	} else if(updateField == "st") {
 		taskList[Index].startTime = userTask.startTime;
 	} else if(updateField == "ed") {
-		taskList[Index].endDate = userTask.endDate;
+		//Exception handler for start date and end date. Throws exception if start date comes after end date.
+		if(!taskList[Index].startDate.empty()) {
+			if(stoi(taskList[Index].startDate) > stoi(userTask.endDate)) {
+				return "startDate";
+			}
+		} else {
+			taskList[Index].endDate = userTask.endDate;
+		}
 	} else if(updateField == "et") {
-		taskList[Index].endTime = userTask.endTime;
+		//Exception handler for start time and end time. Throws exception
+		if(!taskList[Index].startDate.empty() && !taskList[Index].endDate.empty()) {
+			if(taskList[Index].startDate == taskList[Index].endDate) {
+				if(taskList[Index].startTime > userTask.endTime) {
+					return "startTime";
+				} else {
+					taskList[Index].endTime = userTask.endTime;
+				}
+			} else {
+				taskList[Index].endTime = userTask.endTime;
+			}
+		}
 	}
 	log.log("Store: field updated");
-	return true;
+	return "true";
 }
 
 bool Store::SearchItem(int Index, string searchField, string searchItem) {
