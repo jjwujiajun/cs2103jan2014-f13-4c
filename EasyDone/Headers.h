@@ -34,6 +34,7 @@ const string KEYWORD_CREATE = "create";
 const string KEYWORD_DELETE = "delete";
 const string KEYWORD_REMOVE = "remove";
 const string KEYWORD_DISPLAY = "display";
+const string KEYWORD_VIEW = "view";
 const string KEYWORD_UPDATE = "update";
 const string KEYWORD_EDIT = "edit";
 const string KEYWORD_CHANGE = "change";
@@ -148,7 +149,20 @@ const string MONTH_9 ("sep");
 const string MONTH_10 ("oct");
 const string MONTH_11 ("nov");
 const string MONTH_12 ("dec");
+const string FORMAT_MONTH_1 (" Jan");
+const string FORMAT_MONTH_2 (" Feb");
+const string FORMAT_MONTH_3 (" Mar");
+const string FORMAT_MONTH_4 (" Apr");
+const string FORMAT_MONTH_5 (" May");
+const string FORMAT_MONTH_6 (" Jun");
+const string FORMAT_MONTH_7 (" Jul");
+const string FORMAT_MONTH_8 (" Aug");
+const string FORMAT_MONTH_9 (" Sep");
+const string FORMAT_MONTH_10 (" Oct");
+const string FORMAT_MONTH_11 (" Nov");
+const string FORMAT_MONTH_12 (" Dec");
 // Day
+const string DAY_0 ("0");
 const string DAY_1 ("1");
 const string DAY_2 ("2");
 const string DAY_3 ("3");
@@ -180,15 +194,35 @@ const string DAY_28 ("28");
 const string DAY_29 ("29");
 const string DAY_30 ("30");
 const string DAY_31 ("31");
+const string DAY_123 ("123");
+// Time
+const string TIME_0 ("0");
 
 // WKR
 const string MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
-const string MESSAGE_ADDED_FAILED = "task is already inside the list!\r\n";
+const string MESSAGE_ADDED_FAILED_TASK_IN_LIST = "task is already inside the list!\r\n";
+const string MESSAGE_ADDED_FAILED = "Task has not been added successfully! ): ";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE = "Invalid date! Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_YEAR = "Invalid year! Year valid till 2099! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE_MONTH = "Invalid date & Month! Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE_YEAR = "Invalid date & Year! Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE_MONTH_YEAR = "Invalid Date & Month & Year! Type Carefully! Ensure time format is correct too! ";
+const string MESSAGE_ADDED_FAILED_INVALID_TIME = "Invalid Time! Remember hour is from 00 to 23, Minute is from 00 to 59 ";
+const string MESSAGE_ADDED_FAILED_CHRONO_ORDER = "Start date cannot be after end date. Similarly if the start date and end date are same, start time cannot be after end time.\r\n";
 const string MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
-const string MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n"; 
+const string MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n";
+const string MESSAGE_UPDATED_FAILED_DUPLICATE = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";
+const string MESSAGE_UPDATED_FAILED_CHRONO_DATE = "End date cannot be before the start date. Please check again.\r\n";
+const string MESSAGE_UPDATED_FAILED_CHRONO_TIME = "End time cannot be before start Time if the task starts and ends on the same day. Please check again.\r\n";
 const string MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
 const string MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
+const string MESSAGE_OUT_OF_RANGE_INDEX = "TaskID is out of range. Please check again.\r\n";
 const string MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
+const string TASK_INDEX_FORMATTING = "0";
+const string TASK_TIME_FORMATTING = ":";
+const string TASK_EMPTY_TIME = "   -- ";
+const string KEYWORD_startDate = "startDate";
+const string KEYWORD_startTime = "startTime";
 
 // Store
 const string WORD_STARTDATE = "startDate";

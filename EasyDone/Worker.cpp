@@ -177,14 +177,14 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		} else {
 			continueNext = false;
 		}
-	} else if(command == "done" || command == "display" || command == "view") {
+	} else if(command == KEYWORD_DONE || command == KEYWORD_DISPLAY || command == KEYWORD_VIEW) {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
 			userTask.taskID = parsedCommandstring[1];
 		} else {
 			continueNext = false;
 		}
-	} else if(command == "search") {
+	} else if(command == KEYWORD_SEARCH) {
 		
 		searchField = parsedCommandstring[1];
 		searchItem = parsedCommandstring[2];
@@ -214,35 +214,35 @@ string Worker::actonCommand(string command)
 	string endTime = userTask.endTime;
 
 	if(command == KEYWORD_ADD || command == KEYWORD_NEW || command == KEYWORD_CREATE) {
-		if(continueNext == true && startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" )  {
+		if(continueNext == true && startDate != DAY_1 && endDate != DAY_1 && startDate != DAY_3 && endDate != DAY_3 && startDate != DAY_12 && endDate != DAY_12 && startDate != DAY_13 && endDate != DAY_13 && startDate != DAY_123 && endDate != DAY_123 && startTime != "0" && endTime != "0" )  {
 			if(userCommand.Add(userTask)) {
 				successful = MESSAGE_ADDED_SUCCESSFULLY;
 			} else {
-				successful = MESSAGE_ADDED_FAILED;
+				successful = MESSAGE_ADDED_FAILED_TASK_IN_LIST;
 			}
 		
-	//	} else if (startDate == "1" || endDate == "1" || startDate == "3" || endDate == "3" || startDate == "12" || endDate == "12" || startDate == "13" || endDate == "13" || startDate == "123" || endDate == "123" && (startTime == "0" || endTime == "0")) {
+	//	} else if (startDate == DAY_1 || endDate == DAY_1 || startDate == DAY_3 || endDate == DAY_3 || startDate == DAY_12 || endDate == DAY_12 || startDate == DAY_13 || endDate == DAY_13 || startDate == DAY_123 || endDate == DAY_123 && (startTime == "0" || endTime == "0")) {
 		//	successful = "Invalid Time and date!!! Task has not been added successfully! ): Type Carefully! \r\n";
 		
-		} else if (startDate == "1" || endDate == "1" ) {
-			successful = "Invalid date!!!! Task has not been added successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+		} else if (startDate == DAY_1 || endDate == DAY_1 ) {
+			successful = MESSAGE_ADDED_FAILED_INVALID_DATE + MESSAGE_ADDED_FAILED;
 
-		} else if (startDate == "3" || endDate == "3") {
-			successful = "Invalid Year!!! Task has not been added successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
+		} else if (startDate == DAY_3 || endDate == DAY_3) {
+			successful = MESSAGE_ADDED_FAILED_INVALID_YEAR + MESSAGE_ADDED_FAILED;
 		
-		} else if (startDate == "12" || endDate == "12") {
-			successful = "Invalid date & Month!!! Task has not been added successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+		} else if (startDate == DAY_12 || endDate == DAY_12) {
+			successful = MESSAGE_ADDED_FAILED_INVALID_DATE_MONTH + MESSAGE_ADDED_FAILED;
 
-		} else if (startDate == "13" || endDate == "13") {
-			successful = "Invalid date & Year!!! Task has not been added successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+		} else if (startDate == DAY_13 || endDate == DAY_13) {
+			successful = MESSAGE_ADDED_FAILED_INVALID_DATE_YEAR + MESSAGE_ADDED_FAILED;
 
-		} else if (startDate == "123" || endDate == "123") {
-			successful = "Invalid Date & Month & Year!!! Task has not been added successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
+		} else if (startDate == DAY_123 || endDate == DAY_123) {
+			successful = MESSAGE_ADDED_FAILED_INVALID_DATE_MONTH_YEAR + MESSAGE_ADDED_FAILED;
 
-		} else if (startTime == "0" || endTime == "0") {
-			successful = "Invalid Time!!! Task has not been added successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+		} else if (startTime == TIME_0 || endTime == TIME_0) {
+			successful = MESSAGE_ADDED_FAILED_INVALID_TIME + MESSAGE_ADDED_FAILED;
 		} else {
-			successful = "Start date cannot be after end date. Similarly if the start date and end date are same, start time cannot be after end time.\r\n";
+			successful = MESSAGE_ADDED_FAILED_CHRONO_ORDER;
 		}
 	}
 
@@ -252,46 +252,46 @@ string Worker::actonCommand(string command)
 				successful = MESSAGE_DELETED_SUCCESSFULLY;
 			}
 			else {
-				successful = "Please enter a valid index!\r\n";
+				successful = MESSAGE_WRONG_INDEX;
 			}
 		} else {
-			successful = "TaskID is out of range. Please check again.\r\n";
+			successful = MESSAGE_OUT_OF_RANGE_INDEX;
 		}
 	}
 
 
 	else if(command == KEYWORD_UPDATE || command == KEYWORD_EDIT|| command == KEYWORD_CHANGE ) {
 		if(continueNext == true) {
-			if(startDate != "1" && endDate != "1" && startDate != "3" && endDate != "3" && startDate != "12" && endDate != "12" && startDate != "13" && endDate != "13" && startDate != "123" && endDate != "123" && startTime != "0" && endTime != "0" ) {
+			if(startDate != DAY_1 && endDate != DAY_1 && startDate != DAY_3 && endDate != DAY_3 && startDate != DAY_12 && endDate != DAY_12 && startDate != DAY_13 && endDate != DAY_13 && startDate != DAY_123 && endDate != DAY_123 && startTime != TIME_0 && endTime != TIME_0 ) {
 				string updated = userCommand.Update(userTask, updateField);
-				if(updated == "true") {
+				if(updated == STRING_TRUE) {
 					successful = MESSAGE_UPDATED_SUCCESSFULLY;
 				} else {
-					if(updated == "false") {
-						successful = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";
-					} else if(updated == "startDate") {
-						successful = "End date cannot be before the start date. Please check again.\r\n";
-					} else if(updated == "startTime") {
-						successful = "End time cannot be before start Time if the task starts and ends on the same day. Please check again.\r\n";
+					if(updated == STRING_FALSE) {
+						successful = MESSAGE_UPDATED_FAILED_DUPLICATE;
+					} else if(updated == KEYWORD_startDate) {
+						successful = MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+					} else if(updated == KEYWORD_startTime) {
+						successful = MESSAGE_UPDATED_FAILED_CHRONO_TIME;
 					}
 				}
 		
-			} else if (startDate == "1" || endDate == "1" ) {
+			} else if (startDate == DAY_1 || endDate == DAY_1 ) {
 				successful = "Invalid date!!!! Task has not been edited successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
 
-			} else if (startDate == "3" || endDate == "3") {
+			} else if (startDate == DAY_3 || endDate == DAY_3) {
 				successful = "Invalid Year!!! Task has not been edited successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
 		
-			} else if (startDate == "12" || endDate == "12") {
+			} else if (startDate == DAY_12 || endDate == DAY_12) {
 				successful = "Invalid date & Month!!! Task has not been edited successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
 
-			} else if (startDate == "13" || endDate == "13") {
+			} else if (startDate == DAY_13 || endDate == DAY_13) {
 				successful = "Invalid date & Year!!! Task has not been edited successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
 
-			} else if (startDate == "123" || endDate == "123") {
+			} else if (startDate == DAY_123 || endDate == DAY_123) {
 				successful = "Invalid Date & Month & Year!!! Task has not been edited successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
 
-			} else if (startTime == "0" || endTime == "0") {
+			} else if (startTime == TIME_0 || endTime == TIME_0) {
 				successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
 			} 
 		} else {
@@ -300,7 +300,7 @@ string Worker::actonCommand(string command)
 		
 	}
 
-	else if(command == "search" ) {
+	else if(command == KEYWORD_SEARCH ) {
 		bool found = userCommand.Search(searchField, searchItem);
 		if(found) {
 			successful = "These tasks found.";
@@ -310,7 +310,7 @@ string Worker::actonCommand(string command)
 		}
 	}
 
-	else if(command == "done" ) {
+	else if(command == KEYWORD_DONE ) {
 		if(continueNext == true) {
 			bool found = userCommand.markDone(userTask);
 			if(found) {
@@ -324,7 +324,7 @@ string Worker::actonCommand(string command)
 		}
 	}
 
-	else if(command == "display") {
+	else if(command == KEYWORD_DISPLAY) {
 		if(continueNext == true) {
 			vector<Task>* taskList = new vector<Task>;
 			taskList = userCommand.getTaskList();
@@ -345,7 +345,7 @@ string Worker::actonCommand(string command)
 		if(userCommand.undo()) {
 			successful = "The most recent change has been removed.\r\n";
 		} else {
-			successful = "Nothing is undo.\r\n";
+			successful = "Nothing is undone.\r\n";
 		}
 	}
 		
@@ -438,7 +438,7 @@ void Worker::convertTaskDataToDisplayFormat(vector<Task> &taskList, bool shouldB
 
 		// 4 digit index display
 		while (taskIndex.size() < TASKLIST_INDEX_LENGTH) {
-			taskIndex = "0" + taskIndex;
+			taskIndex = TASK_INDEX_FORMATTING + taskIndex;
 		}
 		taskList[i].taskID = taskIndex;
 		
@@ -463,7 +463,7 @@ string Worker::formatDate(string dataDate, bool shouldShowYear, bool shouldBeDet
 	int day;
 	bool isKnownDateFormat = true;
 
-	if (!sDate.empty() && sDate != "0") {
+	if (!sDate.empty() && sDate != DAY_0) {
 			date = stoi(sDate);
 			
 			year = date/10000;
@@ -474,40 +474,40 @@ string Worker::formatDate(string dataDate, bool shouldShowYear, bool shouldBeDet
 			//assert(1 <= month && month <= 12);
 			switch (month) {
 			case 1:
-				sMonth = " Jan";
+				sMonth = FORMAT_MONTH_1;
 				break;
 			case 2:
-				sMonth = " Feb";
+				sMonth = FORMAT_MONTH_2;
 				break;
 			case 3:
-				sMonth = " Mar";
+				sMonth = FORMAT_MONTH_3;
 				break;
 			case 4:
-				sMonth = " Apr";
+				sMonth = FORMAT_MONTH_4;
 				break;
 			case 5:
-				sMonth = " May";
+				sMonth = FORMAT_MONTH_5;
 				break;
 			case 6:
-				sMonth = " Jun";
+				sMonth = FORMAT_MONTH_6;
 				break;
 			case 7:
-				sMonth = " Jul";
+				sMonth = FORMAT_MONTH_7;
 				break;
 			case 8:
-				sMonth = " Aug";
+				sMonth = FORMAT_MONTH_8;
 				break;
 			case 9:
-				sMonth = " Sep";
+				sMonth = FORMAT_MONTH_9;
 				break;
 			case 10:
-				sMonth = " Oct";
+				sMonth = FORMAT_MONTH_10;
 				break;
 			case 11:
-				sMonth = " Nov";
+				sMonth = FORMAT_MONTH_11;
 				break;
 			case 12:
-				sMonth = " Dec";
+				sMonth = FORMAT_MONTH_12;
 				break;
 			default:
 				isKnownDateFormat = false;
@@ -528,11 +528,11 @@ string Worker::formatDate(string dataDate, bool shouldShowYear, bool shouldBeDet
 					resultDate += sYear;
 				}
 			} else {
-				resultDate = "";
+				resultDate = NULL_STRING;
 			}
 		} else {
 			if (shouldBeDetailed) {
-				resultDate = "   -- ";
+				resultDate = TASK_EMPTY_TIME;
 			}
 		}
 	return resultDate;
@@ -543,18 +543,18 @@ string Worker::formatTime(string sTime, bool shouldBeDetailed) {
 	string resultTime;
 	bool isKnownTimeFormat = time.size() == 4;
 
-	if (!time.empty() && time != "0") {
+	if (!time.empty() && time != TIME_0) {
 		// Digital clock display
 		//assert(time.size() <= 4);
 		if (isKnownTimeFormat) {
-			time.insert(2, ":");
+			time.insert(2, TASK_TIME_FORMATTING);
 			resultTime = time;
 		} else {
-			resultTime = "";
+			resultTime = NULL_STRING;
 		}
 	} else {
 		if (shouldBeDetailed) {
-			resultTime = "   -- ";
+			resultTime = TASK_EMPTY_TIME;
 		}
 	}
 	return resultTime;

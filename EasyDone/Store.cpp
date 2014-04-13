@@ -254,6 +254,8 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 			} else {
 				taskList[Index].endTime = userTask.endTime;
 			}
+		} else {
+			taskList[Index].endTime = userTask.endTime;
 		}
 	}
 	log.log("Store: field updated");
