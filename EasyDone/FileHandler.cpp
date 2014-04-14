@@ -1,5 +1,14 @@
-//@author A0100705Y
-// FileHandler.cpp
+/*@ author A0100705Y
+ *@ author A0101681R
+ *Written By: Ramireddi Juhi Simanthika, Daniel Tan
+
+ FileHandler contains all the file operations required to store and retrive information from hard disk. 
+ FileHandler allows the information from a file in hard disk (that stores a particular user's EasyDone 
+ information from his/her previous uses) to be loaded  to the temporary storage vector(used in Operator). 
+ Before the user exits the program, changes in the temporary storage vector are copied to the file. 
+ This File Handler ensures user information is not lost when he/she exits the program. 
+
+ Name: FileHandler.cpp*/
 #include "FileHandler.h"
 
 using namespace std;
