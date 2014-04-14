@@ -1,0 +1,1453 @@
+//@author: a0101681r
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\FileHandler.cpp
+	 */
+
+// FileHandler.cpp
+#include "FileHandler.h"
+
+using namespace std;
+
+void FileHandler::createHelpHeadingInVector(vector<string> &GUIHelpHeadings) {
+	GUIHelpHeadings.push_back(HELP_ADD_HEADING);
+	GUIHelpHeadings.push_back(HELP_DELETE_HEADING);
+	GUIHelpHeadings.push_back(HELP_UPDATE_HEADING);
+	GUIHelpHeadings.push_back(HELP_DISPLAY_HEADING);
+	GUIHelpHeadings.push_back(HELP_UNDO_HEADING);
+	GUIHelpHeadings.push_back(HELP_SEARCH_HEADING);
+}
+
+void FileHandler::createHelpInstructionsInVector(vector<string> &GUIHelpInstructions) {
+	GUIHelpInstructions.push_back(HELP_ADD);
+	GUIHelpInstructions.push_back(HELP_DELETE);
+	GUIHelpInstructions.push_back(HELP_UPDATE);
+	GUIHelpInstructions.push_back(HELP_DISPLAY);
+	GUIHelpInstructions.push_back(HELP_UNDO);
+	GUIHelpInstructions.push_back(HELP_SEARCH);
+}
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\FileHandler.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Headers.h
+	 */
+
+#ifndef HEADERS_H
+#define HEADERS_H
+
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <queue>
+#include <stack>
+#include <ctime>
+#include <time.h>
+#include <cctype>
+#include <iterator>
+#include "Log.h"
+#include "Task.h"
+#include <assert.h>
+
+const string GUI_LABEL_TODAY = "Today \n";
+const string GUI_LABEL_ALLTASKS = "All Tasks \n";
+const string GUI_FONT_LABEL = "Broadway";
+
+// ALL
+const string SYSTEM_ENDL = "\r\n";
+const string STRING_QUOTE = "\"";
+const string NULL_STRING = "";
+const string STRING_SPACE = " ";
+const string STRING_TRUE = "true";
+const string STRING_FALSE = "false";
+const string KEYWORD_ADD = "add";
+const string KEYWORD_NEW = "new";
+const string KEYWORD_CREATE = "create";
+const string KEYWORD_DELETE = "delete";
+const string KEYWORD_REMOVE = "remove";
+const string KEYWORD_DISPLAY = "display";
+const string KEYWORD_VIEW = "view";
+const string KEYWORD_UPDATE = "update";
+const string KEYWORD_EDIT = "edit";
+const string KEYWORD_CHANGE = "change";
+const string KEYWORD_SEARCH = "search";
+const string KEYWORD_DONE = "done";
+const string KEYWORD_UNDO = "undo";
+const string KEYWORD_TASK = "task";
+const string KEYWORD_STARTDATE = "sd";
+const string KEYWORD_STARTTIME = "st";
+const string KEYWORD_ENDDATE = "ed";
+const string KEYWORD_ENDTIME = "et";
+const string KEYWORD_ON = "on";
+const string KEYWORD_TODAY = "today";
+const string KEYWORD_TOMORROW_1 = "tmr";
+const string KEYWORD_TOMORROW_2 = "tmo";
+
+// GUI
+const int TASKLIST_RETRACT_ROW = 19;
+const int TASKLIST_EXTENT_ROW = 24;
+const int TASKLIST_X = 351;
+const int TASKLIST_Y_RETRACT = 376;
+const int TASKLIST_Y_EXTENT = 482;
+const int RADIO_X_SUMMARY = 165;
+const int RADIO_X_ALL = 180;
+const int RADIO_X_DONE = 194;
+const int RADIO_Y_RETRACT = 433;
+const int RADIO_Y_EXTENT = 537;
+const int FORM_X_RETRACT = 375;
+const int FORM_X_EXTENT = 674;
+const int FORM_Y = 587;
+const int TAB_X_RETRACT = 355;
+const int TAB_X_EXTENT = 655;
+const int TAB_Y_HELP = 327;
+const int TAB_Y_SETTING = 417;
+const int HELP_TOGGLE_LEFT_LABEL_X = 134;
+const int HELP_TOGGLE_RIGHT_LABEL_X = 207;
+const int HELP_TOGGLE_LABEL_RETRACT_Y = 437;
+const int HELP_TOGGLE_LABEL_EXTENT_Y = 541;
+const float HELP_SIZE_HEADING = 12;
+const float HELP_SIZE_INSTRUCTION = 10;
+const float TASKLIST_SIZE_INDEX = 8;
+const float TASKLIST_SIZE_TASKINFO = 11;
+const float TASKLIST_SIZE_HEADING = 12;
+
+const int THEME_NUMBER = 3;
+enum themeColor {WHITE, BLUE, METAL};
+
+
+// MGR
+const string FEEDBACK_MESSAGE_WELCOME = "Hi! Welcome to EasyDone!\r\n \r\n";
+const string FEEDBACK_PROMPT_START = "What would you like to do? \r\nChoose a command\r\n add • update • display • search • delete • done • undo • exit";
+const string FEEDBACK_PROMPT_OTHERS = "What else would you like to do? \r\nChoose a command\r\n add • update • display • search • delete • done • undo • exit";
+const string LIVE_FEEDBACK_ADD = "You're adding a task... \r\n\r\n";
+const string LIVE_FEEDBACK_ADD_HINTDATE = "Now put in the date DD/MM/YY \r\n\r\n";
+const string LIVE_FEEDBACK_ADD_FORMAT = "Format: add <task name> on <date>";
+const string LIVE_FEEDBACK_DELETE = "You're deleting a task \r\n\r\nType in the ID that's on the left of the task name\r\n";
+const string LIVE_FEEDBACK_DISPLAY = "You're displaying a task \r\n\r\nType in the ID that's on the left of the task name\r\n";
+const string LIVE_FEEDBACK_UPDATE = "You're updating a task \r\n\r\nFormat: update <ID> <field> <new info> \r\n\r\n";
+const string LIVE_FEEDBACK_UPDATE_FIELD = "The ID is on the left of the task name\r\nFields: task • sd • st • ed • et \r\n\r\n";
+const string LIVE_FEEDBACK_UPDATE_TASK = "Now type in your new task name \r\n";
+const string LIVE_FEEDBACK_UPDATE_DATE = "Put in the new date DD/MM/YY \r\n";
+const string LIVE_FEEDBACK_UPDATE_TIME = "Put in the new time HH.MM \r\n";
+const string LIVE_FEEDBACK_SEARCH = "You are searching... \r\n\r\nTell me the field name before you search the query\r\n task • sd • st • ed • et ";
+const string LIVE_FEEDBACK_DONE = "You're marking a task as done \r\n\r\nType in the ID that's on the left of the task name\r\n";
+const string LIVE_SEARCH_ENTER = "Press Enter when you're done";
+const string LOG_MANAGER_TO_PARSER = "Manager: Pass userInput to parser";
+const string LOG_MANAGER_TO_WORKER = "Manager: Pass parsedInput to worker";
+const string LOG_STRING_USERINPUT = "User input: ";
+const int HELP_NUMBER_OF_SECTIONS = 6;
+const string FILE_HELP_HEADINGS = "helpHeadings";
+const string FILE_HELP_INSTRUCTIONS = "helpInstruction";
+const string TYPE_TEXTFILE = ".txt";
+const string FILE_SETTINGS_THEME = "theme.txt";
+const string FILE_SETTING_FEEDBACK = "feedbackSetting.txt";
+const string FILE_SETTING_HELPTAB = "helpTabSetting.txt";
+const string FILE_SETTING_SETTINGSTAB = "settingsTabSetting.txt";
+const string FILE_STRING_WHITETHEME = "white";
+const string FILE_STRING_BLUETHEME = "blue";
+const string FILE_STRING_METALTHEME = "metal";
+const int TASKLIST_INDEX_LENGTH = 2;
+const int TASKLIST_NAME_LENGTH = 25;
+
+// PSR
+const string ERROR_NO_INPUT = "Type in something before pressing enter\r\n";
+// Command "add" keywords
+const string keyWord_1 ("on");
+const string keyWord_ON_ ("on ");
+const string keyWord_2 ("by");
+const string keyWord_BY_ ("by ");
+const string keyWord_3 ("from");
+const string keyWord_FROM_ ("from ");
+const string keyWord_4 ("to");
+const string keyWord_TO_ ("to ");
+const string keyWord_5 ("today");
+const string keyWord_6 ("tmo");
+const string keyWord_7 ("tmr");
+// Command "edit" keywords
+const string task ("task");
+const string sd ("sd");
+const string st ("st");
+const string ed ("ed");
+const string et ("et");
+// Year
+const string YEAR_14 ("14");
+// Months
+const string MONTH_1 ("jan");
+const string MONTH_2 ("feb");
+const string MONTH_3 ("mar");
+const string MONTH_4 ("apr");
+const string MONTH_5 ("may");
+const string MONTH_6 ("jun");
+const string MONTH_7 ("jul");
+const string MONTH_8 ("aug");
+const string MONTH_9 ("sep");
+const string MONTH_10 ("oct");
+const string MONTH_11 ("nov");
+const string MONTH_12 ("dec");
+const string FORMAT_MONTH_1 (" Jan");
+const string FORMAT_MONTH_2 (" Feb");
+const string FORMAT_MONTH_3 (" Mar");
+const string FORMAT_MONTH_4 (" Apr");
+const string FORMAT_MONTH_5 (" May");
+const string FORMAT_MONTH_6 (" Jun");
+const string FORMAT_MONTH_7 (" Jul");
+const string FORMAT_MONTH_8 (" Aug");
+const string FORMAT_MONTH_9 (" Sep");
+const string FORMAT_MONTH_10 (" Oct");
+const string FORMAT_MONTH_11 (" Nov");
+const string FORMAT_MONTH_12 (" Dec");
+// Day
+const string DATE_FORMAT = "/";
+const string DAY_0 ("0");
+const string DAY_1 ("1");
+const string DAY_2 ("2");
+const string DAY_3 ("3");
+const string DAY_4 ("4");
+const string DAY_5 ("5");
+const string DAY_6 ("6");
+const string DAY_7 ("7");
+const string DAY_8 ("8");
+const string DAY_9 ("9");
+const string DAY_10 ("10");
+const string DAY_11 ("11");
+const string DAY_12 ("12");
+const string DAY_13 ("13");
+const string DAY_14 ("14");
+const string DAY_15 ("15");
+const string DAY_16 ("16");
+const string DAY_17 ("17");
+const string DAY_18 ("18");
+const string DAY_19 ("19");
+const string DAY_20 ("20");
+const string DAY_21 ("21");
+const string DAY_22 ("22");
+const string DAY_23 ("23");
+const string DAY_24 ("24");
+const string DAY_25 ("25");
+const string DAY_26 ("26");
+const string DAY_27 ("27");
+const string DAY_28 ("28");
+const string DAY_29 ("29");
+const string DAY_30 ("30");
+const string DAY_31 ("31");
+const string DAY_123 ("123");
+// Time
+const string TIME_FORMAT = ".";
+const string TIME_1 ("1");
+const string TIME_2 ("2");
+const string TIME_3 ("3");
+const string TIME_4 ("4");
+const string TIME_5 ("5");
+const string TIME_6 ("6");
+const string TIME_7 ("7");
+const string TIME_8 ("8");
+const string TIME_9 ("9");
+const string TIME_0 ("0");
+// Others
+const string NUM_1 ("1");
+const string NUM_2 ("2");
+const string NUM_3 ("3");
+const string NUM_4 ("4");
+const string NUM_5 ("5");
+const string NUM_6 ("6");
+const string NUM_7 ("7");
+const string NUM_8 ("8");
+const string NUM_9 ("9");
+const string NUM_10 ("10");
+const string NUM_11 ("11");
+const string NUM_12 ("12");
+const string NUM_0 ("0");
+const string NUM_00 ("00");
+const string NUM_000 ("000");
+
+// WKR
+const string MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
+const string MESSAGE_ADDED_FAILED_TASK_IN_LIST = "task is already inside the list!\r\n";
+const string MESSAGE_ADDED_FAILED = "Task has not been added successfully! ): ";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE = "Invalid date! Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_YEAR = "Invalid year! Year valid till 2099! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE_MONTH = "Invalid date & Month! Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE_YEAR = "Invalid date & Year! Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+const string MESSAGE_ADDED_FAILED_INVALID_DATE_MONTH_YEAR = "Invalid Date & Month & Year! Type Carefully! Ensure time format is correct too! ";
+const string MESSAGE_ADDED_FAILED_INVALID_TIME = "Invalid Time! Remember hour is from 00 to 23, Minute is from 00 to 59 ";
+const string MESSAGE_ADDED_FAILED_CHRONO_ORDER = "Start date cannot be after end date. Similarly if the start date and end date are same, start time cannot be after end time.\r\n";
+const string MESSAGE_DELETED_SUCCESSFULLY = "has been deleted successfully! :) \r\n";
+const string MESSAGE_UPDATED_SUCCESSFULLY = "has been updated successfully! :) \r\n";
+const string MESSAGE_UPDATED_FAILED = "Task has not been edited successfully! ):";
+const string MESSAGE_UPDATED_FAILED_DUPLICATE = "updated task already exists in the list. Therefore, it has been removed from the list. You may undo to get the unupdated task back.\r\n";
+const string MESSAGE_UPDATED_FAILED_INVALID_DATE = "Invalid date! Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+const string MESSAGE_UPDATED_FAILED_INVALID_YEAR = "Invalid Year! Year valid till 2099! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_UPDATED_FAILED_INVALID_DATE_MONTH = "Invalid date & Month! Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_UPDATED_FAILED_INVALID_DATE_YEAR = "Invalid date & Year! Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+const string MESSAGE_UPDATED_FAILED_INVALID_DATE_MONTH_YEAR = "Invalid Date & Month & Year! Type Carefully! Ensure time format is correct too! =) \r\n";
+const string MESSAGE_UPDATED_FAILED_INVALID_TIME = "Invalid Time! Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+const string MESSAGE_UPDATED_FAILED_OUT_OF_RANGE = "Either invalid field input or taskID is out of range! Please check again.\r\n";
+const string MESSAGE_UPDATED_FAILED_CHRONO_DATE = "The task can't end before it starts. Please check again.\r\n";
+const string MESSAGE_UPDATED_FAILED_CHRONO_TIME = "The task can't end before it starts. Please check again.\r\n";
+const string MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
+const string MESSAGE_DONE_SUCCESSFUL = "Task marked done.\r\n";
+const string MESSAGE_DONE_FAILED = "Task not found.\r\n";
+const string MESSAGE_SEARCH_SUCCESSFUL = "These tasks found.";
+const string MESSAGE_SEARCH_FAILED = "Task not found.\r\n";
+const string MESSAGE_DISPLAY_START = "Starts: ";
+const string MESSAGE_DISPLAY_SPACE_FORMATTING = "   ";
+const string MESSAGE_DISPLAY_END = "Ends: ";
+const string MESSAGE_UNDO_SUCCESSFUL = "The most recent change has been removed.\r\n";
+const string MESSAGE_UNDO_FAILED = "Nothing is undone.\r\n";
+const string MESSAGE_WRONG_INDEX = "Please enter a valid index! \r\n";
+const string MESSAGE_OUT_OF_RANGE_INDEX = "TaskID is out of range. Please check again.\r\n";
+const string MESSAGE_ENTER_VALID_COMMAND = "Please enter a valid command! \r\n";
+const string TASK_INDEX_FORMATTING = "0";
+const string TASK_TIME_FORMATTING = ":";
+const string TASK_EMPTY_TIME = "   -- ";
+const string KEYWORD_startDate = "startDate";
+const string KEYWORD_startTime = "startTime";
+
+// Store
+const string WORD_STARTDATE = "startDate";
+const string WORD_STARTTIME = "startTime";
+
+// File Handler
+const string FILE_TASKLIST = "taskList.txt";
+const string HELP_ADD_HEADING = "EasyAdd";
+const string HELP_ADD = "Examples: \r\n• new Birthday party on 12/12/14 12.00\r\nFormat:\r\n• add <task> on <sd> <st>\r\n• add <task> by <ed> <et>\r\n• add <task> from <sd> <st> to <ed> <et>\r\n   Date Format: DD/MM/YY\r\n   Time Format: HH.MM\r\n";
+const string HELP_DELETE_HEADING = "EasyDelete";
+const string HELP_DELETE = "Example: • delete 10      Format: • delete <ID>\r\n";
+const string HELP_UPDATE_HEADING = "EasyUpdate";
+const string HELP_UPDATE = "Example: • update 2 sd 13/12/14\r\nFormat:\r\n• update <ID> <field name> <updated info>\r\n";
+const string HELP_DISPLAY_HEADING = "EasyDisplay";
+const string HELP_DISPLAY = "Example: • display 1           Format:• display <ID>\r\n";
+const string HELP_UNDO_HEADING = "EasyUndo";
+const string HELP_UNDO = "Format: • undo                 That's it.\r\n";
+const string HELP_SEARCH_HEADING = "EasySearch";
+const string HELP_SEARCH  = "Example: • search task party\r\nFormat: • search <field name> <query>";
+
+#pragma once
+
+class Headers
+{
+public:
+	Headers(void);
+	~Headers(void);
+};
+#endif
+
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Headers.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Headers.cpp
+	 */
+
+// Header.cpp
+#include "Headers.h"
+
+
+Headers::Headers(void) {
+}
+
+
+Headers::~Headers(void) {
+}
+
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Headers.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Store.h
+	 */
+
+* Written by: Ramireddi Juhi Simanthika
+* Name: STORE.H
+* Store.h defines a private vector of type Task called taskList. 
+* This vector is used to store tasks and their information temporarily before they are copied to a file.  
+* The vector is then copied to a file in Hard disk before the program exits. 
+* Store contains an instance of FileHandler so as to store the user's task permanently in hard disk.
+* Store contains several helper functions required by Command Class. The function served by these methods are explained in Store.cpp
+*/
+
+
+#include "Headers.h"
+#include "FileHandler.h"
+
+
+using namespace std;
+
+#pragma once
+
+class Store {
+	
+	private:
+		FileHandler file;
+		vector<Task> taskList;
+		vector<Task> searchTask;
+		vector< vector<Task> > undoList;
+		
+	
+		Log log;
+	
+	
+	public:
+		Store();
+		~Store();
+
+		string getDay(int slotNumber);
+		string getMonth(int slotNumber);
+		string getYear(int slotNumber);
+		string currentDay();
+		string currentMonth();
+		string currentYear();
+		vector<string> getDateTomorrow();
+		void markTasksDueToday();
+		void markTasksDueTomorrow();
+		void markTasksOverdue();
+		string getTaskID(int slotNumber);
+		int getSize();
+		Task getTask(int slot);
+		Task accesswithTaskID(int indexEntered);
+		void switchTask(int slot1, int slot2);
+		void changeTaskPos(int slot, Task slotTask);
+		Task accessSlot(int slot); 
+		vector<Task>::iterator getIteratorBegin();
+		vector<Task>::iterator getIteratorEnd();
+		void undoUndoList();
+		bool eraser(string taskIndex);
+		bool changeTaskPos(int taskID, Task userTask, string updateField);
+		void updateTaskID();
+		bool searchItem(int Index, string searchField, string searchItem);
+		bool stackToList();
+		void listToStack();
+		void pushback(Task newTask);
+		void pushbackDoneTask(Task newTask);
+		vector<Task> getTaskList();
+		vector<Task> getSearchedList();
+		void saveToFile();
+	
+};
+
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Store.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Store.cpp
+	 */
+
+/*
+* Written by: Ramireddi Juhi Simanthika
+* Name: STORE.CPP
+* Store class defines a private vector of type Task called taskList. 
+* This vector is used to store tasks and their information temporarily before they are copied to a file. 
+* This is an efficient way of manipulating the user's to-do list according to the commands he keys in. 
+* The vector is then copied to a file in Hard disk before the program exits. 
+* Store contains an instance of FileHandler so as to store the user's task permanently in hard disk.   
+*/
+
+#include "Store.h"
+
+
+Store::Store() {
+	taskList.clear();
+	taskList = file.getTaskList();
+	undoList.clear();
+}
+
+Store::~Store() {
+	undoList.clear();
+	file.saveTaskList(taskList);
+}
+
+
+int Store::getSize() {
+
+	int sizeoftaskList = taskList.size();
+
+	return sizeoftaskList;
+}
+
+string Store::getTaskID(int slotNumber) {
+
+	int size = taskList.size();
+	// Asserts that the slotNumber is within the task list range.
+	assert(slotNumber <= size);
+
+	string taskID = taskList[slotNumber].taskID;
+
+	return taskID;
+}
+
+/*This function returns the task with taskID = slot*/
+Task Store::accessSlot(int slot) {
+
+	int size = taskList.size();
+	// Asserts that the slot is within the task list range.
+	assert(slot < size);
+
+	Task toReturn = taskList[slot];
+	return toReturn;
+}
+
+
+vector<Task>::iterator Store::getIteratorBegin() {
+	
+	vector<Task>::iterator iter;
+	iter = taskList.begin(); 
+
+	return iter;
+}
+
+vector<Task>::iterator Store::getIteratorEnd() {
+	
+	vector<Task>::iterator iter;
+	iter = taskList.end();
+
+	return iter;
+}
+
+void Store::saveToFile() {
+	log.log("Store: saving to file");
+	file.saveTaskList(taskList);
+}
+
+void Store::switchTask(int slot1, int slot2) {
+
+	int size = taskList.size();
+	// Asserts that slot1 and slot2 are within the task list range.
+	assert(slot1 < size);
+	assert(slot2 < size);
+
+	log.log("Store: switching task");
+	Task tempTask = taskList[slot1];
+	taskList[slot1] = taskList[slot2];
+	taskList[slot2] = tempTask;
+
+	markTasksOverdue();
+}
+
+void Store::changeTaskPos(int slot, Task slotTask) {
+	
+	int size = taskList.size();
+	// Asserts that slot and slotTask's task ID are within the task list range.
+	assert(slot < size);
+	assert(stoi(slotTask.taskID) <= size);
+
+	log.log("Store: changing task");
+	taskList[slot] = slotTask;
+
+	markTasksOverdue();
+}
+
+bool Store::eraser(string taskIndex) {
+
+	int size = taskList.size();
+	// Asserts that the taskIndex is within the task list range.
+	assert(stoi(taskIndex) <= size);
+
+	log.log("Store: erasing task");
+	bool erased = false;
+	int slot=0;
+
+	for(int i = 0; i < (int) taskList.size(); i++) {
+		if(taskList[i].taskID == taskIndex) {
+			slot = i;
+			erased = true;
+			break;
+		}
+	}
+	for(slot; slot < (int) taskList.size()-1; slot++){
+		taskList[slot+1].taskID = to_string(slot+1);
+		taskList[slot] = taskList[slot+1];
+	}
+	taskList.pop_back();
+
+	markTasksOverdue();
+	log.log("Store: task erased");
+
+	return erased;
+}
+
+Task Store::accesswithTaskID(int indexEntered) {
+	
+	int size = taskList.size();
+	// Asserts that the indexEntered is within the task list range.
+	assert(indexEntered <= size);
+
+	string convertedIndex = to_string(indexEntered);
+
+	for(int i=0; i < (int) taskList.size(); i++) {
+
+		if(taskList[i].taskID == convertedIndex) {
+
+			return taskList[i];
+		}
+
+		//need an else case but idk how to do that LOL cause I am returning a Task data type ahem ok wtv or like if list is empty
+
+	}
+
+}
+
+void Store::pushback(Task newTask) {
+
+	int size = taskList.size() + 1;
+	// Asserts that the task ID is within the task list range.
+	assert(stoi(newTask.taskID) <= size);
+
+	newTask.isDone = false;
+	taskList.push_back(newTask);
+
+	markTasksOverdue();
+}
+
+void Store::pushbackDoneTask(Task newTask) {
+
+	//int size = taskList.size() + 1;
+	// Asserts that the task ID is within the task list range.
+	//assert(stoi(newTask.taskID) <= size);
+
+	taskList.push_back(newTask);
+
+	markTasksOverdue();
+}
+
+Task Store::getTask(int slot) {
+
+	// Asserts that the slot is within the task list range.
+	assert(slot < taskList.size());
+
+	return taskList.at(slot);
+}
+	
+bool Store::changeTaskPos(int Index, Task userTask, string updateField) {
+	log.log("Store: updating a task field");
+
+	int size = taskList.size();
+	// Asserts that the Index and userTask's task ID are within the task list range.
+	assert(stoi(userTask.taskID) <= size);
+	assert(Index <= size);
+
+	if(updateField == KEYWORD_TASK) {
+		taskList[Index].taskName = userTask.taskName;
+
+	} else if(updateField == KEYWORD_STARTDATE) {
+		//Exception handler for start date and end date. Throws exception if start date comes after end date.
+		if(!taskList[Index].endDate.empty()) {
+			if(stoi(taskList[Index].endDate) < stoi(userTask.startDate)) {
+				throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+			} else if(stoi(taskList[Index].startDate) == stoi(userTask.endDate)) {
+				if(!taskList[Index].startTime.empty() && !taskList[Index].endTime.empty()) {
+					if(stoi(taskList[Index].startTime) > stoi(taskList[Index].endTime))
+						throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+				}
+			} else {
+				taskList[Index].startDate = userTask.startDate;
+			}
+		} else {
+			taskList[Index].startDate = userTask.startDate;
+		}
+
+	} else if(updateField == KEYWORD_STARTTIME) {
+		if(!taskList[Index].startDate.empty() && !taskList[Index].endDate.empty()) {
+			if(taskList[Index].startDate == taskList[Index].endDate) {
+				if(stoi(taskList[Index].endTime) < stoi(userTask.startTime)) {
+					throw MESSAGE_UPDATED_FAILED_CHRONO_TIME;
+				} else {
+					taskList[Index].startTime = userTask.startTime;
+				}
+			} else {
+				taskList[Index].startTime = userTask.startTime;
+			}
+		} else {
+			taskList[Index].startTime = userTask.startTime;
+		}
+
+	} else if(updateField == KEYWORD_ENDDATE) {
+		//Exception handler for start date and end date. Throws exception if start date comes after end date.
+		if(!taskList[Index].startDate.empty()) {
+			if(stoi(taskList[Index].startDate) > stoi(userTask.endDate)) {
+				throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+			} else if(stoi(taskList[Index].startDate) == stoi(userTask.endDate)) {
+				if(!taskList[Index].startTime.empty() && !taskList[Index].endTime.empty()) {
+					if(stoi(taskList[Index].startTime) > stoi(taskList[Index].endTime))
+						throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+				}
+			} else {
+				taskList[Index].endDate = userTask.endDate;
+			}
+		} else {
+			taskList[Index].endDate = userTask.endDate;
+		}
+
+	} else if(updateField == KEYWORD_ENDTIME) {
+		//Exception handler for start time and end time. Throws exception
+		if(!taskList[Index].startDate.empty() && !taskList[Index].endDate.empty()) {
+			if(taskList[Index].startDate == taskList[Index].endDate) {
+				if(stoi(taskList[Index].startTime) > stoi(userTask.endTime)) {
+					throw MESSAGE_UPDATED_FAILED_CHRONO_TIME;
+				} else {
+					taskList[Index].endTime = userTask.endTime;
+				}
+			} else {
+				taskList[Index].endTime = userTask.endTime;
+			}
+		} else {
+			taskList[Index].endTime = userTask.endTime;
+		}
+	}
+
+	markTasksOverdue();
+	log.log("Store: field updated");
+	return true;
+}
+
+bool Store::searchItem(int Index, string searchField, string searchItem) {
+
+	int size = taskList.size();
+	// Asserts that the Index is within the task list range.
+	assert(Index <= size);
+
+	log.log("Store: searching the task");
+	bool found = false;
+	
+	searchTask.clear();
+
+	while(Index < getSize()) {
+		if(searchField == KEYWORD_TASK) {
+			if(taskList[Index].taskName.find(searchItem) != string::npos) {
+				searchTask.push_back(taskList[Index]);
+				found = true;
+			}
+		} else if(searchField == KEYWORD_STARTDATE) {
+			if(taskList[Index].startDate.find(searchItem) != string::npos)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == KEYWORD_STARTTIME) {
+			if(taskList[Index].startTime.find(searchItem) != string::npos)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == KEYWORD_ENDDATE) {
+			if(taskList[Index].endDate.find(searchItem) != string::npos)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		} else if(searchField == KEYWORD_ENDTIME) {
+			if(taskList[Index].endTime.find(searchItem) != string::npos)
+				searchTask.push_back(taskList[Index]);
+				found = true;
+		}
+		Index++;
+	}
+	log.log("Store: finished searching");
+	
+	return found;
+}
+
+vector<Task> Store::getTaskList() {
+
+	vector<Task> duplicated;
+	duplicated = taskList;
+
+	return duplicated;
+}
+
+vector<Task> Store::getSearchedList() {
+	return searchTask;
+}
+
+void Store::undoUndoList() {
+	undoList.pop_back();
+}
+
+bool Store::stackToList() {
+	log.log("Store: undoing the change in list");
+	bool undo = false;
+	if(undoList.size()!=0) {
+		vector<Task> temp = undoList.back();
+		taskList.clear();
+		while(!temp.empty()) {
+			taskList.push_back(temp.back());
+			temp.pop_back();
+		}
+		undoList.pop_back();
+		undo = true;
+	}
+	return undo;
+}
+
+void Store::listToStack() {
+	log.log("Store: saving the change in list");
+	vector<Task> temp;
+	Task tempTask;
+	vector<Task> copyList = taskList;
+	int i = copyList.size();
+	while(!copyList.empty()) {
+		i--;
+		tempTask = copyList[i];
+		copyList.pop_back();
+		temp.push_back(tempTask);
+	}
+	undoList.push_back(temp);
+}
+
+void Store::updateTaskID() {
+	for(int i = 0; i < (int) taskList.size(); i++) {
+		taskList[i].taskID = to_string(i+1);
+	}
+}
+
+string Store::currentDay() {
+
+	time_t rawtime;
+	time(&rawtime);
+
+	tm now;
+	localtime_s(&now, &rawtime);
+
+	int nowDay = (&now)->tm_mday; 
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << nowDay; 
+
+	string nowDaystr = convert.str();
+
+	if (nowDaystr.length() == 1)
+        nowDaystr.insert(0, "0");
+
+	//return nowDaystr;
+
+	return nowDaystr;
+
+}
+
+string Store::currentMonth() {
+
+	time_t rawtime;
+	time(&rawtime);
+
+	tm now;
+	localtime_s(&now, &rawtime);
+
+	int nowMonth = (&now)->tm_mon; 
+	nowMonth =  nowMonth + 1;
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << nowMonth; 
+
+	string nowMonthstr = convert.str();
+
+	if (nowMonthstr.length() == 1)
+        nowMonthstr.insert(0, "0");
+
+	return nowMonthstr;
+}
+
+string Store::currentYear() {
+
+	time_t rawtime;
+	time(&rawtime);
+
+	tm now;
+	localtime_s(&now, &rawtime);
+
+	int nowYear = 1900 + (&now)->tm_year;  
+	
+	ostringstream convert;   // stream used for the conversion
+
+	convert << nowYear; 
+
+	string nowYearstr = convert.str();
+
+	return nowYearstr;
+
+}
+
+string Store::getDay(int index) {   
+	//only meant for startDate
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+
+	string dateSize = taskList[index].startDate;
+
+	int lenDate = (dateSize).size();
+
+	//Exception handling for empty start date. Throws "0" when no start date is available for the task.
+	if(lenDate == 8) {
+	string date = taskList[index].startDate;
+	string day = date.substr(6,2);
+
+	return day;
+	}
+
+	else return "0";
+
+}
+
+string Store::getMonth(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+	
+	string dateSize = taskList[index].startDate;
+
+	int lenDate = (dateSize).size();
+
+	//Exception handling for empty start date. Throws "0" when no start date is available for the task.
+	if(lenDate == 8) {
+	string date = taskList[index].startDate;
+	string month = date.substr(4,2);
+
+	return month;
+	}
+
+	else return "0";
+	
+}
+
+string Store::getYear(int index) {
+
+	int size = taskList.size();
+	// Asserts that the index is within the task list range.
+	assert(index <= size);
+
+	string dateSize = taskList[index].startDate;
+
+	int lenDate = (dateSize).size();
+
+	//Exception handling for empty start date. Throws "0" when no start date is available for the task.
+	if(lenDate == 8) {
+	string date = taskList[index].startDate;
+	string year =  date.substr(0,4);
+
+	return year;
+	}
+          
+	else return "0";
+}
+
+void Store::markTasksDueToday() {
+	log.log("Store: changing due status");
+
+	string todayDay = currentDay();
+	string todayMonth = currentMonth();
+	string todayYear = currentYear();
+
+
+	for(int i = 0; i <  taskList.size(); i++) {
+
+		if(getDay(i) == todayDay  && getMonth(i) == todayMonth && getYear(i) == todayYear) {
+			taskList[i].isBold = true;
+		}
+		else {
+			taskList[i].isBold = false;
+		}
+	}
+
+	markTasksOverdue();
+}
+
+vector<string> Store::getDateTomorrow() {
+
+	string todayDay = currentDay();
+	string todayMonth = currentMonth();
+	string todayYear = currentYear();
+
+	if (todayDay[0] == 0)
+        todayDay = todayDay[1];
+	if (todayMonth[0] == 0)
+        todayMonth = todayMonth[1];
+
+	int days[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+
+	int valueDay = atoi(todayDay.c_str());
+	int valueMonth = atoi(todayMonth.c_str());
+	int valueYear = atoi(todayYear.c_str());
+
+	valueDay++;
+
+	if ( valueDay > days[valueMonth-1]){
+		
+		valueDay = 1;
+		valueMonth++;
+
+		if ( valueMonth > 12 ) {
+
+			valueYear++; 
+			valueMonth=1;
+		}
+	 }
+
+	// stream used for the conversion
+	ostringstream convert1;   
+
+	convert1 << valueDay;
+
+	string tomorrowDay = convert1.str();
+
+	if(tomorrowDay.length() == 1)
+		tomorrowDay.insert(0, "0");
+	
+	ostringstream convert2;
+
+	convert2 << valueMonth;
+
+	string tomorrowMonth = convert2.str();
+
+	if (tomorrowMonth.length() == 1)
+        tomorrowMonth.insert(0, "0");
+
+	ostringstream convert3;
+
+	convert3 << valueYear;
+
+	string tomorrowYear = convert3.str();
+
+	vector<string> returnedVector;
+
+	returnedVector.push_back(tomorrowDay);
+	returnedVector.push_back(tomorrowMonth);
+	returnedVector.push_back(tomorrowYear);
+
+	return returnedVector;
+} 
+
+//implemented for non-leap years
+void Store::markTasksDueTomorrow() { 
+
+	vector<string> returnedVector = getDateTomorrow();
+	
+	string tomorrowDay = returnedVector[0];
+	string tomorrowMonth = returnedVector[1];
+	string tomorrowYear = returnedVector[2];
+
+
+	for(int i =0; i < taskList.size(); i++) {
+
+		if(getDay(i) ==  tomorrowDay && getMonth(i) == tomorrowMonth && getYear(i) == tomorrowYear) {
+
+			taskList[i].isTomorrow = true;
+		}
+		else
+			taskList[i].isTomorrow = false;
+	}
+		
+		//taskList[1].isTomorrow = true;
+
+	
+} //this returns the tasks marked with tomorrow! now check if tomorrow really works!
+
+
+void Store::markTasksOverdue() {
+
+	string todayDay = currentDay();
+	string todayMonth = currentMonth();
+	string todayYear = currentYear();
+	string taskDate;
+
+	for(int i = 0; i < taskList.size(); i++) {
+
+		string conjoint = todayYear + todayMonth + todayDay; 
+		if(!taskList[i].endDate.empty()) {
+			taskDate = taskList[i].endDate;
+		} else {
+			taskDate = taskList[i].startDate;
+		}
+
+		if(taskDate.size() == 8 && taskDate < conjoint && taskList[i].isDone ==  false) {
+			taskList[i].isRed = true; 
+		}
+
+		else
+			taskList[i].isRed = false;
+	}
+
+}
+
+
+
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Store.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Task.h
+	 */
+
+#ifndef TASK_H
+#define TASK_H
+#include <string>
+
+using namespace std;
+
+class Task {
+public:
+	string taskName;
+	string taskID;	
+	string startDate;
+	string startTime;
+	string endDate;
+	string endTime;
+	string date;
+	string month;
+	string year;
+	bool isBold;
+	bool isRed;
+	bool isDone;
+	bool isTomorrow;
+};
+
+#endif
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Task.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Task.cpp
+	 */
+
+// Task.cpp
+#include "Task.h"
+
+
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\EasyDone\Task.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UnitTest\testWorker.cpp
+	 */
+
+// Written by: Ramireddi Juhi Simanthika
+#include "stdafx.h"
+#include "CppUnitTest.h"
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+namespace workerTest {		
+	TEST_CLASS(Easydone)
+	{
+	public:
+
+/*These tests check if flow of actions from takeParsedCommand in Worker class to functions in  Command class takes place successfully i.e. 
+***********************successful perfomation of CRUD is carried out for FlexiCommand on the vector in Store.*************************/
+
+		// unit test
+		TEST_METHOD(takeParsedCommand_create)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "create arun on 1000";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("create");
+			randomCase.push_back("arun");
+			randomCase.push_back("");
+			randomCase.push_back("1000");
+			randomCase.push_back("");
+			randomCase.push_back("");
+
+
+			example = test.takeParsedCommand(randomCase);
+
+			 
+			string testHardCase = "has been added successfully! :) \r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		
+		
+		}
+		// unit test
+		// 
+		TEST_METHOD(takeParsedCommand_new)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "Australia Holiday from 20141212 to 20141225 start 2300 end 2100";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("add");
+			randomCase.push_back("Australia Holiday");
+			randomCase.push_back("20141212");
+			randomCase.push_back("20141225");
+			randomCase.push_back("2300");
+			randomCase.push_back("2100");
+
+			// "\"" + task.taskName + "\" \r\n"
+
+			example = test.takeParsedCommand(randomCase);
+
+			 
+			string testHardCase ="\"Australia Holiday\"\r\nStart date cannot be after end date. Similarly if the start date and end date are same, start time cannot be after end time.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		
+		
+		}
+
+
+		// test case of an undo
+		TEST_METHOD(takeParsedCommand_3)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "undo";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("undo");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+
+			 
+			string testHardCase = "The most recent change has been removed.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		
+		
+		}
+
+
+		// unit test
+		// boundary test: delete a neg index
+		TEST_METHOD(takeParsedCommand_delete_negInt)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "delete -1";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("delete");
+			randomCase.push_back("-1");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+
+			 
+			string testHardCase = "TaskID is out of range. Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: delete 1000
+		TEST_METHOD(takeParsedCommand_delete_taskID_greaterThanActual)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "delete 1000";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("delete");
+			randomCase.push_back("1000");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+			 
+			string testHardCase = "TaskID is out of range. Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: delete a neg index
+		TEST_METHOD(takeParsedCommand_display_negInt)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "display -1";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("display");
+			randomCase.push_back("-1");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+
+			 
+			string testHardCase = "TaskID is out of range. Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: delete 1000
+		TEST_METHOD(takeParsedCommand_display_taskID_greaterThanActual)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "display 1000";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("delete");
+			randomCase.push_back("1000");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+			 
+			string testHardCase = "TaskID is out of range. Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: delete a neg index
+		TEST_METHOD(takeParsedCommand_update_negInt)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "edit -1 task 123";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("edit");
+			randomCase.push_back("0");
+			randomCase.push_back("task");
+			randomCase.push_back("123");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+
+			 
+			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: delete 1000
+		TEST_METHOD(takeParsedCommand_update_taskID_greaterThanActual)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "edit 1 sd 14 apr 14";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("edit");
+			randomCase.push_back("1");
+			randomCase.push_back("14");
+			randomCase.push_back("1");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+			 
+			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: update 0
+		TEST_METHOD(takeParsedCommand_update_taskID_0)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "edit 0 sd 14 apr 14";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("edit");
+			randomCase.push_back("0");
+			randomCase.push_back("14");
+			randomCase.push_back("1");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+			 
+			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
+
+			Assert::AreEqual(example, testHardCase);
+		}
+
+		// unit test
+		// boundary test: good case of index 1
+		TEST_METHOD(takeParsedCommand_update_taskID_1)
+		{
+			// TODO: Your test code here
+			Worker test;
+			string randomString = "edit 1 sd 14 apr 14";
+			string example;
+			vector<string> randomCase;
+			randomCase.push_back("edit");
+			randomCase.push_back("1");
+			randomCase.push_back("14");
+			randomCase.push_back("1");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("");
+			//randomCase.push_back("20131212");
+		
+			example = test.takeParsedCommand(randomCase);
+			 
+			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
+			Assert::AreEqual(example, testHardCase);
+		}
+
+
+	};
+}
+
+	// End of segment: C:\Users\Jiajun\Documents\Visual Studio 2012\Projects\EasyDone\UnitTest\testWorker.cpp
+
+
+
+
+
