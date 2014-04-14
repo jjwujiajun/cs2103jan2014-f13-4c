@@ -1,3 +1,6 @@
+//@author A0100705Y
+// Themes.h
+// Provides an array of themes for other functions to use for.
 #include "Headers.h"
 #pragma once
 
