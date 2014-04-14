@@ -119,6 +119,7 @@ const int TASKLIST_INDEX_LENGTH = 2;
 const int TASKLIST_NAME_LENGTH = 25;
 
 // PSR
+const string ERROR_NO_INPUT = "Type in something before pressing enter\r\n";
 // Command "add" keywords
 const string keyWord_1 ("on");
 const string keyWord_ON_ ("on ");
@@ -127,6 +128,7 @@ const string keyWord_BY_ ("by ");
 const string keyWord_3 ("from");
 const string keyWord_FROM_ ("from ");
 const string keyWord_4 ("to");
+const string keyWord_TO_ ("to ");
 const string keyWord_5 ("today");
 const string keyWord_6 ("tmo");
 const string keyWord_7 ("tmr");
@@ -164,6 +166,7 @@ const string FORMAT_MONTH_10 (" Oct");
 const string FORMAT_MONTH_11 (" Nov");
 const string FORMAT_MONTH_12 (" Dec");
 // Day
+const string DATE_FORMAT = "/";
 const string DAY_0 ("0");
 const string DAY_1 ("1");
 const string DAY_2 ("2");
@@ -198,7 +201,33 @@ const string DAY_30 ("30");
 const string DAY_31 ("31");
 const string DAY_123 ("123");
 // Time
+const string TIME_FORMAT = ".";
+const string TIME_1 ("1");
+const string TIME_2 ("2");
+const string TIME_3 ("3");
+const string TIME_4 ("4");
+const string TIME_5 ("5");
+const string TIME_6 ("6");
+const string TIME_7 ("7");
+const string TIME_8 ("8");
+const string TIME_9 ("9");
 const string TIME_0 ("0");
+// Others
+const string NUM_1 ("1");
+const string NUM_2 ("2");
+const string NUM_3 ("3");
+const string NUM_4 ("4");
+const string NUM_5 ("5");
+const string NUM_6 ("6");
+const string NUM_7 ("7");
+const string NUM_8 ("8");
+const string NUM_9 ("9");
+const string NUM_10 ("10");
+const string NUM_11 ("11");
+const string NUM_12 ("12");
+const string NUM_0 ("0");
+const string NUM_00 ("00");
+const string NUM_000 ("000");
 
 // WKR
 const string MESSAGE_ADDED_SUCCESSFULLY = "has been added successfully! :) \r\n";
