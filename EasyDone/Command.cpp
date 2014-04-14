@@ -76,7 +76,7 @@ bool Command::Update(Task userTask, string updateField) {
 		Index++;
 	}
 	try {
-		updated = todoList.changeTask(Index, userTask, updateField);
+		updated = todoList.changeTaskPos(Index, userTask, updateField);
 	} catch (string error) {
 		throw error;
 	}
@@ -113,7 +113,7 @@ bool Command::Search(string searchField, string searchItem) {
 	log.log("Searching: Updating task");
 	bool found = false;
 	int counter = 0;
-	found = todoList.SearchItem(counter, searchField, searchItem);
+	found = todoList.searchItem(counter, searchField, searchItem);
 	log.log("Command: Finished searching");
 
 	return found;
@@ -159,7 +159,7 @@ bool Command::markDone(Task task) {
 		temp = todoList.getTask(counter);
 		if(temp.taskID == task.taskID) {
 			temp.isDone = true;
-			todoList.changeTask(counter,temp);
+			todoList.changeTaskPos(counter,temp);
 			done = true;
 			break;
 		}
@@ -227,7 +227,7 @@ void Command::sortDateandTime(int start, int end) {
 		}
 		
 		while(j >= start && nextDate > Date) {
-			todoList.changeTask(j+1, todoList.accessSlot(j));
+			todoList.changeTaskPos(j+1, todoList.accessSlot(j));
 			j--;
 			if(j>=0) {
 				if(!todoList.accessSlot(j).startDate.empty()) {
@@ -237,7 +237,7 @@ void Command::sortDateandTime(int start, int end) {
 				}
 			}
 		}
-		todoList.changeTask(j+1, next);
+		todoList.changeTaskPos(j+1, next);
 		i++;
 	}
 	
@@ -272,14 +272,14 @@ void Command::sortDateandTime(int start, int end) {
 					nextTime = 0;
 				}
 				for(j = i-1; j >= prevsameDate && nextTime > Time; --j) {
-					todoList.changeTask(j+1, todoList.accessSlot(j));
+					todoList.changeTaskPos(j+1, todoList.accessSlot(j));
 					if(!todoList.accessSlot(j).startTime.empty()) {
 						nextTime = stoi(todoList.accessSlot(j).startTime);
 					} else {
 						nextTime = 0;
 					}
 				}
-				todoList.changeTask(j+1, next);
+				todoList.changeTaskPos(j+1, next);
 			}
 		}
 		sameDate++;

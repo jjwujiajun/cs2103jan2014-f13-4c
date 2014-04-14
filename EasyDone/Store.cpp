@@ -1,3 +1,13 @@
+/*@author A0101681R
+* Written by: Ramireddi Juhi Simanthika
+* Name: STORE.CPP
+* Store class defines a private vector of type Task called taskList. 
+* This vector is used to store tasks and their information temporarily before they are copied to a file. 
+* This is an efficient way of manipulating the user's to-do list according to the commands he keys in. 
+* The vector is then copied to a file in Hard disk before the program exits. 
+* Store contains an instance of FileHandler so as to store the user's task permanently in hard disk.   
+*/
+
 #include "Store.h"
 
 
@@ -12,60 +22,6 @@ Store::~Store() {
 	file.saveTaskList(taskList);
 }
 
-string Store::getTaskName(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-	
-	string taskName1 = taskList[index-1].taskName;
-
-	return taskName1;
-}
-
-string Store::getStartTime(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string startTime1=  taskList[index-1].startTime;
-	
-	return startTime1;
-}
-
-string Store::getEndTime(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string endTime1=  taskList[index-1].startTime;
-	
-	return endTime1;
-}
-
-string Store::getStartDate(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string startDate1 = taskList[index-1].startDate;
-	
-	return startDate1;
-}
-
-string Store::getEndDate(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string getEndDate1 = taskList[index-1].endDate;
-	
-	return getEndDate1;
-}
 
 int Store::getSize() {
 
@@ -85,6 +41,7 @@ string Store::getTaskID(int slotNumber) {
 	return taskID;
 }
 
+/*This function returns the task with taskID = slot*/
 Task Store::accessSlot(int slot) {
 
 	int size = taskList.size();
@@ -117,6 +74,7 @@ void Store::saveToFile() {
 	file.saveTaskList(taskList);
 }
 
+/*This function swaps the positions of tasks with TaskID = slot1 and TaskID = slot2*/
 void Store::switchTask(int slot1, int slot2) {
 
 	int size = taskList.size();
@@ -132,19 +90,21 @@ void Store::switchTask(int slot1, int slot2) {
 	markTasksOverdue();
 }
 
-void Store::changeTask(int slot, Task slotTask) {
+/*This function changes task ID of certain task to number defined by slot*/		
+void Store::changeTaskPos(int slot, Task task) {
 	
 	int size = taskList.size();
 	// Asserts that slot and slotTask's task ID are within the task list range.
 	assert(slot < size);
-	assert(stoi(slotTask.taskID) <= size);
+	assert(stoi(task.taskID) <= size);
 
 	log.log("Store: changing task");
-	taskList[slot] = slotTask;
+	taskList[slot] = task;
 
 	markTasksOverdue();
 }
 
+/*This function erases the task(with taskIndex as it's ID ) from the vector<String>*/
 bool Store::eraser(string taskIndex) {
 
 	int size = taskList.size();
@@ -174,6 +134,7 @@ bool Store::eraser(string taskIndex) {
 	return erased;
 }
 
+/*This function returns a Task based on whether taskID = indexEntered*/
 Task Store::accesswithTaskID(int indexEntered) {
 	
 	int size = taskList.size();
@@ -188,8 +149,6 @@ Task Store::accesswithTaskID(int indexEntered) {
 
 			return taskList[i];
 		}
-
-		//need an else case but idk how to do that LOL cause I am returning a Task data type ahem ok wtv or like if list is empty
 
 	}
 
@@ -225,8 +184,9 @@ Task Store::getTask(int slot) {
 
 	return taskList.at(slot);
 }
-	
-bool Store::changeTask(int Index, Task userTask, string updateField) {
+
+/*This function changes a particular field of certain task to number with taskID = slot*/		
+bool Store::changeTaskPos(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
 	int size = taskList.size();
@@ -308,7 +268,7 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 	return true;
 }
 
-bool Store::SearchItem(int Index, string searchField, string searchItem) {
+bool Store::searchItem(int Index, string searchField, string searchItem) {
 
 	int size = taskList.size();
 	// Asserts that the Index is within the task list range.
@@ -349,6 +309,7 @@ bool Store::SearchItem(int Index, string searchField, string searchItem) {
 	return found;
 }
 
+/*duplicates the taskList. This function was being used earlier but is not being used now.*/
 vector<Task> Store::getTaskList() {
 
 	vector<Task> duplicated;
@@ -402,6 +363,7 @@ void Store::updateTaskID() {
 	}
 }
 
+/*This next 3 functions: currentDay(), currentMonth() and currentYear() are used to obtain the current date in real-time*/
 string Store::currentDay() {
 
 	time_t rawtime;
@@ -470,6 +432,7 @@ string Store::currentYear() {
 
 }
 
+/*The next 3 functions: getDay(), getMonth() and getYear() splits the 8 character date string obtained from Parser via Worker*/ 
 string Store::getDay(int index) {   
 	//only meant for startDate
 
@@ -536,6 +499,7 @@ string Store::getYear(int index) {
 	else return "0";
 }
 
+/*This function "marks" all tasks that are due on a particular day by setting an boolean attribute of Task, isBold, to true*/
 void Store::markTasksDueToday() {
 	log.log("Store: changing due status");
 
@@ -557,6 +521,7 @@ void Store::markTasksDueToday() {
 	markTasksOverdue();
 }
 
+/*This function obtains tomorrow's date*/
 vector<string> Store::getDateTomorrow() {
 
 	string todayDay = currentDay();
@@ -622,7 +587,7 @@ vector<string> Store::getDateTomorrow() {
 	return returnedVector;
 } 
 
-//implemented for non-leap years
+/*This function "marks" all tasks that are due on a particular day by setting an boolean attribute of Task, isTomorrow, to true*/
 void Store::markTasksDueTomorrow() { 
 
 	vector<string> returnedVector = getDateTomorrow();
@@ -645,9 +610,10 @@ void Store::markTasksDueTomorrow() {
 		//taskList[1].isTomorrow = true;
 
 	
-} //this returns the tasks marked with tomorrow! now check if tomorrow really works!
+} 
 
-
+/*This function "marks" all tasks that are overdue(based on their end date if they have one or else it uses their start date)
+*******************************by setting an boolean attribute of Task, isRed, to true*************************************/
 void Store::markTasksOverdue() {
 
 	string todayDay = currentDay();
