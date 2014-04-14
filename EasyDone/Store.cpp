@@ -74,7 +74,6 @@ void Store::saveToFile() {
 	file.saveTaskList(taskList);
 }
 
-/*This function swaps the positions of tasks with TaskID = slot1 and TaskID = slot2*/
 void Store::switchTask(int slot1, int slot2) {
 
 	int size = taskList.size();
@@ -90,21 +89,19 @@ void Store::switchTask(int slot1, int slot2) {
 	markTasksOverdue();
 }
 
-/*This function changes task ID of certain task to number defined by slot*/		
-void Store::changeTaskPos(int slot, Task task) {
+void Store::changeTask(int slot, Task slotTask) {
 	
 	int size = taskList.size();
 	// Asserts that slot and slotTask's task ID are within the task list range.
 	assert(slot < size);
-	assert(stoi(task.taskID) <= size);
+	assert(stoi(slotTask.taskID) <= size);
 
 	log.log("Store: changing task");
-	taskList[slot] = task;
+	taskList[slot] = slotTask;
 
 	markTasksOverdue();
 }
 
-/*This function erases the task(with taskIndex as it's ID ) from the vector<String>*/
 bool Store::eraser(string taskIndex) {
 
 	int size = taskList.size();
@@ -134,7 +131,6 @@ bool Store::eraser(string taskIndex) {
 	return erased;
 }
 
-/*This function returns a Task based on whether taskID = indexEntered*/
 Task Store::accesswithTaskID(int indexEntered) {
 	
 	int size = taskList.size();
@@ -149,6 +145,8 @@ Task Store::accesswithTaskID(int indexEntered) {
 
 			return taskList[i];
 		}
+
+		//need an else case but idk how to do that LOL cause I am returning a Task data type ahem ok wtv or like if list is empty
 
 	}
 
@@ -184,9 +182,8 @@ Task Store::getTask(int slot) {
 
 	return taskList.at(slot);
 }
-
-/*This function changes a particular field of certain task to number with taskID = slot*/		
-bool Store::changeTaskPos(int Index, Task userTask, string updateField) {
+	
+bool Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
 	int size = taskList.size();
@@ -309,7 +306,6 @@ bool Store::searchItem(int Index, string searchField, string searchItem) {
 	return found;
 }
 
-/*duplicates the taskList. This function was being used earlier but is not being used now.*/
 vector<Task> Store::getTaskList() {
 
 	vector<Task> duplicated;
@@ -363,7 +359,6 @@ void Store::updateTaskID() {
 	}
 }
 
-/*This next 3 functions: currentDay(), currentMonth() and currentYear() are used to obtain the current date in real-time*/
 string Store::currentDay() {
 
 	time_t rawtime;
@@ -432,7 +427,6 @@ string Store::currentYear() {
 
 }
 
-/*The next 3 functions: getDay(), getMonth() and getYear() splits the 8 character date string obtained from Parser via Worker*/ 
 string Store::getDay(int index) {   
 	//only meant for startDate
 
@@ -499,7 +493,6 @@ string Store::getYear(int index) {
 	else return "0";
 }
 
-/*This function "marks" all tasks that are due on a particular day by setting an boolean attribute of Task, isBold, to true*/
 void Store::markTasksDueToday() {
 	log.log("Store: changing due status");
 
@@ -521,7 +514,6 @@ void Store::markTasksDueToday() {
 	markTasksOverdue();
 }
 
-/*This function obtains tomorrow's date*/
 vector<string> Store::getDateTomorrow() {
 
 	string todayDay = currentDay();
@@ -587,7 +579,7 @@ vector<string> Store::getDateTomorrow() {
 	return returnedVector;
 } 
 
-/*This function "marks" all tasks that are due on a particular day by setting an boolean attribute of Task, isTomorrow, to true*/
+//implemented for non-leap years
 void Store::markTasksDueTomorrow() { 
 
 	vector<string> returnedVector = getDateTomorrow();
@@ -610,10 +602,9 @@ void Store::markTasksDueTomorrow() {
 		//taskList[1].isTomorrow = true;
 
 	
-} 
+} //this returns the tasks marked with tomorrow! now check if tomorrow really works!
 
-/*This function "marks" all tasks that are overdue(based on their end date if they have one or else it uses their start date)
-*******************************by setting an boolean attribute of Task, isRed, to true*************************************/
+
 void Store::markTasksOverdue() {
 
 	string todayDay = currentDay();
@@ -639,3 +630,5 @@ void Store::markTasksOverdue() {
 	}
 
 }
+
+

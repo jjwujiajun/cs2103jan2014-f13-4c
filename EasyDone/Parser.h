@@ -87,8 +87,16 @@ const string DATE_dec = "dec";
 const string DATE_Dec = "Dec";
 const string DATE_DEC = "DEC";
 
-class Parser {
 
+#define TESTMODE
+
+
+class Parser {
+#ifndef TESTMODE 
+private: 
+#else 
+public: 
+#endif
 	vector<string> storeUserInfo;
 	vector<string> storeOther;
 	vector<string> userInformation;
