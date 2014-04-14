@@ -46,7 +46,7 @@ public:
 	// Sorts the task list according to the done tasks, start date and start time
 	void sort();
 	// Sorts the task list according to the start date and start time
-	void sortDateandTime(int start, int end);
+	void sortDateAndTime(int start, int end);
 	// Sorts the task list according to the done tasks
 	void sortdone();
 	

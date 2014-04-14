@@ -175,7 +175,7 @@ void Manager::init() {
 
 	log.log(LOG_MANAGER_TO_WORKER);
 	try {
-		feedback = worker.takeparsedCommand(parsedInput);
+		feedback = worker.takeParsedCommand(parsedInput);
 	} catch (string error) {
 		throw error;
 	}

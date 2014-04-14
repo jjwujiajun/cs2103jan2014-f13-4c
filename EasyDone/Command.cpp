@@ -30,7 +30,7 @@ bool Command::Add(Task userTask) {
 		}
 	}
 	if(added) {
-		int vectindexofNexttask = todoList.getSize();
+		int vectIndexOfNextTask = todoList.getSize();
 	
 		int newTaskID = issueNewTaskID();
 		userTask.taskID = to_string(newTaskID);
@@ -199,15 +199,15 @@ void Command::sort() {
 				break;
 			}
 		}
-		sortDateandTime(0, counter);
-		sortDateandTime(counter, todoList.getSize());
+		sortDateAndTime(0, counter);
+		sortDateAndTime(counter, todoList.getSize());
 
 		todoList.updateTaskID();
 	}
 
 }
 
-void Command::sortDateandTime(int start, int end) {
+void Command::sortDateAndTime(int start, int end) {
 	
 	log.log("Command: sorting List");
 	Task next;
@@ -242,10 +242,10 @@ void Command::sortDateandTime(int start, int end) {
 		i++;
 	}
 	
-	int Time, nextTime, prevsameDate, sameDate = 0, counter = start, countNum;
+	int Time, nextTime, prevSameDate, sameDate = 0, counter = start, countNum;
 	
 	while(sameDate < end) {
-		prevsameDate = sameDate;
+		prevSameDate = sameDate;
 		next = todoList.getTask(sameDate);
 
 		while((sameDate+1)<end) {
@@ -255,8 +255,8 @@ void Command::sortDateandTime(int start, int end) {
 				break;
 		}
 
-		counter = prevsameDate+1;
-		countNum = sameDate - prevsameDate;
+		counter = prevSameDate+1;
+		countNum = sameDate - prevSameDate;
 
 		if(countNum>0) {
 			for(int i = counter; i <= sameDate; i++) {
@@ -272,7 +272,7 @@ void Command::sortDateandTime(int start, int end) {
 				} else {
 					nextTime = 0;
 				}
-				for(j = i-1; j >= prevsameDate && nextTime > Time; --j) {
+				for(j = i-1; j >= prevSameDate && nextTime > Time; --j) {
 					todoList.changeTaskPos(j+1, todoList.accessSlot(j));
 					if(!todoList.accessSlot(j).startTime.empty()) {
 						nextTime = stoi(todoList.accessSlot(j).startTime);
