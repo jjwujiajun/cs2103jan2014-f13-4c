@@ -128,6 +128,8 @@ void Store::switchTask(int slot1, int slot2) {
 	Task tempTask = taskList[slot1];
 	taskList[slot1] = taskList[slot2];
 	taskList[slot2] = tempTask;
+
+	markTasksOverdue();
 }
 
 void Store::changeTask(int slot, Task slotTask) {
@@ -139,6 +141,8 @@ void Store::changeTask(int slot, Task slotTask) {
 
 	log.log("Store: changing task");
 	taskList[slot] = slotTask;
+
+	markTasksOverdue();
 }
 
 bool Store::eraser(string taskIndex) {
@@ -163,6 +167,8 @@ bool Store::eraser(string taskIndex) {
 		taskList[slot] = taskList[slot+1];
 	}
 	taskList.pop_back();
+
+	markTasksOverdue();
 	log.log("Store: task erased");
 
 	return erased;
@@ -198,6 +204,7 @@ void Store::pushback(Task newTask) {
 	newTask.isDone = false;
 	taskList.push_back(newTask);
 
+	markTasksOverdue();
 }
 
 void Store::pushbackDoneTask(Task newTask) {
@@ -207,6 +214,8 @@ void Store::pushbackDoneTask(Task newTask) {
 	//assert(stoi(newTask.taskID) <= size);
 
 	taskList.push_back(newTask);
+
+	markTasksOverdue();
 }
 
 Task Store::getTask(int slot) {
@@ -258,6 +267,8 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 			taskList[Index].endTime = userTask.endTime;
 		}
 	}
+
+	markTasksOverdue();
 	log.log("Store: field updated");
 	return STRING_TRUE;
 }
@@ -416,7 +427,7 @@ string Store::currentYear() {
 	
 	ostringstream convert;   // stream used for the conversion
 
-	convert << "2014"; 
+	convert << nowYear; 
 
 	string nowYearstr = convert.str();
 
@@ -507,6 +518,8 @@ void Store::markTasksDueToday() {
 			taskList[i].isBold = false;
 		}
 	}
+
+	markTasksOverdue();
 }
 
 vector<string> Store::getDateTomorrow() {
@@ -605,12 +618,16 @@ void Store::markTasksOverdue() {
 	string todayDay = currentDay();
 	string todayMonth = currentMonth();
 	string todayYear = currentYear();
-
+	string taskDate;
 
 	for(int i = 0; i < taskList.size(); i++) {
 
 		string conjoint = todayYear + todayMonth + todayDay; 
-		string taskDate = taskList[i].endDate;
+		if(!taskList[i].endDate.empty()) {
+			taskDate = taskList[i].endDate;
+		} else {
+			taskDate = taskList[i].startDate;
+		}
 
 		if(taskDate.size() == 8 && taskDate < conjoint && taskList[i].isDone ==  false) {
 			taskList[i].isRed = true; 
@@ -619,57 +636,5 @@ void Store::markTasksOverdue() {
 		else
 			taskList[i].isRed = false;
 	}
-
-
-	/*for(int i = 0;i < taskList.size(); i++)
-	{
-		Task task = taskList[i];
-
-		//task.isRed = false;
-
-		string taskDay =  getDay(i);
-		string taskMonth = getMonth(i);
-		string taskYear = getYear(i);
-
-		if(todayYear > taskYear) {
-
-			task.isRed = true;
-		}
-
-		else if (todayYear == taskYear) {
-
-			if(todayMonth > taskMonth) {
-
-				task.isRed = true;
-			}
-
-		}
-
-		else if (todayYear == taskYear) { 
-
-			if(todayMonth ==  taskMonth) {
-				 
-				if(todayDay > taskDay) {
-
-					task.isRed = true;
-				}
-			}
-		}
-
-		else if (todayYear == taskYear) { 
-
-			if(todayMonth ==  taskMonth) {
-				 
-				if(todayDay == taskDay) {
-
-					task.isRed = false;
-				}
-			}
-		}
-
-	}*/
-
-//	Task task = taskList[1];
-//	task.isRed = true;
 
 }
