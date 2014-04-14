@@ -1,3 +1,4 @@
+//@author A0094588J
 #include "Headers.h"
 #include "Parser.h"
 //new parser
@@ -349,15 +350,15 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						i++;		
 						
 			
-						if (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC) {
+						if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC)) {
 						
-						month = storeUserInfo[i];
-						++i;
-						if ( i < storeUserInfo.size() ) {
-						year = storeUserInfo[i];
+							month = storeUserInfo[i];
+							++i;
+							if ( i < storeUserInfo.size() ) {
+							year = storeUserInfo[i];
 						} else {
-						year = YEAR_14;
-						storeUserInfo.push_back(NULL_STRING);
+							year = YEAR_14;
+							storeUserInfo.push_back(NULL_STRING);
 						}
 
 						final = naturalParseInput(date, month, year);
@@ -400,30 +401,31 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						}
 						
 					} else {
-
-						taskName = storeUserInfo[i];
-						}
+						i = i-2;
+						taskName = taskName + storeUserInfo[i] + STRING_SPACE + storeUserInfo[i+1] + STRING_SPACE;
+						i = i+2;
+					}
 							
 					} else {
 
-					store = storeUserInfo[i]; // remember to add STRING_SPACE spacing next time for parsing stuff like "21 Dec"
-					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
+						store = storeUserInfo[i]; // remember to add STRING_SPACE spacing next time for parsing stuff like "21 Dec"
+						if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
 
-					endDate = storeUserInfo[i];
-					startDate = endDate;
+						endDate = storeUserInfo[i];
+						startDate = endDate;
 				
-					++i;	
+						++i;	
 	
 					if(i < (int) storeUserInfo.size()) { 
-					endTime = storeUserInfo[i];
+						endTime = storeUserInfo[i];
 
-					//guards
-					verifyTime = checkParseTime(endTime);
+						//guards
+						verifyTime = checkParseTime(endTime);
 
-					// push back guard output into vector
-					endTime = guardConvertParserTime(verifyTime, endTime);
-					startTime = endTime;
-					++i;
+						// push back guard output into vector
+						endTime = guardConvertParserTime(verifyTime, endTime);
+						startTime = endTime;
+						++i;
 					}
 
 				} else {
@@ -486,15 +488,15 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							
 			
 
-						if (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC) {
+						if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC)) {
 						
-						month = storeUserInfo[i];
-						++i;
-						if ( i < storeUserInfo.size() ) {
-						year = storeUserInfo[i];
-						} else {
-						year = YEAR_14;
-						storeUserInfo.push_back(NULL_STRING);
+							month = storeUserInfo[i];
+							++i;
+							if ( i < storeUserInfo.size() ) {
+							year = storeUserInfo[i];
+							} else {
+							year = YEAR_14;
+							storeUserInfo.push_back(NULL_STRING);
 						}
 
 						final = naturalParseInput(date, month, year);
@@ -607,8 +609,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						}
 						
 						} else {
-
-						taskName = storeUserInfo[i];
+							i = i-2;
+							taskName = taskName + storeUserInfo[i] + STRING_SPACE + storeUserInfo[i+1] + STRING_SPACE;
+							i = i+2;
 						}
 
 				} else {
@@ -1270,7 +1273,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					storeUserInfo[i] != keyWord_3 &&
 					storeUserInfo[i] != keyWord_4 ) {
 
-if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserInfo[i] == DAY_2 || storeUserInfo[i] == DAY_3 || storeUserInfo[i] == DAY_4 || storeUserInfo[i] == DAY_5 || storeUserInfo[i] == DAY_6 || storeUserInfo[i] == DAY_7 || storeUserInfo[i] == DAY_8 || storeUserInfo[i] == DAY_9 || storeUserInfo[i] == DAY_10 || storeUserInfo[i] == DAY_11 || storeUserInfo[i] == DAY_12 || storeUserInfo[i] == DAY_13 || storeUserInfo[i] == DAY_14 || storeUserInfo[i] == DAY_15 || storeUserInfo[i] == DAY_16 || storeUserInfo[i] == DAY_17 || storeUserInfo[i] == DAY_18 || storeUserInfo[i] == DAY_19 || storeUserInfo[i] == DAY_20 || storeUserInfo[i] == DAY_21 || storeUserInfo[i] == DAY_22 || storeUserInfo[i] == DAY_23 || storeUserInfo[i] == DAY_24 || storeUserInfo[i] == DAY_25 || storeUserInfo[i] == DAY_26 || storeUserInfo[i] == DAY_27 || storeUserInfo[i] == DAY_28 || storeUserInfo[i] == DAY_29 || storeUserInfo[i] == DAY_30 || storeUserInfo[i] == DAY_31 ) ) {
+					if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserInfo[i] == DAY_2 || storeUserInfo[i] == DAY_3 || storeUserInfo[i] == DAY_4 || storeUserInfo[i] == DAY_5 || storeUserInfo[i] == DAY_6 || storeUserInfo[i] == DAY_7 || storeUserInfo[i] == DAY_8 || storeUserInfo[i] == DAY_9 || storeUserInfo[i] == DAY_10 || storeUserInfo[i] == DAY_11 || storeUserInfo[i] == DAY_12 || storeUserInfo[i] == DAY_13 || storeUserInfo[i] == DAY_14 || storeUserInfo[i] == DAY_15 || storeUserInfo[i] == DAY_16 || storeUserInfo[i] == DAY_17 || storeUserInfo[i] == DAY_18 || storeUserInfo[i] == DAY_19 || storeUserInfo[i] == DAY_20 || storeUserInfo[i] == DAY_21 || storeUserInfo[i] == DAY_22 || storeUserInfo[i] == DAY_23 || storeUserInfo[i] == DAY_24 || storeUserInfo[i] == DAY_25 || storeUserInfo[i] == DAY_26 || storeUserInfo[i] == DAY_27 || storeUserInfo[i] == DAY_28 || storeUserInfo[i] == DAY_29 || storeUserInfo[i] == DAY_30 || storeUserInfo[i] == DAY_31 ) ) {
 
 						date = storeUserInfo[i];
 						
@@ -1278,17 +1281,17 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserIn
 						
 
 
-						if (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC) {
+						if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC)) {
 						
-						month = storeUserInfo[i];
-						++i;
-						if ( i < storeUserInfo.size() ) {
-						year = storeUserInfo[i];
+							month = storeUserInfo[i];
+							++i;
+							if ( i < storeUserInfo.size() ) {
+							year = storeUserInfo[i];
 
 						} else {
 
-						year = YEAR_14;
-						storeUserInfo.push_back(NULL_STRING);
+							year = YEAR_14;
+							storeUserInfo.push_back(NULL_STRING);
 						}
 
 						final = naturalParseInput(date, month, year);
@@ -1330,8 +1333,9 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserIn
 						}
 						
 					} else {
-
-						taskName = storeUserInfo[i];
+						i = i-2;
+						taskName = taskName + storeUserInfo[i] + STRING_SPACE + storeUserInfo[i+1] + STRING_SPACE;
+						i = i+2;
 						}
 				
 					} else {					
@@ -1410,17 +1414,17 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserIn
 						
 			
 
-						if (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC) {
+						if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC)) {
 						
-						month = storeUserInfo[i];
-						++i;
-						if ( i < storeUserInfo.size() ) {
-						year = storeUserInfo[i];
+							month = storeUserInfo[i];
+							++i;
+							if ( i < storeUserInfo.size() ) {
+							year = storeUserInfo[i];
 
-						} else {
+							} else {
 
-						year = YEAR_14;
-						storeUserInfo.push_back(NULL_STRING);
+							year = YEAR_14;
+							storeUserInfo.push_back(NULL_STRING);
 						}
 
 						final = naturalParseInput(date, month, year);
@@ -1463,8 +1467,9 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserIn
 						}
 						
 					} else {
-
-						taskName = storeUserInfo[i];
+						i = i-2;
+						taskName = taskName + storeUserInfo[i] + STRING_SPACE + storeUserInfo[i+1] + STRING_SPACE;
+						i = i+2;
 						}
 		
 					} else {
@@ -1544,7 +1549,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserIn
 						i++;		
 								
 			
-						if (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC) {
+						if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DATE_jan || storeUserInfo[i] == DATE_Jan || storeUserInfo[i] == DATE_JAN || storeUserInfo[i] == DATE_feb || storeUserInfo[i] == DATE_Feb || storeUserInfo[i] == DATE_FEB || storeUserInfo[i] == DATE_March || storeUserInfo[i] == DATE_Mar || storeUserInfo[i] == DATE_MAR || storeUserInfo[i] == DATE_mar || storeUserInfo[i] == DATE_march  || storeUserInfo[i] == DATE_apr || storeUserInfo[i] == DATE_Apr || storeUserInfo[i] == DATE_APR || storeUserInfo[i] == DATE_april || storeUserInfo[i] == DATE_April || storeUserInfo[i] == DATE_may || storeUserInfo[i] == DATE_May || storeUserInfo[i] == DATE_MAY || storeUserInfo[i] == DATE_jun || storeUserInfo[i] == DATE_june || storeUserInfo[i] == DATE_June || storeUserInfo[i] == DATE_Jun || storeUserInfo[i] == DATE_JUN || storeUserInfo[i] == DATE_july || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_July || storeUserInfo[i] == DATE_jul || storeUserInfo[i] == DATE_Jul || storeUserInfo[i] == DATE_aug || storeUserInfo[i] == DATE_Aug || storeUserInfo[i] == DATE_AUG || storeUserInfo[i] == DATE_Sep || storeUserInfo[i] == DATE_SEP || storeUserInfo[i] ==  DATE_sep || storeUserInfo[i] == DATE_oct || storeUserInfo[i] == DATE_Oct || storeUserInfo[i] == DATE_OCT || storeUserInfo[i] == DATE_nov || storeUserInfo[i] == DATE_NOV|| storeUserInfo[i] == DATE_Nov || storeUserInfo[i] == DATE_Dec || storeUserInfo[i] == DATE_dec || storeUserInfo[i] == DATE_DEC)) {
 						
 						month = storeUserInfo[i];
 						++i;
@@ -1669,8 +1674,9 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == DAY_1 || storeUserIn
 						}
 						
 						} else {
-
-						taskName = storeUserInfo[i];
+							i = i-2;
+							taskName = taskName + storeUserInfo[i] + STRING_SPACE + storeUserInfo[i+1] + STRING_SPACE;
+							i = i+2;
 						}
 
 
@@ -2375,6 +2381,9 @@ string Parser::guardConvertParserTime(string verifyTime, string time) {
 
 // main heart of parser where the main calling of parser function takes place 
 vector<string> Parser::completeParse(string userInput) {
+
+	//Asserts that user details is available to be passed to manager
+	assert(!userInformation.empty());
 
 		parserEmpty();
 

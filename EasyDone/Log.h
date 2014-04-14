@@ -1,5 +1,7 @@
 #include <fstream>
 #include <string>
+
+// 
 using namespace std;
 #pragma once
 const string LOG_FILE = "log.txt";
