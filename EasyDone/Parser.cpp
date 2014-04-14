@@ -2383,7 +2383,7 @@ string Parser::guardConvertParserTime(string verifyTime, string time) {
 vector<string> Parser::completeParse(string userInput) {
 
 	//Asserts that user details is available to be passed to manager
-	assert(!userInformation.empty());
+	//assert(!userInformation.empty());
 
 		parserEmpty();
 
