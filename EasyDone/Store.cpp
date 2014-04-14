@@ -74,6 +74,7 @@ void Store::saveToFile() {
 	file.saveTaskList(taskList);
 }
 
+/*This function swaps the positions of tasks with TaskID = slot1 and TaskID = slot2*/
 void Store::switchTask(int slot1, int slot2) {
 
 	int size = taskList.size();
@@ -89,7 +90,8 @@ void Store::switchTask(int slot1, int slot2) {
 	markTasksOverdue();
 }
 
-void Store::changeTask(int slot, Task slotTask) {
+/*This function changes task ID of certain task to number defined by slot*/		
+void Store::changeTaskPos(int slot, Task task) {
 	
 	int size = taskList.size();
 	// Asserts that slot and slotTask's task ID are within the task list range.
@@ -146,8 +148,6 @@ Task Store::accesswithTaskID(int indexEntered) {
 			return taskList[i];
 		}
 
-		//need an else case but idk how to do that LOL cause I am returning a Task data type ahem ok wtv or like if list is empty
-
 	}
 
 }
@@ -182,8 +182,9 @@ Task Store::getTask(int slot) {
 
 	return taskList.at(slot);
 }
-	
-bool Store::changeTask(int Index, Task userTask, string updateField) {
+
+
+bool Store::changeTaskPos(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
 	int size = taskList.size();
@@ -629,9 +630,4 @@ void Store::markTasksOverdue() {
 			taskList[i].isRed = false;
 	}
 
-}
-
-void Store::saveToFile() {
-	log.log("Store: saving to file");
-	file.saveTaskList(taskList);
 }
