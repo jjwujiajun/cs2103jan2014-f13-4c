@@ -1,5 +1,6 @@
-//@author A0100705Y
-// FileHandler.cpp
+/*@ author A0100705Y
+ *@ author A0101691R
+FileHandler.cpp */
 #include "FileHandler.h"
 
 using namespace std;
