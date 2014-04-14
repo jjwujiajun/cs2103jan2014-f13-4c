@@ -149,6 +149,34 @@ void GUI::Interface::togglePaneRight() {
 	}
 }
 
+void GUI::Interface::seeNextPage() {
+	++pageNumber;
+	if (isSearching) {
+		operateUserSearchRequest();
+	} else if (summaryTaskListIsShown) {
+		switchToSummaryTaskListDisplay();
+	} else if (allTaskListIsShown) {
+		switchToAllTaskListDisplay();
+	} else if (doneTaskListIsShown) {
+		switchToDoneTaskListDisplay();
+	}
+}
+
+void GUI::Interface::seePreviousPage() {
+	if (pageNumber > 0) {
+		--pageNumber;
+	}
+	if (isSearching) {
+		operateUserSearchRequest();
+	} else if (summaryTaskListIsShown) {
+		switchToSummaryTaskListDisplay();
+	} else if (allTaskListIsShown) {
+		switchToAllTaskListDisplay();
+	} else if (doneTaskListIsShown) {
+		switchToDoneTaskListDisplay();
+	}
+}
+
 void GUI::Interface::switchToSummaryTaskListDisplay() {
 	summaryTaskListIsShown = true;
 	allTaskListIsShown = false;
@@ -343,11 +371,11 @@ void GUI::Interface::toggleSettingsTab() {
 	
 	if (settingsTabIsVisible) {
 		this->settingsTab->Hide();
-		settingsTabSettingButton->Text = "Show";
+		settingsTabSettingButton->Text = BUTTON_SHOW;
 		manager->saveSettingTabSetting(false);
 	} else {
 		this->settingsTab->Show();
-		settingsTabSettingButton->Text = "Hide";
+		settingsTabSettingButton->Text = BUTTON_HIDE;
 		manager->saveSettingTabSetting(true);
 	}
 	log->log("GUI: settingsTab is toggled");
@@ -535,7 +563,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	if (receivedTodayTaskList.empty()) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
-		richTaskList->SelectedText = "No task today :)\n";
+		richTaskList->SelectedText = SUMMARY_NO_TASK_TODAY;
 		++taskListBoxRow;
 	} else {
 		while (i < (int)receivedTodayTaskList.size() && taskListBoxRow < numRowsToDisplayForSummary) {
@@ -552,7 +580,7 @@ void GUI::Interface::displaySummaryTaskListBox() {
 	if (receivedTomorrowTaskList.empty() && taskListBoxRow < numRowsToDisplayForSummary) {
 		richTaskList->SelectionFont = gcnew System::Drawing::Font(TASKLIST_FONT_TASK, TASKLIST_SIZE_TASKINFO, FontStyle::Regular);
 		richTaskList->SelectionColor = theme[color]->words;
-		richTaskList->SelectedText = "No task tomorrow :)\n";
+		richTaskList->SelectedText = SUMMARY_NO_TASK_TOMORROW;
 		++taskListBoxRow;
 	} else {
 		i = 0;

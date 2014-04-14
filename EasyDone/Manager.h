@@ -7,6 +7,8 @@
  * 1. Parsing user input for understanding
  * 2. Performing the tasking requirements
  * 3. Manange the live feedback required for easy use for beginners.
+ *
+ * Coded by: Wu Jiajun A0100705Y
  */
 
 #include "Headers.h"
