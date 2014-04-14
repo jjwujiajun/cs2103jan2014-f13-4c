@@ -193,12 +193,12 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	stringToMain.clear();
 
 	if(command == KEYWORD_ADD) {
-		stringToMain = "\"" + userTask.taskName + "\" \r\n";
+		stringToMain = STRING_QUOTE + userTask.taskName + STRING_QUOTE + SYSTEM_ENDL;
 	} else if(continueNext) {
-		if (!userTask.taskID.empty() && command != "undo") {
+		if (!userTask.taskID.empty() && command != KEYWORD_UNDO) {
 			int taskID = atoi(userTask.taskID.c_str()) - 1;
 			Task task = userCommand.getTask(taskID); 
-			stringToMain = "\"" + task.taskName + "\" \r\n";
+			stringToMain = STRING_QUOTE + task.taskName + STRING_QUOTE + SYSTEM_ENDL;
 		}
 	}
 
@@ -277,25 +277,25 @@ string Worker::actonCommand(string command)
 				}
 		
 			} else if (startDate == DAY_1 || endDate == DAY_1 ) {
-				successful = "Invalid date!!!! Task has not been edited successfully! ): Is it a 30th or 31st?? Ensure time format is correct too! =) \r\n";
+				successful = MESSAGE_UPDATED_FAILED_INVALID_DATE + MESSAGE_UPDATED_FAILED;
 
 			} else if (startDate == DAY_3 || endDate == DAY_3) {
-				successful = "Invalid Year!!! Task has not been edited successfully! ): Year valid till 2099! Ensure time format is correct too! =) \r\n";
+				successful = MESSAGE_UPDATED_FAILED_INVALID_YEAR + MESSAGE_UPDATED_FAILED;
 		
 			} else if (startDate == DAY_12 || endDate == DAY_12) {
-				successful = "Invalid date & Month!!! Task has not been edited successfully! ): Month is from 1 to 12! Ensure time format is correct too! =) \r\n";
+				successful = MESSAGE_UPDATED_FAILED_INVALID_DATE_MONTH + MESSAGE_UPDATED_FAILED;
 
 			} else if (startDate == DAY_13 || endDate == DAY_13) {
-				successful = "Invalid date & Year!!! Task has not been edited successfully! ): Is it a leap Year?? Ensure time format is correct too! =) \r\n";
+				successful = MESSAGE_UPDATED_FAILED_INVALID_DATE_YEAR + MESSAGE_UPDATED_FAILED;
 
 			} else if (startDate == DAY_123 || endDate == DAY_123) {
-				successful = "Invalid Date & Month & Year!!! Task has not been edited successfully! ): Type Carefully! Ensure time format is correct too! =) \r\n";
+				successful = MESSAGE_UPDATED_FAILED_INVALID_DATE_MONTH_YEAR + MESSAGE_UPDATED_FAILED;
 
 			} else if (startTime == TIME_0 || endTime == TIME_0) {
-				successful = "Invalid Time!!! Task has not been edited successfully! ): Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
+				successful = MESSAGE_UPDATED_FAILED_INVALID_TIME + MESSAGE_UPDATED_FAILED;
 			} 
 		} else {
-			successful = "Either invalid field input or taskID is out of range! Please check again.\r\n";
+			successful = MESSAGE_UPDATED_FAILED_OUT_OF_RANGE;
 		}
 		
 	}
@@ -303,10 +303,10 @@ string Worker::actonCommand(string command)
 	else if(command == KEYWORD_SEARCH ) {
 		bool found = userCommand.Search(searchField, searchItem);
 		if(found) {
-			successful = "These tasks found.";
+			successful = MESSAGE_SEARCH_SUCCESSFUL;
 		}
 		else {
-			successful = "Task not found.\r\n";
+			successful = MESSAGE_SEARCH_FAILED;
 		}
 	}
 
@@ -314,13 +314,13 @@ string Worker::actonCommand(string command)
 		if(continueNext == true) {
 			bool found = userCommand.markDone(userTask);
 			if(found) {
-				successful = "Task marked done.\r\n";
+				successful = MESSAGE_DONE_SUCCESSFUL;
 			}
 			else {
-				successful = "Task not found.\r\n";
+				successful = MESSAGE_DONE_FAILED;
 			}
 		} else {
-			successful = "TaskID is out of range. Please check again.\r\n";
+			successful = MESSAGE_OUT_OF_RANGE_INDEX;
 		}
 	}
 
@@ -333,19 +333,19 @@ string Worker::actonCommand(string command)
 			bool shouldShowYear = true;
 			bool shouldBeDetailed = false;
 
-			successful = "Starts: " + formatDate(task.startDate, shouldShowYear, shouldBeDetailed) + "   " + formatTime(task.startTime, shouldBeDetailed) + "\r\n" +
-						 "Ends: " + formatDate(task.endDate, shouldShowYear, shouldBeDetailed) + "   " + formatTime(task.endTime, shouldBeDetailed) + "\r\n\r\n";
+			successful = MESSAGE_DISPLAY_START + formatDate(task.startDate, shouldShowYear, shouldBeDetailed) + MESSAGE_DISPLAY_SPACE_FORMATTING + formatTime(task.startTime, shouldBeDetailed) + SYSTEM_ENDL +
+						 MESSAGE_DISPLAY_END + formatDate(task.endDate, shouldShowYear, shouldBeDetailed) + MESSAGE_DISPLAY_SPACE_FORMATTING + formatTime(task.endTime, shouldBeDetailed) + SYSTEM_ENDL;
 			delete taskList;
 		} else {
-			successful = "TaskID is out of range. Please check again.\r\n";
+			successful = MESSAGE_OUT_OF_RANGE_INDEX;
 		}
 	}
 
-	else if(command ==  "undo") {
+	else if(command ==  KEYWORD_UNDO) {
 		if(userCommand.undo()) {
-			successful = "The most recent change has been removed.\r\n";
+			successful = MESSAGE_UNDO_SUCCESSFUL;
 		} else {
-			successful = "Nothing is undone.\r\n";
+			successful = MESSAGE_UNDO_FAILED;
 		}
 	}
 		
