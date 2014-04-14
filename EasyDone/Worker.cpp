@@ -206,6 +206,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	} catch (string error) {
 		throw error;
 	}
+
 	return stringToMain;
 }
 

@@ -2225,10 +2225,10 @@ string Parser::checkParseTime(string time) {
 				Minute.pop_back();
 			}
 		}
-		if(rangeCheck || hourCheck || minCheck) {
-			successful = "0";
-		} else {
+		if(rangeCheck && hourCheck && minCheck) {
 			successful = "1";
+		} else {
+			successful = "0";
 		}
 
 		return successful;
