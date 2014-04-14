@@ -1,5 +1,4 @@
-
-
+//@author A0094588J
 // Purpose: Parse.cpp will focus on parsing userInput, splitting up into single strings for easier manupliation
 // Parser will return a vector of strings to manager who will then give it to worker to handle whatever is necessary
 // Parser is like a stand-alone class, has low coupling since it does not really depend on other classes.
