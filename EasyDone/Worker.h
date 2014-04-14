@@ -9,13 +9,18 @@ using namespace std;
 class Worker {
 
 
+private:
+
 	//Store todoList;
 	Command userCommand;
 	Task userTask; 
 	string command;
 	string updateField;
 
-	void convertTaskDataToDisplayFormat(vector<Task> &, bool shouldBeDetailed); //, const bool& isExpanded);
+	void convertTaskDataToDisplayFormat(vector<Task> &, bool shouldBeDetailed);
+	// formatting functions
+	string formatDate(string, bool shouldShowYear, bool shouldBeDetailed);
+	string formatTime(string, bool shouldBeDetailed);
 	 
 	// combine date variables
 	string date;
@@ -59,9 +64,6 @@ public:
 	vector<Task>* getTasksDoneList();
 	vector<Task>* getTasksUndoneList();
 
-	// formatting functions
-	string formatDate(string, bool shouldShowYear, bool shouldBeDetailed);
-	string formatTime(string, bool shouldBeDetailed);
 };
 
 
