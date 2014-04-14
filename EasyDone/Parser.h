@@ -30,6 +30,7 @@ const string MESSAGE_INVALID  = "Wrong command! Please enter command again ";
 const string MESSAGE_SUCCESSFUL = "Details successfully Parsed";
 const string MESSAGE_ERROR = "Details NOT Parsed ERROR!!!";
 
+// const string for months
 const string DATE_jan = "jan";
 const string DATE_Jan = "Jan";
 const string DATE_JAN = "Jan";
@@ -85,11 +86,6 @@ const string DATE_NOV = "NOV";
 const string DATE_dec = "dec";
 const string DATE_Dec = "Dec";
 const string DATE_DEC = "DEC";
-
-
-
-
-
 
 class Parser {
 
