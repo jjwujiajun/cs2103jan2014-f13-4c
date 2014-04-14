@@ -6,30 +6,11 @@ using namespace std;
 int main() {
 	Manager manager;
 	string userInput;
-	vector<Task> taskList;
-	int i = 0;
-	
-	vector<string> headings = manager.getHelpInstructions();
-	cin >> userInput;
-	/*
-	while(userInput != "exit") {
-		cout << manager.getFeedback();
-		getline(cin, userInput);
-
-		manager.receiveInput(userInput);
-
-		taskList = manager.getTaskList();
-		while (i < taskList.size()) {
-			cout << taskList[i].taskID << " " 
-				 << taskList[i].startTime << " "
-				 << taskList[i].startDate << " "
-				 << taskList[i].taskName << endl;
-			++i;
-		}
-
-		cout << manager.getFeedback() << endl;
-	}
-	*/
+	vector<Task> taskListBox;
+	string feedbackBox;
+	string inputField;
+	vector<string> helpHeadings;
+	vector<string> helpInstructions;
 
 	return 0;
 }
