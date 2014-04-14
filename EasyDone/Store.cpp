@@ -104,6 +104,7 @@ void Store::changeTaskPos(int slot, Task task) {
 	markTasksOverdue();
 }
 
+/*This function erases the task(with taskIndex as it's ID ) from the vector<String>*/
 bool Store::eraser(string taskIndex) {
 
 	int size = taskList.size();
@@ -133,6 +134,7 @@ bool Store::eraser(string taskIndex) {
 	return erased;
 }
 
+/*This function returns a Task based on whether taskID = indexEntered*/
 Task Store::accesswithTaskID(int indexEntered) {
 	
 	int size = taskList.size();
@@ -183,7 +185,7 @@ Task Store::getTask(int slot) {
 	return taskList.at(slot);
 }
 
-
+/*This function changes a particular field of certain task to number with taskID = slot*/		
 bool Store::changeTaskPos(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
@@ -307,6 +309,7 @@ bool Store::searchItem(int Index, string searchField, string searchItem) {
 	return found;
 }
 
+/*duplicates the taskList. This function was being used earlier but is not being used now.*/
 vector<Task> Store::getTaskList() {
 
 	vector<Task> duplicated;
@@ -360,6 +363,7 @@ void Store::updateTaskID() {
 	}
 }
 
+/*This next 3 functions: currentDay(), currentMonth() and currentYear() are used to obtain the current date in real-time*/
 string Store::currentDay() {
 
 	time_t rawtime;
@@ -428,6 +432,7 @@ string Store::currentYear() {
 
 }
 
+/*The next 3 functions: getDay(), getMonth() and getYear() splits the 8 character date string obtained from Parser via Worker*/ 
 string Store::getDay(int index) {   
 	//only meant for startDate
 
@@ -494,6 +499,7 @@ string Store::getYear(int index) {
 	else return "0";
 }
 
+/*This function "marks" all tasks that are due on a particular day by setting an boolean attribute of Task, isBold, to true*/
 void Store::markTasksDueToday() {
 	log.log("Store: changing due status");
 
@@ -515,6 +521,7 @@ void Store::markTasksDueToday() {
 	markTasksOverdue();
 }
 
+/*This function obtains tomorrow's date*/
 vector<string> Store::getDateTomorrow() {
 
 	string todayDay = currentDay();
@@ -580,7 +587,7 @@ vector<string> Store::getDateTomorrow() {
 	return returnedVector;
 } 
 
-//implemented for non-leap years
+/*This function "marks" all tasks that are due on a particular day by setting an boolean attribute of Task, isTomorrow, to true*/
 void Store::markTasksDueTomorrow() { 
 
 	vector<string> returnedVector = getDateTomorrow();
@@ -603,9 +610,10 @@ void Store::markTasksDueTomorrow() {
 		//taskList[1].isTomorrow = true;
 
 	
-} //this returns the tasks marked with tomorrow! now check if tomorrow really works!
+} 
 
-
+/*This function "marks" all tasks that are overdue(based on their end date if they have one or else it uses their start date)
+*******************************by setting an boolean attribute of Task, isRed, to true*************************************/
 void Store::markTasksOverdue() {
 
 	string todayDay = currentDay();
