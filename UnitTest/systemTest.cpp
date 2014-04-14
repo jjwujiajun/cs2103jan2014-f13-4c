@@ -21,7 +21,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday on 12/12/14 10.00";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday\"\r\nhas been added successfully! :) \r\n";
 
@@ -56,7 +56,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday on 32/12/14 10.00";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday\"\r\nInvalid date! Is it a 30th or 31st?? Ensure time format is correct too! =) \r\nTask has not been added successfully! ): ";
 
@@ -91,7 +91,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday on 29/2/16 10.00";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday\"\r\nhas been added successfully! :) \r\n";
 
@@ -126,7 +126,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday by 28/2/15 00.00";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday\"\r\nhas been added successfully! :) \r\n";
 
@@ -161,7 +161,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday on 28 apr 14 23.59";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday\"\r\nhas been added successfully! :) \r\n";
 
@@ -196,7 +196,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday on the beach from 30 apr 14 00.01";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday on the beach \"\r\nhas been added successfully! :) \r\n";
 
@@ -230,7 +230,7 @@ namespace systemTest {
 			string sendToParser = "add gorilla's birthday by the beach from 30 apr 14 00.01 to 30 apr 14 12.00";
 
 			vector<string> getfromParser = trial.completeParse(sendToParser);
-			string getfromWorker = work.takeparsedCommand(getfromParser);
+			string getfromWorker = work.takeParsedCommand(getfromParser);
 
 			string compare = "\"gorilla's birthday by the beach \"\r\nhas been added successfully! :) \r\n";
 

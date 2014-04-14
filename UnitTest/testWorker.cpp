@@ -14,7 +14,7 @@ namespace workerTest {
 ***********************successful perfomation of CRUD is carried out for FlexiCommand on the vector in Store.*************************/
 
 		// unit test
-		TEST_METHOD(takeparsedCommand_create)
+		TEST_METHOD(takeParsedCommand_create)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -29,7 +29,7 @@ namespace workerTest {
 			randomCase.push_back("");
 
 
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 
 			 
 			string testHardCase = "has been added successfully! :) \r\n";
@@ -40,7 +40,7 @@ namespace workerTest {
 		}
 		// unit test
 		// 
-		TEST_METHOD(takeparsedCommand_new)
+		TEST_METHOD(takeParsedCommand_new)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -56,7 +56,7 @@ namespace workerTest {
 
 			// "\"" + task.taskName + "\" \r\n"
 
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 
 			 
 			string testHardCase ="\"Australia Holiday\"\r\nStart date cannot be after end date. Similarly if the start date and end date are same, start time cannot be after end time.\r\n";
@@ -68,7 +68,7 @@ namespace workerTest {
 
 
 		// test case of an undo
-		TEST_METHOD(takeparsedCommand_3)
+		TEST_METHOD(takeParsedCommand_3)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -84,7 +84,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 
 			 
 			string testHardCase = "The most recent change has been removed.\r\n";
@@ -97,7 +97,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: delete a neg index
-		TEST_METHOD(takeparsedCommand_delete_negInt)
+		TEST_METHOD(takeParsedCommand_delete_negInt)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -113,7 +113,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 
 			 
 			string testHardCase = "TaskID is out of range. Please check again.\r\n";
@@ -123,7 +123,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: delete 1000
-		TEST_METHOD(takeparsedCommand_delete_taskID_greaterThanActual)
+		TEST_METHOD(takeParsedCommand_delete_taskID_greaterThanActual)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -139,7 +139,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 			 
 			string testHardCase = "TaskID is out of range. Please check again.\r\n";
 
@@ -148,7 +148,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: delete a neg index
-		TEST_METHOD(takeparsedCommand_display_negInt)
+		TEST_METHOD(takeParsedCommand_display_negInt)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -164,7 +164,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 
 			 
 			string testHardCase = "TaskID is out of range. Please check again.\r\n";
@@ -174,7 +174,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: delete 1000
-		TEST_METHOD(takeparsedCommand_display_taskID_greaterThanActual)
+		TEST_METHOD(takeParsedCommand_display_taskID_greaterThanActual)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -190,7 +190,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 			 
 			string testHardCase = "TaskID is out of range. Please check again.\r\n";
 
@@ -199,7 +199,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: delete a neg index
-		TEST_METHOD(takeparsedCommand_update_negInt)
+		TEST_METHOD(takeParsedCommand_update_negInt)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -215,7 +215,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 
 			 
 			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
@@ -225,7 +225,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: delete 1000
-		TEST_METHOD(takeparsedCommand_update_taskID_greaterThanActual)
+		TEST_METHOD(takeParsedCommand_update_taskID_greaterThanActual)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -241,7 +241,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 			 
 			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
 
@@ -250,7 +250,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: update 0
-		TEST_METHOD(takeparsedCommand_update_taskID_0)
+		TEST_METHOD(takeParsedCommand_update_taskID_0)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -266,7 +266,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 			 
 			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
 
@@ -275,7 +275,7 @@ namespace workerTest {
 
 		// unit test
 		// boundary test: good case of index 1
-		TEST_METHOD(takeparsedCommand_update_taskID_1)
+		TEST_METHOD(takeParsedCommand_update_taskID_1)
 		{
 			// TODO: Your test code here
 			Worker test;
@@ -291,7 +291,7 @@ namespace workerTest {
 			//randomCase.push_back("");
 			//randomCase.push_back("20131212");
 		
-			example = test.takeparsedCommand(randomCase);
+			example = test.takeParsedCommand(randomCase);
 			 
 			string testHardCase = "Either invalid field input or taskID is out of range! Please check again.\r\n";
 			Assert::AreEqual(example, testHardCase);

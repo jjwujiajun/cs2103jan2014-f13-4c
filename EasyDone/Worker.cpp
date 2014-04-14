@@ -23,7 +23,7 @@ Worker::~Worker() {
 }
 
 
-string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
+string Worker::takeParsedCommand(vector<string> parsedCommandstring) {
 
 	continueNext = true;
 	command =  parsedCommandstring[0];
@@ -203,7 +203,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		}
 	}
 	try {
-		stringToMain += actonCommand(command);
+		stringToMain += actOnCommand(command);
 	} catch (string error) {
 		throw error;
 	}
@@ -211,7 +211,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	return stringToMain;
 }
 
-string Worker::actonCommand(string command)
+string Worker::actOnCommand(string command)
 {
 	string startDate = userTask.startDate;
 	string endDate = userTask.endDate;

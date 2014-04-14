@@ -34,7 +34,7 @@ private:
 	string combine;
 
 	string successful;
-	string returnStringtomain;
+	string returnStringToMain;
 	string stringToMain;
 	string searchField;
 	string searchItem;
@@ -51,9 +51,9 @@ public:
 
 	// Takes the Parsed command, organizes the user data accordingly and returns
 	// The feedback to be displayed on the GUI
-	string takeparsedCommand(vector<string> fromManager);
+	string takeParsedCommand(vector<string> fromManager);
 	// Acts on the user command and executes the function
-	string actonCommand(string command);
+	string actOnCommand(string command);
 
 	// Display helper functions
 
