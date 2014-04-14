@@ -2205,12 +2205,12 @@ string Parser::checkParseTime(string time) {
 
 		//Exception handler for time format. Throws exception if time input is invalid.
 		if (hour < 0 || hour > 23 || min < 0 || min > 59) {
-			rangeCheck = true;
+			rangeCheck = false;
 		} else {
 			string check;
 			while(!Hour.empty()) {
 				check = Hour.back();
-				if(check != "0" && check != "1" && check != "2" && check != "4" && check != "5" && check != "6" && check != "7" && check != "8" && check != "9") {
+				if(check != "0" && check != "1" && check != "2" && check != "3" && check != "4" && check != "5" && check != "6" && check != "7" && check != "8" && check != "9") {
 					hourCheck = false;
 					break;
 				}
@@ -2218,7 +2218,7 @@ string Parser::checkParseTime(string time) {
 			}
 			while(!Minute.empty()) {
 				check = Minute.back();
-				if(check != "0" && check != "1" && check != "2" && check != "4" && check != "5" && check != "6" && check != "7" && check != "8" && check != "9") {
+				if(check != "0" && check != "1" && check != "2" && check != "3" && check != "4" && check != "5" && check != "6" && check != "7" && check != "8" && check != "9") {
 					minCheck = false;
 					break;
 				}
