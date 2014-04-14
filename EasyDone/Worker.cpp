@@ -85,7 +85,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(!parsedCommandstring[1].empty()) {
 			if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
-				userTask.taskID = parsedCommandstring[1];
+				userTask.taskID = to_string(stoi(parsedCommandstring[1]));
 			} else {
 				continueNext = false;
 			}
