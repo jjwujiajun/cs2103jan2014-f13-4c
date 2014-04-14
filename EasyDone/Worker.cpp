@@ -180,7 +180,7 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 	} else if(command == KEYWORD_DONE || command == KEYWORD_DISPLAY || command == KEYWORD_VIEW) {
 		//Exception Handler for taskID inserted. Throws exception is the taskID is outside the list range.
 		if(stoi(userCommand.getSize()) >= stoi(parsedCommandstring[1]) && stoi(parsedCommandstring[1]) > 0) {
-			userTask.taskID = parsedCommandstring[1];
+			userTask.taskID = to_string(stoi(parsedCommandstring[1]));
 		} else {
 			continueNext = false;
 		}
