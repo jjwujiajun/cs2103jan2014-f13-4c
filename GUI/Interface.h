@@ -1,5 +1,17 @@
 //@author A0100705Y
-//Interface.h
+/* Interface.h
+ * The interface has two functions:
+ * 1) Displays the logical data to the user, in different ways such as
+		- Summary list
+		- All task list
+		- Done task list
+ * 2) Receive user input to be logically computed
+ * 3) Shows the user various other non-task based functions, such as
+		- Help page
+		- Settings page
+
+ * Coded by: Wu Jiajun A0100705Y;
+ */
 #include "Headers.h"
 #include "Manager.h"
 #include "Themes.h"
@@ -48,14 +60,18 @@ namespace GUI {
 		literal String ^ENDL = "\n";
 		literal String ^TABL = "\t";
 		literal String ^TASKLIST_FORMATTING_INDEX = "        ";
+		literal String ^SUMMARY_NO_TASK_TODAY = "No task today :)\n";
+		literal String ^SUMMARY_NO_TASK_TOMORROW = "No task tomorrow :)\n";
 
 		// ***ATTRIBUTES***
 		// Interface's esternal libraries
+		// ----------------
 		Manager *manager;
 		Log *log;
 		array<Theme^> ^theme;
 
 		// state of the window's attributes
+		// ----------------
 		bool summaryTaskListIsShown;
 		bool allTaskListIsShown;
 		bool doneTaskListIsShown;
@@ -70,23 +86,33 @@ namespace GUI {
 		themeColor color;
 		
 		// variable display values in interface.
-		// delete this
+		// ----------------
 		String ^titleName;
 		int numRowsToDisplay;
 		int pageNumber;
 	 	String ^feedbackToDisplay;
 
+
 		// ***FUNCTIONS***
 		// input functions
-		void receiveUserInput(); // sub-function of public: operateUserRequest()
+		// -----------------
+		// passes inputField->Text to the logical commponent to process
+		void receiveUserInput();
 		
 		// display funcitons - window's aspect
+		// ----------------
 		void extendWindow();
 		void retractWindow();
+		// opens the help section if it is not shown
+		// closes it if it is shown
 		void toggleHelpSection();
+		// opens the settings sections if it is not shown
+		// closes it if it is shown
 		void toggleSettingSection();
 
 		// display functions - content aspect
+		// ----------------
+		// display the original state of the display before it was manipulated by text present in inputField
 		void displayNormalInterfaceState();
 		void displayTasksListBoxUsingList(const vector<Task>&);
 		void displaySummaryTaskListBox();
@@ -95,6 +121,9 @@ namespace GUI {
 		void getHelpBoxDisplay();
 
 		// display functions - content aspect (taskList specific)
+		// ----------------
+		// shows a selected page of the entire taskList
+		// because the whole thing may not be able to display at once
 		vector<Task> showSelectedPageOfTasklist(vector<Task> tasklist);
 		void displayTodayLabel();
 		void displayTomorrowLabel();
@@ -102,6 +131,8 @@ namespace GUI {
 		void displayTask(const Task&, const bool&, const bool&);
 		void displayTaskIndex(const Task&);
 		void displayTaskInformation(const Task&, const bool&);
+		// display even more information
+		// ie. the end time of the task
 		void displayTaskExtraInformation(const Task&, const bool&);
 
 		// string conversion functions
@@ -113,28 +144,45 @@ namespace GUI {
 		~Interface(void);
 
 		// userInput function
+		// ------------------
+		// receives the user input, operate on it, and display the new resulting display
 		void operateUserRequest();
+		// receives the user search query, operate on it, and display the new resulting display
+		// will show end time 
 		void operateUserSearchRequest();
+		// show user's intended result, even though he has not pressed Enter,
 		void showLiveFeedback();
 		
 		// pane switching function
+		// ------------------
 		void togglePaneLeft();
 		void togglePaneRight();
+		void seeNextPage();
+		void seePreviousPage();
 		void switchToSummaryTaskListDisplay();
 		void switchToAllTaskListDisplay();
 		void switchToDoneTaskListDisplay();
 
 		// windowSize changing functions
+		// ------------------
 		void activateHelpPage();
 		void activateSettingsPage();
 
 		// settings functions
+		// ------------------
+		// show/hide feedback box
 		void toggleFeedback();
+		// show/hide Help tab that is present on the right side of window
 		void toggleHelpTab();
+		// show/hide Settings tab that is present on the right side of window
 		void toggleSettingsTab();
+		// change to next available theme in the cycle
 		void toggleTheme();
+		// choose a specific theme
 		void selectTheme(themeColor);
 
+		// ***Interface Format
+		// ---------------------
 		// form
 	private: System::Windows::Forms::Label^  helpDivider;
 	private: System::Windows::Forms::Label^  helpTab;
@@ -717,29 +765,9 @@ private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::Key
 			} else if (keyPressed->KeyCode == Keys::F12) {
 				toggleTheme();
 			} else if (keyPressed->KeyCode == Keys::Down) {
-				++pageNumber;
-				if (isSearching) {
-					operateUserSearchRequest();
-				} else if (summaryTaskListIsShown) {
-					switchToSummaryTaskListDisplay();
-				} else if (allTaskListIsShown) {
-					switchToAllTaskListDisplay();
-				} else if (doneTaskListIsShown) {
-					switchToDoneTaskListDisplay();
-				}
+				seeNextPage();
 			} else if (keyPressed->KeyCode == Keys::Up) {
-				if (pageNumber > 0) {
-					--pageNumber;
-				}
-				if (isSearching) {
-					operateUserSearchRequest();
-				} else if (summaryTaskListIsShown) {
-					switchToSummaryTaskListDisplay();
-				} else if (allTaskListIsShown) {
-					switchToAllTaskListDisplay();
-				} else if (doneTaskListIsShown) {
-					switchToDoneTaskListDisplay();
-				}
+				seePreviousPage();
 			} else if (keyPressed->KeyCode == Keys::Enter) {
 				log->log("User: Enter is pressed, operateUserRequest()");
 				if (inputField->Text->Contains("search")) {
@@ -755,8 +783,6 @@ private: System::Void keyUp(System::Object^  sender, System::Windows::Forms::Key
 
 				if (manager->hasFeedbackForGivenInput(liveInputFieldText)) {
 					isSearching = manager->inputIsSearchQuery;
-					//isSearchingEndTime = isSearching && 
-					//	(inputField->Text->Contains("ed") || inputField->Text->Contains("et"));
 					showLiveFeedback();
 				} else {
 					displayNormalInterfaceState();
@@ -800,7 +826,7 @@ private: System::Void Interface_Load(System::Object^  sender, System::EventArgs^
 		 }
 
 private: System::Void Interface_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			 if (this->dragging){ //Move, soldier, MOVE!
+			 if (this->dragging){
 				Point currentScreenPos = PointToScreen(e->Location);
 				Location = Point(currentScreenPos.X - this->offset.X, 
 								 currentScreenPos.Y - this->offset.Y);

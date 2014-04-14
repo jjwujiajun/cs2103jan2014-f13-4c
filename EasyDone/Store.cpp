@@ -1,4 +1,5 @@
-/*@author A0101681R
+//@author A0101681R
+/*
 * Written by: Ramireddi Juhi Simanthika
 * Name: STORE.CPP
 * Store class defines a private vector of type Task called taskList. 
