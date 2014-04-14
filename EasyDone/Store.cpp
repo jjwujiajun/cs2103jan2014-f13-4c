@@ -631,7 +631,4 @@ void Store::markTasksOverdue() {
 
 }
 
-void Store::saveToFile() {
-	log.log("Store: saving to file");
-	file.saveTaskList(taskList);
-}
+

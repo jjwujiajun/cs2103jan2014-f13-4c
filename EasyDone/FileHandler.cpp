@@ -21,6 +21,10 @@ void FileHandler::createHelpInstructionsInVector(vector<string> &GUIHelpInstruct
 	GUIHelpInstructions.push_back(HELP_UNDO);
 	GUIHelpInstructions.push_back(HELP_SEARCH);
 }
+//@author A0094588J
+// Purpose: This function will get a list of tasks
+// Pre-req: nil
+// Post-req: Vector of tasks
 
 vector<Task> FileHandler::getTaskList() {
 	string line;
@@ -71,6 +75,7 @@ vector<Task> FileHandler::getTaskList() {
 	return taskList;
 }
 
+//@author A0100705Y
 void FileHandler::saveTaskList(const vector<Task>& taskList) {
 	writeFile.open(FILE_TASKLIST, ios::trunc);
 
