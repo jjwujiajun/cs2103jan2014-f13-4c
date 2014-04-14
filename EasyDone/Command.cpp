@@ -113,7 +113,7 @@ bool Command::Search(string searchField, string searchItem) {
 	log.log("Searching: Updating task");
 	bool found = false;
 	int counter = 0;
-	found = todoList.SearchItem(counter, searchField, searchItem);
+	found = todoList.searchItem(counter, searchField, searchItem);
 	log.log("Command: Finished searching");
 
 	return found;

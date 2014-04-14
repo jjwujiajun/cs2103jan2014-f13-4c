@@ -1,3 +1,13 @@
+/*@author A0101681R
+* Written by: Ramireddi Juhi Simanthika
+* Name: STORE.CPP
+* Store class defines a private vector of type Task called taskList. 
+* This vector is used to store tasks and their information temporarily before they are copied to a file. 
+* This is an efficient way of manipulating the user's to-do list according to the commands he keys in. 
+* The vector is then copied to a file in Hard disk before the program exits. 
+* Store contains an instance of FileHandler so as to store the user's task permanently in hard disk.   
+*/
+
 #include "Store.h"
 
 
@@ -12,60 +22,6 @@ Store::~Store() {
 	file.saveTaskList(taskList);
 }
 
-string Store::getTaskName(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-	
-	string taskName1 = taskList[index-1].taskName;
-
-	return taskName1;
-}
-
-string Store::getStartTime(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string startTime1=  taskList[index-1].startTime;
-	
-	return startTime1;
-}
-
-string Store::getEndTime(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string endTime1=  taskList[index-1].startTime;
-	
-	return endTime1;
-}
-
-string Store::getStartDate(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string startDate1 = taskList[index-1].startDate;
-	
-	return startDate1;
-}
-
-string Store::getEndDate(int index) {
-
-	int size = taskList.size();
-	// Asserts that the index is within the task list range.
-	assert(index <= size);
-
-	string getEndDate1 = taskList[index-1].endDate;
-	
-	return getEndDate1;
-}
 
 int Store::getSize() {
 
@@ -85,6 +41,7 @@ string Store::getTaskID(int slotNumber) {
 	return taskID;
 }
 
+/*This function returns the task with taskID = slot*/
 Task Store::accessSlot(int slot) {
 
 	int size = taskList.size();
@@ -308,7 +265,7 @@ bool Store::changeTask(int Index, Task userTask, string updateField) {
 	return true;
 }
 
-bool Store::SearchItem(int Index, string searchField, string searchItem) {
+bool Store::searchItem(int Index, string searchField, string searchItem) {
 
 	int size = taskList.size();
 	// Asserts that the Index is within the task list range.
@@ -672,4 +629,9 @@ void Store::markTasksOverdue() {
 			taskList[i].isRed = false;
 	}
 
+}
+
+void Store::saveToFile() {
+	log.log("Store: saving to file");
+	file.saveTaskList(taskList);
 }
