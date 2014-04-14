@@ -26,7 +26,7 @@ public:
 	void sort();
 	void sortDateandTime(int start, int end);
 	void sortdone();
-	string Update(Task userTask, string updateField);
+	bool Update(Task userTask, string updateField);
 	
 	//GUI functions + helper functions! 
 	vector<Task>* getSearchedList();

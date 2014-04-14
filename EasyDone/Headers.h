@@ -222,8 +222,8 @@ const string MESSAGE_UPDATED_FAILED_INVALID_DATE_YEAR = "Invalid date & Year! Is
 const string MESSAGE_UPDATED_FAILED_INVALID_DATE_MONTH_YEAR = "Invalid Date & Month & Year! Type Carefully! Ensure time format is correct too! =) \r\n";
 const string MESSAGE_UPDATED_FAILED_INVALID_TIME = "Invalid Time! Remember hour is from 00 to 23, Minute is from 00 to 59  \r\n";
 const string MESSAGE_UPDATED_FAILED_OUT_OF_RANGE = "Either invalid field input or taskID is out of range! Please check again.\r\n";
-const string MESSAGE_UPDATED_FAILED_CHRONO_DATE = "End date cannot be before the start date. Please check again.\r\n";
-const string MESSAGE_UPDATED_FAILED_CHRONO_TIME = "End time cannot be before start Time if the task starts and ends on the same day. Please check again.\r\n";
+const string MESSAGE_UPDATED_FAILED_CHRONO_DATE = "The task can't end before it starts. Please check again.\r\n";
+const string MESSAGE_UPDATED_FAILED_CHRONO_TIME = "The task can't end before it starts. Please check again.\r\n";
 const string MESSAGE_CHECKED_SUCCESSFULLY = "has been checked off your EasyDone task list! :) \r\n";
 const string MESSAGE_DONE_SUCCESSFUL = "Task marked done.\r\n";
 const string MESSAGE_DONE_FAILED = "Task not found.\r\n";

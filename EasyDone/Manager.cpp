@@ -170,11 +170,15 @@ void Manager::init() {
 	try {
 		parsedInput  = parser.completeParse (userInput);
 	} catch (string error) {
-
+		throw error;
 	}
 
 	log.log(LOG_MANAGER_TO_WORKER);
-	feedback = worker.takeparsedCommand(parsedInput);
+	try {
+		feedback = worker.takeparsedCommand(parsedInput);
+	} catch (string error) {
+		throw error;
+	}
 		
 	// set GUITaskList;
 	log.log("Manager: Format GUIFeedback to be displayed in GUI");

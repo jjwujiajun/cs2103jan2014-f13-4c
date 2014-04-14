@@ -77,7 +77,17 @@ void GUI::Interface::operateUserRequest() {
 	}
 
 	log->log("GUI: receiveUserInput");
-	receiveUserInput();
+	try {
+		receiveUserInput();
+	} catch (string error) {
+		String ^errorMessage;
+		error = error + FEEDBACK_PROMPT_OTHERS;
+
+		convertStdToSysString(error, errorMessage);
+		feedbackBox->Text = errorMessage;
+
+		return;
+	}
 
 	log->log("GUI: display taskListBox, feedbackBox, inputField");
 	if (summaryTaskListIsShown) {
@@ -190,7 +200,11 @@ void GUI::Interface::receiveUserInput() {
 	convertSysToStdString(inputString, convertedInputString);
 
 	log->log("GUI: Pass convertedInputString to manager");
-	manager->receiveInput(convertedInputString);
+	try {
+		manager->receiveInput(convertedInputString);
+	} catch (string error) {
+		throw error;
+	}
 
 	log->endLog();
 }
