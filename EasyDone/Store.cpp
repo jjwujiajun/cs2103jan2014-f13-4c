@@ -89,7 +89,7 @@ void Store::switchTask(int slot1, int slot2) {
 	markTasksOverdue();
 }
 
-void Store::changeTask(int slot, Task slotTask) {
+void Store::changeTaskPos(int slot, Task slotTask) {
 	
 	int size = taskList.size();
 	// Asserts that slot and slotTask's task ID are within the task list range.
@@ -183,7 +183,7 @@ Task Store::getTask(int slot) {
 	return taskList.at(slot);
 }
 	
-bool Store::changeTask(int Index, Task userTask, string updateField) {
+bool Store::changeTaskPos(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
 	int size = taskList.size();
