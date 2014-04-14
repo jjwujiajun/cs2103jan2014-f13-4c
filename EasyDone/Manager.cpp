@@ -33,7 +33,11 @@ void Manager::receiveInput(string input) {
 	userInput = input;
 
 	log.log("Manager: Start initialising userInput processing");
-	init();
+	try {
+		init();
+	} catch (string error) {
+		throw error;
+	}
 }
 
 // display
@@ -105,6 +109,7 @@ string Manager::getInputField() {
 // task list functions
 vector<Task> Manager::getAllTaskList() {
 	log.log("Manager: getTaskList from worker");
+	assert(GUITaskList != NULL);
 	delete GUITaskList;
 	GUITaskList = worker.getTasksUndoneList();
 
@@ -113,28 +118,33 @@ vector<Task> Manager::getAllTaskList() {
 }
 
 vector<Task> Manager::getDueTaskList() {
+	assert(GUITaskList != NULL);
 	delete GUITaskList;
 	GUITaskList = worker.getTasksOverdueList();
 	return *GUITaskList;
 }
 vector<Task> Manager::getTodayTaskList() {
+	assert(GUITaskList != NULL);
 	delete GUITaskList;
 	GUITaskList = worker.getTasksDueTodayList();
 	return *GUITaskList;
 }
 vector<Task> Manager::getTomorrowTaskList() {
+	assert(GUITaskList != NULL);
 	delete GUITaskList;
 	GUITaskList = worker.getTasksDueTomorrowList();	
 	return *GUITaskList;
 }
 
 vector<Task> Manager::getDoneTaskList() {
+	assert(GUITaskList != NULL);
 	delete GUITaskList;
 	GUITaskList = worker.getTasksDoneList();
 	return *GUITaskList;
 }
 
 vector<Task> Manager::getSearchedList() {
+	assert(GUITaskList != NULL);
 	delete GUITaskList;
 	GUITaskList = worker.getSearchedList();
 	return *GUITaskList;
@@ -157,7 +167,11 @@ void Manager::init() {
 
 	// improve: return by pointer
 	log.log(LOG_MANAGER_TO_PARSER);
-	parsedInput  = parser.completeParse (userInput);
+	try {
+		parsedInput  = parser.completeParse (userInput);
+	} catch (string error) {
+
+	}
 
 	log.log(LOG_MANAGER_TO_WORKER);
 	feedback = worker.takeparsedCommand(parsedInput);
