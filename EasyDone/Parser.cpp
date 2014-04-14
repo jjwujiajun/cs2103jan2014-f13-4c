@@ -161,7 +161,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	string year_3;
 	string final_3;
 
-
 	// guard keyword variables
 	string checkWord;
 	string store;
@@ -171,14 +170,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	string checkDate2;
 	string checkTime;
 
-
 	// pushing guard variables into vector
 	string verifyDate;
 	string verifyMonth;
 	string verifyYear;
 	string verifyTime;
-
-	int i = 1; // note i start from 1 because command already pushed in. 
 
 	// parsed variables
 	string taskName;
@@ -186,6 +182,10 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 	string startTime;
 	string endDate;
 	string endTime;
+
+	// note i start from 1 because command already pushed in. 
+	// counter
+	int i = 1; 
 
 	switch (enumCommand) {
 
@@ -207,7 +207,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						date = storeUserInfo[i];
 						i++;		
 			
-
 						if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
 						
 						month = storeUserInfo[i];
@@ -236,7 +235,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							//startDate = store;
 							startDate = storeUserInfo[i];
 
-
 							// Guards
 							verifyDate = checkParseDate(startDate);
 							verifyMonth = checkParseMonth(startDate);
@@ -260,23 +258,15 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							}
 						}
 						
-
-
 					} else {
 
 						taskName = storeUserInfo[i];
 						}
-
-				
-							
-							
+						
 					} else {				
 
-
 					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
-
-			
-								
+							
 					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
 
 					startDate = storeUserInfo[i];
@@ -314,10 +304,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 							// push back guard output into vector
 							// error is not = 1
-
 							startDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
 							++i;				
-
 
 							if(i < (int) storeUserInfo.size()) { 
 								startTime += storeUserInfo[i];
@@ -345,14 +333,12 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					storeUserInfo[i] != keyWord_1 &&
 					storeUserInfo[i] != keyWord_3 &&
 					storeUserInfo[i] != keyWord_4) {
-
-						
+					
 						if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
 
 						date = storeUserInfo[i];
 						i++;
 			
-
 						if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
 						
 						month = storeUserInfo[i];
@@ -366,8 +352,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 						final = naturalParseInput(date, month, year);
 						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 						store = final;
 
 						checkWord = checkKeyWord(store);
@@ -379,9 +363,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 						} else {
 							storeUserInfo[i] = store;
-							//startDate = store;
 							endDate = storeUserInfo[i];
-
 
 							// Guards
 							verifyDate = checkParseDate(endDate);
@@ -411,8 +393,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 						taskName = storeUserInfo[i];
 						}
-
-					
 							
 					} else {
 
@@ -436,7 +416,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					++i;
 					}
 
-
 				} else {
 
 						checkWord = checkKeyWord(store);
@@ -459,7 +438,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							startDate = endDate;
 							++i;
 
-
 							if(i < (int) storeUserInfo.size()) {
 
 								endTime += storeUserInfo[i];
@@ -475,7 +453,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					}
 				}
 			}	
-
 		}
 
 			// keyword is "from"
@@ -483,6 +460,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 			// Purpose is for timed tasks from a {date} {time} to {date} {time} 
 			// from {date} {time} to {date} 
 			// from {time} to {time}
+
 			else if (storeUserInfo[i] == keyWord_3) { // start date "from"
 				++i;
 				if (i < (int) storeUserInfo.size() && 
@@ -509,11 +487,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 						final = naturalParseInput(date, month, year);
 						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 						store = final;
-
-						// store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
 						checkWord = checkKeyWord(store);
 
@@ -527,7 +501,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							checkDate += storeUserInfo[i];
 							if (checkDate.size() > 5) {
 
-								startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+								startDate += storeUserInfo[i]; 
 
 								// Guards
 								verifyDate = checkParseDate(startDate);
@@ -564,13 +538,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 									final = naturalParseInput(date_2, month_2, year_2);
 						
-
-									//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 									store = final;
-
-									//storeUserInfo.erase(storeUserInfo.end()-1);
 										}
-
 									}
 
 									endDate = store;
@@ -593,7 +562,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 										// push back guard output into vector										
 										endTime = guardConvertParserTime(verifyTime, endTime);
-
 
 										++i;
 									} 
@@ -629,10 +597,9 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						taskName = storeUserInfo[i];
 						}
 
-
 				} else {
 					
-						store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+						store = storeUserInfo[i];
 
 						checkWord = checkKeyWord(store);
 
@@ -646,21 +613,20 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							checkDate += storeUserInfo[i];
 							if (checkDate.size() > 5) {
 
-								startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+								startDate += storeUserInfo[i]; 
 
 								// Guards
 								verifyDate = checkParseDate(startDate);
 								verifyMonth = checkParseMonth(startDate);
 								verifyYear = checkParseYear(startDate);
-
-								// push back guard output into vector										
+									
 								startDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
 
 								++i;
 							
 								storeUserInfo.push_back("");
 
-								if(storeUserInfo[i] == keyWord_4) { // bug
+								if(storeUserInfo[i] == keyWord_4) { 
 									++i;
 
 									if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
@@ -668,7 +634,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 									date_2 = storeUserInfo[i];
 									i++;		
 			
-
 									if (storeUserInfo[i] == "jan" || storeUserInfo[i] == "feb" || storeUserInfo[i] == "mar" || storeUserInfo[i] == "apr" || storeUserInfo[i] == "may" || storeUserInfo[i] == "jun" || storeUserInfo[i] == "jul" || storeUserInfo[i] == "aug" || storeUserInfo[i] == "sep" || storeUserInfo[i] == "oct" || storeUserInfo[i] == "nov" || storeUserInfo[i] == "dec") {
 						
 									month_2 = storeUserInfo[i];
@@ -682,11 +647,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 									final = naturalParseInput(date_2, month_2, year_2);
 						
-
-									//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 									store = final;
-
-									//storeUserInfo.erase(storeUserInfo.end()-1);
+				
 										}
 
 									}
@@ -700,7 +662,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 									
 									verifyYear = checkParseYear(endDate);
 									
-									// push back guard output into vector
 									endDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, endDate);
 
 									++i;
@@ -713,7 +674,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 										// push back guard output into vector										
 										endTime = guardConvertParserTime(verifyTime, endTime);
-
 
 										++i;
 										}
@@ -743,14 +703,10 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								startTime = guardConvertParserTime(verifyTime, startTime);
 								i++;
 							}
-						}
-					
-					}//	}
+						}		
+					}
 				}
-			
-		}
-
-			
+			}
 
 			// keyword is "to"
 			// Works in tandem with keyword "from"
@@ -783,12 +739,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 						final = naturalParseInput(date_3, month_3, year_3);
 						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 						store = final;
-
-
-						//store = storeUserInfo[i]; // store word after "to"
 
 						checkWord = checkKeyWord(store);
 
@@ -801,7 +752,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 							storeUserInfo[i] = store;
 							checkDate2 += storeUserInfo[i];
 							if ((int) checkDate2.size() > 5) {
-								endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+								endDate += storeUserInfo[i]; 
 
 								// Guards
 								verifyDate = checkParseDate(endDate);
@@ -814,7 +765,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 								storeUserInfo.push_back("");
 
-								//if (i < (int) storeUserInfo.size()) {
 								endTime += storeUserInfo[i];
 
 								storeUserInfo.erase(storeUserInfo.end()-1);
@@ -826,7 +776,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								endTime = guardConvertParserTime(verifyTime, endTime);
 
 								++i;
-								//}
+								
 							} else {
 								endTime += storeUserInfo[i];
 
@@ -859,7 +809,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 							checkDate2 += storeUserInfo[i];
 							if ((int) checkDate2.size() > 5) {
-								endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+								endDate += storeUserInfo[i]; 
 
 								// Guards
 								verifyDate = checkParseDate(endDate);
@@ -874,8 +824,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								
 								//if (i < (int) storeUserInfo.size()) {
 								endTime += storeUserInfo[i];
-								//storeUserInfo.erase(storeUserInfo.end()-1);
-
+								
 								// Guards
 								verifyTime = checkParseTime(endTime);
 
@@ -883,7 +832,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								endTime = guardConvertParserTime(verifyTime, endTime);
 							
 								++i;
-								//}
+								
 							} else {
 								
 								endTime += storeUserInfo[i];
@@ -896,8 +845,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 								i++;
 							}
 						}
-				}
-			}				
+					}
+				}				
 
 				} else {
 					taskName += storeUserInfo[i] + " ";
@@ -922,6 +871,8 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		if (i < (int) storeUserInfo.size()) {
 
 			taskName = storeUserInfo[i];
+
+			// ensure if user keys in 000000012 will be interpretated as 12
 			string index = convert_From_String_To_String(taskName);
 			taskName = index;
 			++i;		
@@ -985,7 +936,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						startTime = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startTime);
 						++i;
 					
-
 					} else {
 						month = storeUserInfo[i];
 						++i;
@@ -1075,7 +1025,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 						++i;
 					}
 
-
 					} else {
 						if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
 
@@ -1128,13 +1077,11 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 
 				} else {
 
-					taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"				
+					taskName += storeUserInfo[i] ; 			
 					string index = convert_From_String_To_String(taskName);
 					taskName = index;
-					++i;
-					
+					++i;				
 				}
-
 			} 
 
 		} else {
@@ -1178,9 +1125,6 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 				++i;
 
 				while(i < (int) storeUserInfo.size()){
-
-					
-					//startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"		
 
 					startDate = storeUserInfo[i] + " ";
 
@@ -1231,7 +1175,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 				}	
 
 			} else {
-				taskName += storeUserInfo[i] ; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+				taskName += storeUserInfo[i] ; 
 				++i;
 			}
 
@@ -1247,19 +1191,16 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		userInformation.push_back(endDate);
 		userInformation.push_back(endTime);
 
-
 		break;
 
 	case CHECK:
-
+		// only need to mark index done
 		if (i < (int) storeUserInfo.size()) {
 
 			taskName = storeUserInfo[i];
 			string index = convert_From_String_To_String(taskName);
 			taskName = index;
 			
-
-
 			++i;		
 		} else {
 			taskName = "1";	
@@ -1274,13 +1215,13 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		break;
 
 	case CLEAR:
+		// clear is used to clear markDone tasks
 		userInformation.push_back(taskName);
 		userInformation.push_back(startDate);
 		userInformation.push_back(startTime);
 		userInformation.push_back(endDate);
 		userInformation.push_back(endTime);
 		break;
-
 
 	case UNDO:
 
@@ -1293,7 +1234,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 		userInformation.push_back(endTime);
 		break;
 
-	case OTHER:
+	case OTHER: // assume to be add if user does not type any command
 		int i = 0;
 
 		while (i < (int) storeUserInfo.size()) {
@@ -1328,8 +1269,6 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 						final = naturalParseInput(date, month, year);
 						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 						store = final;
 
 						checkWord = checkKeyWord(store);
@@ -1341,9 +1280,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 						} else {
 							storeUserInfo[i] = store;
-							//startDate = store;
 							startDate = storeUserInfo[i];
-
 
 							// Guards
 							verifyDate = checkParseDate(startDate);
@@ -1368,19 +1305,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							}
 						}
 						
-
-
 					} else {
 
 						taskName = storeUserInfo[i];
 						}
-
-			
-							
-							
+				
 					} else {					
 
-					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					store = storeUserInfo[i]; 
 
 					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
 
@@ -1409,7 +1341,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 						} else {
 
-							startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+							startDate += storeUserInfo[i]; 
 
 							// Guards
 							verifyDate = checkParseDate(startDate);
@@ -1417,8 +1349,6 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							verifyYear = checkParseYear(startDate);
 
 							// push back guard output into vector
-							// error is not = 1
-
 							startDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, startDate);
 							++i;				
 
@@ -1437,8 +1367,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 					}
 				}	
 			}			
-
-}
+		}
 			// keyword is "by"
 			// Purpose is for deadline tasks to be done by that day & time or day/time
 			else if(storeUserInfo[i] == keyWord_2) {
@@ -1469,9 +1398,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 						}
 
 						final = naturalParseInput(date, month, year);
-						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					
 						store = final;
 
 						checkWord = checkKeyWord(store);
@@ -1486,14 +1413,12 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							//startDate = store;
 							endDate = storeUserInfo[i];
 
-
 							// Guards
 							verifyDate = checkParseDate(endDate);
 							verifyMonth = checkParseMonth(endDate);
 							verifyYear = checkParseYear(endDate);
 
 							// push back guard output into vector
-							// error is not = 1
 							endDate = guardConvertParserDate(verifyDate, verifyMonth, verifyYear, endDate);
 							startDate = endDate;
 							++i;	
@@ -1511,18 +1436,14 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							}
 						}
 						
-
-
 					} else {
 
 						taskName = storeUserInfo[i];
 						}
-
-					
-							
+		
 					} else {
 
-					store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+					store = storeUserInfo[i]; 
 
 					if (storeUserInfo[i] == keyWord_5 || storeUserInfo[i] == keyWord_6 || storeUserInfo[i] == keyWord_7 ) {
 
@@ -1551,7 +1472,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							++i;
 						} else {
 
-							endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+							endDate += storeUserInfo[i];
 
 							// Guards
 							verifyDate = checkParseDate(endDate);
@@ -1577,8 +1498,8 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 						}
 					}
 				}
-		}
-	}		
+			}
+		}		
 			// keyword is "from"
 			// Works in tandem with keyword "to"
 			// Purpose is for timed tasks from a {date} {time} to {date} {time} 
@@ -1612,11 +1533,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 						final = naturalParseInput(date, month, year);
 						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 						store = final;
-
-// store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 
 						checkWord = checkKeyWord(store);
 
@@ -1630,7 +1547,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							checkDate += storeUserInfo[i];
 							if (checkDate.size() > 5) {
 
-								startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+								startDate += storeUserInfo[i]; 
 
 								// Guards
 								verifyDate = checkParseDate(startDate);
@@ -1668,11 +1585,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 									final = naturalParseInput(date_2, month_2, year_2);
 						
-
-									//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 									store = final;
-
-									//storeUserInfo.erase(storeUserInfo.end()-1);
 										}
 
 									}
@@ -1697,7 +1610,6 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 										// push back guard output into vector										
 										endTime = guardConvertParserTime(verifyTime, endTime);
-
 
 										++i;
 									} 
@@ -1736,7 +1648,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 				} else {
 					
-						store = storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+						store = storeUserInfo[i];
 
 						checkWord = checkKeyWord(store);
 
@@ -1750,7 +1662,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							checkDate += storeUserInfo[i];
 							if (checkDate.size() > 5) {
 
-								startDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing stuff like "21 Dec"
+								startDate += storeUserInfo[i];
 
 								// Guards
 								verifyDate = checkParseDate(startDate);
@@ -1764,10 +1676,10 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							
 								storeUserInfo.push_back("");
 
-								if(storeUserInfo[i] == keyWord_4) { // bug
+								if(storeUserInfo[i] == keyWord_4) { 
 									++i;
 
-																		if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
+									if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo[i] == "2" || storeUserInfo[i] == "3" || storeUserInfo[i] == "4" || storeUserInfo[i] == "5" || storeUserInfo[i] == "6" || storeUserInfo[i] == "7" || storeUserInfo[i] == "8" || storeUserInfo[i] == "9" || storeUserInfo[i] == "10" || storeUserInfo[i] == "11" || storeUserInfo[i] == "12" || storeUserInfo[i] == "13" || storeUserInfo[i] == "14") || storeUserInfo[i] == "15" || storeUserInfo[i] == "16" || storeUserInfo[i] == "17" || storeUserInfo[i] == "18" || storeUserInfo[i] == "19" || storeUserInfo[i] == "20" || storeUserInfo[i] == "21" || storeUserInfo[i] == "22" || storeUserInfo[i] == "23" || storeUserInfo[i] == "24" || storeUserInfo[i] == "25" || storeUserInfo[i] == "26" || storeUserInfo[i] == "27" || storeUserInfo[i] == "28" || storeUserInfo[i] == "29" || storeUserInfo[i] == "30" || storeUserInfo[i] == "31" ) {
 
 									date_2 = storeUserInfo[i];
 									i++;		
@@ -1786,11 +1698,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 									final = naturalParseInput(date_2, month_2, year_2);
 						
-
-									//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 									store = final;
-
-									//storeUserInfo.erase(storeUserInfo.end()-1);
 										}
 
 									}
@@ -1818,7 +1726,6 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 										// push back guard output into vector										
 										endTime = guardConvertParserTime(verifyTime, endTime);
 
-
 										++i;
 									}
 
@@ -1842,16 +1749,13 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 								// guards
 								verifyTime = checkParseTime(startTime);
 
-								// push back guard output into vector	
 								startTime = guardConvertParserTime(verifyTime, startTime);
 								i++;
 							}
-						}
-					
-					}//	}
-				}
-			
-		}
+						}			
+					}
+				}		
+			}
 
 			// keyword is "to"
 			// Works in tandem with keyword "from"
@@ -1886,13 +1790,9 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 						final = naturalParseInput(date_3, month_3, year_3);
 						
-
-						//store = final; // remember to add " " spacing next time for parsing stuff like "21 Dec"
 						store = final;
 
-
-						//store = storeUserInfo[i]; // store word after "to"
-
+						// store word after "to"
 						checkWord = checkKeyWord(store);
 
 						if (checkWord.size() > 12) {
@@ -1904,7 +1804,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 							storeUserInfo[i] = store;
 							checkDate2 += storeUserInfo[i];
 							if ((int) checkDate2.size() > 5) {
-								endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+								endDate += storeUserInfo[i];
 
 								// Guards
 								verifyDate = checkParseDate(endDate);
@@ -1917,7 +1817,6 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 								storeUserInfo.push_back("");
 
-								//if (i < (int) storeUserInfo.size()) {
 								endTime += storeUserInfo[i];
 
 								storeUserInfo.erase(storeUserInfo.end()-1);
@@ -1929,7 +1828,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 								endTime = guardConvertParserTime(verifyTime, endTime);
 
 								++i;
-								//}
+								
 							} else {
 								endTime += storeUserInfo[i];
 
@@ -1962,7 +1861,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 							checkDate2 += storeUserInfo[i];
 							if ((int) checkDate2.size() > 5) {
-								endDate += storeUserInfo[i]; // remember to add " " spacing next time for parsing
+								endDate += storeUserInfo[i]; 
 
 								// Guards
 								verifyDate = checkParseDate(endDate);
@@ -1975,10 +1874,8 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 
 								storeUserInfo.push_back("");
 								
-								//if (i < (int) storeUserInfo.size()) {
 								endTime += storeUserInfo[i];
-								//storeUserInfo.erase(storeUserInfo.end()-1);
-
+							
 								// Guards
 								verifyTime = checkParseTime(endTime);
 
@@ -1986,7 +1883,7 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 								endTime = guardConvertParserTime(verifyTime, endTime);
 							
 								++i;
-								//}
+								
 							} else {
 								
 								endTime += storeUserInfo[i];
@@ -1999,10 +1896,9 @@ if ( i < (int) storeUserInfo.size() && (storeUserInfo[i] == "1" || storeUserInfo
 								i++;
 							}
 						}
+					}
 				}
-			}
 
-		
 			} else {
 				taskName += storeUserInfo[i] + " ";
 				++i;
@@ -2036,7 +1932,6 @@ string Parser:: convert_From_String_To_String (string index) {
 		}
 		
 		return intCheck;
-
 }
 
 //Exception handler for startdate. Throws exception is startdate is out of range.
@@ -2067,7 +1962,7 @@ string Parser:: checkKeyWord(string startDate) {
 }
 
 
-// getter functions
+// getter functions to get date, month and year
 
 int Parser::getDate(string date) {
 
@@ -2123,8 +2018,8 @@ int Parser::getYear(string date) {
 
 	}
 
-
 // function to check if each month corresponds to the correct dates in the month
+// accounts for leap year too
 string Parser::checkDate(string date) {
 
 		int currentDate = getDate(date);
@@ -2202,13 +2097,12 @@ string Parser::checkDate(string date) {
 				output = "0";
 			}
 		}
-
-
 		return output;
 	}
 
 
 // *** date input format is DD/MM/YY ***
+// checks if user input of date is correct
 string Parser::checkParseDate(string date)
 	{
 
@@ -2218,6 +2112,7 @@ string Parser::checkParseDate(string date)
 
 	}
 
+// checks if user input of month is correct
 string Parser::checkParseMonth(string date) {
 
 		// 12/12/2014
@@ -2235,10 +2130,10 @@ string Parser::checkParseMonth(string date) {
 		} else {
 			successful =  "1";
 		}
-
 		return successful;
 	}
 
+// check if user input of year is correct
 string Parser::checkParseYear(string date) {
 		// 12/09/14
 		int start = 0;
@@ -2263,6 +2158,7 @@ string Parser::checkParseYear(string date) {
 	}
 
 // *** Time input format is HH:MM ***
+// checks if user input of time is correct
 string Parser::checkParseTime(string time) {
 
 		int keyStroke = time.find(".", 0);
@@ -2282,6 +2178,7 @@ string Parser::checkParseTime(string time) {
 
 	}
 
+// converts user date format in 14/5/14 to 20140514
 string Parser::convertDate(string date) {
 
 		// input:12/12/14
@@ -2317,6 +2214,7 @@ string Parser::convertDate(string date) {
 
 	}
 
+// converts user input in 10.45 to programme time format 1045
 string Parser::convertTime(string time) {
 
 		int keyStroke = time.find(".", 0);
@@ -2351,6 +2249,7 @@ string Parser::convertTime(string time) {
 
 	}
 
+// converts date string to int for checking
 int Parser::convertStringToInt(string input) {
 
 		int value = atoi(input.c_str());
@@ -2358,15 +2257,7 @@ int Parser::convertStringToInt(string input) {
 
 	}
 
-bool Parser::compare(int start, int end) {
-
-		if (start > end) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
-
+// returns date in YYYYMMDD if no error else returns a string number which represents an error
 string Parser::guardConvertParserDate(string verifyDate, string verifyMonth, string verifyYear, string date) {
 
 		string convertedDate_Start;
@@ -2408,8 +2299,8 @@ string Parser::guardConvertParserDate(string verifyDate, string verifyMonth, str
 		return date;
 	}
 
+// returns time in HHMM format if no error. else will return "0" as an error
 string Parser::guardConvertParserTime(string verifyTime, string time) {
-
 
 		string convertedTime_Start;
 		string convertedTime_End;
@@ -2422,11 +2313,10 @@ string Parser::guardConvertParserTime(string verifyTime, string time) {
 			time = "0";
 
 		}
-
 		return time;
 	}
 
-
+// main heart of parser where the main calling of parser function takes place 
 vector<string> Parser::completeParse(string userInput) {
 
 		parserEmpty();
@@ -2441,6 +2331,7 @@ vector<string> Parser::completeParse(string userInput) {
 		return userInformation; //returns details of task inputted by user in the form of a vector<string>
 }
 
+// converts NLP into DD/MM/YY format 
 string Parser:: naturalParseInput (string date, string month, string year) {
 
 	int intDate = atoi(date.c_str());
@@ -2454,19 +2345,19 @@ string Parser:: naturalParseInput (string date, string month, string year) {
 	} else if (month == "feb" || month == "FEB" || month == "feb") {
 		intMonth = "2";
 
-	} else if (month == "mar" || month == "MAR" || month == "Mar") {
+	} else if (month == "mar" || month == "MAR" || month == "Mar" || month == "March" || month == "march") {
 		intMonth = "3";
 
-	} else if (month == "apr" || month == "APR" || month == "Apr") {
+	} else if (month == "apr" || month == "APR" || month == "Apr" || month == "april" || month == "April") {
 		intMonth = "4";
 
 	} else if (month == "may" || month == "MAY" || month == "May") {
 		intMonth = "5";
 
-	} else if (month == "jun" || month == "JUN" || month == "Jun") {
+	} else if (month == "jun" || month == "JUN" || month == "Jun" || month == "june" || month == "June") {
 		intMonth = "6";
 
-	} else if (month == "jul" || month == "JUL" || month == "Jul") {
+	} else if (month == "jul" || month == "JUL" || month == "Jul" || month == "july" || month == "July") {
 		intMonth = "7";
 
 	} else if (month == "aug" || month == "AUG" || month == "aug") {
@@ -2498,4 +2389,14 @@ void Parser::parserEmpty() {
 		userInformation.clear();
 
 }
+
+
+
+
+
+
+
+
+
+
 
