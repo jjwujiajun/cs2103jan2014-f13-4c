@@ -96,10 +96,10 @@ void Store::changeTaskPos(int slot, Task task) {
 	int size = taskList.size();
 	// Asserts that slot and slotTask's task ID are within the task list range.
 	assert(slot < size);
-	assert(stoi(slotTask.taskID) <= size);
+	assert(stoi(task.taskID) <= size);
 
 	log.log("Store: changing task");
-	taskList[slot] = slotTask;
+	taskList[slot] = task;
 
 	markTasksOverdue();
 }
