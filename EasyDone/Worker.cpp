@@ -1,3 +1,4 @@
+//@author A0099326U
 /*  Worker cpp
 
 Implementation for the worker class in which based on the
