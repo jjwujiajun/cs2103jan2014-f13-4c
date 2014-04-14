@@ -2192,18 +2192,43 @@ string Parser::checkParseYear(string date) {
 // *** Time input format is HH:MM ***
 // checks if user input of time is correct
 string Parser::checkParseTime(string time) {
+		
+		bool hourCheck = true, minCheck = true, rangeCheck = true;
 
 		int keyStroke = time.find(".", 0);
 		int startOfMinute = keyStroke + 1;
 
+		string Hour = time.substr(0,keyStroke);
+		string Minute = time.substr(startOfMinute);
 		int hour = atoi(time.substr(0,keyStroke).c_str());
 		int min = atoi(time.substr(startOfMinute).c_str());
 
-		//Exception handler for time format. Throws exception if invalid time is added.
+		//Exception handler for time format. Throws exception if time input is invalid.
 		if (hour < 0 || hour > 23 || min < 0 || min > 59) {
-			successful =  "0";
+			rangeCheck = true;
 		} else {
-			successful =  "1";
+			string check;
+			while(!Hour.empty()) {
+				check = Hour.back();
+				if(check != "0" && check != "1" && check != "2" && check != "4" && check != "5" && check != "6" && check != "7" && check != "8" && check != "9") {
+					hourCheck = false;
+					break;
+				}
+				Hour.pop_back();
+			}
+			while(!Minute.empty()) {
+				check = Minute.back();
+				if(check != "0" && check != "1" && check != "2" && check != "4" && check != "5" && check != "6" && check != "7" && check != "8" && check != "9") {
+					minCheck = false;
+					break;
+				}
+				Minute.pop_back();
+			}
+		}
+		if(rangeCheck || hourCheck || minCheck) {
+			successful = "0";
+		} else {
+			successful = "1";
 		}
 
 		return successful;
