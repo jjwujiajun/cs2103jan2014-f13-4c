@@ -226,7 +226,7 @@ Task Store::getTask(int slot) {
 	return taskList.at(slot);
 }
 	
-string Store::changeTask(int Index, Task userTask, string updateField) {
+bool Store::changeTask(int Index, Task userTask, string updateField) {
 	log.log("Store: updating a task field");
 
 	int size = taskList.size();
@@ -236,27 +236,62 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 
 	if(updateField == KEYWORD_TASK) {
 		taskList[Index].taskName = userTask.taskName;
+
 	} else if(updateField == KEYWORD_STARTDATE) {
-		taskList[Index].startDate = userTask.startDate;
+		//Exception handler for start date and end date. Throws exception if start date comes after end date.
+		if(!taskList[Index].endDate.empty()) {
+			if(stoi(taskList[Index].endDate) < stoi(userTask.startDate)) {
+				throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+			} else if(stoi(taskList[Index].startDate) == stoi(userTask.endDate)) {
+				if(!taskList[Index].startTime.empty() && !taskList[Index].endTime.empty()) {
+					if(stoi(taskList[Index].startTime) > stoi(taskList[Index].endTime))
+						throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+				}
+			} else {
+				taskList[Index].startDate = userTask.startDate;
+			}
+		} else {
+			taskList[Index].startDate = userTask.startDate;
+		}
+
 	} else if(updateField == KEYWORD_STARTTIME) {
-		taskList[Index].startTime = userTask.startTime;
+		if(!taskList[Index].startDate.empty() && !taskList[Index].endDate.empty()) {
+			if(taskList[Index].startDate == taskList[Index].endDate) {
+				if(stoi(taskList[Index].endTime) < stoi(userTask.startTime)) {
+					throw MESSAGE_UPDATED_FAILED_CHRONO_TIME;
+				} else {
+					taskList[Index].startTime = userTask.startTime;
+				}
+			} else {
+				taskList[Index].startTime = userTask.startTime;
+			}
+		} else {
+			taskList[Index].startTime = userTask.startTime;
+		}
+
 	} else if(updateField == KEYWORD_ENDDATE) {
 		//Exception handler for start date and end date. Throws exception if start date comes after end date.
 		if(!taskList[Index].startDate.empty()) {
 			if(stoi(taskList[Index].startDate) > stoi(userTask.endDate)) {
-				return WORD_STARTDATE;
+				throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+			} else if(stoi(taskList[Index].startDate) == stoi(userTask.endDate)) {
+				if(!taskList[Index].startTime.empty() && !taskList[Index].endTime.empty()) {
+					if(stoi(taskList[Index].startTime) > stoi(taskList[Index].endTime))
+						throw MESSAGE_UPDATED_FAILED_CHRONO_DATE;
+				}
 			} else {
 				taskList[Index].endDate = userTask.endDate;
 			}
 		} else {
 			taskList[Index].endDate = userTask.endDate;
 		}
+
 	} else if(updateField == KEYWORD_ENDTIME) {
 		//Exception handler for start time and end time. Throws exception
 		if(!taskList[Index].startDate.empty() && !taskList[Index].endDate.empty()) {
 			if(taskList[Index].startDate == taskList[Index].endDate) {
-				if(taskList[Index].startTime > userTask.endTime) {
-					return WORD_STARTTIME;
+				if(stoi(taskList[Index].startTime) > stoi(userTask.endTime)) {
+					throw MESSAGE_UPDATED_FAILED_CHRONO_TIME;
 				} else {
 					taskList[Index].endTime = userTask.endTime;
 				}
@@ -270,7 +305,7 @@ string Store::changeTask(int Index, Task userTask, string updateField) {
 
 	markTasksOverdue();
 	log.log("Store: field updated");
-	return STRING_TRUE;
+	return true;
 }
 
 bool Store::SearchItem(int Index, string searchField, string searchItem) {

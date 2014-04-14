@@ -59,7 +59,7 @@ class Store {
 		void pushback(Task newTask);
 		void pushbackDoneTask(Task newTask);
 		Task getTask(int slot);
-		string changeTask(int taskID, Task userTask, string updateField);
+		bool changeTask(int taskID, Task userTask, string updateField);
 		bool SearchItem(int Index, string searchField, string searchItem);
 		//int findSlot(string taskIndex);
 		void markTasksOverdue(); //bring this down!

@@ -38,7 +38,8 @@ vector<string> Parser::storeInformation(string userInput) {
 		}
 
 	} else {
-		storeUserInfo.push_back ("");
+		string error = "Type in something before pressing enter\r\n";
+		throw error;
 	}
 
 	return storeUserInfo;
@@ -2353,8 +2354,11 @@ vector<string> Parser::completeParse(string userInput) {
 		parserEmpty();
 
 		log.log("Parser: parseCommand(userInput)");
-
-		storeInformation(userInput);
+		try {
+			storeInformation(userInput);
+		} catch (string error) {
+			throw error;
+		}
 
 		parseCommand(storeUserInfo);
 		parseDetails(storeUserInfo);

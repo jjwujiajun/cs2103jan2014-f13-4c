@@ -201,8 +201,11 @@ string Worker::takeparsedCommand(vector<string> parsedCommandstring) {
 			stringToMain = STRING_QUOTE + task.taskName + STRING_QUOTE + SYSTEM_ENDL;
 		}
 	}
-
-	stringToMain += actonCommand(command);
+	try {
+		stringToMain += actonCommand(command);
+	} catch (string error) {
+		throw error;
+	}
 	return stringToMain;
 }
 
@@ -263,17 +266,16 @@ string Worker::actonCommand(string command)
 	else if(command == KEYWORD_UPDATE || command == KEYWORD_EDIT|| command == KEYWORD_CHANGE ) {
 		if(continueNext == true) {
 			if(startDate != DAY_1 && endDate != DAY_1 && startDate != DAY_3 && endDate != DAY_3 && startDate != DAY_12 && endDate != DAY_12 && startDate != DAY_13 && endDate != DAY_13 && startDate != DAY_123 && endDate != DAY_123 && startTime != TIME_0 && endTime != TIME_0 ) {
-				string updated = userCommand.Update(userTask, updateField);
-				if(updated == STRING_TRUE) {
+				bool updated;
+				try {
+					updated = userCommand.Update(userTask, updateField);
+				} catch (string error) {
+					throw error;
+				}
+				if(updated) {
 					successful = MESSAGE_UPDATED_SUCCESSFULLY;
 				} else {
-					if(updated == STRING_FALSE) {
-						successful = MESSAGE_UPDATED_FAILED_DUPLICATE;
-					} else if(updated == KEYWORD_startDate) {
-						successful = MESSAGE_UPDATED_FAILED_CHRONO_DATE;
-					} else if(updated == KEYWORD_startTime) {
-						successful = MESSAGE_UPDATED_FAILED_CHRONO_TIME;
-					}
+					successful = MESSAGE_UPDATED_FAILED_DUPLICATE;
 				}
 		
 			} else if (startDate == DAY_1 || endDate == DAY_1 ) {
