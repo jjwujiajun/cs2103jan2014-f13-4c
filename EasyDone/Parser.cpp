@@ -996,6 +996,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					while(i < (int) storeUserInfo.size()){
 
 						startTime += storeUserInfo[i] + STRING_SPACE;
+						startTime.pop_back();
 
 						// Guards
 						verifyTime = checkParseTime(startTime);
@@ -1080,7 +1081,7 @@ bool Parser::parseDetails (vector<string> storeUserInfo) {
 					while(i < (int) storeUserInfo.size()){
 
 						startTime += storeUserInfo[i] + STRING_SPACE;
-
+						startTime.pop_back();
 						// Guards
 						verifyTime = checkParseTime(startTime);
 
@@ -2222,6 +2223,7 @@ string Parser::checkParseTime(string time) {
 				}
 				Hour.pop_back();
 			}
+			check.clear();
 			while(!Minute.empty()) {
 				check = Minute.back();
 				if(check != NUM_0 && check != NUM_1 && check != NUM_2 && check != NUM_3 && check != NUM_4 && check != NUM_5 && check != NUM_6 && check != NUM_7 && check != NUM_8 && check != NUM_9) {
